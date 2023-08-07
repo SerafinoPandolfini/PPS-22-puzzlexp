@@ -7,8 +7,9 @@ type Position = (Int, Int)
  * @param position The position of the cell in the room*/
 abstract class Cell(val position: Position):
   /** The item on the cell */
-  var cellItem: Item = Item.Empty
+  protected var _cellItem: Item = Item.Empty
 
+  def cellItem: Item = _cellItem
   /** @return the walking state of the cell */
   def walkableState : WalkableType
 
