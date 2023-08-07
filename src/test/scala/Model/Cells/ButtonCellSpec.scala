@@ -11,7 +11,7 @@ class ButtonCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    buttonCell = ButtonCell(defaultPosition)
+    buttonCell = ButtonCell(defaultPosition, Color.Blue)
 
   "A button cell" should "be pressable" in {
     buttonCell.pressableState should be(PressableState.NotPressed)
@@ -23,4 +23,8 @@ class ButtonCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     buttonCell.pressableState should be(PressableState.NotPressed)
     buttonCell.update(Item.Box)
     buttonCell.pressableState should be(PressableState.Pressed)
+  }
+
+  "A button cell" should "have a color" in {
+    buttonCell.color should be(Color.Blue)
   }
