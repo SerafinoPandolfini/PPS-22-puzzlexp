@@ -18,3 +18,5 @@ abstract class Cell(val position: Position):
    */
   def update(item: Item): Unit
 
+  /** @return if the cell is deadly */
+  def isDeadly: Boolean = false

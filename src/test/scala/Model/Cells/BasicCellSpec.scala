@@ -26,6 +26,9 @@ class BasicCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     basicCell.cellItem should be(Item.Box)
   }
 
+  "A basic cell" should "not be deadly" in {
+    basicCell.isDeadly should not be true
+  }
 
 
 
