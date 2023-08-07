@@ -18,3 +18,9 @@ class ButtonCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     buttonCell.pressed()
     buttonCell.pressableState should be(PressableState.Pressed)
   }
+
+  "A button cell" should "be pressable by moving a box" in {
+    buttonCell.pressableState should be(PressableState.NotPressed)
+    buttonCell.update(Item.Box)
+    buttonCell.pressableState should be(PressableState.Pressed)
+  }
