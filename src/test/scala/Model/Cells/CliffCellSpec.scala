@@ -4,6 +4,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import TestUtils.*
+import WalkableType.*
 
 class CliffCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -13,7 +14,6 @@ class CliffCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     super.beforeEach()
     cliffCell = CliffCell(defaultPosition, Item.Empty, Direction.Down)
 
-
   "A cliff cell" should "have a direction" in {
     cliffCell.direction should be(Direction.Down)
   }
@@ -21,4 +21,3 @@ class CliffCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
   "A cliff cell" should "be walkable in only a direction" in {
     cliffCell.walkableState shouldBe a[DirectionWalkable]
   }
-

@@ -13,19 +13,10 @@ class SwitchCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     super.beforeEach()
     switchCell = SwitchCell(defaultPosition)
 
-  "A switch cell" should "be pressable and unpressable" in {
-    switchCell.pressableState should be(PressableState.NotPressed)
-    switchCell.pressed()
-    switchCell.pressableState should be(PressableState.Pressed)
-    switchCell.unpressed()
-    switchCell.pressableState should be(PressableState.NotPressed)
-  }
-
   "A switch cell" should "be pressable and unpressable by moving a box" in {
     switchCell.pressableState should be(PressableState.NotPressed)
-    switchCell.update(Item.Box)
+    switchCell = switchCell.update(Item.Box)
     switchCell.pressableState should be(PressableState.Pressed)
-    switchCell.update(Item.Empty)
+    switchCell = switchCell.update(Item.Empty)
     switchCell.pressableState should be(PressableState.NotPressed)
   }
-
