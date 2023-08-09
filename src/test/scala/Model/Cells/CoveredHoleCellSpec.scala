@@ -23,3 +23,12 @@ class CoveredHoleCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     coveredHoleCell.isDeadly should be(true)
   }
 
+  "A covered hole cell" should "be fillable with a box breaking the cover and making it not deadly" in {
+    coveredHoleCell = coveredHoleCell.update(Item.Box)
+    coveredHoleCell.cellItem should be(Item.Empty)
+    coveredHoleCell.isDeadly should not be true
+    coveredHoleCell.cover should not be true
+    // now the box can be placed on the cell
+    coveredHoleCell = coveredHoleCell.update(Item.Box)
+    coveredHoleCell.cellItem should be(Item.Box)
+  }
