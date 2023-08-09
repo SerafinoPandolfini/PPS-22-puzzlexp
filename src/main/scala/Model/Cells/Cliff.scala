@@ -1,5 +1,10 @@
 package Model.Cells
 
+import WalkableType.*
+
 /** A mixin for cells which can be traveled only in a fixed way */
-trait Cliff(val direction: Direction) extends Cell:
-  abstract override def walkableState: WalkableType = WalkableType.DirectionWalkable(_ != direction.opposite)
+trait Cliff extends Cell:
+  /** the direction in which the cliff can be travelled */
+  def direction : Direction
+
+  abstract override def walkableState: WalkableType = DirectionWalkable(_ != direction.opposite)

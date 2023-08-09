@@ -11,7 +11,7 @@ class CliffCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    cliffCell = CliffCell(Item.Empty, defaultPosition, Direction.Down)
+    cliffCell = CliffCell(defaultPosition, Item.Empty, Direction.Down)
 
 
   "A cliff cell" should "have a direction" in {
@@ -19,6 +19,6 @@ class CliffCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
   }
 
   "A cliff cell" should "be walkable in only a direction" in {
-    cliffCell.walkableState shouldBe a[WalkableType.DirectionWalkable]
+    cliffCell.walkableState shouldBe a[DirectionWalkable]
   }
 
