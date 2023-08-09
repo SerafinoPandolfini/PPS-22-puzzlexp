@@ -1,23 +1,28 @@
 package Model.Cells
 
+import WalkableType._
+
 /** Type that represent the position of an element */
 type Position = (Int, Int)
 
 /** The basic element that compose a room
- * @param position The position of the cell in the room*/
-abstract class Cell(val position: Position):
-  /** The item on the cell */
-  protected var _cellItem: Item = Item.Empty
+  * @param position
+  *   The position of the cell in the room
+  * @param cellItem
+  *   The item on the cell
+  */
+abstract class Cell(val position: Position, val cellItem: Item):
 
-  def cellItem: Item = _cellItem
   /** @return the walking state of the cell */
-  def walkableState : WalkableType
-
-  /** Changes the item on the cell
-   *
-   * @param item the item placed on the cell
-   */
-  def update(item: Item): Unit
+  def walkableState: WalkableType = Walkable(true)
 
   /** @return if the cell is deadly */
   def isDeadly: Boolean = false
+
+  /** Changes the item on the cell
+    * @param item
+    *   the item placed on the cell
+    * @return
+    *   the new cell with the updated item
+    */
+  def update(item: Item): Cell
