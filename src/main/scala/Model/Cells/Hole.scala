@@ -2,15 +2,7 @@ package Model.Cells
 
 /** The mixin representing an obstacle that is walkable and deadly, but can be filled with a box item */
 trait Hole extends Cell:
-  private[this] var filled = false
+  /** if the hole is filled */
+  def filled: Boolean
 
-  abstract override def isDeadly: Boolean = !filled
-
-  abstract override def update(i: Item): Unit = i match
-    case Item.Box =>
-      if filled then
-        super.update(i)
-      else
-        filled = true
-        _cellItem = Item.Empty
-    case _ => _cellItem = Item.Empty
+  abstract override def isDeadly: Boolean = !filled || super.isDeadly

@@ -11,7 +11,7 @@ class BasicCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    basicCell = BasicCell(Item.Empty, defaultPosition)
+    basicCell = BasicCell(defaultPosition, Item.Empty)
 
   "A basic cell" should "be walkable" in {
     basicCell.walkableState should be(WalkableType.Walkable(true))
@@ -23,13 +23,11 @@ class BasicCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "A basic cell" should "update the cell item correctly" in {
     basicCell.cellItem should be(Item.Empty)
-    basicCell.update(Item.Box)
+    // update with new item
+    basicCell = basicCell.update(Item.Box)
     basicCell.cellItem should be(Item.Box)
   }
 
   "A basic cell" should "not be deadly" in {
     basicCell.isDeadly should not be true
   }
-
-
-
