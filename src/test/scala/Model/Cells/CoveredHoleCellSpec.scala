@@ -17,3 +17,9 @@ class CoveredHoleCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     coveredHoleCell.isDeadly should not be true
   }
 
+  "A covered hole cell" should "be deadly after the player walks on it the first time" in {
+    // simulate the player walking on it
+    coveredHoleCell = coveredHoleCell.brokeCover()
+    coveredHoleCell.isDeadly should be(true)
+  }
+

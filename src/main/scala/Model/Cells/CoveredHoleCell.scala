@@ -19,3 +19,6 @@ class CoveredHoleCell(
     with CoveredHole:
 
   override def update(item: Item): CoveredHoleCell = this
+
+  /** Breaks the cover of the hole */
+  def brokeCover(): CoveredHoleCell = CoveredHoleCell(position, cellItem, false)
