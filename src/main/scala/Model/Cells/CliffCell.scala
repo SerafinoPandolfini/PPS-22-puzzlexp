@@ -5,6 +5,6 @@ package Model.Cells
  * @param cellItem the item on the cell by default
  * @param direction the walkable direction of the cell
  */
-class CliffCell(position: Position, cellItem: Item, val direction: Direction) extends Cell(position, cellItem) with Cliff:
+case class CliffCell(position: Position, cellItem: Item, direction: Direction) extends Cell with Cliff:
 
   override def update(item: Item): CliffCell = CliffCell(position, item, direction)

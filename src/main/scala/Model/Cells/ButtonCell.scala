@@ -10,12 +10,12 @@ package Model.Cells
   * @param pressableState
   *   the pressable state of the element
   */
-class ButtonCell(
+case class ButtonCell(
     position: Position,
     cellItem: Item = Item.Empty,
-    val color: Color,
-    val pressableState: PressableState = PressableState.NotPressed
-) extends Cell(position, cellItem)
+    color: Color,
+    pressableState: PressableState = PressableState.NotPressed
+) extends Cell
     with Pressable
     with Colorable:
 

@@ -3,7 +3,7 @@ package Model.Cells
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.BeforeAndAfterEach
-import TestUtils.*
+import Model.TestUtils.*
 
 class BasicCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -11,7 +11,7 @@ class BasicCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    basicCell = BasicCell(defaultPosition, Item.Empty)
+    basicCell = BasicCell(defaultPosition)
 
   "A basic cell" should "be walkable" in {
     basicCell.walkableState should be(WalkableType.Walkable(true))

@@ -3,7 +3,7 @@ package Model.Cells
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
-import TestUtils.*
+import Model.TestUtils.*
 
 class WallCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

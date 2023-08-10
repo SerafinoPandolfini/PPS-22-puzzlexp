@@ -10,12 +10,12 @@ package Model.Cells
   * @param pressableState
   *   the state of the corresponding pressable element
   */
-class SwitchBlockCell(
+case class SwitchBlockCell(
     position: Position,
     cellItem: Item = Item.Empty,
-    val activeState: SwitchBlockGroup,
-    val pressableState: PressableState = PressableState.NotPressed
-) extends Cell(position, cellItem)
+    activeState: SwitchBlockGroup,
+    pressableState: PressableState = PressableState.NotPressed
+) extends Cell
     with SwitchBlock:
   /** change the state of the block (destroying eventual box) */
   def revertSwitchState(): SwitchBlockCell = SwitchBlockCell(position, activeState = activeState, pressableState.toggle)

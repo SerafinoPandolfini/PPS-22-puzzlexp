@@ -11,7 +11,10 @@ type Position = (Int, Int)
   * @param cellItem
   *   The item on the cell
   */
-abstract class Cell(val position: Position, val cellItem: Item):
+abstract class Cell:
+
+  def position: Position
+  def cellItem: Item
 
   /** @return the walking state of the cell */
   def walkableState: WalkableType = Walkable(true)

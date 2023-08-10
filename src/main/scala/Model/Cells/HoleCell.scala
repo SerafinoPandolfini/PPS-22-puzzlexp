@@ -7,8 +7,8 @@ package Model.Cells
   * @param filled
   *   if the hole is filled
   */
-class HoleCell(position: Position, cellItem: Item = Item.Empty, val filled: Boolean = false)
-    extends Cell(position, cellItem)
+case class HoleCell(position: Position, cellItem: Item = Item.Empty, filled: Boolean = false)
+    extends Cell
     with Hole:
 
   override def update(item: Item): HoleCell = item match

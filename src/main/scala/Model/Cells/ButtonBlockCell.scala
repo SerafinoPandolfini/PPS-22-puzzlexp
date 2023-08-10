@@ -6,12 +6,12 @@ package Model.Cells
   * @param color
   *   the color of the block
   */
-class ButtonBlockCell(
+case class ButtonBlockCell(
     position: Position,
     cellItem: Item = Item.Empty,
-    val color: Color,
-    val pressableState: PressableState = PressableState.NotPressed
-) extends Cell(position, cellItem)
+    color: Color,
+    pressableState: PressableState = PressableState.NotPressed
+) extends Cell
     with ButtonBlock
     with Colorable:
   /** Open the block */

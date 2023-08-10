@@ -7,5 +7,5 @@ package Model.Cells
   * @param cellItem
   *   The item on the cell
   */
-class TeleportCell(position: Position, cellItem: Item = Item.Empty) extends Cell(position, cellItem):
+case class TeleportCell(position: Position, cellItem: Item = Item.Empty) extends Cell:
   override def update(item: Item): TeleportCell = TeleportCell(position, item)

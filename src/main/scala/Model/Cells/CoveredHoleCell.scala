@@ -9,12 +9,12 @@ package Model.Cells
   * @param filled
   *   if the hole is filled
   */
-class CoveredHoleCell(
+case class CoveredHoleCell(
     position: Position,
     cellItem: Item = Item.Empty,
-    val cover: Boolean = true,
-    val filled: Boolean = false
-) extends Cell(position, cellItem)
+    cover: Boolean = true,
+    filled: Boolean = false
+) extends Cell
     with Hole
     with CoveredHole:
 
