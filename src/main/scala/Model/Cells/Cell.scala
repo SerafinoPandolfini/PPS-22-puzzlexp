@@ -6,14 +6,17 @@ import WalkableType._
 type Position = (Int, Int)
 
 /** The basic element that compose a room
-  * @param position
-  *   The position of the cell in the room
-  * @param cellItem
-  *   The item on the cell
   */
 abstract class Cell:
 
+  /** @return
+    *   the cell position
+    */
   def position: Position
+
+  /** @return
+    *   the cell item
+    */
   def cellItem: Item
 
   /** @return the walking state of the cell */
