@@ -4,6 +4,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
 import Model.TestUtils.*
+import Model.Cells.Extension.CellExtension.updateItem
 
 class WallCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -19,7 +20,8 @@ class WallCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
   
   "A wall cell" should "never have a item different from Empty" in {
     wallCell.cellItem should be(Item.Empty)
-    wallCell.update(Item.Box)
-    wallCell.cellItem should be(Item.Empty)
+    var cells: Set[Cell] = Set(wallCell)
+    cells = wallCell.updateItem(cells, Item.Box, genericDirection)
+    cells.isEmpty should be(true)
   }
   
