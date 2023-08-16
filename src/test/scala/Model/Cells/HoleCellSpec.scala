@@ -4,6 +4,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import Model.TestUtils.*
+import Model.Cells.Extension.CellExtension.updateItem
 
 class HoleCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -18,10 +19,12 @@ class HoleCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
   }
 
   "A hole cell" should "be fillable with a box making it not deadly" in {
-    holeCell = holeCell.update(Item.Box)
+    var cells: Set[Cell] = Set(holeCell)
+    cells = holeCell.updateItem(cells, Item.Box, genericDirection)
+    holeCell = cells.collectFirst { case cell: HoleCell => cell }.get
     holeCell.cellItem should be(Item.Empty)
     holeCell.isDeadly should not be true
     // now the box can be placed on the cell
-    holeCell = holeCell.update(Item.Box)
-    holeCell.cellItem should be(Item.Box)
+    cells = holeCell.updateItem(cells, Item.Box, genericDirection)
+    cells.head.cellItem should be(Item.Box)
   }
