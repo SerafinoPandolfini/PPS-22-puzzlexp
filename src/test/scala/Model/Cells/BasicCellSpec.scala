@@ -4,6 +4,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.BeforeAndAfterEach
 import Model.TestUtils.*
+import Model.Cells.Extension.CellExtension.updateItem
 
 class BasicCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -21,13 +22,14 @@ class BasicCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     basicCell.position should be(defaultPosition)
   }
 
-  "A basic cell" should "update the cell item correctly" in {
-    basicCell.cellItem should be(Item.Empty)
-    // update with new item
-    basicCell = basicCell.update(Item.Box)
-    basicCell.cellItem should be(Item.Box)
-  }
-
   "A basic cell" should "not be deadly" in {
     basicCell.isDeadly should not be true
+  }
+
+  "A basic cell" should "update the cell item correctly" in {
+    basicCell.cellItem should be(Item.Empty)
+    var cells: Set[Cell] = Set(basicCell)
+    // update with new item
+    cells = basicCell.updateItem(Set(basicCell), Item.Box, genericDirection)
+    cells.head.cellItem should be(Item.Box)
   }
