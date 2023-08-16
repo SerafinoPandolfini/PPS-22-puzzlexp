@@ -25,10 +25,3 @@ abstract class Cell:
   /** @return if the cell is deadly */
   def isDeadly: Boolean = false
 
-  /** Changes the item on the cell
-    * @param item
-    *   the item placed on the cell
-    * @return
-    *   the new cell with the updated item
-    */
-  def update(item: Item): Cell

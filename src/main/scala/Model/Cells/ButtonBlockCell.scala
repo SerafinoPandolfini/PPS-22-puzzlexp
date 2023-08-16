@@ -13,8 +13,4 @@ case class ButtonBlockCell(
     pressableState: PressableState = PressableState.NotPressed
 ) extends Cell
     with ButtonBlock
-    with Colorable:
-  /** Open the block */
-  def openBlock(): ButtonBlockCell = ButtonBlockCell(position, color = color, PressableState.Pressed)
-
-  override def update(item: Item): ButtonBlockCell = ButtonBlockCell(position, item, color, pressableState)
+    with Colorable

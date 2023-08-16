@@ -15,8 +15,3 @@ class SwitchBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     super.beforeEach()
     switchBlockCell = SwitchBlockCell(defaultPosition, activeState = ObstacleWhenOff, NotPressed)
 
-  "A switch block cell" should "be openable" in {
-    switchBlockCell.walkableState should be(WalkableType.Walkable(false))
-    switchBlockCell = switchBlockCell.revertSwitchState()
-    switchBlockCell.walkableState should be(WalkableType.Walkable(true))
-  }

@@ -16,13 +16,4 @@ case class CoveredHoleCell(
     filled: Boolean = false
 ) extends Cell
     with Hole
-    with CoveredHole:
-
-  override def update(item: Item): CoveredHoleCell = item match
-    case Item.Box =>
-      if filled then CoveredHoleCell(position, item, false, true)
-      else CoveredHoleCell(position, cellItem, false, true)
-    case _ => this
-
-  /** Breaks the cover of the hole */
-  def brokeCover(): CoveredHoleCell = CoveredHoleCell(position, cellItem, false)
+    with CoveredHole

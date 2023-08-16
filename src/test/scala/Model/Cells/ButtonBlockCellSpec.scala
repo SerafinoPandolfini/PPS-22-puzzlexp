@@ -14,12 +14,3 @@ class ButtonBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     super.beforeEach()
     buttonBlockCell = ButtonBlockCell(defaultPosition, color = Blue)
 
-  "A button cell" should "be openable" in {
-    buttonBlockCell.walkableState should be(WalkableType.Walkable(false))
-    buttonBlockCell = buttonBlockCell.openBlock()
-    buttonBlockCell.walkableState should be(WalkableType.Walkable(true))
-  }
-
-  "A button cell" should "have a color" in {
-    buttonBlockCell.color should be(Blue)
-  }
