@@ -9,10 +9,4 @@ package Model.Cells
   */
 case class HoleCell(position: Position, cellItem: Item = Item.Empty, filled: Boolean = false)
     extends Cell
-    with Hole:
-
-  override def update(item: Item): HoleCell = item match
-    case Item.Box =>
-      if filled then HoleCell(position, item, filled)
-      else HoleCell(position, filled = true)
-    case _ => HoleCell(position, filled = filled)
+    with Hole

@@ -7,6 +7,4 @@ package Model.Cells
   * @param cellItem
   *   the item on the cell
   */
-case class BasicCell(position: Position, cellItem: Item = Item.Empty) extends Cell:
-
-  override def update(item: Item): BasicCell = BasicCell(position, item)
+case class BasicCell(position: Position, cellItem: Item = Item.Empty) extends Cell

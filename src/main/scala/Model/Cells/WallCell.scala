@@ -11,4 +11,3 @@ case class WallCell(position: Position) extends Cell:
   override def cellItem: Item = Item.Empty
   override def walkableState: WalkableType = Walkable(false)
 
-  override def update(item: Item): WallCell = this

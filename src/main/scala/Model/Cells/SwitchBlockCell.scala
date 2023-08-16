@@ -16,8 +16,4 @@ case class SwitchBlockCell(
     activeState: SwitchBlockGroup,
     pressableState: PressableState = PressableState.NotPressed
 ) extends Cell
-    with SwitchBlock:
-  /** change the state of the block (destroying eventual box) */
-  def revertSwitchState(): SwitchBlockCell = SwitchBlockCell(position, activeState = activeState, pressableState.toggle)
-
-  override def update(item: Item): SwitchBlockCell = SwitchBlockCell(position, item, activeState, pressableState)
+    with SwitchBlock
