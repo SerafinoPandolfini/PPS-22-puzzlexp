@@ -1,7 +1,7 @@
 package Model.Cells.Extension
 
 import Model.Cells.WalkableType.Walkable
-import Model.Cells.{BasicCell, ButtonBlockCell, ButtonCell, Cell, Direction, Item, PressableState}
+import Model.Cells.{BasicCell, ButtonBlockCell, ButtonCell, Cell, CliffCell, Direction, Item, PressableState}
 
 object CellExtension:
   extension (cell: Cell)
@@ -9,6 +9,7 @@ object CellExtension:
       cell match
         case cell: BasicCell       => Set(cell.copy(cellItem = newItem))
         case cell: ButtonBlockCell => Set(cell.copy(cellItem = newItem))
+        case cell: CliffCell       => Set(cell.copy(cellItem = newItem))
         case cell: ButtonCell =>
           newItem match
             case Item.Box => pressed(newItem, cells)
