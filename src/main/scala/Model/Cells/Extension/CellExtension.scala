@@ -47,7 +47,6 @@ object CellExtension:
         case cell: HoleCell                => updateHoleItem(cell, newItem)
         case cell: CoveredHoleCell         => updateCoveredHoleItem(cell, newItem)
         case _: TeleportCell               => updateTeleportItem(cells, newItem, direction)
-        case _                             => Set.empty[Cell]
         case cell: ButtonCell =>
           newItem match
             case Item.Box => pressed(newItem, cells)
@@ -66,6 +65,7 @@ object CellExtension:
                   .collect { case c: SwitchBlockCell => c }
                   .map(c => c.copy(pressableState = PressableState.NotPressed))
               ) + cell.copy(cellItem = newItem, pressableState = PressableState.NotPressed)
+        case _ => Set.empty[Cell]
 
     /** Set the state to "Pressed" */
     private def pressed(item: Item = Item.Empty, cells: Set[Cell]): Set[Cell] =
