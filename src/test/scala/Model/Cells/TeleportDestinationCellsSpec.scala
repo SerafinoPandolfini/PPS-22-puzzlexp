@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers.*
 import Model.TestUtils.*
 import Model.Cells.Extension.CellExtension.updateItem
 
-class TeleportCellsSpec extends AnyFlatSpec with BeforeAndAfterEach:
+class TeleportDestinationCellsSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   var cells: Set[Cell] = _
 
@@ -23,6 +23,6 @@ class TeleportCellsSpec extends AnyFlatSpec with BeforeAndAfterEach:
       updatedCells = cell.updateItem(cells, Item.Box, genericDirection)
     yield
       cell.isDeadly should not be true
-      cell.walkableState should  be(WalkableType.Walkable(true))
+      cell.walkableState should be(WalkableType.Walkable(true))
       updatedCells.head.cellItem should be(Item.Box)
   }

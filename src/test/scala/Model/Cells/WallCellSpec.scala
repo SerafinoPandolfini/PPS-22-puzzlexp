@@ -17,11 +17,10 @@ class WallCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
   "A wall cell" should "not be walkable" in {
     wallCell.walkableState should be(WalkableType.Walkable(false))
   }
-  
+
   "A wall cell" should "never have a item different from Empty" in {
     wallCell.cellItem should be(Item.Empty)
     var cells: Set[Cell] = Set(wallCell)
     cells = wallCell.updateItem(cells, Item.Box, genericDirection)
     cells.isEmpty should be(true)
   }
-  
