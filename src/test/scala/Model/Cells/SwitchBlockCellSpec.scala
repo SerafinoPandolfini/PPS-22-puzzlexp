@@ -14,7 +14,7 @@ class SwitchBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    switchBlockCell = SwitchBlockCell(defaultPosition, activeState = ObstacleWhenOff, NotPressed)
+    switchBlockCell = SwitchBlockCell(defaultPosition, activeState = ObstacleWhenNotPressed, NotPressed)
 
   "A switch block cell" should "be openable" in {
     switchBlockCell.walkableState should be(WalkableType.Walkable(false))

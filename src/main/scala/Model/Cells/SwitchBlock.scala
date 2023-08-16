@@ -8,7 +8,7 @@ trait SwitchBlock extends Cell with Pressable:
   def activeState: SwitchBlockGroup
 
   abstract override def walkableState: WalkableType = (activeState, pressableState) match
-    case (SwitchBlockGroup.ObstacleWhenOn, PressableState.Pressed) |
-        (SwitchBlockGroup.ObstacleWhenOff, PressableState.NotPressed) =>
+    case (SwitchBlockGroup.ObstacleWhenPressed, PressableState.Pressed) |
+        (SwitchBlockGroup.ObstacleWhenNotPressed, PressableState.NotPressed) =>
       Walkable(false)
     case _ => super.walkableState

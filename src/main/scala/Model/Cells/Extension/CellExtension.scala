@@ -20,6 +20,7 @@ import Model.Cells.{
 }
 
 import PositionExtension.+
+import scala.annotation.targetName
 
 object CellExtension:
   /** extension for adding new methods for interacting with cellItems and the player
@@ -47,47 +48,87 @@ object CellExtension:
         case cell: HoleCell                => updateHoleItem(cell, newItem)
         case cell: CoveredHoleCell         => updateCoveredHoleItem(cell, newItem)
         case _: TeleportCell               => updateTeleportItem(cells, newItem, direction)
-        case _                             => Set.empty[Cell]
         case cell: ButtonCell =>
           newItem match
-            case Item.Box => pressed(newItem, cells)
+            case Item.Box => pressed(cells) + cell.copy(cellItem = newItem, pressableState = PressableState.Pressed)
             case _        => Set(cell.copy(cellItem = newItem))
         case cell: SwitchCell =>
-          newItem match
-            case Item.Box =>
-              Set.from(
-                cells
-                  .collect { case c: SwitchBlockCell => c }
-                  .map(c => c.copy(pressableState = PressableState.Pressed))
-              ) + cell.copy(cellItem = newItem, pressableState = PressableState.Pressed)
-            case _ =>
-              Set.from(
-                cells
-                  .collect { case c: SwitchBlockCell => c }
-                  .map(c => c.copy(pressableState = PressableState.NotPressed))
-              ) + cell.copy(cellItem = newItem, pressableState = PressableState.NotPressed)
+          val pressableState = newItem match
+            case Item.Box => PressableState.Pressed
+            case _        => PressableState.NotPressed
+          updateSwitch(cells, pressableState) + cell.copy(
+            cellItem = newItem,
+            pressableState = pressableState
+          )
+        case _ => Set.empty[Cell]
 
-    /** Set the state to "Pressed" */
-    private def pressed(item: Item = Item.Empty, cells: Set[Cell]): Set[Cell] =
+    /** set he button pressable state to "Pressed" and the corresponding blocks
+      * @param cells
+      *   the set of the cells that may be changed
+      * @return
+      *   the set of changed cells
+      */
+    private def pressed(cells: Set[Cell]): Set[Cell] =
       Set.from(
         cells
           .collect { case c: ButtonBlockCell => c }
           .filter(c => c.color == cell.asInstanceOf[ButtonCell].color)
           .map(c => c.copy(pressableState = PressableState.Pressed))
-      ) + cell.asInstanceOf[ButtonCell].copy(cellItem = item, pressableState = PressableState.Pressed)
+      )
 
+    /** update the switch pressable state and the corresponding blocks
+      * @param cells
+      *   the set of the cells that may be changed
+      * @param pressableState
+      *   the state to be set
+      * @return
+      *   the set of changed cells
+      */
+    private def updateSwitch(cells: Set[Cell], pressableState: PressableState): Set[Cell] =
+      Set.from(
+        cells
+          .collect { case c: SwitchBlockCell => c }
+          .map(c => c.copy(pressableState = pressableState))
+      )
+
+    /** update the hole cell
+      * @param hCell
+      *   the hole cell
+      * @param newItem
+      *   the item
+      * @return
+      *   the set of changed cells
+      */
     private def updateHoleItem(hCell: HoleCell, newItem: Item): Set[Cell] = newItem match
       case Item.Box =>
         if hCell.filled then Set(hCell.copy(cellItem = newItem))
         else Set(hCell.copy(cellItem = Item.Empty, filled = true))
       case _ => Set(hCell.copy(cellItem = Item.Empty))
 
+    /** update the covered hole cell
+      * @param chCell
+      *   the cell to be updated
+      * @param newItem
+      *   the item
+      * @return
+      *   the set of changed cells
+      */
     private def updateCoveredHoleItem(chCell: CoveredHoleCell, newItem: Item): Set[Cell] = newItem match
       case Item.Box =>
         if chCell.filled then Set(chCell.copy(cellItem = newItem))
         else Set(chCell.copy(cellItem = Item.Empty, cover = false, filled = true))
       case _ => Set.empty[Cell]
 
+    /** update the teleport cell
+      * @param cells
+      *   the set of the cells that may be changed
+      * @param newItem
+      *   the item
+      * @param direction
+      *   the direction in which the update is done
+      * @return
+      *   the set of changed cells
+      */
     private def updateTeleportItem(cells: Set[Cell], newItem: Item, direction: Direction): Set[Cell] =
       cells.collectFirst { case c: TeleportDestinationCell =>
         c
@@ -96,6 +137,6 @@ object CellExtension:
           cells.collectFirst {
             case dCell if dCell.position == tdCell.position + direction.coordinates => dCell
           } match
-            case Some(destCell) => destCell.updateItem(cells, Item.Box, direction)
+            case Some(destCell) => destCell.updateItem(cells, newItem, direction)
             case None           => Set.empty[Cell]
         case None => Set.empty[Cell]
