@@ -1,12 +1,13 @@
 package Model.Cells.Extension
 
-import Model.Cells.{BasicCell, Cell, CoveredHoleCell, Direction, HoleCell, Item}
+import Model.Cells.{BasicCell, Cell, CoveredHoleCell, Direction, HoleCell, Item, TeleportDestinationCell}
 
 object CellExtension:
   extension (cell: Cell)
     def updateItem(cells: Set[Cell], newItem: Item, direction: Direction): Set[Cell] =
       cell match
         case cell: BasicCell => Set(cell.copy(cellItem = newItem))
+        case cell: TeleportDestinationCell => Set(cell.copy(cellItem = newItem))
         case cell: HoleCell =>
           newItem match
             case Item.Box =>

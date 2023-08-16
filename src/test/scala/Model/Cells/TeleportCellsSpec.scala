@@ -4,6 +4,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import Model.TestUtils.*
+import Model.Cells.Extension.CellExtension.updateItem
 
 class TeleportCellsSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -12,17 +13,16 @@ class TeleportCellsSpec extends AnyFlatSpec with BeforeAndAfterEach:
   override def beforeEach(): Unit =
     super.beforeEach()
     cells = Set(
-      BasicCell(defaultPosition, Item.Empty),
-      TeleportCell(defaultPosition),
+      BasicCell(defaultPosition),
       TeleportDestinationCell(defaultPosition)
     )
 
-  "teleport cell and teleport destination cell" should "have the same behaviour of basicCell" in {
+  "teleport destination cell" should "have the same behaviour of basicCell" in {
     for
       cell <- cells
-      updatedCell = cell.update(Item.Box)
+      updatedCells = cell.updateItem(cells, Item.Box, genericDirection)
     yield
       cell.isDeadly should not be true
-      cell.cellItem should be(Item.Empty)
-      updatedCell.cellItem should be(Item.Box)
+      cell.walkableState should  be(WalkableType.Walkable(true))
+      updatedCells.head.cellItem should be(Item.Box)
   }
