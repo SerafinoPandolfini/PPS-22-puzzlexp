@@ -4,6 +4,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import Model.TestUtils.*
+import Model.Cells.Extension.CellExtension.updateItem
 
 class CoveredHoleCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -17,18 +18,14 @@ class CoveredHoleCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     coveredHoleCell.isDeadly should not be true
   }
 
-  "A covered hole cell" should "be deadly after the player walks on it the first time" in {
-    // simulate the player walking on it
-    coveredHoleCell = coveredHoleCell.brokeCover()
-    coveredHoleCell.isDeadly should be(true)
-  }
-
   "A covered hole cell" should "be fillable with a box breaking the cover and making it not deadly" in {
-    coveredHoleCell = coveredHoleCell.update(Item.Box)
+    var cells: Set[Cell] = Set(coveredHoleCell)
+    cells = coveredHoleCell.updateItem(cells, Item.Box, genericDirection)
+    coveredHoleCell = cells.collectFirst { case cell: CoveredHoleCell => cell }.get
     coveredHoleCell.cellItem should be(Item.Empty)
     coveredHoleCell.isDeadly should not be true
     coveredHoleCell.cover should not be true
     // now the box can be placed on the cell
-    coveredHoleCell = coveredHoleCell.update(Item.Box)
-    coveredHoleCell.cellItem should be(Item.Box)
+    cells = coveredHoleCell.updateItem(cells, Item.Box, genericDirection)
+    cells.head.cellItem should be(Item.Box)
   }

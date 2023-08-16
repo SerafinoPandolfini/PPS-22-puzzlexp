@@ -1,6 +1,6 @@
 package Model.Cells.Extension
 
-import Model.Cells.{BasicCell, HoleCell, Cell, Direction, Item}
+import Model.Cells.{BasicCell, Cell, CoveredHoleCell, Direction, HoleCell, Item}
 
 object CellExtension:
   extension (cell: Cell)
@@ -14,6 +14,11 @@ object CellExtension:
             else
               Set(cell.copy(cellItem = Item.Empty, filled = true))
           case _ => Set(cell.copy(cellItem = Item.Empty))
+        case cell: CoveredHoleCell => newItem match
+          case Item.Box =>
+            if cell.filled then Set(cell.copy(cellItem = newItem))
+            else Set(cell.copy(cellItem = Item.Empty, cover = false, filled = true))
+          case _ => Set.empty[Cell]
 
       cells.map(cell =>
         newCells.find(_.position == cell.position) match
