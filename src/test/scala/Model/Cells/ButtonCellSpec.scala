@@ -5,6 +5,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import Model.TestUtils.*
 import Color.*
+import Model.Cells.Extension.CellExtension.updateItem
 
 class ButtonCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -14,15 +15,12 @@ class ButtonCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     super.beforeEach()
     buttonCell = ButtonCell(defaultPosition, color = Blue)
 
-  "A button cell" should "be pressable" in {
-    buttonCell.pressableState should be(PressableState.NotPressed)
-    buttonCell = buttonCell.pressed()
-    buttonCell.pressableState should be(PressableState.Pressed)
-  }
-
   "A button cell" should "be pressable by moving a box" in {
     buttonCell.pressableState should be(PressableState.NotPressed)
-    buttonCell = buttonCell.update(Item.Box)
+    var cells: Set[Cell] = Set(buttonCell)
+    // update with new item
+    cells = buttonCell.updateItem(Set(buttonCell), Item.Box, genericDirection)
+    buttonCell = cells.collect { case c: ButtonCell => c }.head
     buttonCell.pressableState should be(PressableState.Pressed)
   }
 
