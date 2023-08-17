@@ -9,7 +9,40 @@ class RoomBuilder(val RoomWidth: Int = Room.DefaultWidth, val RoomHeight: Int = 
   private var cells: Set[Cell] = Set.empty[Cell]
   private var links: Set[RoomLink] = Set.empty[RoomLink]
 
+  /** add a new cell to the room
+    *
+    * @param cell
+    *   the new cell
+    * @return
+    *   this
+    */
+  def addCell(cell: Cell): this.type =
+    addCells(Set(cell))
+    this
+
+  /** add new cells or replace existing cells of the room with the new ones
+    *
+    * @param roomCells
+    *   the new cell for the room
+    * @return
+    *   this
+    */
+  def addCells(roomCells: Set[Cell]): this.type =
+    cells = cells.filter(cell => roomCells.find(_.position == cell.position).isEmpty) ++ roomCells
+    this
+
+  /** remove the cells outside the room border and fill the inside of the room with basic cells
+    *
+    * @return
+    *   this
+    */
   def standardize: this.type =
+    // Remove cells outside the border
+    cells = cells.filter(cell =>
+      cell.position._1 >= 0 && cell.position._1 < RoomWidth &&
+        cell.position._2 >= 0 && cell.position._2 < RoomHeight
+    )
+    // Fill empty positions with BasicCell
     for
       x <- 0 until RoomWidth
       y <- 0 until RoomHeight

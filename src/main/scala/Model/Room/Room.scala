@@ -10,6 +10,15 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
     */
   def cells: Set[Cell] = _cells
 
+  /** get a specific cell from its position
+   *
+   * @param position
+   * the position of the cell
+   * @return
+   * an optional of the required cell
+   */
+  def getCell(position: Position): Option[Cell] = _cells.find(_.position == position)
+  
 object Room:
 
   val DefaultWidth: Int = 25
