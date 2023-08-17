@@ -31,7 +31,7 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
   "A room builder" should "create the required room" in {
     val room = RoomBuilder(RoomWidth, RoomHeight)
       .name(RoomName)
-      .borderWalls // the border of the cell is WL
+      .borderWalls() // the border of the cell is WL
       .addLinks(RoomLink((position3_2), Direction.Left, "", defaultPosition)) // cell in (3, 2) becomes BasicCell
       .wallRectangle(position1_1, 1, 1) // (1, 1) becomes wall
       .addCells(Set(HoleCell((position2_2)), CoveredHoleCell((position1_2)))) // (2, 2) becomes HL, (1, 2) becomes CH
@@ -52,7 +52,7 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
     val testCell = HoleCell((position2_2))
 
     val room1 = RoomBuilder(RoomWidth, RoomHeight)
-      .borderWalls
+      .borderWalls()
       .wallRectangle(position1_1, 1, 1)
       .addCell(testCell)
       .standardize
@@ -62,7 +62,7 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
       .##()
       .||(position1_1, 1, 1)
       .+(testCell)
-      .!!()
+      .!!
       .build
 
     room1.cellsRepresentation should be(room2.cellsRepresentation)

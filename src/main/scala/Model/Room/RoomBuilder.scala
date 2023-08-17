@@ -75,7 +75,7 @@ class RoomBuilder(val RoomWidth: Int = Room.DefaultWidth, val RoomHeight: Int = 
     * @return
     *   this
     */
-  def borderWalls: this.type =
+  def borderWalls(): this.type =
     val borderCells: Set[Cell] =
       ((0 until RoomWidth).flatMap(x => Set(WallCell((x, 0)), WallCell((x, RoomHeight - 1)))) ++
         (0 until RoomHeight).flatMap(y => Set(WallCell((0, y)), WallCell((RoomWidth - 1, y))))).toSet
@@ -84,7 +84,7 @@ class RoomBuilder(val RoomWidth: Int = Room.DefaultWidth, val RoomHeight: Int = 
 
   /** Alias for [[RoomBuilder.borderWalls]] */
   @targetName("borderWallsAlias")
-  def ##(): this.type = borderWalls
+  def ##(): this.type = borderWalls()
 
   /** create a rectangle of wall cell
     *
@@ -132,7 +132,7 @@ class RoomBuilder(val RoomWidth: Int = Room.DefaultWidth, val RoomHeight: Int = 
 
   /** Alias for [[RoomBuilder.standardize]] */
   @targetName("standardizeAlias")
-  def !!(): this.type = standardize
+  def !! : this.type = standardize
 
   /** @return
     *   the room created by the builder
