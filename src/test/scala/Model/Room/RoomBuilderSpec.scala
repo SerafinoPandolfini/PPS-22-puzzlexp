@@ -2,6 +2,7 @@ package Model.Room
 
 import Model.Cells.{BasicCell, HoleCell, CoveredHoleCell, Direction}
 import Model.TestUtils.*
+import Model.Room.RoomBuilder.*
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
@@ -28,9 +29,9 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
   }
 
   "A room builder" should "create the required room" in {
-    val room = RoomBuilder()
+    val room = RoomBuilder(RoomWidth, RoomHeight)
       .name(RoomName)
-      .borderWalls() // the border of the cell is WL
+      .borderWalls // the border of the cell is WL
       .addLinks(RoomLink((position3_2), Direction.Left, "", defaultPosition)) // cell in (3, 2) becomes BasicCell
       .wallRectangle(position1_1, 1, 1) // (1, 1) becomes wall
       .addCells(Set(HoleCell((position2_2)), CoveredHoleCell((position1_2)))) // (2, 2) becomes HL, (1, 2) becomes CH
@@ -45,4 +46,24 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
         "WL | CH | HL |   \n" +
         "WL | WL | WL | WL\n"
     )
+  }
+
+  "A room builder" should "have alias methods for creating a cell" in {
+    val testCell = HoleCell((position2_2))
+
+    val room1 = RoomBuilder(RoomWidth, RoomHeight)
+      .borderWalls
+      .wallRectangle(position1_1, 1, 1)
+      .addCell(testCell)
+      .standardize
+      .build
+
+    val room2 = RoomBuilder(RoomWidth, RoomHeight)
+      .##()
+      .||(position1_1, 1, 1)
+      .+(testCell)
+      .!!()
+      .build
+
+    room1.cellsRepresentation should be(room2.cellsRepresentation)
   }
