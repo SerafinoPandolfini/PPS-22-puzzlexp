@@ -3,6 +3,7 @@ package Model.Room
 import Model.Cells.*
 import Model.Room.Room.DummyCell
 import Model.Cells.Extension.CellExtension.updateItem
+import Exceptions.PlayerOutOfBoundsException
 
 class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomLink]):
 
@@ -36,6 +37,17 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
         case None    => cell
     )
 
+  /** check if the cell the player is standing on is deadly
+   *
+   * @param currentPosition
+   * @return
+   * if the cell is deadly or not or a PlayerOutOfBoundsException
+   */
+  def isPlayerDead(currentPosition: Position): Either[PlayerOutOfBoundsException, Boolean] =
+    getCell(currentPosition) match
+      case Some(c) => Right(c.isDeadly)
+      case _ => Left(new PlayerOutOfBoundsException)
+  
   def cellsRepresentation: String =
     val rowSize = cells.maxBy(_.position._1).position._1 + 1
     println(rowSize)
