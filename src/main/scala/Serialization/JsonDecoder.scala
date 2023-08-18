@@ -4,6 +4,7 @@ import Model.Cells.*
 import io.circe.generic.semiauto.deriveDecoder
 import io.circe.{Decoder, DecodingFailure}
 import Model.Room.{Room, RoomLink}
+import Model.GameMap.GameMap
 
 object JsonDecoder:
 
@@ -60,4 +61,15 @@ object JsonDecoder:
       cells <- cursor.downField("cells").as[Set[Cell]]
       links <- cursor.downField("links").as[Set[RoomLink]]
     yield new Room(name, cells, links)
+  }
+
+  /** parte map */
+  given mapDecoder: Decoder[GameMap] = Decoder.instance { cursor =>
+    for
+      name <- cursor.downField("name").as[String]
+      rooms <- cursor.downField("rooms").as[Set[Room]]
+      initialRoom <- cursor.downField("initialRoom").as[String]
+      initialPosition <- cursor.downField("initialPosition").as[Position]
+    yield new GameMap(name, rooms, initialRoom, initialPosition)
+
   }

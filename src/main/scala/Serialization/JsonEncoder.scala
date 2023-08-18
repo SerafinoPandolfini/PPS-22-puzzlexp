@@ -5,6 +5,7 @@ import io.circe.generic.semiauto.deriveEncoder
 import io.circe.{Encoder, Json}
 import io.circe.syntax.*
 import Model.Room.{Room, RoomLink}
+import Model.GameMap.GameMap
 
 object JsonEncoder:
   given basicCellEncoder: Encoder[BasicCell] = deriveEncoder[BasicCell]
@@ -70,5 +71,15 @@ object JsonEncoder:
       "name" -> room.name.asJson,
       "cells" -> room.cells.asJson,
       "links" -> room.links.asJson
+    )
+  }
+
+  /** parte map */
+  given mapEncoder: Encoder[GameMap] = Encoder.instance { map =>
+    Json.obj(
+      "name" -> map.name.asJson,
+      "rooms" -> map.rooms.map(r => roomEncoder.apply(r)).asJson,
+      "initialRoom" -> map.initialRoom.asJson,
+      "initialPosition" -> map.initialPosition.asJson
     )
   }
