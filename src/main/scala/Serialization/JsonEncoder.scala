@@ -3,6 +3,8 @@ package Serialization
 import Model.Cells.*
 import io.circe.generic.semiauto.deriveEncoder
 import io.circe.{Encoder, Json}
+import io.circe.syntax.*
+import Model.Room.{Room, RoomLink}
 
 object JsonEncoder:
   given basicCellEncoder: Encoder[BasicCell] = deriveEncoder[BasicCell]
@@ -58,4 +60,15 @@ object JsonEncoder:
         .deepMerge(Json.obj("cellType" -> Json.fromString("TeleportDestinationCell")))
     case wallCell: WallCell =>
       wallCellEncoder.apply(wallCell).deepMerge(Json.obj("cellType" -> Json.fromString("WallCell")))
+  }
+
+  /** parte room */
+  given roomLinkEncoder: Encoder[RoomLink] = deriveEncoder[RoomLink]
+
+  given roomEncoder: Encoder[Room] = Encoder.instance { room =>
+    Json.obj(
+      "name" -> room.name.asJson,
+      "cells" -> room.cells.asJson,
+      "links" -> room.links.asJson
+    )
   }

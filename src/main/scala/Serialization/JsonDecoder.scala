@@ -3,6 +3,7 @@ package Serialization
 import Model.Cells.*
 import io.circe.generic.semiauto.deriveDecoder
 import io.circe.{Decoder, DecodingFailure}
+import Model.Room.{Room, RoomLink}
 
 object JsonDecoder:
 
@@ -47,4 +48,16 @@ object JsonDecoder:
       case "WallCell"                => mapToCell(wallCellDecoder)
       case _                         => Decoder.failed(DecodingFailure(s"Unknown cellType: $cellType", c.history))
     decoder(c)
+  }
+
+  /** parte room */
+
+  given roomLinkDecoder: Decoder[RoomLink] = deriveDecoder[RoomLink]
+
+  given roomDecoder: Decoder[Room] = Decoder.instance { cursor =>
+    for
+      name <- cursor.downField("name").as[String]
+      cells <- cursor.downField("cells").as[Set[Cell]]
+      links <- cursor.downField("links").as[Set[RoomLink]]
+    yield new Room(name, cells, links)
   }
