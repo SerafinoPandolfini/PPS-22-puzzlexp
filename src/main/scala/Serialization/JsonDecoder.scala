@@ -3,6 +3,9 @@ package Serialization
 import Model.Cells.*
 import io.circe.generic.semiauto.deriveDecoder
 import io.circe.{Decoder, DecodingFailure}
+import io.circe.parser.*
+import io.circe.Json
+import io.circe.Error
 import Model.Room.{Room, RoomLink}
 import Model.GameMap.GameMap
 
@@ -73,3 +76,15 @@ object JsonDecoder:
     yield new GameMap(name, rooms, initialRoom, initialPosition)
 
   }
+
+  def getAbsolutePath(partialPath: String): String =
+    import java.nio.file.Paths
+    Paths.get(partialPath).toAbsolutePath.toString
+
+  def getJsonFromPath(filePath: String): Either[Error, Json] =
+    import scala.io.Source
+    val source = Source.fromFile(filePath)
+    try
+      val jsonString = source.mkString
+      parse(jsonString)
+    finally source.close()

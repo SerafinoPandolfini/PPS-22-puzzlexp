@@ -7,7 +7,7 @@ import Model.TestUtils.*
 import io.circe.parser.*
 import io.circe.syntax.*
 import io.circe.{Decoder, HCursor, Json}
-import Serialization.JsonDecoder.mapDecoder
+import Serialization.JsonDecoder.{mapDecoder, getJsonFromPath, getAbsolutePath}
 import Serialization.JsonEncoder.mapEncoder
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
@@ -42,4 +42,11 @@ class JsonMapEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
     numbereq.size should be(map.rooms.size)
     map2.initialRoom should be(map.initialRoom)
     map2.initialPosition should be(map.initialPosition)
+  }
+
+  "A map" should "be retrievable from a json file" in {
+    val pathabs = getAbsolutePath("src/main/scala/Json/map01.json")
+    val j = getJsonFromPath(pathabs).toOption.get
+    j shouldBe a[Json]
+    mapDecoder.apply(j.hcursor).toOption.get shouldBe a[GameMap]
   }
