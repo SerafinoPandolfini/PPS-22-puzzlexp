@@ -43,9 +43,6 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
   }
 
   "A room" should "not let the player to walk into a non walkable cell" in {
-    def calculateRepresentation(pos: Position): String =
-      room.cellsRepresentation(Room.showPlayerAndBoxes(pos))
-
     // try to go into a wall
     var playerPosition: Position = position1_1
     var expectedRepresentation = "\n" +
@@ -54,17 +51,63 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
       "WL |    | bx | WL\n" +
       "WL | WL | WL | WL\n"
     playerPosition = room.playerMove(playerPosition, Direction.Up).get
-    calculateRepresentation(playerPosition) should be(expectedRepresentation)
+    room.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     // try to go in a cliff cell from the wrong direction
     playerPosition = room.playerMove(playerPosition, Direction.Right).get
-    calculateRepresentation(playerPosition) should be(expectedRepresentation)
+    room.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     // try to go out of room bounds
     playerPosition = position3_1
-    expectedRepresentation = "\n" +
-      "WL | WL | WL | WL\n" +
-      "WL |    | CL | pl\n" +
-      "WL |    | bx | WL\n" +
-      "WL | WL | WL | WL\n"
     room.playerMove(playerPosition, Direction.Right) should be(Option.empty)
-    calculateRepresentation(playerPosition) should be(expectedRepresentation)
+  }
+
+  "A room" should "let the player move and interact with eventual items on walkable cells" in {
+    val largerRoom = RoomBuilder(RoomWidth + 1, RoomHeight + 1)
+      .##()
+      .+(BasicCell(position3_1, Item.Box))
+      .+(BasicCell(position2_2, Item.Box))
+      .!!
+      .build
+    // try to move a box into a wall
+    var playerPosition = position2_1
+    var expectedRepresentation = "\n" +
+      "WL | WL | WL | WL | WL\n" +
+      "WL |    | pl | bx | WL\n" +
+      "WL |    | bx |    | WL\n" +
+      "WL |    |    |    | WL\n" +
+      "WL | WL | WL | WL | WL\n"
+    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
+    playerPosition = largerRoom.playerMove(playerPosition, Direction.Right).get
+    //the representation does not change
+    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
+    // move a box
+    playerPosition = position1_2
+    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(
+      "\n" +
+        "WL | WL | WL | WL | WL\n" +
+        "WL |    |    | bx | WL\n" +
+        "WL | pl | bx |    | WL\n" +
+        "WL |    |    |    | WL\n" +
+        "WL | WL | WL | WL | WL\n"
+    )
+    playerPosition = largerRoom.playerMove(playerPosition, Direction.Right).get
+    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(
+      "\n" +
+        "WL | WL | WL | WL | WL\n" +
+        "WL |    |    | bx | WL\n" +
+        "WL | pl |    | bx | WL\n" +
+        "WL |    |    |    | WL\n" +
+        "WL | WL | WL | WL | WL\n"
+    )
+    // try to move a box into a box
+    playerPosition = position3_3
+    expectedRepresentation = "\n" +
+      "WL | WL | WL | WL | WL\n" +
+      "WL |    |    | bx | WL\n" +
+      "WL |    |    | bx | WL\n" +
+      "WL |    |    | pl | WL\n" +
+      "WL | WL | WL | WL | WL\n"
+    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
+    playerPosition = largerRoom.playerMove(playerPosition, Direction.Up).get
+    //the representation does not change
+    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
   }

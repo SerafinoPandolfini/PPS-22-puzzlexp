@@ -6,9 +6,12 @@ import Model.Cells.Extension.CellExtension.updateItem
 import Exceptions.PlayerOutOfBoundsException
 import Model.Cells.Extension.PositionExtension.+
 
-/** @param name the name of the room
-  * @param _cells the set of [[Cell]] of the room
-  * @param links the set of [[RoomLink]] that connect the room to other rooms
+/** @param name
+  *   the name of the room
+  * @param _cells
+  *   the set of [[Cell]] of the room
+  * @param links
+  *   the set of [[RoomLink]] that connect the room to other rooms
   */
 class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomLink]):
 
@@ -55,6 +58,30 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
     case WalkableType.Walkable(b)          => b
     case WalkableType.DirectionWalkable(p) => p(dir)
 
+  /** check if instead of moving the player there is some item to move instead or no movement at all
+    *
+    * @param position
+    *   the player position
+    * @param cell
+    *   the cell in which the player wants to move
+    * @param direction
+    *   the direction the player is coming from
+    * @return
+    *   the new player position
+    */
+  private def checkItemMovement(position: Position, cell: Cell, direction: Direction): Option[Position] =
+    cell.cellItem match
+      case Item.Box =>
+        // get the 2nd cell in line from the player and check if it exist and is empty,
+        // otherwise return the original player position without updating any item
+        val nextCell = getCell(cell.position + direction.coordinates)
+        if nextCell.isEmpty || nextCell.get.cellItem != Item.Empty then return Some(position)
+        // if the box is movable to the next cell handle the box movement
+        if isMovementValid(nextCell.get, direction) then
+          updateCellsItems(Set((cell.position, Item.Empty, direction), (nextCell.get.position, Item.Box, direction)))
+        Some(position)
+      case _ => Some(cell.position)
+
   /** @param currentPosition
     *   the player position
     * @param direction
@@ -64,7 +91,7 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
     */
   def playerMove(currentPosition: Position, direction: Direction): Option[Position] =
     getCell(currentPosition + direction.coordinates).flatMap { optionalCell =>
-      if isMovementValid(optionalCell, direction) then Some(currentPosition + direction.coordinates)
+      if isMovementValid(optionalCell, direction) then  checkItemMovement(currentPosition, optionalCell, direction)
       else Some(currentPosition)
     }
 
@@ -126,17 +153,17 @@ object Room:
     */
   val DummyCell: Cell = WallCell(0, 0)
 
-  /** show in the cells representation the position of the boxes and of the player
-   *
-   * @param playerPos
-   * th player position
-   * @return
-   * a set of optional string that are [[Option.empty]] when there is no player or box
-   * @note
-   * the cell under the player and box will not be shown
-   */
+  /** map the position of the [[Item.Box]]es and of the player
+    *
+    * @param playerPos
+    *   th player position
+    * @return
+    *   a set of optional string that are [[Option.empty]] when there is no player or box
+    * @note
+    *   the cell under the player and box will not be shown
+    */
   def showPlayerAndBoxes(playerPos: Position): Cell => Option[String] = (cell: Cell) =>
     cell match
       case c if c.position == playerPos => Some("pl")
-      case c if c.cellItem == Item.Box => Some("bx")
-      case c => None
+      case c if c.cellItem == Item.Box  => Some("bx")
+      case c                            => None
