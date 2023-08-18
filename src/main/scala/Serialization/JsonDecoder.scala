@@ -1,0 +1,50 @@
+package Serialization
+
+import Model.Cells.*
+import io.circe.generic.semiauto.deriveDecoder
+import io.circe.{Decoder, DecodingFailure}
+
+object JsonDecoder:
+
+  given basicCellDecoder: Decoder[BasicCell] = deriveDecoder[BasicCell]
+
+  given buttonCellDecoder: Decoder[ButtonCell] = deriveDecoder[ButtonCell]
+
+  given cliffCellDecoder: Decoder[CliffCell] = deriveDecoder[CliffCell]
+
+  given buttonBlockCellDecoder: Decoder[ButtonBlockCell] = deriveDecoder[ButtonBlockCell]
+
+  given coveredHoleCellDecoder: Decoder[CoveredHoleCell] = deriveDecoder[CoveredHoleCell]
+
+  given holeCellDecoder: Decoder[HoleCell] = deriveDecoder[HoleCell]
+
+  given switchBlockCellDecoder: Decoder[SwitchBlockCell] = deriveDecoder[SwitchBlockCell]
+
+  given switchCellDecoder: Decoder[SwitchCell] = deriveDecoder[SwitchCell]
+
+  given teleportCellDecoder: Decoder[TeleportCell] = deriveDecoder[TeleportCell]
+
+  given teleportDestinationCellDecoder: Decoder[TeleportDestinationCell] = deriveDecoder[TeleportDestinationCell]
+
+  given wallCellDecoder: Decoder[WallCell] = deriveDecoder[WallCell]
+
+  private def mapToCell[A <: Cell](decoder: Decoder[A]): Decoder[Cell] =
+    decoder.map(identity)
+
+  given cellDecoder: Decoder[Cell] = Decoder.instance { c =>
+    val cellType = c.downField("cellType").as[String].getOrElse("Unknown")
+    val decoder: Decoder[Cell] = cellType match
+      case "BasicCell"               => mapToCell(basicCellDecoder)
+      case "CliffCell"               => mapToCell(cliffCellDecoder)
+      case "ButtonBlockCell"         => mapToCell(buttonBlockCellDecoder)
+      case "ButtonCell"              => mapToCell(buttonCellDecoder)
+      case "CoveredHoleCell"         => mapToCell(coveredHoleCellDecoder)
+      case "HoleCell"                => mapToCell(holeCellDecoder)
+      case "SwitchBlockCell"         => mapToCell(switchBlockCellDecoder)
+      case "SwitchCell"              => mapToCell(switchCellDecoder)
+      case "TeleportCell"            => mapToCell(teleportCellDecoder)
+      case "TeleportDestinationCell" => mapToCell(teleportDestinationCellDecoder)
+      case "WallCell"                => mapToCell(wallCellDecoder)
+      case _                         => Decoder.failed(DecodingFailure(s"Unknown cellType: $cellType", c.history))
+    decoder(c)
+  }
