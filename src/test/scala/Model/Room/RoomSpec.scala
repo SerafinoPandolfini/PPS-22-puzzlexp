@@ -1,6 +1,6 @@
 package Model.Room
 
-import Model.Cells.{BasicCell, CliffCell, Item, Direction}
+import Model.Cells.{Cell, BasicCell, CliffCell, Item, Direction, Position}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
@@ -40,4 +40,31 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
     room.isPlayerDead(outOfBoundPosition) match
       case Left(exception) => exception shouldBe a[PlayerOutOfBoundsException]
       case _               => fail("Expected Left(PlayerOutOfBoundsException) but got Right")
+  }
+
+  "A room" should "not let the player to walk into a non walkable cell" in {
+    def calculateRepresentation(pos: Position): String =
+      room.cellsRepresentation(Room.showPlayerAndBoxes(pos))
+
+    // try to go into a wall
+    var playerPosition: Position = position1_1
+    var expectedRepresentation = "\n" +
+      "WL | WL | WL | WL\n" +
+      "WL | pl | CL |   \n" +
+      "WL |    | bx | WL\n" +
+      "WL | WL | WL | WL\n"
+    playerPosition = room.playerMove(playerPosition, Direction.Up).get
+    calculateRepresentation(playerPosition) should be(expectedRepresentation)
+    // try to go in a cliff cell from the wrong direction
+    playerPosition = room.playerMove(playerPosition, Direction.Right).get
+    calculateRepresentation(playerPosition) should be(expectedRepresentation)
+    // try to go out of room bounds
+    playerPosition = position3_1
+    expectedRepresentation = "\n" +
+      "WL | WL | WL | WL\n" +
+      "WL |    | CL | pl\n" +
+      "WL |    | bx | WL\n" +
+      "WL | WL | WL | WL\n"
+    room.playerMove(playerPosition, Direction.Right) should be(Option.empty)
+    calculateRepresentation(playerPosition) should be(expectedRepresentation)
   }

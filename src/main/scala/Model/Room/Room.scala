@@ -4,7 +4,12 @@ import Model.Cells.*
 import Model.Room.Room.DummyCell
 import Model.Cells.Extension.CellExtension.updateItem
 import Exceptions.PlayerOutOfBoundsException
+import Model.Cells.Extension.PositionExtension.+
 
+/** @param name the name of the room
+  * @param _cells the set of [[Cell]] of the room
+  * @param links the set of [[RoomLink]] that connect the room to other rooms
+  */
 class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomLink]):
 
   /** getter for _cells
@@ -13,7 +18,7 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
     */
   def cells: Set[Cell] = _cells
 
-  /** get a specific cell from its position
+  /** get a specific [[Cell]] from its position
     *
     * @param position
     *   the position of the cell
@@ -37,26 +42,62 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
         case None    => cell
     )
 
+  /** check if the cell admit the player to walk on it
+    *
+    * @param cell
+    *   the cell in which the player wants to move
+    * @param dir
+    *   the direction he is coming from
+    * @return
+    *   if the cell is walkable or not
+    */
+  private def isMovementValid(cell: Cell, dir: Direction): Boolean = cell.walkableState match
+    case WalkableType.Walkable(b)          => b
+    case WalkableType.DirectionWalkable(p) => p(dir)
+
+  /** @param currentPosition
+    *   the player position
+    * @param direction
+    *   the direction in which the player wants to move
+    * @return
+    *   the new player position if its exist in this room or Option.empty if the cell do not exist
+    */
+  def playerMove(currentPosition: Position, direction: Direction): Option[Position] =
+    getCell(currentPosition + direction.coordinates).flatMap { optionalCell =>
+      if isMovementValid(optionalCell, direction) then Some(currentPosition + direction.coordinates)
+      else Some(currentPosition)
+    }
+
   /** check if the cell the player is standing on is deadly
-   *
-   * @param currentPosition
-   * @return
-   * if the cell is deadly or not or a PlayerOutOfBoundsException
-   */
+    *
+    * @param currentPosition
+    * @return
+    *   if the cell is deadly or not or a PlayerOutOfBoundsException
+    */
   def isPlayerDead(currentPosition: Position): Either[PlayerOutOfBoundsException, Boolean] =
     getCell(currentPosition) match
       case Some(c) => Right(c.isDeadly)
-      case _ => Left(new PlayerOutOfBoundsException)
-  
-  def cellsRepresentation: String =
-    val rowSize = cells.maxBy(_.position._1).position._1 + 1
-    println(rowSize)
+      case _       => Left(new PlayerOutOfBoundsException)
+
+  /** represent the [[Room.cells]] as a stirng matrix
+    * @param mapper
+    *   optional mapper to add feature to the representation
+    * @return
+    *   the cells matrix
+    */
+  def cellsRepresentation(mapper: Cell => Option[String] = _ => Option.empty[String]): String =
     cells.toList.sorted
-      .map(cellToString(_))
-      .grouped(rowSize)
+      .map(cell => mapper(cell).getOrElse(cellToString(cell)))
+      .grouped(cells.maxBy(_.position._1).position._1 + 1)
       .map(row => row.mkString(" | "))
       .mkString("\n", "\n", "\n")
 
+  /** map every [[Cell]] type to a two char string
+    * @param cell
+    *   the cell to map
+    * @return
+    *   the mapped cell
+    */
   private def cellToString(cell: Cell): String =
     cell match
       case _: BasicCell               => "  "
@@ -73,14 +114,29 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
 
 object Room:
 
-  /** the default width of a room
+  /** the default width of a [[Room]]
     */
   val DefaultWidth: Int = 25
 
-  /** the default height of a room
+  /** the default height of a [[Room]]
     */
   val DefaultHeight: Int = 12
 
-  /** a cell provided to not make any update based on this
+  /** a [[Cell]] provided to not make any update based on this
     */
   val DummyCell: Cell = WallCell(0, 0)
+
+  /** show in the cells representation the position of the boxes and of the player
+   *
+   * @param playerPos
+   * th player position
+   * @return
+   * a set of optional string that are [[Option.empty]] when there is no player or box
+   * @note
+   * the cell under the player and box will not be shown
+   */
+  def showPlayerAndBoxes(playerPos: Position): Cell => Option[String] = (cell: Cell) =>
+    cell match
+      case c if c.position == playerPos => Some("pl")
+      case c if c.cellItem == Item.Box => Some("bx")
+      case c => None
