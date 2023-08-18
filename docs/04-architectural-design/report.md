@@ -1,0 +1,1 @@
+[Torna all'indice](../report.md) | [Vai a Design di dettaglio](../05-detailed-design/report.md)
