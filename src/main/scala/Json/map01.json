@@ -1,0 +1,131 @@
+{
+"name":"map 1",
+"rooms":[{
+"name":"room 1",
+"cells":[{
+  "cellType" : "CliffCell",
+  "position" : [
+    0,
+    0
+  ],
+  "cellItem" : {
+    "Empty" : {
+
+    }
+  },
+  "direction" : {
+    "Down" : {
+
+    }
+  }
+},{
+  "cellType" : "BasicCell",
+  "position" : [
+    0,
+    1
+  ],
+  "cellItem" : {
+    "Empty" : {
+
+    }
+  }
+}],
+"links":[{
+  "from" : [
+    0,
+    0
+  ],
+  "direction" : {
+    "Up" : {
+
+    }
+  },
+  "toRoom" : "room 2",
+  "to" : [
+    1,
+    1
+  ]
+},{
+  "from" : [
+    0,
+    1
+  ],
+  "direction" : {
+    "Down" : {
+
+    }
+  },
+  "toRoom" : "room 3",
+  "to" : [
+    1,
+    0
+  ]
+}]
+},{
+"name":"room 2",
+"cells":[{
+  "cellType" : "CliffCell",
+  "position" : [
+    1,
+    1
+  ],
+  "cellItem" : {
+    "Empty" : {
+
+    }
+  },
+  "direction" : {
+    "Down" : {
+
+    }
+  }
+},{
+  "cellType" : "BasicCell",
+  "position" : [
+    0,
+    1
+  ],
+  "cellItem" : {
+    "Empty" : {
+
+    }
+  }
+}],
+"links":[{
+  "from" : [
+    0,
+    0
+  ],
+  "direction" : {
+    "Up" : {
+
+    }
+  },
+  "toRoom" : "room 2",
+  "to" : [
+    1,
+    1
+  ]
+},{
+  "from" : [
+    0,
+    1
+  ],
+  "direction" : {
+    "Down" : {
+
+    }
+  },
+  "toRoom" : "room 3",
+  "to" : [
+    1,
+    0
+  ]
+}]
+}],
+"initialRoom":"room 1",
+"initialPosition":[
+    0,
+    1
+  ]
+}
