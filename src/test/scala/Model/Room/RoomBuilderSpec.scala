@@ -39,7 +39,7 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
       .build
 
     room.name should be(RoomName)
-    room.cellsRepresentation should be(
+    room.cellsRepresentation() should be(
       "\n" +
         "WL | WL | WL | WL\n" +
         "WL | WL |    | WL\n" +
@@ -64,6 +64,6 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
       .+(testCell)
       .!!
       .build
-
-    room1.cellsRepresentation should be(room2.cellsRepresentation)
+    
+    room1.cellsRepresentation() should be(room2.cellsRepresentation())
   }
