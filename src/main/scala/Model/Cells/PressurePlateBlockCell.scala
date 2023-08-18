@@ -1,6 +1,6 @@
 package Model.Cells
 
-/** A cell that represent a cell with a block linked to a switch
+/** A cell that represent a cell with a block linked to a plate
   * @param position
   *   the position of the cell in the room
   * @param cellItem
@@ -10,10 +10,10 @@ package Model.Cells
   * @param pressableState
   *   the state of the corresponding pressable element
   */
-case class SwitchBlockCell(
+case class PressurePlateBlockCell(
     position: Position,
     cellItem: Item = Item.Empty,
-    activeState: SwitchBlockGroup,
+    activeState: PressurePlateBlockGroup,
     pressableState: PressableState = PressableState.NotPressed
 ) extends Cell
-    with SwitchBlock
+    with PressurePlateBlock

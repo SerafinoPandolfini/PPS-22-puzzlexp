@@ -23,9 +23,9 @@ object JsonDecoder:
 
   given holeCellDecoder: Decoder[HoleCell] = deriveDecoder[HoleCell]
 
-  given switchBlockCellDecoder: Decoder[SwitchBlockCell] = deriveDecoder[SwitchBlockCell]
+  given pressurePlateBlockCellDecoder: Decoder[PressurePlateBlockCell] = deriveDecoder[PressurePlateBlockCell]
 
-  given switchCellDecoder: Decoder[SwitchCell] = deriveDecoder[SwitchCell]
+  given pressurePlateCellDecoder: Decoder[PressurePlateCell] = deriveDecoder[PressurePlateCell]
 
   given teleportCellDecoder: Decoder[TeleportCell] = deriveDecoder[TeleportCell]
 
@@ -45,8 +45,8 @@ object JsonDecoder:
       case "ButtonCell"              => mapToCell(buttonCellDecoder)
       case "CoveredHoleCell"         => mapToCell(coveredHoleCellDecoder)
       case "HoleCell"                => mapToCell(holeCellDecoder)
-      case "SwitchBlockCell"         => mapToCell(switchBlockCellDecoder)
-      case "SwitchCell"              => mapToCell(switchCellDecoder)
+      case "PressurePlateBlockCell"  => mapToCell(pressurePlateBlockCellDecoder)
+      case "PressurePlateCell"       => mapToCell(pressurePlateCellDecoder)
       case "TeleportCell"            => mapToCell(teleportCellDecoder)
       case "TeleportDestinationCell" => mapToCell(teleportDestinationCellDecoder)
       case "WallCell"                => mapToCell(wallCellDecoder)

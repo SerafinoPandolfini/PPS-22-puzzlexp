@@ -14,9 +14,9 @@ import Model.Cells.{
   TeleportDestinationCell,
   TeleportCell,
   PressableState,
-  SwitchBlockCell,
-  SwitchBlockGroup,
-  SwitchCell
+  PressurePlateBlockCell,
+  PressurePlateBlockGroup,
+  PressurePlateCell
 }
 
 import PositionExtension.+
@@ -43,7 +43,7 @@ object CellExtension:
         case cell: BasicCell               => Set(cell.copy(cellItem = newItem))
         case cell: ButtonBlockCell         => Set(cell.copy(cellItem = newItem))
         case cell: CliffCell               => Set(cell.copy(cellItem = newItem))
-        case cell: SwitchBlockCell         => Set(cell.copy(cellItem = newItem))
+        case cell: PressurePlateBlockCell  => Set(cell.copy(cellItem = newItem))
         case cell: TeleportDestinationCell => Set(cell.copy(cellItem = newItem))
         case cell: HoleCell                => updateHoleItem(cell, newItem)
         case cell: CoveredHoleCell         => updateCoveredHoleItem(cell, newItem)
@@ -52,11 +52,11 @@ object CellExtension:
           newItem match
             case Item.Box => pressed(cells) + cell.copy(cellItem = newItem, pressableState = PressableState.Pressed)
             case _        => Set(cell.copy(cellItem = newItem))
-        case cell: SwitchCell =>
+        case cell: PressurePlateCell =>
           val pressableState = newItem match
             case Item.Box => PressableState.Pressed
             case _        => PressableState.NotPressed
-          updateSwitch(cells, pressableState) + cell.copy(
+          updatePressurePlate(cells, pressableState) + cell.copy(
             cellItem = newItem,
             pressableState = pressableState
           )
@@ -76,7 +76,7 @@ object CellExtension:
           .map(c => c.copy(pressableState = PressableState.Pressed))
       )
 
-    /** update the switch pressable state and the corresponding blocks
+    /** update the plate pressable state and the corresponding blocks
       * @param cells
       *   the set of the cells that may be changed
       * @param pressableState
@@ -84,10 +84,10 @@ object CellExtension:
       * @return
       *   the set of changed cells
       */
-    private def updateSwitch(cells: Set[Cell], pressableState: PressableState): Set[Cell] =
+    private def updatePressurePlate(cells: Set[Cell], pressableState: PressableState): Set[Cell] =
       Set.from(
         cells
-          .collect { case c: SwitchBlockCell => c }
+          .collect { case c: PressurePlateBlockCell => c }
           .map(c => c.copy(pressableState = pressableState))
       )
 

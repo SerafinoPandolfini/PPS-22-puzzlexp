@@ -20,9 +20,9 @@ object JsonEncoder:
 
   given holeCellEncoder: Encoder[HoleCell] = deriveEncoder[HoleCell]
 
-  given switchBlockCellEncoder: Encoder[SwitchBlockCell] = deriveEncoder[SwitchBlockCell]
+  given pressurePlateBlockCellEncoder: Encoder[PressurePlateBlockCell] = deriveEncoder[PressurePlateBlockCell]
 
-  given switchCellEncoder: Encoder[SwitchCell] = deriveEncoder[SwitchCell]
+  given pressurePlateCellEncoder: Encoder[PressurePlateCell] = deriveEncoder[PressurePlateCell]
 
   given teleportCellEncoder: Encoder[TeleportCell] = deriveEncoder[TeleportCell]
 
@@ -47,12 +47,14 @@ object JsonEncoder:
         .deepMerge(Json.obj("cellType" -> Json.fromString("CoveredHoleCell")))
     case holeCell: HoleCell =>
       holeCellEncoder.apply(holeCell).deepMerge(Json.obj("cellType" -> Json.fromString("HoleCell")))
-    case switchBlockCell: SwitchBlockCell =>
-      switchBlockCellEncoder
-        .apply(switchBlockCell)
-        .deepMerge(Json.obj("cellType" -> Json.fromString("SwitchBlockCell")))
-    case switchCell: SwitchCell =>
-      switchCellEncoder.apply(switchCell).deepMerge(Json.obj("cellType" -> Json.fromString("SwitchCell")))
+    case pressurePlateBlockCell: PressurePlateBlockCell =>
+      pressurePlateBlockCellEncoder
+        .apply(pressurePlateBlockCell)
+        .deepMerge(Json.obj("cellType" -> Json.fromString("PressurePlateBlockCell")))
+    case pressurePlateCell: PressurePlateCell =>
+      pressurePlateCellEncoder
+        .apply(pressurePlateCell)
+        .deepMerge(Json.obj("cellType" -> Json.fromString("PressurePlateCell")))
     case teleportCell: TeleportCell =>
       teleportCellEncoder.apply(teleportCell).deepMerge(Json.obj("cellType" -> Json.fromString("TeleportCell")))
     case teleportDestinationCell: TeleportDestinationCell =>

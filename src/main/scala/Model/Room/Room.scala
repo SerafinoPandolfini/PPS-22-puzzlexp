@@ -11,14 +11,14 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
   def cells: Set[Cell] = _cells
 
   /** get a specific cell from its position
-   *
-   * @param position
-   * the position of the cell
-   * @return
-   * an optional of the required cell
-   */
+    *
+    * @param position
+    *   the position of the cell
+    * @return
+    *   an optional of the required cell
+    */
   def getCell(position: Position): Option[Cell] = _cells.find(_.position == position)
-  
+
   def cellsRepresentation: String =
     val rowSize = cells.maxBy(_.position._1).position._1 + 1
     println(rowSize)
@@ -30,17 +30,18 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
 
   private def cellToString(cell: Cell): String =
     cell match
-      case _: BasicCell => "  "
-      case _: WallCell => "WL"
-      case _: HoleCell => "HL"
-      case _: CoveredHoleCell => "CH"
-      case _: CliffCell => "CL"
-      case _: ButtonBlockCell => "BB"
-      case _: ButtonBlock => "BT"
-      case _: SwitchBlockCell => "SB"
-      case _: TeleportCell => "TL"
+      case _: BasicCell               => "  "
+      case _: WallCell                => "WL"
+      case _: HoleCell                => "HL"
+      case _: CoveredHoleCell         => "CH"
+      case _: CliffCell               => "CL"
+      case _: ButtonBlockCell         => "BB"
+      case _: ButtonBlock             => "BT"
+      case _: PressurePlateBlockCell  => "PB"
+      case _: PressurePlateCell       => "PP"
+      case _: TeleportCell            => "TL"
       case _: TeleportDestinationCell => "TD"
-      case _ => "??"
+      case _                          => "??"
 
 object Room:
 
