@@ -15,7 +15,7 @@ object Tile:
   private class TileImpl(panel: JPanel, cellSize: Int) extends Tile:
     private val bgLabel: JLabel = JLabel()
     private var characterInTheTile: Boolean = false
-    val characterLabel: JLabel = JLabel(new ImageIcon(ImageManager.CHARACTER_RIGHT.path))
+    val characterLabel: JLabel = JLabel()
 
     override def backgroundImage_(path: String): Unit =
       this.bgLabel.setPreferredSize(Dimension(cellSize, cellSize))
@@ -27,7 +27,8 @@ object Tile:
 
     override def isCharacterHere: Boolean = this.characterInTheTile
 
-    override def placeCharacter(direction: String): Unit =
+    override def placeCharacter(path: String): Unit =
+      this.characterLabel.setIcon(new ImageIcon(path))
       this.bgLabel.add(characterLabel)
       this.characterInTheTile = true
 
