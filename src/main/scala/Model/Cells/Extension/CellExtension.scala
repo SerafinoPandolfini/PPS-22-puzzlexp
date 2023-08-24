@@ -6,20 +6,21 @@ import Model.Cells.{
   ButtonBlockCell,
   ButtonCell,
   Cell,
-  CoveredHoleCell,
-  HoleCell,
   CliffCell,
+  CoveredHoleCell,
   Direction,
+  HoleCell,
   Item,
-  TeleportDestinationCell,
-  TeleportCell,
   PressableState,
   PressurePlateBlockCell,
   PressurePlateBlockGroup,
-  PressurePlateCell
+  PressurePlateCell,
+  RockCell,
+  TeleportCell,
+  TeleportDestinationCell
 }
-
 import PositionExtension.+
+
 import scala.annotation.targetName
 
 object CellExtension:
@@ -47,6 +48,7 @@ object CellExtension:
         case cell: TeleportDestinationCell => Set(cell.copy(cellItem = newItem))
         case cell: HoleCell                => updateHoleItem(cell, newItem)
         case cell: CoveredHoleCell         => updateCoveredHoleItem(cell, newItem)
+        case cell: RockCell                => updateRockItem(cell, newItem)
         case _: TeleportCell               => updateTeleportItem(cells, newItem, direction)
         case cell: ButtonCell =>
           newItem match
@@ -140,3 +142,17 @@ object CellExtension:
             case Some(destCell) => destCell.updateItem(cells, newItem, direction)
             case None           => Set.empty[Cell]
         case None => Set.empty[Cell]
+
+    /** update the rock cell
+      * @param rCell
+      *   the cell to be updated
+      * @param newItem
+      *   the item
+      * @return
+      *   the set of changed cells
+      */
+    private def updateRockItem(rCell: RockCell, newItem: Item): Set[Cell] = newItem match
+      case Item.Box =>
+        if rCell.broken then Set(rCell.copy(cellItem = newItem))
+        else Set(rCell.copy(cellItem = Item.Empty, broken = false))
+      case _ => Set.empty[Cell]
