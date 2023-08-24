@@ -20,7 +20,12 @@ class RockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     rockCell.broken should be(false)
   }
 
-  "a broken rock" should "be walkable" in {}
+  "only a broken rock" should "be walkable" in {
+    rockCell.broken should be(false)
+    rockCell.walkableState should be(WalkableType.Walkable(false))
+    brokenRockCell.broken should be(true)
+    brokenRockCell.walkableState should be(WalkableType.Walkable(true))
+  }
 
   "a rock cell if it is not broken" should "not contain a box" in {
     var cells: Set[Cell] = Set(rockCell)
