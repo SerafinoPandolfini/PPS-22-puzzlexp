@@ -27,5 +27,5 @@ def main(): Unit =
   println("GAME-OVER :(")
 
 def start: GameMap =
-  val p = JsonDecoder.getAbsolutePath("src/main/scala/Json/mapProva.json")
+  val p = JsonDecoder.getAbsolutePath("src/main/resources/Json/mapProva.json")
   JsonDecoder.mapDecoder(JsonDecoder.getJsonFromPath(p).toOption.get.hcursor).toOption.get

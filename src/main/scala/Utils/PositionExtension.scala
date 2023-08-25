@@ -1,4 +1,4 @@
-package Model.Cells.Extension
+package Utils
 
 import Model.Cells.Position
 

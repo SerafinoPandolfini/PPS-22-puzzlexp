@@ -5,7 +5,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import Model.TestUtils.*
 import Color.*
-import Model.Cells.Extension.CellExtension.updateItem
+import Model.Cells.Logic.CellExtension.updateItem
 
 class ButtonCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
