@@ -2,9 +2,9 @@ package Model.Room
 
 import Model.Cells.*
 import Model.Room.Room.DummyCell
-import Model.Cells.Extension.CellExtension.updateItem
+import Model.Cells.Logic.CellExtension.updateItem
 import Exceptions.PlayerOutOfBoundsException
-import Model.Cells.Extension.PositionExtension.+
+import Utils.PositionExtension.+
 
 /** @param name
   *   the name of the room

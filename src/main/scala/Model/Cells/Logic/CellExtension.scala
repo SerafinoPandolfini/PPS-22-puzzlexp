@@ -1,32 +1,12 @@
-package Model.Cells.Extension
+package Model.Cells.Logic
 
-import Model.Cells.WalkableType.Walkable
-import Model.Cells.{
-  BasicCell,
-  ButtonBlockCell,
-  ButtonCell,
-  Cell,
-  CoveredHoleCell,
-  HoleCell,
-  CliffCell,
-  Direction,
-  Item,
-  TeleportDestinationCell,
-  TeleportCell,
-  PressableState,
-  PressurePlateBlockCell,
-  PressurePlateBlockGroup,
-  PressurePlateCell
-}
-
-import PositionExtension.+
-import scala.annotation.targetName
+import Model.Cells.*
+import Utils.PositionExtension.*
 
 object CellExtension:
   /** extension for adding new methods for interacting with cellItems and the player
     */
   extension (cell: Cell)
-
     /** Updates the item in the cell and returns a set of modified cells based on the rules of the game.
       *
       * @param cells

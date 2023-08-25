@@ -6,7 +6,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import PressurePlateBlockGroup.*
 import PressableState.*
-import Model.Cells.Extension.CellExtension.updateItem
+import Model.Cells.Logic.CellExtension.updateItem
 
 class PressurePlateBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
