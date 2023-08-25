@@ -3,7 +3,7 @@ package Model.Cells
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
-import Model.Cells.Logic.CellExtension.updateItem
+import Model.Cells.Logic.CellExtension.{updateItem, moveIn}
 import Utils.PositionExtension.+
 import Utils.TestUtils.*
 
@@ -31,4 +31,9 @@ class TeleportCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     val updateCells = teleportCell.updateItem(cells, Item.Box, Direction.Left)
     updateCells.head.cellItem should be(Item.Box)
     updateCells.head.position should be(otherPosition + Direction.Left.coordinates)
+  }
+
+  "A teleport cell" should "bring to its destination" in {
+    val update = teleportCell.moveIn(Set(teleportCell, teleportDestinationCell, BasicCell(position1_1)))
+    update._2 should be(teleportDestinationCell)
   }

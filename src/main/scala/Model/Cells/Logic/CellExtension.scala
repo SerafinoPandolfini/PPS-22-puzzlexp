@@ -17,7 +17,14 @@ object CellExtension:
     def moveIn(cells: Set[Cell]): (Set[Cell], Cell) =
       cell match
         case cell: ButtonCell => (pressed(cells, cell.color) + cell.copy(pressableState = PressableState.Pressed), cell)
-        case _                => (Set.empty, cell)
+        case _: TeleportCell =>
+          (
+            Set.empty,
+            findTeleportDestination(cells) match
+              case Some(value) => value
+              case None        => cell
+          )
+        case _ => (Set.empty, cell)
 
     /** Updates the item in the cell and returns a set of modified cells based on the rules of the game.
       *
@@ -131,3 +138,14 @@ object CellExtension:
             case Some(destCell) => destCell.updateItem(cells, newItem, direction)
             case None           => Set.empty[Cell]
         case None => Set.empty[Cell]
+
+    /** Find the [[TeleportDestinationCell]] in the provided [[Set]]
+      * @param cells
+      *   the [[Set]] of the [[Cell]] in which [[TeleportDestinationCell]] should be found
+      * @return
+      *   an [[Option]] of [[TeleportDestinationCell]]
+      */
+    private def findTeleportDestination(cells: Set[Cell]): Option[TeleportDestinationCell] =
+      TeleportFinder.findDestination(cells) match
+        case Some(value) => Option(TeleportDestinationCell((value._1, value._2)))
+        case None        => Option.empty
