@@ -3,8 +3,8 @@ package Model.Cells
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
-import Model.TestUtils.*
 import Model.Cells.Logic.CellExtension.updateItem
+import Utils.TestUtils.*
 
 class WallCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

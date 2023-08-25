@@ -1,13 +1,14 @@
 package Model.Room
 
-import Model.Cells.{Cell, BasicCell, CliffCell, Item, Direction, Position}
+import Model.Cells.{BasicCell, Cell, CliffCell, Direction, Item, Position}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
-import Model.TestUtils.*
 import Exceptions.PlayerOutOfBoundsException
-
 import scala.Option
+import Utils.TestUtils.*
+
+
 
 class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

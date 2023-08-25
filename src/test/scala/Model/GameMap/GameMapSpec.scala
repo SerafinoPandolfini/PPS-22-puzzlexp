@@ -7,7 +7,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.TryValues.*
-import Model.TestUtils.*
+import Utils.TestUtils.*
 
 class GameMapSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

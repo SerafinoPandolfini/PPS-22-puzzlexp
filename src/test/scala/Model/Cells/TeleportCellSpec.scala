@@ -3,9 +3,9 @@ package Model.Cells
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
-import Model.TestUtils.*
 import Model.Cells.Logic.CellExtension.updateItem
 import Utils.PositionExtension.+
+import Utils.TestUtils.*
 
 class TeleportCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

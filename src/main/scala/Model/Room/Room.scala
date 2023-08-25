@@ -114,31 +114,10 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
     */
   def cellsRepresentation(mapper: Cell => Option[String] = _ => Option.empty[String]): String =
     cells.toList.sorted
-      .map(cell => mapper(cell).getOrElse(cellToString(cell)))
+      .map(cell => mapper(cell).getOrElse(Room.cellToString(cell)))
       .grouped(cells.maxBy(_.position._1).position._1 + 1)
       .map(row => row.mkString(" | "))
       .mkString("\n", "\n", "\n")
-
-  /** map every [[Cell]] type to a two char string
-    * @param cell
-    *   the cell to map
-    * @return
-    *   the mapped cell
-    */
-  private def cellToString(cell: Cell): String =
-    cell match
-      case _: BasicCell               => "  "
-      case _: WallCell                => "WL"
-      case _: HoleCell                => "HL"
-      case _: CoveredHoleCell         => "CH"
-      case _: CliffCell               => "CL"
-      case _: ButtonBlockCell         => "BB"
-      case _: ButtonBlock             => "BT"
-      case _: PressurePlateBlockCell  => "PB"
-      case _: PressurePlateCell       => "PP"
-      case _: TeleportCell            => "TL"
-      case _: TeleportDestinationCell => "TD"
-      case _                          => "??"
 
 object Room:
 
@@ -168,3 +147,27 @@ object Room:
       case c if c.position == playerPos => Some("pl")
       case c if c.cellItem == Item.Box  => Some("bx")
       case c                            => None
+
+  /** map every [[Cell]] type to a two char string
+    *
+    * @param cell
+    *   the cell to map
+    * @param showBasic
+    *   if he need to map the [[BasicCell]] or not
+    * @return
+    *   the mapped cell
+    */
+  def cellToString(cell: Cell, showBasic: Boolean = false): String =
+    cell match
+      case _: BasicCell               => if showBasic then "BS" else "  "
+      case _: WallCell                => "WL"
+      case _: HoleCell                => "HL"
+      case _: CoveredHoleCell         => "CH"
+      case _: CliffCell               => "CL"
+      case _: ButtonBlockCell         => "BB"
+      case _: ButtonBlock             => "BT"
+      case _: PressurePlateBlockCell  => "PB"
+      case _: PressurePlateCell       => "PP"
+      case _: TeleportCell            => "TL"
+      case _: TeleportDestinationCell => "TD"
+      case _                          => "??"

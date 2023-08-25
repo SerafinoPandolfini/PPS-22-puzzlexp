@@ -1,11 +1,11 @@
 package Model.Room
 
 import Model.Cells.{BasicCell, HoleCell, CoveredHoleCell, Direction}
-import Model.TestUtils.*
 import Model.Room.RoomBuilder.*
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
+import Utils.TestUtils.*
 
 class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

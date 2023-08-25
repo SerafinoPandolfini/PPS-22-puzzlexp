@@ -3,7 +3,6 @@ package Serialization
 import Model.Cells.{BasicCell, Cell}
 import Model.GameMap.*
 import Model.Room.*
-import Model.TestUtils.*
 import io.circe.parser.*
 import io.circe.syntax.*
 import io.circe.{Decoder, HCursor, Json}
@@ -12,6 +11,7 @@ import Serialization.JsonEncoder.mapEncoder
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
+import Utils.TestUtils.*
 
 class JsonMapEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

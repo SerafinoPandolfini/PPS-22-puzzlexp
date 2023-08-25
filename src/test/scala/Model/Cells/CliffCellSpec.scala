@@ -3,8 +3,8 @@ package Model.Cells
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
-import Model.TestUtils.*
 import WalkableType.*
+import Utils.TestUtils.*
 
 class CliffCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

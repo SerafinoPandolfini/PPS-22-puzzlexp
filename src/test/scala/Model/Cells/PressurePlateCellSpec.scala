@@ -1,10 +1,10 @@
 package Model.Cells
 
-import Model.TestUtils.*
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import Model.Cells.Logic.CellExtension.updateItem
+import Utils.TestUtils.*
 
 class PressurePlateCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

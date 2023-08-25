@@ -1,11 +1,11 @@
 package Model.Cells
 
-import Model.TestUtils.*
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import Color.*
 import Model.Cells.Logic.CellExtension.updateItem
+import Utils.TestUtils.*
 
 class ButtonBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
