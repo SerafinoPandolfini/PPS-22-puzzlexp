@@ -7,6 +7,18 @@ object CellExtension:
   /** extension for adding new methods for interacting with cellItems and the player
     */
   extension (cell: Cell)
+
+    /** Perform the necessary operations wen the player walks in a cell
+      * @param cells
+      *   The set of all cells in the current room
+      * @return
+      *   the set of the modified cells in the room and the cell in which the player is now
+      */
+    def moveIn(cells: Set[Cell]): (Set[Cell], Cell) =
+      cell match
+        case cell: ButtonCell => (pressed(cells, cell.color) + cell.copy(pressableState = PressableState.Pressed), cell)
+        case _                => (Set.empty, cell)
+
     /** Updates the item in the cell and returns a set of modified cells based on the rules of the game.
       *
       * @param cells
@@ -30,8 +42,9 @@ object CellExtension:
         case _: TeleportCell               => updateTeleportItem(cells, newItem, direction)
         case cell: ButtonCell =>
           newItem match
-            case Item.Box => pressed(cells) + cell.copy(cellItem = newItem, pressableState = PressableState.Pressed)
-            case _        => Set(cell.copy(cellItem = newItem))
+            case Item.Box =>
+              pressed(cells, cell.color) + cell.copy(cellItem = newItem, pressableState = PressableState.Pressed)
+            case _ => Set(cell.copy(cellItem = newItem))
         case cell: PressurePlateCell =>
           val pressableState = newItem match
             case Item.Box => PressableState.Pressed
@@ -45,16 +58,14 @@ object CellExtension:
     /** set he button pressable state to "Pressed" and the corresponding blocks
       * @param cells
       *   the set of the cells that may be changed
+      * @param color
+      *   the color of the button block cells that needs to change
       * @return
       *   the set of changed cells
       */
-    private def pressed(cells: Set[Cell]): Set[Cell] =
-      Set.from(
-        cells
-          .collect { case c: ButtonBlockCell => c }
-          .filter(c => c.color == cell.asInstanceOf[ButtonCell].color)
-          .map(c => c.copy(pressableState = PressableState.Pressed))
-      )
+    private def pressed(cells: Set[Cell], color: Color): Set[Cell] =
+      val pos = ButtonBlockFinder.positionToRevert(cells, color)
+      pos.map(p => ButtonBlockCell(p, color = color, PressableState.Pressed))
 
     /** update the plate pressable state and the corresponding blocks
       * @param cells

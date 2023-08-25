@@ -14,3 +14,11 @@ object PrologConverter:
     val propertiesString = properties(cell)
 
     s"c($cellString$Separator$positionString$propertiesString)"
+
+  /** aggiunge la proprietà color alle celle costruite
+    */
+  val addColor: Cell => String = cell =>
+    Separator + (cell match
+      case c: ButtonBlockCell => c.color.toString.toLowerCase
+      case _                  => "nil"
+    )
