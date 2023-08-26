@@ -1,12 +1,12 @@
-package Model.Room.rules
+package model.room.rules
 
-import Model.Cells.WallCell
+import model.cells.WallCell
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
-import Model.Room.RoomBuilder
-import Model.Room.Room
-import Utils.TestUtils.*
+import model.room.RoomBuilder
+import model.room.Room
+import utils.TestUtils.*
 
 class RoomRulesSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
