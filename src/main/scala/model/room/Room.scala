@@ -8,7 +8,6 @@ import exceptions.PlayerOutOfBoundsException
 import utils.PositionExtension.+
 import scala.util.{Failure, Success, Try}
 
-
 /** @param name
   *   the name of the room
   * @param _cells
@@ -88,7 +87,15 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
         Some(position)
       case _ => Some(cell.position)
 
-  // TODO: capire chi lo chiama (non un metodo di room)
+  /** Check the consequenses of the movement of the player updating the room cells
+    * @param previous
+    *   the [[Position]] of the cell from which the movement is made
+    * @param next
+    *   the [[Position]] of the cell to which the movement is made
+    * @return
+    *   the [[Position]] in which the player should be or a [[PlayerOutOfBoundsException]] if one of the input data is
+    *   not in the room
+    */
   def checkMovementConsequences(previous: Position, next: Position): Try[Position] =
     getCell(previous) match
       case Some(v) =>
