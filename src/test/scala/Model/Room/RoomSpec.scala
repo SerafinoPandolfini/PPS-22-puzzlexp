@@ -1,14 +1,29 @@
 package Model.Room
 
-import Model.Cells.{BasicCell, Cell, CliffCell, Direction, Item, Position}
+import Model.Cells.{
+  BasicCell,
+  ButtonBlockCell,
+  ButtonCell,
+  Cell,
+  CliffCell,
+  Color,
+  CoveredHoleCell,
+  Direction,
+  Item,
+  Position,
+  PressableState,
+  TeleportCell,
+  TeleportDestinationCell,
+  WalkableType
+}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.TryValues.*
 import Exceptions.PlayerOutOfBoundsException
+
 import scala.Option
 import Utils.TestUtils.*
-
-
 
 class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -78,7 +93,7 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
       "WL | WL | WL | WL | WL\n"
     largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     playerPosition = largerRoom.playerMove(playerPosition, Direction.Right).get
-    //the representation does not change
+    // the representation does not change
     largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     // move a box
     playerPosition = position1_2
@@ -109,6 +124,42 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
       "WL | WL | WL | WL | WL\n"
     largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     playerPosition = largerRoom.playerMove(playerPosition, Direction.Up).get
-    //the representation does not change
+    // the representation does not change
     largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
+  }
+
+  "A room" should "be able to change according to player movement" in {
+    val room2 = RoomBuilder(RoomWidth, RoomHeight)
+      .##()
+      .++(
+        Set(
+          TeleportDestinationCell(position1_1),
+          TeleportCell(position2_2),
+          ButtonCell(position3_1, color = Color.Blue),
+          ButtonBlockCell(position2_1, color = Color.Blue, PressableState.NotPressed),
+          CoveredHoleCell(position3_3)
+        )
+      )
+      .!!
+      .build
+
+    // check correct cell for player
+    room2.checkMovementConsequences(position1_2, position2_2).isSuccess should be(true)
+    room2.checkMovementConsequences(position1_2, position2_2).success.value should be(position1_1)
+
+    // check errors
+    room2.checkMovementConsequences((5, 1), (4, 1)).isFailure should be(true)
+    room2.checkMovementConsequences((5, 1), (4, 1)).failure.exception shouldBe a[PlayerOutOfBoundsException]
+    room2.checkMovementConsequences((4, 1), (5, 1)).isFailure should be(true)
+    room2.checkMovementConsequences((4, 1), (5, 1)).failure.exception shouldBe a[PlayerOutOfBoundsException]
+
+    // check cell set update
+    room2.getCell(position2_1).get.walkableState should be(WalkableType.Walkable(false))
+    room2.checkMovementConsequences(position3_2, position3_1)
+    room2.getCell(position2_1).get.walkableState should be(WalkableType.Walkable(true))
+    room2.getCell(position3_3).get.asInstanceOf[CoveredHoleCell].cover should be(true)
+    room2.checkMovementConsequences(position3_2, position3_3)
+    room2.getCell(position3_3).get.asInstanceOf[CoveredHoleCell].cover should be(true)
+    room2.checkMovementConsequences(position3_3, position3_2)
+    room2.getCell(position3_3).get.asInstanceOf[CoveredHoleCell].cover should be(false)
   }

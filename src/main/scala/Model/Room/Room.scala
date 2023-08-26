@@ -2,8 +2,10 @@ package Model.Room
 
 import Model.Cells.*
 import Model.Room.Room.DummyCell
-import Model.Cells.Logic.CellExtension.updateItem
+import Model.Cells.Logic.CellExtension.*
 import Exceptions.PlayerOutOfBoundsException
+
+import scala.util.{Failure, Success, Try}
 import Utils.PositionExtension.+
 
 /** @param name
@@ -39,8 +41,11 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
     for
       u <- updateSet
       updatedCells = getCell(u._1).getOrElse(DummyCell).updateItem(_cells, u._2, u._3)
-    yield _cells = _cells.map(cell =>
-      updatedCells.find(_.position == cell.position) match
+    yield updateCells(updatedCells)
+
+  def updateCells(cells: Set[Cell]): Unit =
+    _cells = _cells.map(cell =>
+      cells.find(_.position == cell.position) match
         case Some(c) => c
         case None    => cell
     )
@@ -81,6 +86,19 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
           updateCellsItems(Set((cell.position, Item.Empty, direction), (nextCell.get.position, Item.Box, direction)))
         Some(position)
       case _ => Some(cell.position)
+
+  // TODO: capire chi lo chiama (non un metodo di room)
+  def checkMovementConsequences(previous: Position, next: Position): Try[Position] =
+    getCell(previous) match
+      case Some(v) =>
+        getCell(next) match
+          case Some(value) =>
+            updateCells(v.moveOut(_cells))
+            val (newSet, destinationPosition) = value.moveIn(_cells)
+            updateCells(newSet)
+            Success(destinationPosition)
+          case None => Failure(new PlayerOutOfBoundsException)
+      case None => Failure(new PlayerOutOfBoundsException)
 
   /** @param currentPosition
     *   the player position
