@@ -1,13 +1,13 @@
 package prologEngine
 
-import Model.Cells.{BasicCell, Cell, WallCell}
+import model.cells.{BasicCell, Cell, WallCell}
 import org.scalatest.{BeforeAndAfterEach, color}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
 import prologEngine.PrologEngine.{*, given}
 import alice.tuprolog.Struct
 import prologEngine.PrologConverter.convert
-import Utils.TestUtils.*
+import utils.TestUtils.*
 
 class PrologEngineSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

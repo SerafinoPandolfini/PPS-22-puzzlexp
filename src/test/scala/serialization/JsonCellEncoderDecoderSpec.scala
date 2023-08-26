@@ -10,7 +10,7 @@ import serialization.JsonEncoder.cellEncoder
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
-import Utils.TestUtils.*
+import utils.TestUtils.*
 
 class JsonCellEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

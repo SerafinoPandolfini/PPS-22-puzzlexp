@@ -1,7 +1,7 @@
 package prologEngine
 
-import Model.Cells.*
-import Model.Room.{Room, *}
+import model.cells.*
+import model.room.*
 import alice.tuprolog.{Prolog, SolveInfo, Struct, Term, Theory}
 
 /** a prolog engine for executing [[Prolog]] code
@@ -33,29 +33,29 @@ case class PrologEngine(clauses: Theory*):
       }.to(LazyList)
 
   /** solve the provided goal and return the possible solutions
-   *
-   * @param goal
-   * the goal to solve
-   * @param terms
-   * the terms of the goal
-   * @return
-   * a [[Map]] of the [[Term]]s and the values associated
-   */
+    *
+    * @param goal
+    *   the goal to solve
+    * @param terms
+    *   the terms of the goal
+    * @return
+    *   a [[Map]] of the [[Term]]s and the values associated
+    */
   def solve(goal: Term, terms: String*): Map[String, Term] =
     prologEngine(goal).headOption match
       case Some(result) => terms.map(term => (term, result.getTerm(term))).toMap
-      case None => Map.empty
-  
+      case None         => Map.empty
+
   /** solve the provided goal and return if there is a solution or a failure
-   *
-   * @param goal
-   * the goal to solve
-   * @return
-   * true if the goal have a solution, false otherwise
-   */
+    *
+    * @param goal
+    *   the goal to solve
+    * @return
+    *   true if the goal have a solution, false otherwise
+    */
   def solve(goal: Term): Boolean = prologEngine(goal).map(_.isSuccess).headOption match
     case Some(value) => value
-    case _ => false
+    case _           => false
 
 object PrologEngine:
 

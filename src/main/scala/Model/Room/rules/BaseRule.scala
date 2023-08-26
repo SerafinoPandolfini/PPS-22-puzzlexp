@@ -1,6 +1,6 @@
-package Model.Room.rules
+package model.room.rules
 
-import Model.Room.Room
+import model.room.Room
 
 trait BaseRule:
 

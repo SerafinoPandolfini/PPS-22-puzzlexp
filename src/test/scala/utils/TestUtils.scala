@@ -1,7 +1,7 @@
-package Utils
+package utils
 
-import Model.Cells.{Direction, Position}
-import Model.Room.rules.*
+import model.cells.Direction
+import model.room.rules.RoomRules
 
 object TestUtils:
   val defaultPosition = (0, 0)

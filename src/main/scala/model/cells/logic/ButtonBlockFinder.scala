@@ -1,8 +1,8 @@
-package Model.Cells.Logic
+package model.cells.logic
 
-import Model.Cells.*
+import model.cells.*
 import prologEngine.PrologEngine
-import PrologEngine.{*, given}
+import prologEngine.PrologEngine.{*, given}
 import prologEngine.PrologConverter.*
 import alice.tuprolog.{Struct, Term}
 

@@ -1,6 +1,7 @@
 package model.room
 
 import model.cells.*
+import model.cells.logic.CellExtension.*
 import model.room.Room.DummyCell
 import model.cells.logic.CellExtension.updateItem
 import exceptions.PlayerOutOfBoundsException

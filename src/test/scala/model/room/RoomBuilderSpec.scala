@@ -6,7 +6,7 @@ import model.room.RoomBuilder.*
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
-import Utils.TestUtils.*
+import utils.TestUtils.*
 
 class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

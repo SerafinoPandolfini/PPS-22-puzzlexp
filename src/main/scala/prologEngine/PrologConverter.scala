@@ -1,7 +1,8 @@
 package prologEngine
 
-import Model.Cells.{ButtonBlockCell, Cell}
-import Model.Room.Room
+import model.cells.ButtonBlockCell
+import model.cells.Cell
+import model.room.Room
 //import Engine.PrologEngine.{*, given}
 import alice.tuprolog.{Struct, Term, Theory}
 
