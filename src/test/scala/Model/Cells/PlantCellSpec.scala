@@ -4,6 +4,8 @@ import Model.TestUtils.{defaultPosition, genericDirection}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
+import Model.Cells.Extension.PowerUpExtension.*
+import Model.Cells.Extension.CellExtension.updateItem
 
 class PlantCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
   var plantCell: PlantCell = _
@@ -23,4 +25,33 @@ class PlantCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     plantCell.walkableState should be(WalkableType.Walkable(false))
     cutPlantCell.cut should be(true)
     cutPlantCell.walkableState should be(WalkableType.Walkable(true))
+  }
+
+  "a plant cell if it is not cut" should "not contain a box" in {
+    var cells: Set[Cell] = Set(plantCell)
+    plantCell.cut should be(false)
+    cells = plantCell.updateItem(cells, Item.Box, genericDirection)
+    plantCell = cells.head match
+      case cell: PlantCell => cell
+    plantCell.cellItem should be(Item.Empty)
+  }
+
+  "a plant cell if it's cut" should "contain a box" in {
+    var cells: Set[Cell] = Set(cutPlantCell)
+    cutPlantCell.cut should be(true)
+    cells = cutPlantCell.updateItem(cells, Item.Box, genericDirection)
+    cutPlantCell = cells.collectFirst { case cell: PlantCell => cell }.get
+    cutPlantCell.cellItem should be(Item.Box)
+  }
+
+  "only a axe" should "be able to cut a plant" in {
+    var cells: Set[Cell] = Set(plantCell)
+    cells = plantCell.usePowerUp(Item.Pick)
+    plantCell = cells.head match
+      case cell: PlantCell => cell
+    plantCell.cut should be(false)
+    cells = plantCell.usePowerUp(Item.Axe)
+    plantCell = cells.head match
+      case cell: PlantCell => cell
+    plantCell.cut should be(true)
   }
