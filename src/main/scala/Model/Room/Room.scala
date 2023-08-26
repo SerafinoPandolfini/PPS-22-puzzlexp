@@ -119,6 +119,8 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
       .map(row => row.mkString(" | "))
       .mkString("\n", "\n", "\n")
 
+  // def updateCell()
+
   /** map every [[Cell]] type to a two char string
     * @param cell
     *   the cell to map

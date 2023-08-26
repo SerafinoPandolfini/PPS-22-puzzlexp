@@ -5,6 +5,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import Model.Cells.Extension.CellExtension.updateItem
+import Model.Cells.Extension.PowerUpExtension.*
 
 class RockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -42,4 +43,16 @@ class RockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     cells = brokenRockCell.updateItem(cells, Item.Box, genericDirection)
     brokenRockCell = cells.collectFirst { case cell: RockCell => cell }.get
     brokenRockCell.cellItem should be(Item.Box)
+  }
+
+  "only a pick" should "be able to break a rock" in {
+    var cells: Set[Cell] = Set(rockCell)
+    cells = rockCell.usePowerUp(Item.Axe)
+    rockCell = cells.head match
+      case cell: RockCell => cell
+    rockCell.broken should be(false)
+    cells = rockCell.usePowerUp(Item.Pick)
+    rockCell = cells.head match
+      case cell: RockCell => cell
+    rockCell.broken should be(true)
   }

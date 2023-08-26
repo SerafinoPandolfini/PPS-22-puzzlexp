@@ -155,4 +155,5 @@ object CellExtension:
       case Item.Box =>
         if rCell.broken then Set(rCell.copy(cellItem = newItem))
         else Set(rCell.copy(cellItem = Item.Empty, broken = false))
-      case _ => Set.empty[Cell]
+      case Item.Pick => Set(rCell.copy(cellItem = Item.Empty, broken = true))
+      case _         => Set(rCell.copy(cellItem = Item.Empty))
