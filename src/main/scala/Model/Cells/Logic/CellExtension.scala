@@ -27,6 +27,17 @@ object CellExtension:
           )
         case _ => (Set.empty, cell.position)
 
+    /** Perform the necessary operations wen the player walks out of a cell
+      * @param cells
+      *   The set of all cells in the current room
+      * @return
+      *   A set of modified cells after the player walks out
+      */
+    def moveOut(cells: Set[Cell]): Set[Cell] =
+      cell match
+        case cell: CoveredHoleCell => Set(cell.copy(cover = false))
+        case _                     => Set.empty
+
     /** Updates the item in the cell and returns a set of modified cells based on the rules of the game.
       *
       * @param cells
