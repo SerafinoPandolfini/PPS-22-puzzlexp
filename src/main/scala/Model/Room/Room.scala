@@ -141,6 +141,7 @@ class Room(val name: String, private var _cells: Set[Cell], val links: Set[RoomL
       case _: TeleportCell            => "TL"
       case _: TeleportDestinationCell => "TD"
       case _: RockCell                => "RC"
+      case _: PlantCell               => "PC"
       case _                          => "??"
 
 object Room:

@@ -8,7 +8,6 @@ import Model.Cells.Extension.CellExtension.updateItem
 import Model.Cells.Extension.PowerUpExtension.*
 
 class RockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   var rockCell: RockCell = _
   var brokenRockCell: RockCell = _
 

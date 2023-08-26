@@ -11,6 +11,7 @@ import Model.Cells.{
   Direction,
   HoleCell,
   Item,
+  PlantCell,
   PressableState,
   PressurePlateBlockCell,
   PressurePlateBlockGroup,
@@ -49,6 +50,7 @@ object CellExtension:
         case cell: HoleCell                => updateHoleItem(cell, newItem)
         case cell: CoveredHoleCell         => updateCoveredHoleItem(cell, newItem)
         case cell: RockCell                => updateRockItem(cell, newItem)
+        case cell: PlantCell               => updatePlantItem(cell, newItem)
         case _: TeleportCell               => updateTeleportItem(cells, newItem, direction)
         case cell: ButtonCell =>
           newItem match
@@ -157,3 +159,18 @@ object CellExtension:
         else Set(rCell.copy(cellItem = Item.Empty, broken = false))
       case Item.Pick => Set(rCell.copy(cellItem = Item.Empty, broken = true))
       case _         => Set(rCell.copy(cellItem = Item.Empty))
+
+    /** update the plant cell
+      * @param rCell
+      *   the cell to be updated
+      * @param newItem
+      *   the item
+      * @return
+      *   the set of changed cells
+      */
+    private def updatePlantItem(pCell: PlantCell, newItem: Item): Set[Cell] = newItem match
+      case Item.Box =>
+        if pCell.cut then Set(pCell.copy(cellItem = newItem))
+        else Set(pCell.copy(cellItem = Item.Empty, cut = false))
+      case Item.Axe => Set(pCell.copy(cellItem = Item.Empty, cut = true))
+      case _        => Set(pCell.copy(cellItem = Item.Empty))
