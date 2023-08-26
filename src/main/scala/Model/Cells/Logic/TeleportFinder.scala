@@ -1,9 +1,9 @@
 package Model.Cells.Logic
 
 import Model.Cells.*
-import EngineProlog.PrologEngine
+import prologEngine.PrologEngine
 import PrologEngine.{*, given}
-import EngineProlog.PrologConverter.*
+import prologEngine.PrologConverter.*
 import alice.tuprolog.{Struct, Term}
 
 object TeleportFinder:
@@ -18,7 +18,7 @@ object TeleportFinder:
     */
   def findDestination(cells: Set[Cell]): Option[Position] =
     val set = cells.map(convert(_))
-    val engine = PrologEngine("../PrologTheory/search_teleport_destination.pl")
+    val engine = PrologEngine("../prologTheory/search_teleport_destination.pl")
     val input = Struct.of("search_teleport_destination", set.toList, termX, termY)
     val result = engine.solve(input, termX, termY)
     if result.isEmpty then Option.empty

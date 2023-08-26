@@ -1,12 +1,12 @@
-package EngineProlog
+package prologEngine
 
 import Model.Cells.{BasicCell, Cell, WallCell}
 import org.scalatest.{BeforeAndAfterEach, color}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
-import EngineProlog.PrologEngine.{*, given}
+import prologEngine.PrologEngine.{*, given}
 import alice.tuprolog.Struct
-import EngineProlog.PrologConverter.convert
+import prologEngine.PrologConverter.convert
 import Utils.TestUtils.*
 
 class PrologEngineSpec extends AnyFlatSpec with BeforeAndAfterEach:
@@ -16,7 +16,7 @@ class PrologEngineSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    engine = PrologEngine("/PrologTheory/cells_counter.pl")
+    engine = PrologEngine("/prologTheory/cells_counter.pl")
     cells = Set(
       WallCell(defaultPosition),
       BasicCell(position1_1)

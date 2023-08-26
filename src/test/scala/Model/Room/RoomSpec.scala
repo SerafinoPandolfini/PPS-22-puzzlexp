@@ -1,21 +1,6 @@
 package Model.Room
 
-import Model.Cells.{
-  BasicCell,
-  ButtonBlockCell,
-  ButtonCell,
-  Cell,
-  CliffCell,
-  Color,
-  CoveredHoleCell,
-  Direction,
-  Item,
-  Position,
-  PressableState,
-  TeleportCell,
-  TeleportDestinationCell,
-  WalkableType
-}
+import Model.Cells.*
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec

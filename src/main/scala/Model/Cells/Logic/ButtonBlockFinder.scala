@@ -1,9 +1,9 @@
 package Model.Cells.Logic
 
 import Model.Cells.*
-import EngineProlog.PrologEngine
+import prologEngine.PrologEngine
 import PrologEngine.{*, given}
-import EngineProlog.PrologConverter.*
+import prologEngine.PrologConverter.*
 import alice.tuprolog.{Struct, Term}
 
 object ButtonBlockFinder:
@@ -20,10 +20,9 @@ object ButtonBlockFinder:
     */
   def positionToRevert(cells: Set[Cell], color: Color): Set[Position] =
     val set = cells.map(convert(_, addColor))
-    val engine = PrologEngine("../PrologTheory/search_button_block.pl")
+    val engine = PrologEngine("../prologTheory/search_button_block.pl")
     val input = Struct.of("search_button_block", set.toList, termX, termY, color.toString.toLowerCase)
     val result = engine.solve(input, termX, termY)
-    println(extractPositions(result))
     extractPositions(result)
 
   /** Extract a set of positions as the result of the prolog theory

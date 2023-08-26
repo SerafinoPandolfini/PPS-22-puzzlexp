@@ -1,4 +1,4 @@
-package EngineProlog
+package prologEngine
 
 import Model.Cells.{ButtonBlockCell, Cell}
 import Model.Room.Room

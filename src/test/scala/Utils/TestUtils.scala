@@ -1,6 +1,7 @@
 package Utils
 
 import Model.Cells.{Direction, Position}
+import Model.Room.rules.*
 
 object TestUtils:
   val defaultPosition = (0, 0)
@@ -15,3 +16,4 @@ object TestUtils:
   val RoomWidth = 4
   val RoomHeight = 4
   val genericDirection: Direction = Direction.Up
+  val roomRules = RoomRules()
