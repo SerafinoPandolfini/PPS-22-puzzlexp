@@ -18,11 +18,9 @@ class ButtonBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "A button cell" should "be openable moving a box on the corresponding button" in {
     buttonBlockCell.walkableState should be(WalkableType.Walkable(false))
-    // buttonBlockCell = buttonBlockCell.openBlock()
-    var cells: Set[Cell] = Set(buttonBlockCell)
     // update with new item
     val buttonCell: ButtonCell = ButtonCell((0, 1), color = color)
-    cells = buttonCell.updateItem(Set(buttonCell, buttonBlockCell), Item.Box, genericDirection)
+    val cells = buttonCell.updateItem(Set(buttonCell, buttonBlockCell), Item.Box, genericDirection)
     buttonBlockCell = cells.collect { case c: ButtonBlockCell => c }.head
     buttonBlockCell.walkableState should be(WalkableType.Walkable(true))
   }
@@ -33,11 +31,9 @@ class ButtonBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "A button cell" should "be openable moving on the corresponding button" in {
     buttonBlockCell.walkableState should be(WalkableType.Walkable(false))
-    // buttonBlockCell = buttonBlockCell.openBlock()
-    var cells: Set[Cell] = Set(buttonBlockCell)
     // update with new item
     val buttonCell: ButtonCell = ButtonCell((0, 1), color = color)
-    cells = buttonCell.moveIn(Set(buttonCell, buttonBlockCell))._1
+    val (cells, _) = buttonCell.moveIn(Set(buttonCell, buttonBlockCell))
     buttonBlockCell = cells.collect { case c: ButtonBlockCell => c }.head
     buttonBlockCell.walkableState should be(WalkableType.Walkable(true))
   }

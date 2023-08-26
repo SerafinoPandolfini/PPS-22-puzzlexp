@@ -20,7 +20,7 @@ object ButtonBlockFinder:
     */
   def positionToRevert(cells: Set[Cell], color: Color): Set[Position] =
     val set = cells.map(convert(_, addColor))
-    val engine = PrologEngine("../PrologTheory/button_block.pl")
+    val engine = PrologEngine("../PrologTheory/search_button_block.pl")
     val input = Struct.of("search_button_block", set.toList, termX, termY, color.toString.toLowerCase)
     val result = engine.solve(input, termX, termY)
     println(extractPositions(result))

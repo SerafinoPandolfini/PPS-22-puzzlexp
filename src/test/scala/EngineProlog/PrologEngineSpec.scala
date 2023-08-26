@@ -16,7 +16,7 @@ class PrologEngineSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    engine = PrologEngine("/PrologTheory/cellsCounter.pl")
+    engine = PrologEngine("/PrologTheory/cells_counter.pl")
     cells = Set(
       WallCell(defaultPosition),
       BasicCell(position1_1)
@@ -29,7 +29,3 @@ class PrologEngineSpec extends AnyFlatSpec with BeforeAndAfterEach:
     val size: Int = result(term)
     size should be(cells.size)
   }
-
-
-
-

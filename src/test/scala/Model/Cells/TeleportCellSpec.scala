@@ -34,6 +34,6 @@ class TeleportCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
   }
 
   "A teleport cell" should "bring to its destination" in {
-    val update = teleportCell.moveIn(Set(teleportCell, teleportDestinationCell, BasicCell(position1_1)))
-    update._2 should be(teleportDestinationCell)
+    val (_, dest) = teleportCell.moveIn(Set(teleportCell, teleportDestinationCell, BasicCell(position1_1)))
+    dest should be(teleportDestinationCell.position)
   }

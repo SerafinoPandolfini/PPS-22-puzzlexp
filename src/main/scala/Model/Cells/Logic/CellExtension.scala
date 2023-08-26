@@ -14,17 +14,18 @@ object CellExtension:
       * @return
       *   the set of the modified cells in the room and the cell in which the player is now
       */
-    def moveIn(cells: Set[Cell]): (Set[Cell], Cell) =
+    def moveIn(cells: Set[Cell]): (Set[Cell], Position) =
       cell match
-        case cell: ButtonCell => (pressed(cells, cell.color) + cell.copy(pressableState = PressableState.Pressed), cell)
+        case cell: ButtonCell =>
+          (pressed(cells, cell.color) + cell.copy(pressableState = PressableState.Pressed), cell.position)
         case _: TeleportCell =>
           (
             Set.empty,
             findTeleportDestination(cells) match
-              case Some(value) => value
-              case None        => cell
+              case Some(value) => value.position
+              case None        => cell.position
           )
-        case _ => (Set.empty, cell)
+        case _ => (Set.empty, cell.position)
 
     /** Updates the item in the cell and returns a set of modified cells based on the rules of the game.
       *
