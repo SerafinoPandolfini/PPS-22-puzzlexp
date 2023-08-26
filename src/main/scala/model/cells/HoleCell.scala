@@ -7,6 +7,4 @@ package model.cells
   * @param filled
   *   if the hole is filled
   */
-case class HoleCell(position: Position, cellItem: Item = Item.Empty, filled: Boolean = false)
-    extends Cell
-    with Hole
+case class HoleCell(position: Position, cellItem: Item = Item.Empty, filled: Boolean = false) extends Cell with Hole

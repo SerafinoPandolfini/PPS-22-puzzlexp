@@ -77,7 +77,7 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
       "WL | WL | WL | WL | WL\n"
     largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     playerPosition = largerRoom.playerMove(playerPosition, Direction.Right).get
-    //the representation does not change
+    // the representation does not change
     largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     // move a box
     playerPosition = position1_2
@@ -108,6 +108,6 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
       "WL | WL | WL | WL | WL\n"
     largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     playerPosition = largerRoom.playerMove(playerPosition, Direction.Up).get
-    //the representation does not change
+    // the representation does not change
     largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
   }

@@ -28,7 +28,8 @@ abstract class Cell:
 /** Companion Object for [[Cell]] */
 object Cell:
   /** given for [[Cell]] that provide a way ot order them based on position
-   * 
-   * @return the ordering logic for [[Cell]]
-   */
+    *
+    * @return
+    *   the ordering logic for [[Cell]]
+    */
   given cellOrdering: Ordering[Cell] = Ordering.by(cell => (cell.position._2, cell.position._1))

@@ -5,7 +5,7 @@ enum PressableState:
   case Pressed
   case NotPressed
 
-  /** @return the opposite state*/
+  /** @return the opposite state */
   def toggle: PressableState = this match
-    case Pressed => NotPressed
+    case Pressed    => NotPressed
     case NotPressed => Pressed

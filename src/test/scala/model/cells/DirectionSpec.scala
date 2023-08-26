@@ -3,7 +3,7 @@ package model.cells
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 
-class DirectionSpec extends AnyFlatSpec :
+class DirectionSpec extends AnyFlatSpec:
 
   "A Direction right" should "have opposite left" in {
     Direction.Right.opposite should be(Direction.Left)
@@ -20,6 +20,3 @@ class DirectionSpec extends AnyFlatSpec :
   "A Direction down" should "have opposite up" in {
     Direction.Down.opposite should be(Direction.Up)
   }
-
-
-

@@ -64,6 +64,6 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
       .+(testCell)
       .!!
       .build
-    
+
     room1.cellsRepresentation() should be(room2.cellsRepresentation())
   }

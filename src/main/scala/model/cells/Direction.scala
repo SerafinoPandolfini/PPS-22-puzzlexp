@@ -9,7 +9,7 @@ enum Direction(val coordinates: Position):
 
   /** @return the opposite direction */
   def opposite: Direction = this match
-    case Left => Right
+    case Left  => Right
     case Right => Left
-    case Up => Down
-    case Down => Up
+    case Up    => Down
+    case Down  => Up
