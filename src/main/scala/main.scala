@@ -1,7 +1,7 @@
-import Model.GameMap.GameMap
-import Model.Room.{Room, RoomBuilder, RoomLink}
-import Model.Cells.{BasicCell, Direction, HoleCell, Item}
-import Serialization.{JsonDecoder, JsonEncoder}
+import model.gameMap.GameMap
+import model.room.{Room, RoomBuilder, RoomLink}
+import model.cells.{BasicCell, Direction, HoleCell, Item}
+import serialization.{JsonDecoder, JsonEncoder}
 
 @main
 def main(): Unit =
@@ -27,5 +27,5 @@ def main(): Unit =
   println("GAME-OVER :(")
 
 def start: GameMap =
-  val p = JsonDecoder.getAbsolutePath("src/main/resources/Json/mapProva.json")
+  val p = JsonDecoder.getAbsolutePath("src/main/resources/json/mapProva.json")
   JsonDecoder.mapDecoder(JsonDecoder.getJsonFromPath(p).toOption.get.hcursor).toOption.get
