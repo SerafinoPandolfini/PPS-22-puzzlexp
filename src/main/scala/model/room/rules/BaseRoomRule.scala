@@ -22,6 +22,5 @@ trait BaseRoomRule:
     val engine = PrologEngine("/prologTheory/" + theory + ".pl")
     val convertedCells: Term = cells.map(convertCellToProlog(_, property))
     val input = Struct.of(theory, Array(convertedCells) ++ terms)
-    println(input)
     if engine.solve(input) then violations
     else ruleMessage :: violations
