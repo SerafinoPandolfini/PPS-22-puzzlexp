@@ -1,8 +1,6 @@
-package model.cells.extension
-
+package model.cells.logic
 import model.cells.{Cell, Direction, Item, PlantCell, RockCell}
 import model.cells.logic.CellExtension.updateItem
-import model.room.ItemHolder
 
 object PowerUpExtension:
 
