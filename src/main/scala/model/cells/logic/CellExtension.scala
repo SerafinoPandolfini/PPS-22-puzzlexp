@@ -1,35 +1,7 @@
-<<<<<<<< HEAD:src/main/scala/model/cells/extension/CellExtension.scala
-package model.cells.extension
-
-import model.cells.WalkableType.Walkable
-import model.cells.{
-  BasicCell,
-  ButtonBlockCell,
-  ButtonCell,
-  Cell,
-  CliffCell,
-  CoveredHoleCell,
-  Direction,
-  HoleCell,
-  Item,
-  PlantCell,
-  PressableState,
-  PressurePlateBlockCell,
-  PressurePlateBlockGroup,
-  PressurePlateCell,
-  RockCell,
-  TeleportCell,
-  TeleportDestinationCell
-}
-import PositionExtension.+
-
-import scala.annotation.targetName
-========
 package model.cells.logic
 
 import model.cells.*
 import utils.PositionExtension.*
->>>>>>>> develop:src/main/scala/model/cells/logic/CellExtension.scala
 
 object CellExtension:
   /** extension for adding new methods for interacting with cellItems and the player

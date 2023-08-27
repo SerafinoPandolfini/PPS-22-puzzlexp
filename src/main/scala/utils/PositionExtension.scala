@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:src/main/scala/model/cells/extension/PositionExtension.scala
-package model.cells.extension
-========
 package utils
->>>>>>>> develop:src/main/scala/utils/PositionExtension.scala
 
 import model.cells.Position
 

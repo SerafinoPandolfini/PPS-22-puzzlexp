@@ -5,7 +5,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import model.cells.extension.PowerUpExtension.*
-import model.cells.extension.CellExtension.updateItem
+import model.cells.logic.CellExtension.updateItem
 
 class PlantCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
   var plantCell: PlantCell = _

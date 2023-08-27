@@ -4,7 +4,7 @@ import model.TestUtils.{defaultPosition, genericDirection}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
-import model.cells.extension.CellExtension.updateItem
+import model.cells.logic.CellExtension.updateItem
 import model.cells.extension.PowerUpExtension.*
 
 class RockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:

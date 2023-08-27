@@ -1,7 +1,7 @@
 package model.cells.extension
 
 import model.cells.{Cell, Direction, Item, PlantCell, RockCell}
-import model.cells.extension.CellExtension.updateItem
+import model.cells.logic.CellExtension.updateItem
 import model.room.ItemHolder
 
 object PowerUpExtension:
