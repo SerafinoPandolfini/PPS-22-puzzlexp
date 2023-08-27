@@ -1,6 +1,18 @@
 package model.room.rules
 
-import model.cells.{BasicCell, ButtonBlockCell, ButtonCell, Color, Item, PressurePlateBlockCell, PressurePlateBlockGroup, PressurePlateCell, TeleportCell, TeleportDestinationCell, WallCell}
+import model.cells.{
+  BasicCell,
+  ButtonBlockCell,
+  ButtonCell,
+  Color,
+  Item,
+  PressurePlateBlockCell,
+  PressurePlateBlockGroup,
+  PressurePlateCell,
+  TeleportCell,
+  TeleportDestinationCell,
+  WallCell
+}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
@@ -10,8 +22,9 @@ import utils.TestUtils.*
 class RoomRulesSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   var perfectRoom: Room = _
+  var flawedRoomBuilder: RoomBuilder = _
   var flawedRoom: Room = _
-  val ruleViolations = 4
+  val ruleViolations = 6
 
   override def beforeEach(): Unit =
     super.beforeEach()
@@ -31,16 +44,20 @@ class RoomRulesSpec extends AnyFlatSpec with BeforeAndAfterEach:
       )
       .standardize
       .build
-    flawedRoom = RoomBuilder()
+    flawedRoomBuilder = RoomBuilder()
       .name("flawed room")
       .addCell(WallCell(outOfBoundPosition))
       .addCell(BasicCell(defaultPosition))
       .addCell(PressurePlateCell(position1_1))
       .addCell(ButtonCell(position3_1, color = Color.Red))
       .addCell(TeleportCell(position2_1))
-      .build
+    flawedRoom = flawedRoomBuilder.build
 
   "A room" should "respect all room rules" in {
     roomRules.checkRoomValidity(flawedRoom).size should be(ruleViolations)
     roomRules.checkRoomValidity(perfectRoom) should be(List.empty[String])
+  }
+
+  "A room" should "have the option to show its eventual violations" in {
+    flawedRoomBuilder.requestValidation.build
   }

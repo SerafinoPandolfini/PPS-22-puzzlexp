@@ -19,7 +19,7 @@ class JsonMapEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
   var map: GameMap = _
 
   override def beforeEach(): Unit =
-    val room = new Room(
+    val room = Room(
       "name",
       Set(BasicCell(defaultPosition)),
       Set(RoomLink(defaultPosition, genericDirection, "room", position1_1))

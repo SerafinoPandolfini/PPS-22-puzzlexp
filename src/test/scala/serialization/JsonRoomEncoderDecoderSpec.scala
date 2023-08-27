@@ -18,7 +18,7 @@ class JsonRoomEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
   var room: Room = _
 
   override def beforeEach(): Unit =
-    room = new Room(
+    room = Room(
       "name",
       Set(BasicCell(defaultPosition)),
       Set(RoomLink(defaultPosition, genericDirection, "room", position1_1))
