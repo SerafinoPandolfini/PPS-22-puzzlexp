@@ -1,16 +1,6 @@
 package model.room.rules
 
-import model.cells.{
-  BasicCell,
-  ButtonBlockCell,
-  ButtonCell,
-  Item,
-  PressurePlateBlockCell,
-  PressurePlateBlockGroup,
-  PressurePlateCell,
-  WallCell,
-  Color
-}
+import model.cells.{BasicCell, ButtonBlockCell, ButtonCell, Color, Item, PressurePlateBlockCell, PressurePlateBlockGroup, PressurePlateCell, TeleportCell, TeleportDestinationCell, WallCell}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
@@ -21,7 +11,7 @@ class RoomRulesSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   var perfectRoom: Room = _
   var flawedRoom: Room = _
-  val ruleViolations = 3
+  val ruleViolations = 4
 
   override def beforeEach(): Unit =
     super.beforeEach()
@@ -34,7 +24,9 @@ class RoomRulesSpec extends AnyFlatSpec with BeforeAndAfterEach:
           PressurePlateCell(position1_1),
           PressurePlateBlockCell(position1_2, Item.Empty, PressurePlateBlockGroup.ObstacleWhenPressed),
           ButtonCell(position3_1, color = Color.Red),
-          ButtonBlockCell(position2_2, color = Color.Red)
+          ButtonBlockCell(position2_2, color = Color.Red),
+          TeleportCell(position2_1),
+          TeleportDestinationCell(position3_3)
         )
       )
       .standardize
@@ -45,6 +37,7 @@ class RoomRulesSpec extends AnyFlatSpec with BeforeAndAfterEach:
       .addCell(BasicCell(defaultPosition))
       .addCell(PressurePlateCell(position1_1))
       .addCell(ButtonCell(position3_1, color = Color.Red))
+      .addCell(TeleportCell(position2_1))
       .build
 
   "A room" should "respect all room rules" in {
