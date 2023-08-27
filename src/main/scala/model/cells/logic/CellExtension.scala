@@ -12,7 +12,7 @@ object CellExtension:
       * @param cells
       *   The set of all cells in the current room
       * @return
-      *   the set of the modified cells in the room and the cell in which the player is now
+      *   the set of the modified cells in the room and the [[Position]] of the cell in which the player is now
       */
     def moveIn(cells: Set[Cell]): (Set[Cell], Position) =
       cell match
@@ -153,7 +153,7 @@ object CellExtension:
 
     /** Find the [[TeleportDestinationCell]] in the provided [[Set]]
       * @param cells
-      *   the [[Set]] of the [[Cell]] in which [[TeleportDestinationCell]] should be found
+      *   the [[Set]][ [[Cell]] ] in which [[TeleportDestinationCell]] should be found
       * @return
       *   an [[Option]] of [[TeleportDestinationCell]]
       */
