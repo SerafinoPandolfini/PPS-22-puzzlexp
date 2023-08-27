@@ -1,4 +1,4 @@
 package model.room.rules
 
-class RoomRules extends BaseRule with CorrectCellsNumberRule
+class RoomRules extends BaseRoomRule with ValidPositionsRule with CorrectCellsNumberRule
 

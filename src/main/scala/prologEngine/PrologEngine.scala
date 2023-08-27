@@ -62,6 +62,10 @@ object PrologEngine:
   // class to term
   given Conversion[String, Term] = Term.createTerm(_)
   given Conversion[Seq[_], Term] = _.mkString("[", ",", "]")
+  given Conversion[Int, Term] = _.toString
+  given Conversion[Set[_], Term] = _.toList
+
+  //string to theory
   given Conversion[String, Theory] = theoryName =>
     Theory.parseWithStandardOperators(getClass.getResourceAsStream(theoryName))
 

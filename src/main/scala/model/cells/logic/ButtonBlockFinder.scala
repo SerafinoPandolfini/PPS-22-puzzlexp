@@ -3,8 +3,8 @@ package model.cells.logic
 import model.cells.*
 import prologEngine.PrologEngine
 import prologEngine.PrologEngine.{*, given}
-import prologEngine.PrologConverter.*
 import alice.tuprolog.{Struct, Term}
+import prologEngine.PrologConverter.*
 
 object ButtonBlockFinder:
   val termX = "X"

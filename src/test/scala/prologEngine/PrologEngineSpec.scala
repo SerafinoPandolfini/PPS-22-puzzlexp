@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
 import prologEngine.PrologEngine.{*, given}
 import alice.tuprolog.Struct
-import prologEngine.PrologConverter.convert
+import prologEngine.PrologConverter.*
 import utils.TestUtils.*
 
 class PrologEngineSpec extends AnyFlatSpec with BeforeAndAfterEach:

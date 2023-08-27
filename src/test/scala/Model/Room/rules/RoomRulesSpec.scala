@@ -10,8 +10,9 @@ import utils.TestUtils.*
 
 class RoomRulesSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
-  var perfectRoom: Room =_
-  var flawedRoom: Room =_
+  var perfectRoom: Room = _
+  var flawedRoom: Room = _
+  val ruleViolations = 2
 
   override def beforeEach(): Unit =
     super.beforeEach()
@@ -19,15 +20,12 @@ class RoomRulesSpec extends AnyFlatSpec with BeforeAndAfterEach:
       .name("perfect room")
       .standardize
       .build
-
     flawedRoom = RoomBuilder()
       .name("flawed room")
       .addCell(WallCell(outOfBoundPosition))
       .build
 
-
-  "A room" should "have all the required cells" in {
-    roomRules.isRoomValid(perfectRoom) should be(true)
-    roomRules.isRoomValid(flawedRoom) should be(false)
+  "A room" should "respect all room rules" in {
+    roomRules.checkRoomValidity(flawedRoom).size should be(ruleViolations)
+    roomRules.checkRoomValidity(perfectRoom) should be(List.empty[String])
   }
-
