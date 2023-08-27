@@ -1,4 +1,4 @@
-% non_repeating_cells_counter(@L, @MaxX, @MaxY) check if the cells have valid positions
+% non_repeating_cells_counter(@L, +MaxX, +MaxY) check if the cells have valid positions
 
 valid_positions([], _, _).
 valid_positions([c(_, X, Y)|T], MaxX, MaxY) :-

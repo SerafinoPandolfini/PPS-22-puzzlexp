@@ -4,15 +4,13 @@ import model.room.Room
 import model.room.rules.ValidPositionsRule.{RuleMessage, Rule}
 import prologEngine.PrologEngine.{*, given}
 import prologEngine.PrologConverter.*
+import CommonGroundTerm.{HeightLimit, WidthLimit}
 
 trait ValidPositionsRule extends BaseRoomRule:
 
   override def checkRoomValidity(room: Room): List[String] =
     val ruleViolations = super.checkRoomValidity(room)
-    val convertedCells = room.cells.map(convert(_))
-    val widthLimit = Room.DefaultWidth - 1
-    val heightLimit = Room.DefaultHeight - 1
-    checkRuleValidity(RuleMessage, ruleViolations, Rule, convertedCells, widthLimit, heightLimit)
+    checkRuleValidity(RuleMessage, ruleViolations, room.cells, noProperty, Rule, WidthLimit, HeightLimit)
 
 object ValidPositionsRule:
 

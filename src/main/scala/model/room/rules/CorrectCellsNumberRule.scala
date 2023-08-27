@@ -9,9 +9,8 @@ trait CorrectCellsNumberRule extends BaseRoomRule:
 
   override def checkRoomValidity(room: Room): List[String] =
     val ruleViolations = super.checkRoomValidity(room)
-    val convertedCells = room.cells.map(convert(_))
     val totalCells = Room.DefaultWidth * Room.DefaultHeight
-    checkRuleValidity(RuleMessage, ruleViolations, Rule, convertedCells, totalCells)
+    checkRuleValidity(RuleMessage, ruleViolations, room.cells, noProperty, Rule, totalCells)
 
 object CorrectCellsNumberRule:
 

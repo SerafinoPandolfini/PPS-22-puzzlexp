@@ -17,7 +17,7 @@ object TeleportFinder:
     *   an option representing the position of the teleport destination cell
     */
   def findDestination(cells: Set[Cell]): Option[Position] =
-    val set = cells.map(convert(_))
+    val set = cells.map(convertCellToProlog(_))
     val engine = PrologEngine("../prologTheory/search_teleport_destination.pl")
     val input = Struct.of("search_teleport_destination", set.toList, termX, termY)
     val result = engine.solve(input, termX, termY)

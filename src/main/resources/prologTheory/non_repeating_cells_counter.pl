@@ -1,4 +1,4 @@
-% non_repeating_cells_counter(@L, -N) return the number of cells that have different positions
+% non_repeating_cells_counter(@L, ?N) return the number of cells that have different positions
 
 %base case
 non_repeating_cells_counter([], 0).

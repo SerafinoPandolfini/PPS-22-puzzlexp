@@ -24,7 +24,7 @@ class PrologEngineSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "A prolog engine" should "solve the provided goal and return the proper result" in {
     val term = "N"
-    val input = Struct.of("cells_counter", cells.map(convert(_)).toList, term)
+    val input = Struct.of("cells_counter", cells.map(convertCellToProlog(_)).toList, term)
     val result = engine.solve(input, term)
     val size: Int = result(term)
     size should be(cells.size)

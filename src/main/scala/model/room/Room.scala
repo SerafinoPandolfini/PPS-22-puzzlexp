@@ -8,7 +8,6 @@ import exceptions.PlayerOutOfBoundsException
 import utils.PositionExtension.+
 import scala.util.{Failure, Success, Try}
 
-
 /** @param name
   *   the name of the room
   * @param _cells
@@ -184,7 +183,7 @@ object Room:
       case _: CoveredHoleCell         => "CH"
       case _: CliffCell               => "CL"
       case _: ButtonBlockCell         => "BB"
-      case _: ButtonBlock             => "BT"
+      case _: ButtonCell              => "BT"
       case _: PressurePlateBlockCell  => "PB"
       case _: PressurePlateCell       => "PP"
       case _: TeleportCell            => "TL"

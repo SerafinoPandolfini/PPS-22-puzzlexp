@@ -1,6 +1,7 @@
 package utils
 
 import model.cells.Direction
+import model.room.RoomLink
 import model.room.rules.RoomRules
 
 object TestUtils:
@@ -16,4 +17,5 @@ object TestUtils:
   val RoomWidth = 4
   val RoomHeight = 4
   val genericDirection: Direction = Direction.Up
+  val leftLink: RoomLink = RoomLink((0, 3), Direction.Left, "test2", (RoomWidth - 1, 3))
   val roomRules = RoomRules()

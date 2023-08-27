@@ -1,8 +1,7 @@
 package prologEngine
 
-import model.cells.ButtonBlockCell
-import model.cells.Cell
-import model.room.Room
+import model.cells.{BasicCell, ButtonBlockCell, ButtonCell, Cell, Colorable}
+import model.room.{Room, RoomLink}
 import alice.tuprolog.{Struct, Term, Theory}
 
 object PrologConverter:
@@ -16,16 +15,20 @@ object PrologConverter:
     * @return
     *   the prolog representation of the cell
     */
-  def convert(cell: Cell, properties: Cell => String = _ => ""): String =
+  def convertCellToProlog(cell: Cell, properties: Cell => String = noProperty): String =
     val cellString = Room.cellToString(cell, true).toLowerCase
     val positionString = s"${cell.position._1}$Separator${cell.position._2}"
     val propertiesString = properties(cell)
     s"c($cellString$Separator$positionString$propertiesString)"
 
+  def convertLinkToProlog(link: RoomLink): String = convertCellToProlog(BasicCell(link.from))
+
   /** aggiunge la proprietà color alle celle costruite
     */
   val addColor: Cell => String = cell =>
     Separator + (cell match
-      case c: ButtonBlockCell => c.color.toString.toLowerCase
+      case c: Cell with Colorable => c.color
       case _                  => "nil"
-    )
+    ).toString.toLowerCase
+    
+  val noProperty: Cell => String =  _ => ""
