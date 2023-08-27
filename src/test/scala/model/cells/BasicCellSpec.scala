@@ -4,7 +4,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.BeforeAndAfterEach
 import model.TestUtils.*
-import model.cells.extension.CellExtension.updateItem
+import model.cells.logic.CellExtension.updateItem
 
 class BasicCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

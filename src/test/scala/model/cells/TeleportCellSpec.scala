@@ -4,8 +4,8 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import model.TestUtils.*
-import model.cells.extension.CellExtension.updateItem
-import model.cells.extension.PositionExtension.+
+import model.cells.logic.CellExtension.updateItem
+import utils.PositionExtension.+
 
 class TeleportCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
