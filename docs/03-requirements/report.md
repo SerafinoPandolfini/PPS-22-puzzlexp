@@ -71,6 +71,14 @@ Il modello di dominio comprende le seguenti entità:
   - teleport destination (destinazione del teletrasporto)
     - si può uscire in ogni direzione
     - ha un comportamento analogo a basic cell
+  - rock (roccia)
+    -   la roccia è attraversabile solo se viene rotta
+    -   la roccia può essere sgretolata grazie al power-up piccone
+    -   è possibile posizionare una cassa sulla roccia sgretolata ma non intera
+  - plant (pianta)
+    -   la pianta è attraversabile solo se viene tagliata
+    -   la pianta può essere tagliata grazie al power-up ascia
+    -   è possibile posizionare una cassa solo se la pianta è tagliata
 - Ogni tesoro acquisito aumenta il punteggio del giocatore
 - Il gioco termina quando si completa la stanza conclusiva
 - una cella è considerata libera se
