@@ -29,6 +29,7 @@ object CellExtension:
         case cell: CoveredHoleCell         => updateCoveredHoleItem(cell, newItem)
         case cell: RockCell                => updateRockItem(cell, newItem)
         case cell: PlantCell               => updatePlantItem(cell, newItem)
+        case cell: DoorCell                => updateDoorItem(cell, newItem)
         case _: TeleportCell               => updateTeleportItem(cells, newItem, direction)
         case cell: ButtonCell =>
           newItem match
@@ -139,7 +140,7 @@ object CellExtension:
       case _         => Set(rCell.copy(cellItem = Item.Empty))
 
     /** update the plant cell
-      * @param rCell
+      * @param pCell
       *   the cell to be updated
       * @param newItem
       *   the item
@@ -152,3 +153,17 @@ object CellExtension:
         else Set(pCell.copy(cellItem = Item.Empty, cut = false))
       case Item.Axe => Set(pCell.copy(cellItem = Item.Empty, cut = true))
       case _        => Set(pCell.copy(cellItem = Item.Empty))
+
+    /** update the door cell
+      * @param dCell
+      *   the cell to be updated
+      * @param newItem
+      *   the item
+      * @return
+      *   the set of changed cells
+      */
+    private def updateDoorItem(dCell: DoorCell, newItem: Item): Set[Cell] = newItem match
+      case Item.Key =>
+        if !dCell.open then Set(dCell.copy(cellItem = Item.Empty, open = true))
+        else Set(dCell)
+      case _ => Set(dCell.copy(cellItem = Item.Empty))

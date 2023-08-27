@@ -11,5 +11,8 @@ enum Item:
   /** the axe is able to cut the plants */
   case Axe
 
+  /** the key is able to open a door */
+  case Key
+
   /** When there is nothing on the cell */
   case Empty
