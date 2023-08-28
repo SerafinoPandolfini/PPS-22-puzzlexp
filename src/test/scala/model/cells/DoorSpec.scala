@@ -3,7 +3,7 @@ package model.cells
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
-import model.TestUtils.{defaultPosition, genericDirection}
+import utils.TestUtils.{defaultPosition, genericDirection}
 import model.cells.logic.CellExtension.updateItem
 
 class DoorSpec extends AnyFlatSpec with BeforeAndAfterEach:
