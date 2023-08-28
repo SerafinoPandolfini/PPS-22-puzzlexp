@@ -1,6 +1,6 @@
 package model.cells
 
-import model.TestUtils.{defaultPosition, genericDirection}
+import utils.TestUtils.{defaultPosition, genericDirection}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
