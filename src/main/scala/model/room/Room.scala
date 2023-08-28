@@ -49,7 +49,6 @@ trait Room:
     */
   def cellsRepresentation(mapper: Cell => Option[String] = _ => Option.empty[String]): String
 
-
 object Room:
 
   def apply(
@@ -62,7 +61,7 @@ object Room:
     if validity then println(RoomRules().checkRoomValidity(room))
     room
 
-  //implementation for room
+  // implementation for room
   private class RoomImpl(val name: String, private var _cells: Set[Cell], val links: Set[RoomLink]) extends Room:
 
     /** getter for _cells
@@ -73,19 +72,19 @@ object Room:
     override def cells: Set[Cell] = _cells
 
     /** get a specific [[Cell]] from its position
-     *
-     * @param position
-     * the position of the cell
-     * @return
-     * an optional of the required cell
-     */
+      *
+      * @param position
+      *   the position of the cell
+      * @return
+      *   an optional of the required cell
+      */
     override def getCell(position: Position): Option[Cell] = _cells.find(_.position == position)
 
     /** update the cells of the room using an immutable var
-     *
-     * @param updateSet
-     * the set of item update to apply to the room
-     */
+      *
+      * @param updateSet
+      *   the set of item update to apply to the room
+      */
     override def updateCellsItems(updateSet: Set[(Position, Item, Direction)]): Unit =
       for
         u <- updateSet
@@ -142,6 +141,15 @@ object Room:
         else Some(currentPosition)
       }
 
+    /** Check the consequenses of the movement of the player updating the room cells
+      * @param previous
+      *   the [[Position]] of the cell from which the movement is made
+      * @param next
+      *   the [[Position]] of the cell to which the movement is made
+      * @return
+      *   the [[Position]] in which the player should be or a [[PlayerOutOfBoundsException]] if one of the input data is
+      *   not in the room
+      */
     override def checkMovementConsequences(previous: Position, next: Position): Try[Position] =
       getCell(previous) match
         case Some(v) =>
@@ -166,54 +174,53 @@ object Room:
         .map(row => row.mkString(" | "))
         .mkString("\n", "\n", "\n")
 
-
   /** the default width of a [[Room]]
-   */
+    */
   val DefaultWidth: Int = 25
 
   /** the default height of a [[Room]]
-   */
-  val DefaultHeight: Int = 12
+    */
+  val DefaultHeight: Int = 13
 
   /** a [[Cell]] provided to not make any update based on this
-   */
+    */
   val DummyCell: Cell = WallCell(0, 0)
 
   /** map the position of the [[Item.Box]]es and of the player
-   *
-   * @param playerPos
-   * th player position
-   * @return
-   * a set of optional string that are [[Option.empty]] when there is no player or box
-   * @note
-   * the cell under the player and box will not be shown
-   */
+    *
+    * @param playerPos
+    *   th player position
+    * @return
+    *   a set of optional string that are [[Option.empty]] when there is no player or box
+    * @note
+    *   the cell under the player and box will not be shown
+    */
   def showPlayerAndBoxes(playerPos: Position): Cell => Option[String] = (cell: Cell) =>
     cell match
       case c if c.position == playerPos => Some("pl")
-      case c if c.cellItem == Item.Box => Some("bx")
-      case c => None
+      case c if c.cellItem == Item.Box  => Some("bx")
+      case c                            => None
 
   /** map every [[Cell]] type to a two char string
-   *
-   * @param cell
-   * the cell to map
-   * @param showBasic
-   * if he need to map the [[BasicCell]] or not
-   * @return
-   * the mapped cell
-   */
+    *
+    * @param cell
+    *   the cell to map
+    * @param showBasic
+    *   if he need to map the [[BasicCell]] or not
+    * @return
+    *   the mapped cell
+    */
   def cellToString(cell: Cell, showBasic: Boolean = false): String =
     cell match
-      case _: BasicCell => if showBasic then "BS" else "  "
-      case _: WallCell => "WL"
-      case _: HoleCell => "HL"
-      case _: CoveredHoleCell => "CH"
-      case _: CliffCell => "CL"
-      case _: ButtonBlockCell => "BB"
-      case _: ButtonCell => "BT"
-      case _: PressurePlateBlockCell => "PB"
-      case _: PressurePlateCell => "PP"
-      case _: TeleportCell => "TL"
+      case _: BasicCell               => if showBasic then "BS" else "  "
+      case _: WallCell                => "WL"
+      case _: HoleCell                => "HL"
+      case _: CoveredHoleCell         => "CH"
+      case _: CliffCell               => "CL"
+      case _: ButtonBlockCell         => "BB"
+      case _: ButtonCell              => "BT"
+      case _: PressurePlateBlockCell  => "PB"
+      case _: PressurePlateCell       => "PP"
+      case _: TeleportCell            => "TL"
       case _: TeleportDestinationCell => "TD"
-      case _ => "??"
+      case _                          => "??"
