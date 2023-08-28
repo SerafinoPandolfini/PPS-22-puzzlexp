@@ -63,7 +63,7 @@ object JsonDecoder:
       name <- cursor.downField("name").as[String]
       cells <- cursor.downField("cells").as[Set[Cell]]
       links <- cursor.downField("links").as[Set[RoomLink]]
-    yield new Room(name, cells, links)
+    yield Room(name, cells, links)
   }
 
   /** parte map */

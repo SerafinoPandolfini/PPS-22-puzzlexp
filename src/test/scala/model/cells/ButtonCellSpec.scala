@@ -3,9 +3,10 @@ package model.cells
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
-import model.TestUtils.*
+import utils.TestUtils.*
 import Color.*
 import model.cells.logic.CellExtension.updateItem
+
 
 class ButtonCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

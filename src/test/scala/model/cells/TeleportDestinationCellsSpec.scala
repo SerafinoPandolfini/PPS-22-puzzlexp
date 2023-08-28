@@ -3,7 +3,7 @@ package model.cells
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
-import model.TestUtils.*
+import utils.TestUtils.*
 import model.cells.logic.CellExtension.updateItem
 
 class TeleportDestinationCellsSpec extends AnyFlatSpec with BeforeAndAfterEach:

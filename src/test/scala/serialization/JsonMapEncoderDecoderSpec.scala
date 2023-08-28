@@ -3,7 +3,7 @@ package serialization
 import model.cells.{BasicCell, Cell}
 import model.gameMap.*
 import model.room.*
-import model.TestUtils.*
+import utils.TestUtils.*
 import io.circe.parser.*
 import io.circe.syntax.*
 import io.circe.{Decoder, HCursor, Json}
@@ -12,13 +12,14 @@ import serialization.JsonEncoder.mapEncoder
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
+import utils.TestUtils.*
 
 class JsonMapEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   var map: GameMap = _
 
   override def beforeEach(): Unit =
-    val room = new Room(
+    val room = Room(
       "name",
       Set(BasicCell(defaultPosition)),
       Set(RoomLink(defaultPosition, genericDirection, "room", position1_1))

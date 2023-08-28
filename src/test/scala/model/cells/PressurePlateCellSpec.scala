@@ -1,6 +1,6 @@
 package model.cells
 
-import model.TestUtils.*
+import utils.TestUtils.*
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*

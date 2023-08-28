@@ -1,11 +1,12 @@
 package model.cells
 
-import model.TestUtils.*
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import Color.*
-import model.cells.logic.CellExtension.updateItem
+import utils.TestUtils.*
+import model.cells.logic.CellExtension.{updateItem, moveIn}
+
 
 class ButtonBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -16,17 +17,24 @@ class ButtonBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     super.beforeEach()
     buttonBlockCell = ButtonBlockCell(defaultPosition, color = color)
 
-  "A button cell" should "be openable pressing the corresponding button" in {
+  "A button cell" should "be openable moving a box on the corresponding button" in {
     buttonBlockCell.walkableState should be(WalkableType.Walkable(false))
-    // buttonBlockCell = buttonBlockCell.openBlock()
-    var cells: Set[Cell] = Set(buttonBlockCell)
     // update with new item
     val buttonCell: ButtonCell = ButtonCell((0, 1), color = color)
-    cells = buttonCell.updateItem(Set(buttonCell, buttonBlockCell), Item.Box, genericDirection)
+    val cells = buttonCell.updateItem(Set(buttonCell, buttonBlockCell), Item.Box, genericDirection)
     buttonBlockCell = cells.collect { case c: ButtonBlockCell => c }.head
     buttonBlockCell.walkableState should be(WalkableType.Walkable(true))
   }
 
   "A button cell" should "have a color" in {
     buttonBlockCell.color should be(Blue)
+  }
+
+  "A button cell" should "be openable moving on the corresponding button" in {
+    buttonBlockCell.walkableState should be(WalkableType.Walkable(false))
+    // update with new item
+    val buttonCell: ButtonCell = ButtonCell((0, 1), color = color)
+    val (cells, _) = buttonCell.moveIn(Set(buttonCell, buttonBlockCell))
+    buttonBlockCell = cells.collect { case c: ButtonBlockCell => c }.head
+    buttonBlockCell.walkableState should be(WalkableType.Walkable(true))
   }

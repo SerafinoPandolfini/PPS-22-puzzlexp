@@ -3,9 +3,10 @@ package model.cells
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.BeforeAndAfterEach
-import model.TestUtils.*
+
 import model.cells.logic.CellExtension.*
 import model.room.ItemHolder
+import utils.TestUtils.*
 
 class BasicCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
