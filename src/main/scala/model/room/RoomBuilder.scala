@@ -1,6 +1,7 @@
 package model.room
 
 import model.cells.{BasicCell, Cell, Item, Position, WallCell}
+import model.room.Room
 
 import scala.annotation.targetName
 
@@ -10,6 +11,7 @@ class RoomBuilder(val RoomWidth: Int = Room.DefaultWidth, val RoomHeight: Int = 
   private var name: String = ""
   private var cells: Set[Cell] = Set.empty[Cell]
   private var links: Set[RoomLink] = Set.empty[RoomLink]
+  private var validity = false
 
   // make sure there are no duplicate cells in the same position
   private def updateCells(c: Set[Cell]): Unit =
@@ -134,6 +136,14 @@ class RoomBuilder(val RoomWidth: Int = Room.DefaultWidth, val RoomHeight: Int = 
   @targetName("standardizeAlias")
   def !! : this.type = standardize
 
+  /** add valitation to the room
+    * @return
+    *   this
+    */
+  def requestValidation: this.type =
+    validity = true
+    this
+
   /** @return
     *   the room created by the builder
     * @note
@@ -141,4 +151,4 @@ class RoomBuilder(val RoomWidth: Int = Room.DefaultWidth, val RoomHeight: Int = 
     */
   def build: Room =
     if cells.isEmpty then standardize
-    new Room(name, cells, links)
+    Room(name, cells, links, validity)

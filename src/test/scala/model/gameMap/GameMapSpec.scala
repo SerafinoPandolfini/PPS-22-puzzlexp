@@ -7,7 +7,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.TryValues.*
-import model.TestUtils.*
+import utils.TestUtils.*
 
 class GameMapSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -45,7 +45,7 @@ class GameMapSpec extends AnyFlatSpec with BeforeAndAfterEach:
   "A map" should "retrieve the info to get in the next room" in {
     val pos2: Position = (1, 1)
     val name2: String = "room2"
-    val room2: Room = new Room(name2, Set.empty, Set(RoomLink(pos2, genericDirection, roomName, defaultPosition)))
+    val room2: Room = Room(name2, Set.empty, Set(RoomLink(pos2, genericDirection, roomName, defaultPosition)))
     map = new GameMap(mapName, Set(room, room2), roomName, defaultPosition)
     map.changeRoom(pos2, name2, genericDirection).isSuccess should be(true)
     map.changeRoom(pos2, name2, genericDirection).success.value should be(room, defaultPosition)
@@ -60,7 +60,7 @@ class GameMapSpec extends AnyFlatSpec with BeforeAndAfterEach:
     map.changeRoom(defaultPosition, roomName, genericDirection).isFailure should be(true)
     map.changeRoom(defaultPosition, roomName, genericDirection).failure.exception shouldBe a[LinkNotFoundException]
     // start room with the link but it has the wrong direction
-    room = new Room(roomName, Set.empty, Set(RoomLink(defaultPosition, genericDirection, wrongName, (1, 1))))
+    room = Room(roomName, Set.empty, Set(RoomLink(defaultPosition, genericDirection, wrongName, (1, 1))))
     map = new GameMap(mapName, Set(room), roomName, defaultPosition)
     map.changeRoom(defaultPosition, roomName, genericDirection.opposite).isFailure should be(true)
     map

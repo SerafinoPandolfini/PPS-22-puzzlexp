@@ -7,6 +7,37 @@ object CellExtension:
   /** extension for adding new methods for interacting with cellItems and the player
     */
   extension (cell: Cell)
+
+    /** Perform the necessary operations wen the player walks in a cell
+      * @param cells
+      *   The set of all cells in the current room
+      * @return
+      *   the set of the modified cells in the room and the [[Position]] of the cell in which the player is now
+      */
+    def moveIn(cells: Set[Cell]): (Set[Cell], Position) =
+      cell match
+        case cell: ButtonCell =>
+          (pressed(cells, cell.color) + cell.copy(pressableState = PressableState.Pressed), cell.position)
+        case _: TeleportCell =>
+          (
+            Set.empty,
+            findTeleportDestination(cells) match
+              case Some(value) => value.position
+              case None        => cell.position
+          )
+        case _ => (Set.empty, cell.position)
+
+    /** Perform the necessary operations wen the player walks out of a cell
+      * @param cells
+      *   The set of all cells in the current room
+      * @return
+      *   A set of modified cells after the player walks out
+      */
+    def moveOut(cells: Set[Cell]): Set[Cell] =
+      cell match
+        case cell: CoveredHoleCell => Set(cell.copy(cover = false))
+        case _                     => Set.empty
+
     /** Updates the item in the cell and returns a set of modified cells based on the rules of the game.
       *
       * @param cells
@@ -32,8 +63,9 @@ object CellExtension:
         case _: TeleportCell               => updateTeleportItem(cells, newItem, direction)
         case cell: ButtonCell =>
           newItem match
-            case Item.Box => pressed(cells) + cell.copy(cellItem = newItem, pressableState = PressableState.Pressed)
-            case _        => Set(cell.copy(cellItem = newItem))
+            case Item.Box =>
+              pressed(cells, cell.color) + cell.copy(cellItem = newItem, pressableState = PressableState.Pressed)
+            case _ => Set(cell.copy(cellItem = newItem))
         case cell: PressurePlateCell =>
           val pressableState = newItem match
             case Item.Box => PressableState.Pressed
@@ -47,16 +79,14 @@ object CellExtension:
     /** set he button pressable state to "Pressed" and the corresponding blocks
       * @param cells
       *   the set of the cells that may be changed
+      * @param color
+      *   the color of the button block cells that needs to change
       * @return
       *   the set of changed cells
       */
-    private def pressed(cells: Set[Cell]): Set[Cell] =
-      Set.from(
-        cells
-          .collect { case c: ButtonBlockCell => c }
-          .filter(c => c.color == cell.asInstanceOf[ButtonCell].color)
-          .map(c => c.copy(pressableState = PressableState.Pressed))
-      )
+    private def pressed(cells: Set[Cell], color: Color): Set[Cell] =
+      val pos = ButtonBlockFinder.positionToRevert(cells, color)
+      pos.map(p => ButtonBlockCell(p, color = color, PressableState.Pressed))
 
     /** update the plate pressable state and the corresponding blocks
       * @param cells
@@ -152,3 +182,14 @@ object CellExtension:
         else Set(pCell.copy(cellItem = Item.Empty, cut = false))
       case Item.Axe => Set(pCell.copy(cellItem = Item.Empty, cut = true))
       case _        => Set(pCell.copy(cellItem = Item.Empty))
+
+    /** Find the [[TeleportDestinationCell]] in the provided [[Set]]
+      * @param cells
+      *   the [[Set]][ [[Cell]] ] in which [[TeleportDestinationCell]] should be found
+      * @return
+      *   an [[Option]] of [[TeleportDestinationCell]]
+      */
+    private def findTeleportDestination(cells: Set[Cell]): Option[TeleportDestinationCell] =
+      TeleportFinder.findDestination(cells) match
+        case Some(value) => Option(TeleportDestinationCell((value._1, value._2)))
+        case None        => Option.empty

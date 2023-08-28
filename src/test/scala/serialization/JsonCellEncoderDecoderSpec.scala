@@ -1,7 +1,7 @@
 package serialization
 
 import model.cells.{BasicCell, Cell, ButtonCell, Color}
-import model.TestUtils.*
+import utils.TestUtils.*
 import io.circe.parser.*
 import io.circe.{Decoder, HCursor, Json}
 import io.circe.syntax.*
@@ -10,6 +10,7 @@ import serialization.JsonEncoder.cellEncoder
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
+import utils.TestUtils.*
 
 class JsonCellEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
