@@ -4,11 +4,13 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.BeforeAndAfterEach
 import model.TestUtils.*
-import model.cells.logic.CellExtension.updateItem
+import model.cells.logic.CellExtension.*
+import model.room.ItemHolder
 
 class BasicCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   var basicCell: BasicCell = _
+  var itemHolder: ItemHolder = _
 
   override def beforeEach(): Unit =
     super.beforeEach()
@@ -32,4 +34,14 @@ class BasicCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     // update with new item
     cells = basicCell.updateItem(Set(basicCell), Item.Box, genericDirection)
     cells.head.cellItem should be(Item.Box)
+  }
+
+  "A basic cell" should "be able to leave its item correctly" in {
+    basicCell =
+      basicCell.updateItem(Set(basicCell), Item.Key, genericDirection).collectFirst { case cell: BasicCell => cell }.get
+    basicCell.cellItem should be(Item.Key)
+    val (cells, itemHolder) = basicCell.gatherItem(basicCell, ItemHolder(List()))
+    basicCell = cells.collectFirst { case cell: BasicCell => cell }.get
+    basicCell.cellItem should be(Item.Empty)
+    itemHolder.itemOwned should be(List(Item.Key))
   }

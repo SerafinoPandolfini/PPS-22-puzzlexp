@@ -1,6 +1,7 @@
 package model.cells.logic
 
 import model.cells.*
+import model.room.ItemHolder
 import utils.PositionExtension.*
 
 object CellExtension:
@@ -44,6 +45,19 @@ object CellExtension:
             pressableState = pressableState
           )
         case _ => Set.empty[Cell]
+
+    /** Removes the item from the cell and adds it to the [[ItemHolder]].
+      *
+      * @param cellWithItem
+      *   The specific cell with the item
+      * @param itemHolder
+      *   the itemHolder
+      * @return
+      *   A set of modified cells without the item
+      */
+    def gatherItem(cellWithItem: Cell, itemHolder: ItemHolder): (Set[Cell], ItemHolder) = cellWithItem match
+      case c if c.cellItem != Item.Empty =>
+        (c.updateItem(Set(c), Item.Empty, Direction.Up), itemHolder.addItem(c.cellItem))
 
     /** set he button pressable state to "Pressed" and the corresponding blocks
       * @param cells
