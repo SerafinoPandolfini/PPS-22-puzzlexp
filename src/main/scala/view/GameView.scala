@@ -24,19 +24,21 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
   val mainPanel = createMainPanel()
   add(mainPanel)
   // tiles list
-  private var tiles: List[Tile] =
+  private var _tiles: List[Tile] =
     List.tabulate(numberOfCells)(_ => Tile(tilesPanel, DisplayValuesManager.CellSize.value))
   associateTiles(initialRoom)
 
   // key handling
   val keyHandler: KeyHandler = KeyHandler()
-  keyHandler.registerKeyAction(mainPanel, tiles)
+  keyHandler.registerKeyAction(mainPanel, _tiles)
 
   // GUI properties
   setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
   setResizable(false)
   setVisible(true)
   pack()
+
+  def tiles: List[Tile] = _tiles
 
   /** create the game main panel containing the tiles panel and the toolbar panel
     * @return
@@ -76,18 +78,18 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     * @return
     */
   def associateTiles(room: Room): Unit =
-    println(tiles.size)
+    println(_tiles.size)
     val cellsPaths = room.cells.toList.sorted.map(extractPath(_))
-    tiles.zip(cellsPaths).foreach { case (tile, imagePath) =>
+    _tiles.zip(cellsPaths).foreach { case (tile, imagePath) =>
       tile.groundImage(BasePath.concat(imagePath).concat(PNGPath))
     }
-    tiles.head.placeCharacter(ImageManager.CharacterRight.path)
-    tiles
+    _tiles.head.placeCharacter(ImageManager.CharacterRight.path)
+    _tiles
 
   def test(): Unit =
-    val tile = tiles.head
+    val tile = _tiles.head
     tile.groundImage(BasePath + "test" + PNGPath)
-    val tile2 = tiles.tail.head
+    val tile2 = _tiles.tail.head
     tile2.groundImage(BasePath + "test" + PNGPath)
 object GameView:
   val BasePath = "src/main/resources/img/"
