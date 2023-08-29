@@ -10,6 +10,7 @@ trait Tile:
   def TileLabel: JLabel
   def placeCharacter(direction: String): Unit
   def isCharacterHere: Boolean
+  def unplaceCharacter(): Unit
 
 object Tile:
   private class TileImpl(panel: JPanel, cellSize: Int) extends Tile:
@@ -31,5 +32,9 @@ object Tile:
       this.characterLabel.setIcon(new ImageIcon(path))
       this.bgLabel.add(characterLabel)
       this.characterInTheTile = true
+
+    override def unplaceCharacter(): Unit =
+      this.bgLabel.remove(characterLabel)
+      this.characterInTheTile = false
 
   def apply(panel: JPanel, cellSize: Int): Tile = TileImpl(panel: JPanel, cellSize: Int)
