@@ -1,5 +1,6 @@
 package view
 
+import model.room.{Room, RoomBuilder}
 import model.cells.Direction
 import utils.ImageManager
 import org.scalatest.BeforeAndAfterEach
@@ -13,15 +14,17 @@ import java.awt.Robot
 
 class GUITest extends AnyFlatSpec with BeforeAndAfterEach:
 
-  var game: Game = _
+  var game: GameView = _
   val timeSleep: Int = 1000
+  var room: Room = _
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    game = new Game
+    room = new RoomBuilder().build
+    game = new GameView(room, (0, 0))
 
   "Each event of key pressing" should "be associated to the right position of the character" in {
-    game.cells.head.placeCharacter(ImageManager.CharacterLeft.path)
+    game.tiles.head.placeCharacter(ImageManager.CharacterLeft.path)
     game.keyHandler.keyAction(KeyEvent.VK_D) should be(
       Some(KeyAction(ImageManager.CharacterRight.path))
     )
@@ -38,27 +41,28 @@ class GUITest extends AnyFlatSpec with BeforeAndAfterEach:
 
   "Each event of key pressing" should "move the charachter" in {
     val robot = new Robot()
-    println(game.cells.find(t => t.isCharacterHere).get)
-    game.cells.indexOf(game.cells.find(t => t.isCharacterHere).get) should be(26)
+    game.tiles.find(t => t.isCharacterHere).get.unplaceCharacter()
+    game.tiles(26).placeCharacter(ImageManager.CharacterDown.path)
+    game.tiles.indexOf(game.tiles.find(t => t.isCharacterHere).get) should be(26)
     robot.keyPress(KeyEvent.VK_D)
     robot.keyRelease(KeyEvent.VK_D)
     Thread.sleep(timeSleep)
-    println(game.cells.find(t => t.isCharacterHere).get)
-    game.cells.indexOf(game.cells.find(t => t.isCharacterHere).get) should be(27)
+    println(game.tiles.find(t => t.isCharacterHere).get)
+    game.tiles.indexOf(game.tiles.find(t => t.isCharacterHere).get) should be(27)
     robot.keyPress(KeyEvent.VK_W)
     robot.keyRelease(KeyEvent.VK_W)
     Thread.sleep(timeSleep)
-    println(game.cells.find(t => t.isCharacterHere).get)
-    game.cells.indexOf(game.cells.find(t => t.isCharacterHere).get) should be(2)
+    println(game.tiles.find(t => t.isCharacterHere).get)
+    game.tiles.indexOf(game.tiles.find(t => t.isCharacterHere).get) should be(2)
     robot.keyPress(KeyEvent.VK_A)
     robot.keyRelease(KeyEvent.VK_A)
     Thread.sleep(timeSleep)
-    println(game.cells.find(t => t.isCharacterHere).get)
-    game.cells.indexOf(game.cells.find(t => t.isCharacterHere).get) should be(1)
+    println(game.tiles.find(t => t.isCharacterHere).get)
+    game.tiles.indexOf(game.tiles.find(t => t.isCharacterHere).get) should be(1)
     robot.keyPress(KeyEvent.VK_S)
     robot.keyRelease(KeyEvent.VK_S)
     Thread.sleep(timeSleep)
-    println(game.cells.find(t => t.isCharacterHere).get)
-    game.cells.indexOf(game.cells.find(t => t.isCharacterHere).get) should be(26)
+    println(game.tiles.find(t => t.isCharacterHere).get)
+    game.tiles.indexOf(game.tiles.find(t => t.isCharacterHere).get) should be(26)
 
   }
