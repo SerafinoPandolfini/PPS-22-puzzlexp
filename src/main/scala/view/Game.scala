@@ -40,7 +40,7 @@ class Game extends JFrame:
   val cells: List[Tile] =
     List.tabulate(this.numberOfCells)(_ => Tile(this.panel, DisplayValuesManager.CellSize.value))
   this.cells.foreach(tile => tile.backgroundImage_(ImageManager.CaveFloorTile.path))
-  this.cells.head.placeCharacter(ImageManager.CharacterRight.path)
+  this.cells(26).placeCharacter(ImageManager.CharacterRight.path)
 
   val keyHandler: KeyHandler = KeyHandler()
   this.keyHandler.registerKeyAction(this.mainPanel, this.cells)

@@ -1,12 +1,13 @@
 package controller
 
 import model.cells.logic.PowerUpExtension
-import model.cells.{BasicCell, Cell, Direction, Item, Position}
+import model.cells.{Cell, Direction, DoorCell, Item, Position}
 import model.game.CurrentGame
 import model.gameMap.GameMap
 import model.room.{Room, RoomBuilder}
 import serialization.JsonDecoder
 import utils.PositionExtension.+
+import utils.KeyDirectionMapping.given
 
 import scala.util.{Failure, Success}
 
@@ -20,7 +21,7 @@ object ProvaController:
     * @return
     *   the [[Position]] in which the player is
     */
-  def movePlayer(direction: Direction): Position =
+  def movePlayer(direction: Int): Position =
     currentGame.currentRoom.playerMove(currentGame.currentPosition, direction) match
       case Some(_) =>
         currentGame.currentRoom.checkMovementConsequences(
@@ -28,7 +29,7 @@ object ProvaController:
           currentGame.currentPosition + direction.coordinates
         ) match
           case Success(value)     => currentGame.currentPosition = value
-          case Failure(exception) => print(exception)
+          case Failure(exception) => println(exception)
       case None => checkChangeRoom(direction)
     currentGame.currentPosition
 
@@ -42,4 +43,4 @@ object ProvaController:
         currentGame.currentRoom = room
         currentGame.currentPosition = pos
         currentGame.startPositionInRoom = pos
-      case Failure(exception) => print(exception)
+      case Failure(_) => () // it is not a link, just do nothing
