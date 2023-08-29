@@ -12,4 +12,4 @@ enum ImageManager(_path: String):
   /** @return
     *   the path of the image
     */
-  val path: String = _path
+  val path = _path

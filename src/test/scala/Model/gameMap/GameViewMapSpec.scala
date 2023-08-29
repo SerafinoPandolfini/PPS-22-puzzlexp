@@ -9,7 +9,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.TryValues.*
 import utils.TestUtils.*
 
-class GameMapSpec extends AnyFlatSpec with BeforeAndAfterEach:
+class GameViewMapSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   var map: GameMap = _
   val mapName = "mappa 1"

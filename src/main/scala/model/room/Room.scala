@@ -21,6 +21,17 @@ trait Room:
 
   def updateCells(cells: Set[Cell]): Unit
 
+  /** check if the cell admit the player to walk on it
+   *
+   * @param cell
+   * the cell in which the player wants to move
+   * @param dir
+   * the direction he is coming from
+   * @return
+   * if the cell is walkable or not
+   */
+  def isMovementValid(cell: Cell, dir: Direction): Boolean
+  
   /** @param currentPosition
     *   the player position
     * @param direction
@@ -97,17 +108,8 @@ object Room:
           case Some(c) => c
           case None    => cell
       )
-
-    /** check if the cell admit the player to walk on it
-      *
-      * @param cell
-      *   the cell in which the player wants to move
-      * @param dir
-      *   the direction he is coming from
-      * @return
-      *   if the cell is walkable or not
-      */
-    private def isMovementValid(cell: Cell, dir: Direction): Boolean = cell.walkableState match
+    
+    override def isMovementValid(cell: Cell, dir: Direction): Boolean = cell.walkableState match
       case WalkableType.Walkable(b)          => b
       case WalkableType.DirectionWalkable(p) => p(dir)
 

@@ -6,7 +6,7 @@ import java.awt.*
 import javax.swing.*
 
 trait Tile:
-  def backgroundImage_(path: String): Unit
+  def groundImage(path: String): Unit
   def TileLabel: JLabel
   def placeCharacter(direction: String): Unit
   def isCharacterHere: Boolean
@@ -18,7 +18,7 @@ object Tile:
     private var characterInTheTile: Boolean = false
     val characterLabel: JLabel = JLabel()
 
-    override def backgroundImage_(path: String): Unit =
+    override def groundImage(path: String): Unit =
       this.bgLabel.setPreferredSize(Dimension(cellSize, cellSize))
       this.bgLabel.setLayout(new BorderLayout())
       this.bgLabel.setIcon(new ImageIcon(path))
