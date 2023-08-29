@@ -9,37 +9,38 @@ import java.awt.event.{ActionEvent, ActionListener, KeyEvent}
 import javax.swing.border.Border
 
 class Game extends JFrame:
-  val numberOfCells: Int = DisplayValuesManager.ROWS.value * DisplayValuesManager.COLS.value
-  val panel = new JPanel(new GridLayout(DisplayValuesManager.ROWS.value, DisplayValuesManager.COLS.value))
+  // TODO: secondo me Game prende initial position e ha il metodo chargeRoom per caricare le stanze
+  val numberOfCells: Int = DisplayValuesManager.Rows.value * DisplayValuesManager.Cols.value
+  val panel = new JPanel(new GridLayout(DisplayValuesManager.Rows.value, DisplayValuesManager.Cols.value))
   val mainPanel = new JPanel(new BorderLayout())
   val toolbarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT))
   this.add(mainPanel)
-  this.toolbarPanel.setBackground(ColorManager.TOOLBAR_BACKGROUND.color)
+  this.toolbarPanel.setBackground(ColorManager.ToolbarBackground.color)
   this.toolbarPanel.setOpaque(true)
   this.toolbarPanel.setPreferredSize(
     new Dimension(
-      DisplayValuesManager.COLS.value * DisplayValuesManager.CELL_SIZE.value,
-      DisplayValuesManager.CELL_SIZE.value * DisplayValuesManager.TOOLBAR_HEIGHT.value
+      DisplayValuesManager.Cols.value * DisplayValuesManager.CellSize.value,
+      DisplayValuesManager.CellSize.value * DisplayValuesManager.ToolbarHeight.value
     )
   )
 
   val border: Border =
     BorderFactory.createLineBorder(
-      ColorManager.TOOLBAR_BORDER.color,
-      DisplayValuesManager.TOOLBAR_BORDER_THICKNESS.value
+      ColorManager.ToolbarBorder.color,
+      DisplayValuesManager.ToolbarBorderThickness.value
     )
   this.toolbarPanel.setBorder(this.border)
   val berryLabel: JLabel = new JLabel()
-  this.berryLabel.setIcon(new ImageIcon(ImageManager.BERRY.path))
+  this.berryLabel.setIcon(new ImageIcon(ImageManager.Berry.path))
   this.toolbarPanel.add(this.berryLabel)
 
   this.mainPanel.add(this.toolbarPanel, BorderLayout.NORTH)
   this.mainPanel.add(this.panel, BorderLayout.CENTER)
 
   val cells: List[Tile] =
-    List.tabulate(this.numberOfCells)(_ => Tile(this.panel, DisplayValuesManager.CELL_SIZE.value))
-  this.cells.foreach(tile => tile.backgroundImage_(ImageManager.CAVE_FLOOR_TILE.path))
-  this.cells.head.placeCharacter(ImageManager.CHARACTER_RIGHT.path)
+    List.tabulate(this.numberOfCells)(_ => Tile(this.panel, DisplayValuesManager.CellSize.value))
+  this.cells.foreach(tile => tile.backgroundImage_(ImageManager.CaveFloorTile.path))
+  this.cells.head.placeCharacter(ImageManager.CharacterRight.path)
 
   val keyHandler: KeyHandler = KeyHandler()
   this.keyHandler.registerKeyAction(this.mainPanel, this.cells)
