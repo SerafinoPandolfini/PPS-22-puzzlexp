@@ -9,42 +9,56 @@ import org.scalatest.matchers.should.Matchers.*
 import java.awt.event.KeyEvent
 import javax.swing.JPanel
 import scala.None
+import java.awt.Robot
 
 class GUITest extends AnyFlatSpec with BeforeAndAfterEach:
-  var tile: Tile = _
-  var keyHandler: KeyHandler = KeyHandler()
+
+  var game: Game = _
+  val timeSleep: Int = 1000
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    val cellSize: Int = 32
-    val panel: JPanel = JPanel()
-    tile = Tile(panel, cellSize)
-
-  "a tile" should "be able to place the character" in {
-    tile.isCharacterHere should be(false)
-    tile.placeCharacter(ImageManager.CharacterLeft.path)
-    tile.isCharacterHere should be(true)
-  }
+    game = new Game
 
   "Each event of key pressing" should "be associated to the right position of the character" in {
-    tile.placeCharacter(ImageManager.CharacterLeft.path)
-    keyHandler.keyAction(KeyEvent.VK_D) should be(
-      Some(KeyAction(KeyEvent.VK_D, ImageManager.CharacterRight.path, Direction.Right))
+    game.cells.head.placeCharacter(ImageManager.CharacterLeft.path)
+    game.keyHandler.keyAction(KeyEvent.VK_D) should be(
+      Some(KeyAction(ImageManager.CharacterRight.path))
     )
-    keyHandler.keyAction(KeyEvent.VK_A) should be(
-      Some(KeyAction(KeyEvent.VK_A, ImageManager.CharacterLeft.path, Direction.Left))
+    game.keyHandler.keyAction(KeyEvent.VK_A) should be(
+      Some(KeyAction(ImageManager.CharacterLeft.path))
     )
-    keyHandler.keyAction(KeyEvent.VK_S) should be(
-      Some(KeyAction(KeyEvent.VK_S, ImageManager.CharacterDown.path, Direction.Down))
+    game.keyHandler.keyAction(KeyEvent.VK_S) should be(
+      Some(KeyAction(ImageManager.CharacterDown.path))
     )
-    keyHandler.keyAction(KeyEvent.VK_W) should be(
-      Some(KeyAction(KeyEvent.VK_W, ImageManager.CharacterUp.path, Direction.Up))
+    game.keyHandler.keyAction(KeyEvent.VK_W) should be(
+      Some(KeyAction(ImageManager.CharacterUp.path))
     )
   }
 
-  "a tile" should "be able to unplace the character" in {
-    tile.placeCharacter(ImageManager.CharacterLeft.path)
-    tile.isCharacterHere should be(true)
-    tile.unplaceCharacter()
-    tile.isCharacterHere should be(false)
+  "Each event of key pressing" should "move the charachter" in {
+    val robot = new Robot()
+    println(game.cells.find(t => t.isCharacterHere).get)
+    game.cells.indexOf(game.cells.find(t => t.isCharacterHere).get) should be(26)
+    robot.keyPress(KeyEvent.VK_D)
+    robot.keyRelease(KeyEvent.VK_D)
+    Thread.sleep(timeSleep)
+    println(game.cells.find(t => t.isCharacterHere).get)
+    game.cells.indexOf(game.cells.find(t => t.isCharacterHere).get) should be(27)
+    robot.keyPress(KeyEvent.VK_W)
+    robot.keyRelease(KeyEvent.VK_W)
+    Thread.sleep(timeSleep)
+    println(game.cells.find(t => t.isCharacterHere).get)
+    game.cells.indexOf(game.cells.find(t => t.isCharacterHere).get) should be(2)
+    robot.keyPress(KeyEvent.VK_A)
+    robot.keyRelease(KeyEvent.VK_A)
+    Thread.sleep(timeSleep)
+    println(game.cells.find(t => t.isCharacterHere).get)
+    game.cells.indexOf(game.cells.find(t => t.isCharacterHere).get) should be(1)
+    robot.keyPress(KeyEvent.VK_S)
+    robot.keyRelease(KeyEvent.VK_S)
+    Thread.sleep(timeSleep)
+    println(game.cells.find(t => t.isCharacterHere).get)
+    game.cells.indexOf(game.cells.find(t => t.isCharacterHere).get) should be(26)
+
   }

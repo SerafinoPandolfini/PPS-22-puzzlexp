@@ -41,6 +41,15 @@ trait Room:
     */
   def playerMove(currentPosition: Position, direction: Direction): Option[Position]
 
+  /** Check the consequenses of the movement of the player updating the room cells
+    * @param previous
+    *   the [[Position]] of the cell from which the movement is made
+    * @param next
+    *   the [[Position]] of the cell to which the movement is made
+    * @return
+    *   the [[Position]] in which the player should be or a [[PlayerOutOfBoundsException]] if one of the input data is
+    *   not in the room
+    */
   def checkMovementConsequences(previous: Position, next: Position): Try[Position]
 
   /** check if the cell the player is standing on is deadly
@@ -143,15 +152,6 @@ object Room:
         else Some(currentPosition)
       }
 
-    /** Check the consequenses of the movement of the player updating the room cells
-      * @param previous
-      *   the [[Position]] of the cell from which the movement is made
-      * @param next
-      *   the [[Position]] of the cell to which the movement is made
-      * @return
-      *   the [[Position]] in which the player should be or a [[PlayerOutOfBoundsException]] if one of the input data is
-      *   not in the room
-      */
     override def checkMovementConsequences(previous: Position, next: Position): Try[Position] =
       getCell(previous) match
         case Some(v) =>
