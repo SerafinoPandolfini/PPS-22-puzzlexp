@@ -9,11 +9,8 @@ import javax.swing.{JComponent, JPanel, KeyStroke}
 import javax.swing.SwingUtilities
 import javax.swing.AbstractAction
 
-case class KeyAction(imagePath: String)
-
 trait KeyHandler:
   def registerKeyAction(mainPanel: JPanel, cells: List[Tile]): Unit
-  def keyAction(key: Int): Option[KeyAction]
 
 object KeyHandler:
   private class KeyHandlerImpl() extends KeyHandler:
@@ -25,40 +22,35 @@ object KeyHandler:
       KeyEvent.VK_S -> ImageManager.CharacterDown.path
     )
 
-    /*override def registerKeyAction(mainPanel: JPanel, cells: List[Tile]): Unit =
-      keyActions.foreach(key =>
-        mainPanel.registerKeyboardAction(
-          (_: ActionEvent) => {
-            cells.find(t => t.isCharacterHere).get.unplaceCharacter()
-            mainPanel.repaint()
-            val pos = ProvaController.movePlayer(key.keyCode)
-            cells(pos._1 + (pos._2 * DisplayValuesManager.Cols.value)).placeCharacter(key.imagePath)
-            mainPanel.revalidate()
-          },
-          KeyStroke.getKeyStroke(key.keyCode, 0),
-          JComponent.WHEN_IN_FOCUSED_WINDOW
-        )
-      )*/
     override def registerKeyAction(mainPanel: JPanel, tiles: List[Tile]): Unit =
       val actionMap = mainPanel.getActionMap
       val inputMap = mainPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
 
       keyImageMap.foreach { (keyCode, imagePath) =>
-        val action = new AbstractAction:
-          def actionPerformed(e: ActionEvent): Unit =
-            tiles.find(t => t.isCharacterHere).get.unplaceCharacter()
-            mainPanel.repaint()
-            println("entro")
-            val pos = ProvaController.movePlayer(keyCode)
-            tiles(pos._1 + (pos._2 * DisplayValuesManager.Cols.value)).placeCharacter(imagePath)
-            mainPanel.revalidate()
-
+        val action = createAction(keyCode, imagePath, tiles, mainPanel)
         val keyStroke = KeyStroke.getKeyStroke(keyCode, 0)
         val actionKey = s"keyAction_$keyCode"
         actionMap.put(actionKey, action)
         inputMap.put(keyStroke, actionKey)
       }
 
-    override def keyAction(key: Int): Option[KeyAction] = keyImageMap.get(key).map(view.KeyAction.apply)
+    private def createAction(
+        keyCode: Int,
+        imagePath: String,
+        tiles: List[Tile],
+        mainPanel: JPanel
+    ): AbstractAction = new AbstractAction {
+      override def actionPerformed(e: ActionEvent): Unit =
+        val characterTile = tiles.find(t => t.isCharacterHere).get
+        characterTile.unplaceCharacter()
+        mainPanel.repaint()
+
+        val pos = ProvaController.movePlayer(keyCode)
+        val newCharacterTileIndex = pos._1 + (pos._2 * DisplayValuesManager.Cols.value)
+        tiles(newCharacterTileIndex).placeCharacter(imagePath)
+
+        mainPanel.revalidate()
+
+    }
 
   def apply(): KeyHandler = KeyHandlerImpl()

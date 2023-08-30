@@ -23,46 +23,33 @@ class GUITest extends AnyFlatSpec with BeforeAndAfterEach:
     room = new RoomBuilder().build
     game = new GameView(room, (0, 0))
 
-  "Each event of key pressing" should "be associated to the right position of the character" in {
-    game.tiles.head.placeCharacter(ImageManager.CharacterLeft.path)
-    game.keyHandler.keyAction(KeyEvent.VK_D) should be(
-      Some(KeyAction(ImageManager.CharacterRight.path))
-    )
-    game.keyHandler.keyAction(KeyEvent.VK_A) should be(
-      Some(KeyAction(ImageManager.CharacterLeft.path))
-    )
-    game.keyHandler.keyAction(KeyEvent.VK_S) should be(
-      Some(KeyAction(ImageManager.CharacterDown.path))
-    )
-    game.keyHandler.keyAction(KeyEvent.VK_W) should be(
-      Some(KeyAction(ImageManager.CharacterUp.path))
-    )
-  }
+  "Each event of key pressing" should "move the character" in {
 
-  "Each event of key pressing" should "move the charachter" in {
-    val robot = new Robot()
-    game.tiles.find(t => t.isCharacterHere).get.unplaceCharacter()
-    game.tiles(26).placeCharacter(ImageManager.CharacterDown.path)
-    game.tiles.indexOf(game.tiles.find(t => t.isCharacterHere).get) should be(26)
-    robot.keyPress(KeyEvent.VK_D)
-    robot.keyRelease(KeyEvent.VK_D)
-    Thread.sleep(timeSleep)
-    println(game.tiles.find(t => t.isCharacterHere).get)
-    game.tiles.indexOf(game.tiles.find(t => t.isCharacterHere).get) should be(27)
-    robot.keyPress(KeyEvent.VK_W)
-    robot.keyRelease(KeyEvent.VK_W)
-    Thread.sleep(timeSleep)
-    println(game.tiles.find(t => t.isCharacterHere).get)
-    game.tiles.indexOf(game.tiles.find(t => t.isCharacterHere).get) should be(2)
-    robot.keyPress(KeyEvent.VK_A)
-    robot.keyRelease(KeyEvent.VK_A)
-    Thread.sleep(timeSleep)
-    println(game.tiles.find(t => t.isCharacterHere).get)
-    game.tiles.indexOf(game.tiles.find(t => t.isCharacterHere).get) should be(1)
-    robot.keyPress(KeyEvent.VK_S)
-    robot.keyRelease(KeyEvent.VK_S)
-    Thread.sleep(timeSleep)
-    println(game.tiles.find(t => t.isCharacterHere).get)
-    game.tiles.indexOf(game.tiles.find(t => t.isCharacterHere).get) should be(26)
+    val characterTile = game.tiles.find(t => t.isCharacterHere).get
+    val targetTile = game.tiles(26)
+    val expectedTileAfterD = game.tiles(27)
+    val expectedTileAfterW = game.tiles(2)
+    val expectedTileAfterA = game.tiles(1)
+    val expectedTileAfterS = game.tiles(26)
 
+    // Remove character from the initial tile and place it on the target tile
+    characterTile.unplaceCharacter()
+    targetTile.placeCharacter(ImageManager.CharacterDown.path)
+
+    // Simulate key events using the KeyHandler
+    game.mainPanel.getActionMap.get("keyAction_" + KeyEvent.VK_D).actionPerformed(null)
+    targetTile.isCharacterHere should be(false)
+    expectedTileAfterD.isCharacterHere should be(true)
+
+    game.mainPanel.getActionMap.get("keyAction_" + KeyEvent.VK_W).actionPerformed(null)
+    expectedTileAfterD.isCharacterHere should be(false)
+    expectedTileAfterW.isCharacterHere should be(true)
+
+    game.mainPanel.getActionMap.get("keyAction_" + KeyEvent.VK_A).actionPerformed(null)
+    expectedTileAfterW.isCharacterHere should be(false)
+    expectedTileAfterA.isCharacterHere should be(true)
+
+    game.mainPanel.getActionMap.get("keyAction_" + KeyEvent.VK_S).actionPerformed(null)
+    expectedTileAfterA.isCharacterHere should be(false)
+    expectedTileAfterS.isCharacterHere should be(true)
   }
