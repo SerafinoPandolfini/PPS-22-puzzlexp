@@ -2,6 +2,7 @@ package model.cells.logic
 
 import model.cells.TreasureCell
 import model.cells.TreasureSize.*
+import model.room.ItemHolder
 
 object TreasureExtension:
   /** constants that indicate the maximum items in Coin and Bag treasure */
@@ -19,3 +20,7 @@ object TreasureExtension:
       case Coin => cell.numberOfItems == MaxItemsInCoinTreasure
       case Bag  => cell.numberOfItems <= MaxItemsInBagTreasure
       case _    => true
+
+    def openTheTreasure(itemHolder: ItemHolder): (TreasureCell, ItemHolder) =
+      (cell.copy(open = true), itemHolder.addItems(cell.items))
+      // add scores

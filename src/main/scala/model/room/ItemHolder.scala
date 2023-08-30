@@ -6,8 +6,8 @@ case class ItemHolder(itemOwned: List[Item]):
   /** check if the item is present in the item holder */
   def isPresent(item: Item): Boolean = itemOwned.contains(item)
 
-  /** add an item */
-  def addItem(item: Item): ItemHolder = copy(itemOwned = itemOwned :+ item)
+  /** add items */
+  def addItems(items: List[Item]): ItemHolder = copy(itemOwned = itemOwned ::: items)
 
   /** remove an item */
   def removeItem(item: Item): ItemHolder = copy(itemOwned = for

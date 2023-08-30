@@ -89,7 +89,7 @@ object CellExtension:
       */
     def gatherItem(cellWithItem: Cell, itemHolder: ItemHolder): (Set[Cell], ItemHolder) = cellWithItem match
       case c if c.cellItem != Item.Empty =>
-        (c.updateItem(Set(c), Item.Empty, Direction.Up), itemHolder.addItem(c.cellItem))
+        (c.updateItem(Set(c), Item.Empty, Direction.Up), itemHolder.addItems(List(c.cellItem)))
 
     /** set he button pressable state to "Pressed" and the corresponding blocks
       * @param cells

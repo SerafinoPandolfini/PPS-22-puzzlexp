@@ -67,11 +67,13 @@ class TreasureSpec extends AnyFlatSpec with BeforeAndAfterEach:
     anotherCoinTreasure.checkItems should be(false)
   }
 
-  "The items" should "be gather in the item holder" in {}
+  "The items" should "be gather in the item holder" in {
+    itemHolder.itemOwned should be(List())
+    val (treasureUpdated, itemHolderUpdated) = treasure.openTheTreasure(itemHolder)
+    itemHolderUpdated.itemOwned should be(List(Item.Axe, Item.Pick))
+    treasureUpdated.open should be(true)
+  }
 
   "The money" should "increase the score counter" in {}
 
-  "An opened treasure" should "not have items, it is only walkable" in {
-    treasure.open should be(false)
-
-  }
+  "An opened treasure" should "not have items, it is only walkable" in {}
