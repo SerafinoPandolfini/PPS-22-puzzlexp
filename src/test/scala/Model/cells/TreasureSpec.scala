@@ -11,10 +11,12 @@ import utils.TestUtils.defaultPosition
 class TreasureSpec extends AnyFlatSpec with BeforeAndAfterEach:
   var treasure: TreasureCell = _
   var itemHolder: ItemHolder = _
+  var scoreCounter: ScoreCounter = _
 
   override def beforeEach(): Unit =
     super.beforeEach()
     itemHolder = ItemHolder(List())
+    scoreCounter = ScoreCounter()
     treasure = TreasureCell(
       defaultPosition,
       List(Item.Axe, Item.Pick),
@@ -69,11 +71,22 @@ class TreasureSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "The items" should "be gather in the item holder" in {
     itemHolder.itemOwned should be(List())
-    val (treasureUpdated, itemHolderUpdated) = treasure.openTheTreasure(itemHolder)
+    val (treasureUpdated, itemHolderUpdated, _) = treasure.openTheTreasure(itemHolder, scoreCounter)
     itemHolderUpdated.itemOwned should be(List(Item.Axe, Item.Pick))
     treasureUpdated.open should be(true)
   }
 
-  "The money" should "increase the score counter" in {}
+  "The money" should "increase the score counter" in {
+    scoreCounter.score should be(0)
+    val (_, _, scoreCounterUpdated) = treasure.openTheTreasure(itemHolder, scoreCounter)
+    scoreCounterUpdated.score should be(50)
+  }
 
-  "An opened treasure" should "not have items, it is only walkable" in {}
+  "An opened treasure" should "not have items, it is only walkable" in {
+    treasure.open should be(false)
+    treasure.walkableState should be(WalkableType.Walkable(true))
+    val (openedTreasure, _, _) = treasure.openTheTreasure(itemHolder, scoreCounter)
+    openedTreasure.open should be(true)
+    openedTreasure.walkableState should be(WalkableType.Walkable(true))
+    openedTreasure.items should be(List())
+  }

@@ -1,6 +1,6 @@
 package model.cells.logic
 
-import model.cells.TreasureCell
+import model.cells.{ScoreCounter, TreasureCell}
 import model.cells.TreasureSize.*
 import model.room.ItemHolder
 
@@ -21,6 +21,10 @@ object TreasureExtension:
       case Bag  => cell.numberOfItems <= MaxItemsInBagTreasure
       case _    => true
 
-    def openTheTreasure(itemHolder: ItemHolder): (TreasureCell, ItemHolder) =
-      (cell.copy(open = true), itemHolder.addItems(cell.items))
-      // add scores
+    /** The treasure is opened, the items are added to the [[ItemHolder]] and the [[ScoreCounter]] is increased */
+    def openTheTreasure(itemHolder: ItemHolder, scoreCounter: ScoreCounter): (TreasureCell, ItemHolder, ScoreCounter) =
+      (
+        cell.copy(open = true, items = List()),
+        itemHolder.addItems(cell.items),
+        scoreCounter.copy(score = cell.size.score)
+      )
