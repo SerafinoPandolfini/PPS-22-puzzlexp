@@ -3,14 +3,14 @@ package model.room.rules
 import model.room.Room
 import prologEngine.PrologEngine.{*, given}
 import prologEngine.PrologConverter.*
-import BorderCellsRule.{Rule, RuleMessage}
-import CommonGroundTerm.{HeightLimit, WidthLimit}
+import model.room.rules.BorderCellsRule.{Rule, RuleMessage}
+import model.room.rules.CommonGroundTerm.{HeightLimit, WidthLimit}
 
 trait BorderCellsRule extends BaseRoomRule:
 
   override def checkRoomValidity(room: Room): List[String] =
     val ruleViolations = super.checkRoomValidity(room)
-    val links = room.links.map(convertLinkToProlog(_))
+    val links = room.links.map(convertLinkToProlog)
     checkRuleValidity(RuleMessage, ruleViolations, room.cells, noProperty, Rule, WidthLimit, HeightLimit, links)
 
 object BorderCellsRule:

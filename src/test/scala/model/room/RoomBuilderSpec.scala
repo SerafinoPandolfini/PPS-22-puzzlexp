@@ -33,9 +33,9 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
     val room = RoomBuilder(RoomWidth, RoomHeight)
       .name(RoomName)
       .borderWalls() // the border of the cell is WL
-      .addLinks(RoomLink((position3_2), Direction.Left, "", defaultPosition)) // cell in (3, 2) becomes BasicCell
+      .addLinks(RoomLink(position3_2, Direction.Left, "", defaultPosition)) // cell in (3, 2) becomes BasicCell
       .wallRectangle(position1_1, 1, 1) // (1, 1) becomes wall
-      .addCells(Set(HoleCell((position2_2)), CoveredHoleCell((position1_2)))) // (2, 2) becomes HL, (1, 2) becomes CH
+      .addCells(Set(HoleCell(position2_2), CoveredHoleCell(position1_2))) // (2, 2) becomes HL, (1, 2) becomes CH
       .standardize
       .build
 
@@ -50,7 +50,7 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
   }
 
   "A room builder" should "have alias methods for creating a cell" in {
-    val testCell = HoleCell((position2_2))
+    val testCell = HoleCell(position2_2)
 
     val room1 = RoomBuilder(RoomWidth, RoomHeight)
       .borderWalls()

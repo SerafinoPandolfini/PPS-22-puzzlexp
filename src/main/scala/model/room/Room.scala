@@ -7,31 +7,56 @@ import model.cells.logic.CellExtension.updateItem
 import exceptions.PlayerOutOfBoundsException
 import utils.PositionExtension.+
 import scala.util.{Failure, Success, Try}
-import rules.RoomRules
+import model.room.rules.RoomRules
 
 trait Room:
-  val name: String
-  val links: Set[RoomLink]
 
+  /**
+   * 
+   * @return the room name
+   */
+  def name: String
+
+  /**
+   * 
+   * @return the [[RoomLink]]s of this room
+   */
+  def links: Set[RoomLink]
+
+  /** @return
+    *   the set of cell of the room
+    */
   def cells: Set[Cell]
 
+  /** get a specific [[Cell]] from its position
+    *
+    * @param position
+    *   the position of the cell
+    * @return
+    *   an optional of the required cell
+    */
   def getCell(position: Position): Option[Cell]
 
+  /** update the cells of the room
+    *
+    * @param updateSet
+    *   the set of item update to apply to the room
+    */
   def updateCellsItems(updateSet: Set[(Position, Item, Direction)]): Unit
 
   def updateCells(cells: Set[Cell]): Unit
 
   /** check if the cell admit the player to walk on it
-   *
-   * @param cell
-   * the cell in which the player wants to move
-   * @param dir
-   * the direction he is coming from
-   * @return
-   * if the cell is walkable or not
-   */
+    *
+    * @param cell
+    *   the cell in which the player wants to move
+    * @param dir
+    *   the direction he is coming from
+    * @return
+    *   if the cell is walkable or not
+    */
   def isMovementValid(cell: Cell, dir: Direction): Boolean
-  
+
   /** @param currentPosition
     *   the player position
     * @param direction
@@ -55,6 +80,7 @@ trait Room:
   /** check if the cell the player is standing on is deadly
     *
     * @param currentPosition
+    *   the [[Position]] of the player
     * @return
     *   if the cell is deadly or not or a PlayerOutOfBoundsException
     */
@@ -84,31 +110,14 @@ object Room:
   // implementation for room
   private class RoomImpl(val name: String, private var _cells: Set[Cell], val links: Set[RoomLink]) extends Room:
 
-    /** getter for _cells
-      *
-      * @return
-      *   the set of cell of the room
-      */
     override def cells: Set[Cell] = _cells
 
-    /** get a specific [[Cell]] from its position
-      *
-      * @param position
-      *   the position of the cell
-      * @return
-      *   an optional of the required cell
-      */
     override def getCell(position: Position): Option[Cell] = _cells.find(_.position == position)
 
-    /** update the cells of the room using an immutable var
-      *
-      * @param updateSet
-      *   the set of item update to apply to the room
-      */
     override def updateCellsItems(updateSet: Set[(Position, Item, Direction)]): Unit =
       for
-        u <- updateSet
-        updatedCells = getCell(u._1).getOrElse(DummyCell).updateItem(_cells, u._2, u._3)
+        (position, item, direction) <- updateSet
+        updatedCells = getCell(position).getOrElse(DummyCell).updateItem(_cells, item, direction)
       yield updateCells(updatedCells)
 
     override def updateCells(cells: Set[Cell]): Unit =
@@ -117,7 +126,7 @@ object Room:
           case Some(c) => c
           case None    => cell
       )
-    
+
     override def isMovementValid(cell: Cell, dir: Direction): Boolean = cell.walkableState match
       case WalkableType.Walkable(b)          => b
       case WalkableType.DirectionWalkable(p) => p(dir)
@@ -139,17 +148,17 @@ object Room:
           // get the 2nd cell in line from the player and check if it exist and is empty,
           // otherwise return the original player position without updating any item
           val nextCell = getCell(cell.position + direction.coordinates)
-          if nextCell.isEmpty || nextCell.get.cellItem != Item.Empty then return Some(position)
+          if nextCell.isEmpty || nextCell.get.cellItem != Item.Empty then return Option(position)
           // if the box is movable to the next cell handle the box movement
           if isMovementValid(nextCell.get, direction) then
             updateCellsItems(Set((cell.position, Item.Empty, direction), (nextCell.get.position, Item.Box, direction)))
-          Some(position)
-        case _ => Some(cell.position)
+          Option(position)
+        case _ => Option(cell.position)
 
     override def playerMove(currentPosition: Position, direction: Direction): Option[Position] =
       getCell(currentPosition + direction.coordinates).flatMap { optionalCell =>
         if isMovementValid(optionalCell, direction) then checkItemMovement(currentPosition, optionalCell, direction)
-        else Some(currentPosition)
+        else Option(currentPosition)
       }
 
     override def checkMovementConsequences(previous: Position, next: Position): Try[Position] =
@@ -186,7 +195,7 @@ object Room:
 
   /** a [[Cell]] provided to not make any update based on this
     */
-  val DummyCell: Cell = WallCell(0, 0)
+  val DummyCell: Cell = WallCell((0, 0))
 
   /** map the position of the [[Item.Box]]es and of the player
     *
@@ -199,9 +208,9 @@ object Room:
     */
   def showPlayerAndBoxes(playerPos: Position): Cell => Option[String] = (cell: Cell) =>
     cell match
-      case c if c.position == playerPos => Some("pl")
-      case c if c.cellItem == Item.Box  => Some("bx")
-      case c                            => None
+      case c if c.position == playerPos => Option("pl")
+      case c if c.cellItem == Item.Box  => Option("bx")
+      case _                            => None
 
   /** map every [[Cell]] type to a two char string
     *
