@@ -79,7 +79,18 @@ Il modello di dominio comprende le seguenti entità:
     -   la pianta è attraversabile solo se viene tagliata
     -   la pianta può essere tagliata grazie al power-up ascia
     -   è possibile posizionare una cassa solo se la pianta è tagliata
-- Ogni tesoro acquisito aumenta il punteggio del giocatore
+  - door (porta)
+    -   la porta è attraversabile solo se viene aperta
+    -   l'unico modo per aprire una porta è usare una chiave
+    -   il player non può richiudere la porta
+  - tresure (tesoro)
+    - il player è in grado di aprire un tesoro posizionandosi sopra di esso  
+    - un tesoro acquisito aumenta il punteggio del giocatore
+    - ci sono tre tipi di tesori:
+        -   coin (moneta) => 10 punti
+        -   bag (sacco) => 20 punti
+        -   trunk (baule) => 50 punti
+    - un sacco o un baule possono contenere degli item e il player li acquisirà al momento dell'apertura del tesoro
 - Il gioco termina quando si completa la stanza conclusiva
 - una cella è considerata libera se
   - non è una cella di tipo wall (o con un comportamento analogo)
@@ -96,7 +107,12 @@ Il modello di dominio comprende le seguenti entità:
 - Affidabilità: il sistema deve evitare crash ed essere stabile e affidabile 
 - Documentazione e supporto: il sistema deve essere ben documentato per permettere una facile modifica ed un facile riutilizzo futuri
 
-## Requisiti di implementazione
+## Tecnologie e metodi del processo di sviluppo
+- Scrum
+- Git
+- GitHub
+- sbt
+- Trello
 
 
 
