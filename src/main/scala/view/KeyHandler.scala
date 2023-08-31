@@ -1,16 +1,17 @@
 package view
 
-import controller.ProvaController
-import model.cells.Direction
+import controller.GameController
+import model.cells.{Direction, Position}
 import utils.{DisplayValuesManager, ImageManager}
 
 import java.awt.event.{ActionEvent, KeyEvent}
-import javax.swing.{JComponent, JPanel, KeyStroke}
-import javax.swing.SwingUtilities
-import javax.swing.AbstractAction
+import javax.swing.{AbstractAction, ImageIcon, JComponent, JPanel, KeyStroke, SwingUtilities}
+import scala.collection.immutable.ListMap
+import view.GameView.{BasePath, PNGPath}
+import view.MultiLayeredTile
 
 trait KeyHandler:
-  def registerKeyAction(mainPanel: JPanel, cells: List[Tile]): Unit
+  def registerKeyAction(mainPanel: JPanel, cells: ListMap[Position, MultiLayeredTile]): Unit
 
 object KeyHandler:
   private class KeyHandlerImpl() extends KeyHandler:
@@ -22,7 +23,7 @@ object KeyHandler:
       KeyEvent.VK_S -> ImageManager.CharacterDown.path
     )
 
-    override def registerKeyAction(mainPanel: JPanel, tiles: List[Tile]): Unit =
+    override def registerKeyAction(mainPanel: JPanel, tiles: ListMap[Position, MultiLayeredTile]): Unit =
       val actionMap = mainPanel.getActionMap
       val inputMap = mainPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
 
@@ -37,18 +38,17 @@ object KeyHandler:
     private def createAction(
         keyCode: Int,
         imagePath: String,
-        tiles: List[Tile],
+        tiles: ListMap[Position, MultiLayeredTile],
         mainPanel: JPanel
     ): AbstractAction = new AbstractAction {
       override def actionPerformed(e: ActionEvent): Unit =
-        val characterTile = tiles.find(t => t.isCharacterHere).get
-        characterTile.unplaceCharacter()
+        val characterTile = tiles.find(t => t._2.playerImage.isDefined).get
+        characterTile._2.playerImage = Option.empty
         mainPanel.repaint()
-
-        val pos = ProvaController.movePlayer(keyCode)
-        val newCharacterTileIndex = pos._1 + (pos._2 * DisplayValuesManager.Cols.value)
-        tiles(newCharacterTileIndex).placeCharacter(imagePath)
-
+        val pos = GameController.movePlayer(keyCode)
+        println(pos)
+        // val newCharacterTileIndex = pos._1 + (pos._2 * DisplayValuesManager.Cols.value)
+        tiles(pos).playerImage = Some(ImageIcon(imagePath).getImage)
         mainPanel.revalidate()
 
     }
