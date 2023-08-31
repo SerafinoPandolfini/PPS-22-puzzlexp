@@ -15,4 +15,4 @@ enum DisplayValuesManager(_value: Int):
   /** @return
     *   the value of the GUI parameter
     */
-  val value = _value
+  val value: Int = _value

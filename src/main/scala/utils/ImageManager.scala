@@ -1,8 +1,6 @@
 package utils
 
 enum ImageManager(_path: String):
-  case CaveFloorTile extends ImageManager("src/main/resources/img/caveFloor.png")
-  case CaveFloorTile2 extends ImageManager("src/main/resources/img/caveFloor2.png")
   case CharacterRight extends ImageManager("src/main/resources/img/HIKER_dx.png")
   case CharacterLeft extends ImageManager("src/main/resources/img/HIKER_sx.png")
   case CharacterUp extends ImageManager("src/main/resources/img/HIKER_up.png")
@@ -12,4 +10,4 @@ enum ImageManager(_path: String):
   /** @return
     *   the path of the image
     */
-  val path = _path
+  val path: String = _path

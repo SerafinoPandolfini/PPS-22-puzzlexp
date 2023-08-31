@@ -1,8 +1,10 @@
 package view
 
+import controller.GameController
+
 import java.awt.*
 import javax.swing.*
-import scala.collection.immutable.List
+import scala.collection.immutable.{List, ListMap}
 import utils.{ColorManager, DisplayValuesManager, ImageManager}
 
 import java.awt.event.{ActionEvent, ActionListener, KeyEvent}
@@ -10,47 +12,47 @@ import javax.swing.border.Border
 import model.room.*
 import model.cells.Cell.given
 import model.cells.{BasicCell, Position, WallCell}
+import model.gameMap.GameMap
+import serialization.{JsonDecoder, JsonEncoder}
 import view.GameView.{BasePath, PNGPath}
 import utils.PathExtractor.extractPath
 
-/** the game GUI
+/** the standard game GUI
   */
 class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
-  // TODO: secondo me Game prende initial position e ha il metodo chargeRoom per caricare le stanze
-  val numberOfCells = DisplayValuesManager.Rows.value * DisplayValuesManager.Cols.value
   // game interface
-  val tilesPanel = JPanel(GridLayout(DisplayValuesManager.Rows.value, DisplayValuesManager.Cols.value))
-  val toolbarPanel = createToolbarPanel()
-  val mainPanel = createMainPanel()
-  add(mainPanel)
-  // tiles list
-  private var _tiles: List[Tile] =
-    List.tabulate(numberOfCells)(_ => Tile(tilesPanel, DisplayValuesManager.CellSize.value))
-  associateTiles(initialRoom)
-
+  val tilesPanel: JPanel = JPanel(GridLayout(DisplayValuesManager.Rows.value, DisplayValuesManager.Cols.value))
+  val toolbarPanel: JPanel = createToolbarPanel()
+  val mainPanel: JPanel = createMainPanel()
   // key handling
   val keyHandler: KeyHandler = KeyHandler()
-  keyHandler.registerKeyAction(mainPanel, _tiles)
+  // tiles list
+  private var _tiles: ListMap[Position, MultiLayeredTile] =
+    (for
+      row <- 0 until DisplayValuesManager.Rows.value
+      col <- 0 until DisplayValuesManager.Cols.value
+      position = (col, row)
+    yield position -> createTile()).to(ListMap)
+  configureFrame()
 
-  // GUI properties
-  setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
-  setResizable(false)
-  setVisible(true)
-  pack()
-
-  def tiles: List[Tile] = _tiles
+  /** @return
+    *   the list of tiles shown
+    */
+  def tiles: ListMap[Position, MultiLayeredTile] = _tiles
 
   /** create the game main panel containing the tiles panel and the toolbar panel
+    *
     * @return
     *   the panel
     */
   private def createMainPanel(): JPanel =
-    val p = JPanel(BorderLayout())
-    p.add(toolbarPanel, BorderLayout.NORTH)
-    p.add(tilesPanel, BorderLayout.CENTER)
-    p
+    val main = JPanel(BorderLayout())
+    main.add(toolbarPanel, BorderLayout.NORTH)
+    main.add(tilesPanel, BorderLayout.CENTER)
+    main
 
   /** create the toolbar panel for the items collected and the player score
+    *
     * @return
     *   the panel
     */
@@ -74,32 +76,49 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     toolbarPanel.add(berryLabel)
     toolbarPanel
 
-  /** initialize the [[Tile]]s for
-    * @return
+  /** @return
+    *   a simple [[MultiLayeredTile]] with no images
     */
-  def associateTiles(room: Room): Unit =
-    println(_tiles.size)
-    val cellsPaths = room.cells.toList.sorted.map(extractPath(_))
-    _tiles.zip(cellsPaths).foreach { case (tile, imagePath) =>
-      tile.groundImage(BasePath.concat(imagePath).concat(PNGPath))
-    }
-    _tiles.head.placeCharacter(ImageManager.CharacterRight.path)
-    _tiles
+  private def createTile(): MultiLayeredTile =
+    val tile = MultiLayeredTile()
+    tile.setPreferredSize(Dimension(DisplayValuesManager.CellSize.value, DisplayValuesManager.CellSize.value))
+    tilesPanel.add(tile)
+    tile
 
-  def test(): Unit =
-    val tile = _tiles.head
-    tile.groundImage(BasePath + "test" + PNGPath)
-    val tile2 = _tiles.tail.head
-    tile2.groundImage(BasePath + "test" + PNGPath)
+  /** configure the base value for the view, give a first initialization for the [[MultiLayeredTile]] and show the
+    * [[JFrame]]
+    */
+  private def configureFrame(): Unit =
+    add(mainPanel)
+    keyHandler.registerKeyAction(mainPanel, _tiles)
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
+    associateTiles(initialRoom.cells.toList.sorted.map(extractPath))
+    updatePlayerImage(initialPos, ImageManager.CharacterRight.path)
+    setResizable(false)
+    setVisible(true)
+    pack()
+
+  /** update the tiles with the current player position
+    * @param position
+    *   the position of the player
+    * @param image
+    *   the image repsenting the player
+    */
+  def updatePlayerImage(position: Position, image: String): Unit =
+    val updatedTile = _tiles.get(position)
+    println(position)
+    updatedTile.get.playerImage = Option(ImageIcon(image).getImage)
+
+  /** associate the [[MultiLayeredTile]]s with their respective images
+    */
+  def associateTiles(paths: List[String]): Unit =
+    _tiles = _tiles.keys.zip(paths).foldLeft(_tiles) { case (tilesMap, ((x, y), imagePath)) =>
+      val updatedTile = tilesMap((x, y))
+      updatedTile.groundImage = Option(ImageIcon(BasePath concat imagePath concat PNGPath).getImage)
+      tilesMap.updated((x, y), updatedTile)
+    }
+
 object GameView:
   val BasePath = "src/main/resources/img/"
   val PNGPath = ".png"
 
-object GUI extends App:
-  val room = RoomBuilder().borderWalls().standardize.build
-  val room2 = RoomBuilder().borderWalls().addCell(BasicCell((0, 0))).standardize.addCell(WallCell(-1,-1)).build
-  val game: GameView = GameView(room, (0, 0))
-  println(room.cells.size)
-  println(room2.cells.size)
-  //game.associateTiles(room2)
-  //game.test()

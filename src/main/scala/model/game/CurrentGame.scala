@@ -6,8 +6,13 @@ import model.room.Room
 import serialization.JsonDecoder
 
 object CurrentGame:
-  val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/mapProva.json")
-  val gameMap: GameMap = JsonDecoder.mapDecoder(JsonDecoder.getJsonFromPath(p).toOption.get.hcursor).toOption.get
-  var currentRoom: Room = gameMap.getRoomFromName(gameMap.initialRoom).get
-  var currentPosition: Position = gameMap.initialPosition
-  var startPositionInRoom: Position = gameMap.initialPosition
+  private var _currentRoom: Room = _
+  private var _currentPosition: Position = _
+  private var _startPositionInRoom: Position = _
+
+  def currentRoom: Room = _currentRoom
+  def currentRoom_=(value: Room): Unit = _currentRoom = value
+  def currentPosition: Position = _currentPosition
+  def currentPosition_=(value: Position): Unit = _currentPosition = value
+  def startPositionInRoom: Position = _startPositionInRoom
+  def startPositionInRoom_=(value: Position): Unit = _startPositionInRoom = value

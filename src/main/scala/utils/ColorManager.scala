@@ -8,4 +8,4 @@ enum ColorManager(_color: Color):
   /** @return
     *   the color
     */
-  val color = _color
+  val color: Color = _color
