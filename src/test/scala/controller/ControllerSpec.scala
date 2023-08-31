@@ -21,8 +21,16 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
   "A controller" should "let the player move and change room" in {
     val room1 = GameController.currentGame.currentRoom
     GameController.movePlayer(KeyEvent.VK_S)
+    println(GameController.currentGame.currentRoom)
+    println(GameController.currentGame.currentPosition)
     GameController.movePlayer(KeyEvent.VK_S)
+    println(GameController.currentGame.currentRoom)
+    println(GameController.currentGame.currentPosition)
     GameController.movePlayer(KeyEvent.VK_A)
+    println(GameController.currentGame.currentRoom)
+    println(GameController.currentGame.currentPosition)
     GameController.movePlayer(KeyEvent.VK_A)
+    println(GameController.currentGame.currentRoom)
+    println(GameController.currentGame.currentPosition)
     GameController.currentGame.currentRoom should not be room1
   }
