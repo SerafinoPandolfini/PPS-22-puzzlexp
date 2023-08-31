@@ -34,3 +34,18 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
     println(GameController.currentGame.currentPosition)
     GameController.currentGame.currentRoom should not be room1
   }
+
+  "A controller" should "reset the room when the player change room" in {
+    val pos = GameController.currentGame.currentRoom.cells.find(c => c.cellItem == Item.Box).get.position
+    println(pos)
+    GameController.movePlayer(KeyEvent.VK_S)
+    GameController.movePlayer(KeyEvent.VK_S)
+    GameController.movePlayer(KeyEvent.VK_D)
+    val pos2 = GameController.currentGame.currentRoom.cells.find(c => c.cellItem == Item.Box).get.position
+    println(pos2)
+    pos should not be pos2
+    GameController.resetRoom()
+    val pos3 = GameController.currentGame.currentRoom.cells.find(c => c.cellItem == Item.Box).get.position
+    println(pos3)
+    pos should be(pos3)
+  }
