@@ -1,37 +1,56 @@
 package view
 
-import utils.ImageManager
+import controller.GameController
+import model.cells.{Direction, Position}
+import utils.{DisplayValuesManager, ImageManager}
 
 import java.awt.event.{ActionEvent, KeyEvent}
-import javax.swing.{JComponent, JPanel, KeyStroke}
-
-case class KeyAction(keyCode: Int, imagePath: String)
+import javax.swing.{AbstractAction, ImageIcon, JComponent, JPanel, KeyStroke, SwingUtilities}
+import scala.collection.immutable.ListMap
+import view.GameView.{BasePath, PNGPath}
+import view.MultiLayeredTile
 
 trait KeyHandler:
-  def registerKeyAction(mainPanel: JPanel, cells: List[Tile]): Unit
-  def keyAction(key: Int): Option[KeyAction]
+  def registerKeyAction(mainPanel: JPanel, cells: ListMap[Position, MultiLayeredTile]): Unit
 
 object KeyHandler:
   private class KeyHandlerImpl() extends KeyHandler:
 
-    val keyActions: List[KeyAction] = List(
-      KeyAction(KeyEvent.VK_A, ImageManager.CHARACTER_LEFT.path),
-      KeyAction(KeyEvent.VK_D, ImageManager.CHARACTER_RIGHT.path),
-      KeyAction(KeyEvent.VK_W, ImageManager.CHARACTER_UP.path),
-      KeyAction(KeyEvent.VK_S, ImageManager.CHARACTER_DOWN.path)
+    private val keyImageMap: Map[Int, String] = Map(
+      KeyEvent.VK_A -> ImageManager.CharacterLeft.path,
+      KeyEvent.VK_D -> ImageManager.CharacterRight.path,
+      KeyEvent.VK_W -> ImageManager.CharacterUp.path,
+      KeyEvent.VK_S -> ImageManager.CharacterDown.path
     )
 
-    override def registerKeyAction(mainPanel: JPanel, cells: List[Tile]): Unit =
-      keyActions.foreach(key =>
-        mainPanel.registerKeyboardAction(
-          (_: ActionEvent) => {
-            cells.head.placeCharacter(key.imagePath)
-          },
-          KeyStroke.getKeyStroke(key.keyCode, 0),
-          JComponent.WHEN_IN_FOCUSED_WINDOW
-        )
-      )
+    override def registerKeyAction(mainPanel: JPanel, tiles: ListMap[Position, MultiLayeredTile]): Unit =
+      val actionMap = mainPanel.getActionMap
+      val inputMap = mainPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
 
-    override def keyAction(key: Int): Option[KeyAction] = this.keyActions.find(_.keyCode == key)
+      keyImageMap.foreach { (keyCode, imagePath) =>
+        val action = createAction(keyCode, imagePath, tiles, mainPanel)
+        val keyStroke = KeyStroke.getKeyStroke(keyCode, 0)
+        val actionKey = s"keyAction_$keyCode"
+        actionMap.put(actionKey, action)
+        inputMap.put(keyStroke, actionKey)
+      }
+
+    private def createAction(
+        keyCode: Int,
+        imagePath: String,
+        tiles: ListMap[Position, MultiLayeredTile],
+        mainPanel: JPanel
+    ): AbstractAction = new AbstractAction {
+      override def actionPerformed(e: ActionEvent): Unit =
+        val characterTile = tiles.find(t => t._2.playerImage.isDefined).get
+        characterTile._2.playerImage = Option.empty
+        mainPanel.repaint()
+        val pos = GameController.movePlayer(keyCode)
+        println(pos)
+        // val newCharacterTileIndex = pos._1 + (pos._2 * DisplayValuesManager.Cols.value)
+        tiles(pos).playerImage = Some(ImageIcon(imagePath).getImage)
+        mainPanel.revalidate()
+
+    }
 
   def apply(): KeyHandler = KeyHandlerImpl()
