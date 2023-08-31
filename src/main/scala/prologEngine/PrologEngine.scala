@@ -18,7 +18,7 @@ case class PrologEngine(clauses: Theory*):
     goal =>
       new Iterable[SolveInfo] {
         override def iterator: Iterator[SolveInfo] = new Iterator[SolveInfo]:
-          var solution: Option[SolveInfo] = Some(engine.solve(goal))
+          var solution: Option[SolveInfo] = Option(engine.solve(goal))
 
           override def hasNext: Boolean = solution match
             case Some(value) => value.isSuccess || value.hasOpenAlternatives
@@ -28,7 +28,7 @@ case class PrologEngine(clauses: Theory*):
             val sol = solution match
               case Some(value) => value
               case None        => throw Exception()
-            solution = if (sol.hasOpenAlternatives) Some(engine.solveNext()) else None
+            solution = if (sol.hasOpenAlternatives) Option(engine.solveNext()) else None
             sol
       }.to(LazyList)
 

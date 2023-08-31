@@ -12,8 +12,7 @@ trait ButtonCellsRule extends BaseRoomRule:
     val ruleViolations = super.checkRoomValidity(room)
     val buttonViolations = Color.values
       .map(_.toString.toLowerCase)
-      .map(checkRuleValidity(RuleMessage, List.empty[String], room.cells, addColor, Rule, _))
-      .flatten
+      .flatMap(checkRuleValidity(RuleMessage, List.empty[String], room.cells, addColor, Rule, _))
       .toList
     ruleViolations ::: buttonViolations
 

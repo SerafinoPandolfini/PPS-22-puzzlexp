@@ -15,7 +15,7 @@ class RoomBuilder(val RoomWidth: Int = Room.DefaultWidth, val RoomHeight: Int = 
 
   // make sure there are no duplicate cells in the same position
   private def updateCells(c: Set[Cell]): Unit =
-    cells = cells.filter(cell => c.find(_.position == cell.position).isEmpty) ++ c
+    cells = cells.filter(cell => !c.exists(_.position == cell.position)) ++ c
 
   /** Add the room name
     *
@@ -38,8 +38,8 @@ class RoomBuilder(val RoomWidth: Int = Room.DefaultWidth, val RoomHeight: Int = 
   def addLinks(roomLinks: RoomLink*): this.type =
     roomLinks.foreach(l =>
       updateCells(Set(BasicCell(l.from, Item.Empty)))
-      links = links + l
     )
+    links = links ++ roomLinks
     this
 
   /** add a new cell to the room
