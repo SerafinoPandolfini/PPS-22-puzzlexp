@@ -58,6 +58,7 @@ object GameController:
   def checkChangeRoom(direction: Direction): Unit =
     currentGame.gameMap.changeRoom(currentGame.currentPosition, currentGame.currentRoom.name, direction) match
       case Success((room, pos)) =>
+        resetRoom()
         currentGame.currentRoom = room
         currentGame.currentPosition = pos
         currentGame.startPositionInRoom = pos
