@@ -35,7 +35,7 @@ Il modello di dominio comprende le seguenti entità:
 
 - Una mappa è composta da stanze
 - Possibilità di caricare la mappa da file
-- Ogni stanza ha la stessa dimensione (25x12)
+- Ogni stanza ha la stessa dimensione (25x13)
 - Ogni stanza è composta da celle
 - Ogni cella ha un interazione specifica
   - basic (base) 
