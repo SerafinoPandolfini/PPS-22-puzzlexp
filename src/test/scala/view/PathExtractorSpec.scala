@@ -1,6 +1,6 @@
 package view
 
-import model.cells.{BasicCell, Cell, CliffCell, HoleCell, WallCell, Item, Direction}
+import model.cells.{BasicCell, Cell, CliffCell, CoveredHoleCell, Direction, HoleCell, Item, WallCell, ButtonCell, Color}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
 import utils.PathExtractor.extractPath
@@ -13,7 +13,9 @@ class PathExtractorSpec extends AnyFlatSpec:
       (BasicCell(position1_1), "cell_BS_W"),
       (WallCell(position2_1), "cell_WL"),
       (HoleCell(position1_2), "cell_HL_W_D"),
-      (CliffCell(position2_2, Item.Empty, Direction.Left), "cell_CL_LEFT")
+      (CliffCell(position2_2, Item.Empty, Direction.Left), "cell_CL_LEFT"),
+      (CoveredHoleCell(position3_2), "cell_CH_W_C"),
+      (ButtonCell(position3_1, color = Color.Red), "cell_BT_W_RED")
     )
     cellsWithPaths.foreach((c, s) => extractPath(c) should be(s))
   }

@@ -47,18 +47,19 @@
 3
 ]
 },
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-11
-],
-"cellItem" : {
-"Empty" : {
+  {
+    "cellType" : "HoleCell",
+    "position" : [
+      18,
+      11
+    ],
+    "cellItem" : {
+      "Empty" : {
 
-}
-}
-},
+      }
+    },
+    "filled" : false
+  },
 {
 "cellType" : "BasicCell",
 "position" : [
@@ -66,9 +67,9 @@
 9
 ],
 "cellItem" : {
-"Empty" : {
+  "Box" : {
 
-}
+  }
 }
 },
 {
@@ -78,9 +79,9 @@
 7
 ],
 "cellItem" : {
-"Empty" : {
+  "Box" : {
 
-}
+  }
 }
 },
 {
@@ -193,18 +194,20 @@
 2
 ]
 },
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-3
-],
-"cellItem" : {
-"Empty" : {
+  {
+    "cellType" : "CoveredHoleCell",
+    "position" : [
+      17,
+      3
+    ],
+    "cellItem" : {
+      "Empty" : {
 
-}
-}
-},
+      }
+    },
+    "cover" : true,
+    "filled" : false
+  },
 {
 "cellType" : "BasicCell",
 "position" : [
@@ -241,30 +244,50 @@
 }
 }
 },
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-8
-],
-"cellItem" : {
-"Empty" : {
+  {
+    "cellType" : "PressurePlateBlockCell",
+    "position" : [
+      11,
+      8
+    ],
+    "cellItem" : {
+      "Empty" : {
 
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-15,
-10
-],
-"cellItem" : {
-"Empty" : {
+      }
+    },
+    "activeState" : {
+      "ObstacleWhenNotPressed" : {
 
-}
-}
-},
+      }
+    },
+    "pressableState" : {
+      "NotPressed" : {
+
+      }
+    }
+  },
+  {
+    "cellType" : "PressurePlateBlockCell",
+    "position" : [
+      15,
+      10
+    ],
+    "cellItem" : {
+      "Empty" : {
+
+      }
+    },
+    "activeState" : {
+      "ObstacleWhenPressed" : {
+
+      }
+    },
+    "pressableState" : {
+      "NotPressed" : {
+
+      }
+    }
+  },
 {
 "cellType" : "BasicCell",
 "position" : [
@@ -301,18 +324,28 @@
 }
 }
 },
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
-6
-],
-"cellItem" : {
-"Empty" : {
+  {
+    "cellType" : "PressurePlateBlockCell",
+    "position" : [
+      21,
+      6
+    ],
+    "cellItem" : {
+      "Empty" : {
 
-}
-}
-},
+      }
+    },
+    "activeState" : {
+      "ObstacleWhenPressed" : {
+
+      }
+    },
+    "pressableState" : {
+      "NotPressed" : {
+
+      }
+    }
+  },
 {
 "cellType" : "BasicCell",
 "position" : [
@@ -337,18 +370,23 @@
 }
 }
 },
-{
-"cellType" : "BasicCell",
-"position" : [
-15,
-3
-],
-"cellItem" : {
-"Empty" : {
+  {
+    "cellType" : "PressurePlateCell",
+    "position" : [
+      15,
+      3
+    ],
+    "cellItem" : {
+      "Empty" : {
 
-}
-}
-},
+      }
+    },
+    "pressableState" : {
+      "NotPressed" : {
+
+      }
+    }
+  },
 {
 "cellType" : "BasicCell",
 "position" : [
@@ -362,7 +400,7 @@
 }
 },
 {
-"cellType" : "BasicCell",
+"cellType" : "TeleportDestinationCell",
 "position" : [
 17,
 7
@@ -594,7 +632,7 @@
 }
 },
 {
-"cellType" : "BasicCell",
+"cellType" : "TeleportCell",
 "position" : [
 7,
 4
@@ -650,30 +688,50 @@
 }
 }
 },
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-5
-],
-"cellItem" : {
-"Empty" : {
+  {
+    "cellType" : "ButtonBlockCell",
+    "position" : [
+      17,
+      5
+    ],
+    "cellItem" : {
+      "Empty" : {
 
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-16,
-9
-],
-"cellItem" : {
-"Empty" : {
+      }
+    },
+    "color" : {
+      "Red" : {
 
-}
-}
-},
+      }
+    },
+    "pressableState" : {
+      "NotPressed" : {
+
+      }
+    }
+  },
+  {
+    "cellType" : "ButtonBlockCell",
+    "position" : [
+      16,
+      9
+    ],
+    "cellItem" : {
+      "Empty" : {
+
+      }
+    },
+    "color" : {
+      "Blue" : {
+
+      }
+    },
+    "pressableState" : {
+      "NotPressed" : {
+
+      }
+    }
+  },
 {
 "cellType" : "BasicCell",
 "position" : [
@@ -686,30 +744,50 @@
 }
 }
 },
-{
-"cellType" : "BasicCell",
-"position" : [
-16,
-5
-],
-"cellItem" : {
-"Empty" : {
+  {
+    "cellType" : "ButtonCell",
+    "position" : [
+      16,
+      5
+    ],
+    "cellItem" : {
+      "Empty" : {
 
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-14,
-10
-],
-"cellItem" : {
-"Empty" : {
+      }
+    },
+    "color" : {
+      "Red" : {
 
-}
-}
-},
+      }
+    },
+    "pressableState" : {
+      "NotPressed" : {
+
+      }
+    }
+  },
+  {
+    "cellType" : "ButtonCell",
+    "position" : [
+      14,
+      10
+    ],
+    "cellItem" : {
+      "Empty" : {
+
+      }
+    },
+    "color" : {
+      "Blue" : {
+
+      }
+    },
+    "pressableState" : {
+      "NotPressed" : {
+
+      }
+    }
+  },
 {
 "cellType" : "BasicCell",
 "position" : [
