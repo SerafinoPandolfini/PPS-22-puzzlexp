@@ -39,18 +39,22 @@ class GUITest extends AnyFlatSpec with BeforeAndAfterEach:
     // Simulate key events using the KeyHandler
     game.mainPanel.getActionMap.get("keyAction_" + KeyEvent.VK_D).actionPerformed(null)
     characterTile._2.playerImage.isDefined should be(false)
+    println(game.tiles.find(t => t._2.playerImage.isDefined).get._1)
     expectedTileAfterD.playerImage.isDefined should be(true)
 
     game.mainPanel.getActionMap.get("keyAction_" + KeyEvent.VK_S).actionPerformed(null)
-    expectedTileAfterA.playerImage.isDefined should be(false)
+    expectedTileAfterD.playerImage.isDefined should be(false)
+    println(game.tiles.find(t => t._2.playerImage.isDefined).get._1)
     expectedTileAfterS.playerImage.isDefined should be(true)
 
     game.mainPanel.getActionMap.get("keyAction_" + KeyEvent.VK_A).actionPerformed(null)
-    expectedTileAfterW.playerImage.isDefined should be(false)
+    expectedTileAfterS.playerImage.isDefined should be(false)
+    println(game.tiles.find(t => t._2.playerImage.isDefined).get._1)
     expectedTileAfterA.playerImage.isDefined should be(true)
 
     game.mainPanel.getActionMap.get("keyAction_" + KeyEvent.VK_W).actionPerformed(null)
-    expectedTileAfterD.playerImage.isDefined should be(false)
+    expectedTileAfterA.playerImage.isDefined should be(false)
+    println(game.tiles.find(t => t._2.playerImage.isDefined).get._1)
     expectedTileAfterW.playerImage.isDefined should be(true)
 
   }
