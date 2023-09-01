@@ -94,8 +94,7 @@ object GameController:
     *   the new [[Room]]
     */
   private def updateCurrents(newRoom: Room): Unit =
-    currentGame.currentRoom =
-      RoomBuilder().name(newRoom.name).addLinks(newRoom.links.head).addCells(newRoom.cells).build
+    currentGame.currentRoom = Room(newRoom.name, newRoom.cells, newRoom.links)
     currentGame.currentPosition = currentGame.startPositionInRoom
     val newRooms = currentGame.gameMap.rooms
       - currentGame.gameMap.getRoomFromName(currentGame.currentRoom.name).get
