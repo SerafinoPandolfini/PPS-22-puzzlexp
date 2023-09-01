@@ -92,7 +92,7 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     add(mainPanel)
     keyHandler.registerKeyAction(mainPanel, _tiles)
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
-    associateTiles(initialRoom.cells.toList.sorted.map(extractPath))
+    associateTiles(initialRoom)
     updatePlayerImage(initialPos, ImageManager.CharacterRight.path)
     setResizable(false)
     setVisible(true)
@@ -111,10 +111,14 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
 
   /** associate the [[MultiLayeredTile]]s with their respective images
     */
-  def associateTiles(paths: List[String]): Unit =
-    _tiles = _tiles.keys.zip(paths).foldLeft(_tiles) { case (tilesMap, ((x, y), imagePath)) =>
+  def associateTiles(room: Room): Unit =
+    val groundPaths = room.cells.toList.sorted.map(extractPath)
+    val itemPaths = room.cells.toList.sorted.map(_.cellItem.toString)
+    val zippedPaths = groundPaths zip itemPaths
+    _tiles = _tiles.keys.zip(zippedPaths).foldLeft(_tiles) { case (tilesMap, ((x, y), (groundPath, itemPath))) =>
       val updatedTile = tilesMap((x, y))
-      updatedTile.groundImage = Option(ImageIcon(BasePath concat imagePath concat PNGPath).getImage)
+      updatedTile.itemImage = Option(ImageIcon(s"$BasePath$itemPath$PNGPath").getImage)
+      updatedTile.groundImage = Option(ImageIcon(s"$BasePath$groundPath$PNGPath").getImage)
       tilesMap.updated((x, y), updatedTile)
     }
 
