@@ -14,7 +14,7 @@ import javax.swing.JPanel
 import scala.None
 import java.awt.Robot
 
-class GUITest extends AnyFlatSpec with BeforeAndAfterEach:
+class GUISpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   var game: GameView = _
   val timeSleep: Int = 1000
