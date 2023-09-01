@@ -87,17 +87,18 @@ object GameController:
     resettedRoom.updateCells(itemEmpty)
 
     currentGame.currentRoom =
-      new RoomBuilder().name(resettedRoom.name).addLinks(resettedRoom.links.head).addCells(resettedRoom.cells).build
+      RoomBuilder().name(resettedRoom.name).addLinks(resettedRoom.links.head).addCells(resettedRoom.cells).build
     currentGame.currentPosition = currentGame.startPositionInRoom
     val newRooms = currentGame.gameMap.rooms
-      .-(currentGame.gameMap.getRoomFromName(currentGame.currentRoom.name).get)
-      .+(currentGame.currentRoom)
-    currentGame.gameMap = new GameMap(
+      - currentGame.gameMap.getRoomFromName(currentGame.currentRoom.name).get
+      + currentGame.currentRoom
+    currentGame.gameMap = GameMap(
       currentGame.gameMap.name,
       newRooms,
       currentGame.gameMap.initialRoom,
       currentGame.gameMap.initialPosition
     )
+    view.associateTiles(currentGame.currentRoom)
 
 object simulate extends App:
   val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/testMap.json")

@@ -41,21 +41,18 @@ object KeyHandler:
         imagePath: String,
         tiles: ListMap[Position, MultiLayeredTile],
         mainPanel: JPanel
-    ): AbstractAction = new AbstractAction {
-      override def actionPerformed(e: ActionEvent): Unit =
-        val characterTile = tiles.find(t => t._2.playerImage.isDefined).get
-        characterTile._2.playerImage = Option.empty
-        mainPanel.repaint()
-        val pos = keyCode match
-          case KeyEvent.VK_R =>
-            GameController.resetRoom()
-            GameController.currentGame.currentPosition
-          case _ => GameController.movePlayer(keyCode)
-        println(pos)
-        // val newCharacterTileIndex = pos._1 + (pos._2 * DisplayValuesManager.Cols.value)
-        tiles(pos).playerImage = Some(ImageIcon(imagePath).getImage)
-        mainPanel.revalidate()
-
-    }
+    ): AbstractAction = (_: ActionEvent) =>
+      val characterTile = tiles.find(t => t._2.playerImage.isDefined).get
+      characterTile._2.playerImage = Option.empty
+      mainPanel
+        .repaint()
+      val pos = keyCode match
+        case KeyEvent.VK_R =>
+          GameController.resetRoom()
+          GameController.currentGame.currentPosition
+        case _ => GameController.movePlayer(keyCode)
+      tiles(pos).playerImage = Some(ImageIcon(imagePath).getImage)
+      mainPanel
+        .revalidate()
 
   def apply(): KeyHandler = KeyHandlerImpl()
