@@ -1,11 +1,12 @@
 package controller
 
 import model.cells.logic.PowerUpExtension
-import model.cells.{Cell, Direction, DoorCell, Item, Position}
+import model.cells.*
 import model.game.CurrentGame
 import model.gameMap.GameMap
 import model.room.{Room, RoomBuilder}
-import serialization.JsonDecoder
+import serialization.{JsonDecoder, JsonEncoder}
+
 import utils.PositionExtension.+
 import utils.KeyDirectionMapping.given
 import utils.PathExtractor.extractPath
@@ -46,7 +47,7 @@ object GameController:
             case Failure(exception) => println(exception)
       case None => checkChangeRoom(direction)
     // update the GUI
-    view.associateTiles(currentGame.currentRoom.cells.toList.sorted.map(extractPath))
+    view.associateTiles(currentGame.currentRoom)
     currentGame.currentPosition
 
   /** check if the room is changing, if that is the case performs the necessary actions

@@ -115,7 +115,7 @@ object CellExtension:
       Set.from(
         cells
           .collect { case c: PressurePlateBlockCell => c }
-          .map(c => c.copy(pressableState = pressableState))
+          .map(c => c.copy(pressableState = pressableState, cellItem = Item.Empty))
       )
 
     /** update the hole cell
@@ -144,7 +144,7 @@ object CellExtension:
       case Item.Box =>
         if chCell.filled then Set(chCell.copy(cellItem = newItem))
         else Set(chCell.copy(cellItem = Item.Empty, cover = false, filled = true))
-      case _ => Set.empty[Cell]
+      case _ => Set(chCell.copy(cellItem = Item.Empty))
 
     /** update the teleport cell
       * @param cells
@@ -220,5 +220,5 @@ object CellExtension:
       */
     private def findTeleportDestination(cells: Set[Cell]): Option[TeleportDestinationCell] =
       TeleportFinder.findDestination(cells) match
-        case Some(value) => Option(TeleportDestinationCell((value._1, value._2)))
+        case Some(value) => Option(TeleportDestinationCell(value))
         case None        => Option.empty

@@ -11,16 +11,14 @@ import model.room.rules.RoomRules
 
 trait Room:
 
-  /**
-   * 
-   * @return the room name
-   */
+  /** @return
+    *   the room name
+    */
   def name: String
 
-  /**
-   * 
-   * @return the [[RoomLink]]s of this room
-   */
+  /** @return
+    *   the [[RoomLink]]s of this room
+    */
   def links: Set[RoomLink]
 
   /** @return
@@ -234,4 +232,7 @@ object Room:
       case _: PressurePlateCell       => "PP"
       case _: TeleportCell            => "TL"
       case _: TeleportDestinationCell => "TD"
+      case _: DoorCell                => "DR"
+      case _: RockCell                => "RK"
+      case _: PlantCell               => "PL"
       case _                          => "??"
