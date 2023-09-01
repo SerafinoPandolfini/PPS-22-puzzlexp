@@ -4,6 +4,9 @@ import view.MultiLayeredTile.{StartX, StartY}
 import java.awt.{GridLayout, Image, Graphics, Graphics2D, Dimension}
 import javax.swing.*
 
+/**
+ * a graphic tile representation composed by ground, item and player
+ */
 class MultiLayeredTile() extends JComponent:
   var groundImage: Option[Image] = None
   var itemImage: Option[Image] = None
