@@ -1,8 +1,8 @@
 # Analisi del sistema e requisiti
 
 ## Requisiti di business
-- creare un sistema che permetta di effettuare una partita ad un gioco ispirato a "Sokoban"
-- il sistema dovrà disporre di un menù da cui il giocatore portà iniziare una partita
+- creare un sistema che permetta di effettuare una partita a un gioco ispirato a "Sokoban"
+- il sistema dovrà disporre di un menù da cui il giocatore potrà iniziare una partita
 
 ## Modello di dominio
 Il modello di dominio comprende le seguenti entità:
@@ -19,7 +19,7 @@ Il modello di dominio comprende le seguenti entità:
 
 - L'utente interagisce tramite GUI
 - L'utente può avviare una partita
-- L'utente può muovere il player
+- L'utente può muovere il player tramite i tasti "W" "A" "S" "D"
   - All'interno di una stanza
   - Tra le diverse stanze della mappa
 - L'utente può interagire con gli oggetti di una stanza
@@ -30,7 +30,12 @@ Il modello di dominio comprende le seguenti entità:
   - Le chiavi in suo possesso
   - Il suo punteggio attuale
   - Lo stato attuale della stanza
+- L'utente può resettare la stanza 
+  - premendo il tasto "R"
+  - cambiando stanza
+  - morendo
 
+ 
 ### Requisiti di sistema
 
 - Una mappa è composta da stanze
@@ -41,13 +46,13 @@ Il modello di dominio comprende le seguenti entità:
   - basic (base) 
     - ci si può entrare e uscire in ogni direzione
   - wall (muro) 
-    - non ci si può entrare od uscire
+    - non ci si può entrare o uscire
   - hole (buca) 
     - ci si può entrare
     - comporta morte del player
-    - se riempita con una scatola assume un comportamento analogo ad una cella basic 
+    - se riempita con una scatola assume un comportamento analogo a una cella basic 
   - covered hole (buca con copertura)
-    - la prima volta ci si può entare e uscire liberamente grazie alla copertura
+    - la prima volta ci si può entrare e uscire liberamente grazie alla copertura
     - dopo la prima volta la copertura è rotta e la cella assume un comportamento analogo ad una cella hole
     - se la prima volta si inserisce una scatola la copertura si rompe e la scatola riempie la buca
   - cliff (burrone)
@@ -56,7 +61,7 @@ Il modello di dominio comprende le seguenti entità:
     - si può premere passandoci sopra o tramite scatola
     - dotato di colore
   - button block (blocco apribile con bottone)
-    - blocco dal comportamento analogo ad una cella wall
+    - blocco dal comportamento analogo a una cella wall
     - dotato di colore
     - se il bottone del colore corrispondente viene premuto una volta, assume il comportamento di una cella basic
   - pressure plate (pedana a pressione)
@@ -68,37 +73,58 @@ Il modello di dominio comprende le seguenti entità:
   - teleport (teletrasporto)
     - si può entrare in ogni direzione 
     - si viene trasportati nella teleport destination
+    - vi si può inserire una scatola che viene trasportata in una cella adiacente a teleport destination in base alla direzione da cui è stata inserita
   - teleport destination (destinazione del teletrasporto)
     - si può uscire in ogni direzione
     - ha un comportamento analogo a basic cell
   - rock (roccia)
-    -   la roccia è attraversabile solo se viene rotta
-    -   la roccia può essere sgretolata grazie al power-up piccone
-    -   è possibile posizionare una cassa sulla roccia sgretolata ma non intera
+    -   ha un comportamento analogo a una cella muro
+    -   può essere sgretolata grazie al power-up piccone
+    -   una volta sgretolata assume un comportamento analogo a una cella basic
   - plant (pianta)
-    -   la pianta è attraversabile solo se viene tagliata
-    -   la pianta può essere tagliata grazie al power-up ascia
-    -   è possibile posizionare una cassa solo se la pianta è tagliata
+    -   ha un comportamento analogo a una cella muro
+    -   può essere tagliata grazie al power-up ascia
+    -   una volta tagliata assume un comportamento analogo a una cella basic
   - door (porta)
-    -   la porta è attraversabile solo se viene aperta
-    -   l'unico modo per aprire una porta è usare una chiave
-    -   il player non può richiudere la porta
-  - tresure (tesoro)
-    - il player è in grado di aprire un tesoro posizionandosi sopra di esso  
-    - un tesoro acquisito aumenta il punteggio del giocatore
-    - ci sono tre tipi di tesori:
-        -   coin (moneta) => 10 punti
-        -   bag (sacco) => 20 punti
-        -   trunk (baule) => 50 punti
-    - un sacco o un baule possono contenere degli item e il player li acquisirà al momento dell'apertura del tesoro
-- Il gioco termina quando si completa la stanza conclusiva
+    -   ha un comportamento analogo a una cella muro
+    -   può essere aperta grazie a una chiave
+    -   una volta aperta assume un comportamento analogo a una cella basic
 - una cella è considerata libera se
   - non è una cella di tipo wall (o con un comportamento analogo)
-  - non è occupata da una scatola
-- Quando un giocatore sposta una scatola
-  - se la cella nella direzione dello spostamento è libera il giocatore resta fermo e la scatola si sposta
-  - altrimenti entrambi restano fermi
-
+- Esistono degli item (elementi) posizionati su celle libere che possono essere:
+  - box (scatole)
+    - possono essere spostate da un giocatore
+      - se la cella nella direzione dello spostamento è libera e non occupata da un altra scatola il giocatore resta fermo e la scatola si sposta
+      - altrimenti entrambi restano fermi
+    - non possono essere trasportate tra le stanze
+  - key (chiavi)
+    - possono essere raccolte camminandoci sopra
+    - si utilizzano per attraversare le porte
+    - un utilizzo consuma la chiave
+  - treasure (tesoro)
+    - il player è in grado di ottenere un tesoro posizionandosi sopra di esso
+    - un tesoro acquisito aumenta il punteggio del giocatore
+    - ci sono tre tipi di tesori:
+      - coin (moneta) => 10 punti
+      - bag (sacco) => 20 punti
+      - trunk (baule) => 50 punti
+  - power-up
+    - axe (ascia)
+      - possono essere raccolte camminandoci sopra
+      - si utilizzano per tagliare gli alberi
+      - il numero di utilizzi è infinito
+    - pickaxe (piccone)
+      - possono essere raccolte camminandoci sopra
+      - si utilizzano per sgretolare le rocce
+      - il numero di utilizzi è infinito
+- Il gioco termina quando si completa la stanza conclusiva
+- Le stanze sono costruite in modo da rispettare regole di game design
+  - Il bordo della stanza deve essere costituito da muri o link
+  - Il numero di celle è fissato e pari a 325 e le loro posizioni devono essere all'interno dei limiti della stanza (25x13) 
+  - Ci può essere al più un elemento teleport in una stanza e deve essere presente anche una e una sola sua controparte(teleport destination)
+  - Ci può essere al più un elemento pressure plate in una stanza e deve essere presente anche almeno una sua controparte(pressure plate block)
+  - Ci può essere al più un elemento button per colore in una stanza e deve essere presente anche almeno una sua controparte(button block) del medesimo colore
+- Le mappe devono poter essere codificate/decodificate in JSON
 
 ## Requisiti non funzionali
 
@@ -107,18 +133,17 @@ Il modello di dominio comprende le seguenti entità:
 - Affidabilità: il sistema deve evitare crash ed essere stabile e affidabile 
 - Documentazione e supporto: il sistema deve essere ben documentato per permettere una facile modifica ed un facile riutilizzo futuri
 
-## Tecnologie e metodi del processo di sviluppo
-- Scrum
-- Git
-- GitHub
-- sbt
-- Trello
-
-
+ 
+## Requisiti di implementazione
+- Scala 3.x
+- toProlog 4.x
+- JDK 17+
 
 ## Requisiti opzionali
 
-
+- presenza di una schermata di pausa durante il gioco che mostri le stanze esplorate finora
+- possibilità di salvare e riprendere la partita corrente
+- possibilità di poter scegliere tra più mappe di gioco
 
 
 [Torna all'indice](../report.md) | [Vai a Design architetturale](../04-architectural-design/report.md)
