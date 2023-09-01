@@ -16,19 +16,20 @@ trait KeyHandler:
 object KeyHandler:
   private class KeyHandlerImpl() extends KeyHandler:
 
-    private val keyImageMap: Map[Int, String] = Map(
-      KeyEvent.VK_A -> ImageManager.CharacterLeft.path,
-      KeyEvent.VK_D -> ImageManager.CharacterRight.path,
-      KeyEvent.VK_W -> ImageManager.CharacterUp.path,
-      KeyEvent.VK_S -> ImageManager.CharacterDown.path
+    private val keyImageMap: List[Int] = List(
+      KeyEvent.VK_A,
+      KeyEvent.VK_D,
+      KeyEvent.VK_W,
+      KeyEvent.VK_S,
+      KeyEvent.VK_R
     )
 
     override def registerKeyAction(mainPanel: JPanel, tiles: ListMap[Position, MultiLayeredTile]): Unit =
       val actionMap = mainPanel.getActionMap
       val inputMap = mainPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
 
-      keyImageMap.foreach { (keyCode, imagePath) =>
-        val action = createAction(keyCode, imagePath, tiles, mainPanel)
+      keyImageMap.foreach { keyCode =>
+        val action = createAction(keyCode, tiles, mainPanel)
         val keyStroke = KeyStroke.getKeyStroke(keyCode, 0)
         val actionKey = s"keyAction_$keyCode"
         actionMap.put(actionKey, action)
@@ -37,20 +38,19 @@ object KeyHandler:
 
     private def createAction(
         keyCode: Int,
-        imagePath: String,
         tiles: ListMap[Position, MultiLayeredTile],
         mainPanel: JPanel
-    ): AbstractAction = new AbstractAction {
-      override def actionPerformed(e: ActionEvent): Unit =
-        val characterTile = tiles.find(t => t._2.playerImage.isDefined).get
-        characterTile._2.playerImage = Option.empty
-        mainPanel.repaint()
-        val pos = GameController.movePlayer(keyCode)
-        println(pos)
-        // val newCharacterTileIndex = pos._1 + (pos._2 * DisplayValuesManager.Cols.value)
-        tiles(pos).playerImage = Some(ImageIcon(imagePath).getImage)
-        mainPanel.revalidate()
-
-    }
+    ): AbstractAction = (_: ActionEvent) =>
+      val characterTile = tiles.find(t => t._2.playerImage.isDefined).get
+      characterTile._2.playerImage = Option.empty
+      mainPanel
+        .repaint()
+      keyCode match
+        case KeyEvent.VK_R =>
+          GameController.resetRoom()
+          tiles(GameController.currentGame.currentPosition).playerImage = Some(
+            ImageIcon(ImageManager.CharacterDown.path).getImage
+          )
+        case _ => GameController.movePlayer(keyCode)
 
   def apply(): KeyHandler = KeyHandlerImpl()
