@@ -7,12 +7,12 @@ import model.game.CurrentGame
 import model.gameMap.GameMap
 import model.room.{Room, RoomBuilder}
 import serialization.{JsonDecoder, JsonEncoder}
-
 import utils.PositionExtension.+
 import utils.KeyDirectionMapping.given
 import utils.PathExtractor.extractPath
 import view.GameView
 
+import java.awt.event.KeyEvent
 import scala.util.{Failure, Success}
 
 object GameController:
@@ -37,7 +37,7 @@ object GameController:
     * @return
     *   the [[Position]] in which the player is
     */
-  def movePlayer(direction: Int): Position =
+  def movePlayer(direction: Int): Unit =
     currentGame.currentRoom.playerMove(currentGame.currentPosition, direction) match
       case Some(position) =>
         if currentGame.currentPosition != position then
@@ -50,7 +50,11 @@ object GameController:
       case None => checkChangeRoom(direction)
     // update the GUI
     view.associateTiles(currentGame.currentRoom)
-    currentGame.currentPosition
+    var dir = direction
+    if CurrentGame.currentRoom.isPlayerDead(currentGame.currentPosition).toOption.get then
+      resetRoom()
+      dir = KeyEvent.VK_S
+    view.updatePlayerImage(currentGame.currentPosition, dir)
 
   /** check if the room is changing, if that is the case performs the necessary actions
     * @param direction
@@ -69,13 +73,10 @@ object GameController:
     */
   def resetRoom(): Unit =
     val resettedRoom = currentGame.originalGameMap.getRoomFromName(currentGame.currentRoom.name).get
-
-    // la porta non può avere roba sopra quando chiusa (e di default è sempre chiusa)
+    // reset door
     val doors = currentGame.currentRoom.cells.collect { case c: DoorCell => c }.map(c => c.copy(cellItem = Item.Empty))
-
     resettedRoom.updateCells(doors.asInstanceOf[Set[Cell]])
-
-    // prendo le celle dove l'item di potenziamento è stato tolto
+    // reset items
     val itemEmpty = for
       c <- currentGame.currentRoom.cells
       r <- resettedRoom.cells
@@ -83,11 +84,18 @@ object GameController:
       if c.position == r.position
       if c.cellItem != r.cellItem
     yield r.updateItem(resettedRoom.cells, Item.Empty).filter(e => e.position == r.position).head
-
     resettedRoom.updateCells(itemEmpty)
+    // updating
+    updateCurrents(resettedRoom)
+    view.associateTiles(currentGame.currentRoom)
 
+  /** substitute the current room with a new one, updating the current map
+    * @param newRoom
+    *   the new [[Room]]
+    */
+  private def updateCurrents(newRoom: Room): Unit =
     currentGame.currentRoom =
-      RoomBuilder().name(resettedRoom.name).addLinks(resettedRoom.links.head).addCells(resettedRoom.cells).build
+      RoomBuilder().name(newRoom.name).addLinks(newRoom.links.head).addCells(newRoom.cells).build
     currentGame.currentPosition = currentGame.startPositionInRoom
     val newRooms = currentGame.gameMap.rooms
       - currentGame.gameMap.getRoomFromName(currentGame.currentRoom.name).get
@@ -98,7 +106,6 @@ object GameController:
       currentGame.gameMap.initialRoom,
       currentGame.gameMap.initialPosition
     )
-    view.associateTiles(currentGame.currentRoom)
 
 object simulate extends App:
   val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/testMap.json")
