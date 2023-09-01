@@ -3,8 +3,6 @@ import model.cells.WalkableType.{DirectionWalkable, Walkable}
 
 /** The mixin representing a treasure. It contains money and maybe some items */
 trait Treasure extends Cell:
-  /*/** abstract types, members of Treasure */
-  type MoneyType*/
 
   /** The scores present in the treasure */
   def size: TreasureSize

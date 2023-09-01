@@ -1,7 +1,6 @@
 package model.room
 
 import model.cells.Item
-
 import scala.annotation.targetName
 
 case class ItemHolder(itemOwned: List[Item]):
