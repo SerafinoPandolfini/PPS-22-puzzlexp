@@ -2,7 +2,7 @@ package model.cells.logic
 
 import model.cells.{ScoreCounter, TreasureCell}
 import model.cells.TreasureSize.*
-import model.room.ItemHolder
+import model.game.ItemHolder
 
 object TreasureExtension:
   /** constants that indicate the maximum items in Coin and Bag treasure */

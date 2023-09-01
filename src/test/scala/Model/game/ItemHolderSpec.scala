@@ -1,10 +1,11 @@
-package model.room
+package model.game
 
 import model.cells.Item
+import model.cells.logic.ItemHolderExtension.*
+import model.game.ItemHolder
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
-import model.cells.logic.ItemHolderExtension.*
 
 class ItemHolderSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

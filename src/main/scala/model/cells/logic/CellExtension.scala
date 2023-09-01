@@ -1,7 +1,7 @@
 package model.cells.logic
 
 import model.cells.*
-import model.room.ItemHolder
+import model.game.ItemHolder
 import utils.PositionExtension.*
 
 object CellExtension:

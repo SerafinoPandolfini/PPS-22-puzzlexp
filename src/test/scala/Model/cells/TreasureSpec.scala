@@ -2,7 +2,7 @@ package model.cells
 
 import model.cells.TreasureSize.*
 import model.cells.logic.TreasureExtension.*
-import model.room.ItemHolder
+import model.game.ItemHolder
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.BeforeAndAfterEach

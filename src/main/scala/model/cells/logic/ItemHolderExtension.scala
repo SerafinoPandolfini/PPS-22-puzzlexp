@@ -1,7 +1,7 @@
 package model.cells.logic
 
 import model.cells.Item
-import model.room.ItemHolder
+import model.game.ItemHolder
 
 import scala.annotation.targetName
 
@@ -14,7 +14,6 @@ object ItemHolderExtension:
     def ++(items: List[Item]): ItemHolder = itemHolder.addItems(items)
 
     /** Alias for [[ItemHolder.removeItem()]] */
-
     @targetName("removeItemAlias")
     def -(item: Item): ItemHolder = itemHolder.removeItem(item)
 

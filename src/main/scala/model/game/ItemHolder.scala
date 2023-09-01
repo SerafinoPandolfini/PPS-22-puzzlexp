@@ -1,7 +1,6 @@
-package model.room
+package model.game
 
 import model.cells.Item
-import scala.annotation.targetName
 
 case class ItemHolder(itemOwned: List[Item]):
   /** check if the item is present in the item holder */
