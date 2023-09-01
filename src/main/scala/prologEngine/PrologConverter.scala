@@ -26,9 +26,11 @@ object PrologConverter:
   /** aggiunge la proprietà color alle celle costruite
     */
   val addColor: Cell => String = cell =>
-    Separator + (cell match
-      case c: Cell with Colorable => c.color
-      case _                  => "nil"
-    ).toString.toLowerCase
+    s"$Separator${
+      (cell match
+        case c: Cell with Colorable => c.color
+        case _ => "nil"
+        ).toString.toLowerCase
+    }"
     
   val noProperty: Cell => String =  _ => ""

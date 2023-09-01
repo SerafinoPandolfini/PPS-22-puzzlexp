@@ -4,7 +4,7 @@ import model.room.Room
 import model.room.rules.ValidPositionsRule.{RuleMessage, Rule}
 import prologEngine.PrologEngine.{*, given}
 import prologEngine.PrologConverter.*
-import CommonGroundTerm.{HeightLimit, WidthLimit}
+import model.room.rules.CommonGroundTerm.{HeightLimit, WidthLimit}
 
 trait ValidPositionsRule extends BaseRoomRule:
 
