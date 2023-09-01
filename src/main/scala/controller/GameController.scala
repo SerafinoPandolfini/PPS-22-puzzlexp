@@ -78,20 +78,19 @@ object GameController:
     val itemEmpty = for
       c <- currentGame.currentRoom.cells
       r <- resettedRoom.cells
-      ri = r.cellItem
-      if ri != Item.Box && ri != Item.Empty
-      pc = c.position
-      pr = r.position
-      if pc == pr
-      if c.cellItem != ri
+      if r.cellItem != Item.Box && r.cellItem != Item.Empty
+      if c.position == r.position
+      if c.cellItem != r.cellItem
     yield r.updateItem(resettedRoom.cells, Item.Empty).filter(e => e.position == r.position).head
 
     resettedRoom.updateCells(itemEmpty)
 
-    currentGame.currentRoom = resettedRoom
+    currentGame.currentRoom =
+      new RoomBuilder().name(resettedRoom.name).addLinks(resettedRoom.links.head).addCells(resettedRoom.cells).build
     currentGame.currentPosition = currentGame.startPositionInRoom
-    val newRooms =
-      currentGame.gameMap.rooms.-(currentGame.gameMap.getRoomFromName(resettedRoom.name).get).+(resettedRoom)
+    val newRooms = currentGame.gameMap.rooms
+      .-(currentGame.gameMap.getRoomFromName(currentGame.currentRoom.name).get)
+      .+(currentGame.currentRoom)
     currentGame.gameMap = new GameMap(
       currentGame.gameMap.name,
       newRooms,

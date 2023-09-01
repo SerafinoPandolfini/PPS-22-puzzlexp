@@ -20,7 +20,8 @@ object KeyHandler:
       KeyEvent.VK_A -> ImageManager.CharacterLeft.path,
       KeyEvent.VK_D -> ImageManager.CharacterRight.path,
       KeyEvent.VK_W -> ImageManager.CharacterUp.path,
-      KeyEvent.VK_S -> ImageManager.CharacterDown.path
+      KeyEvent.VK_S -> ImageManager.CharacterDown.path,
+      KeyEvent.VK_R -> ImageManager.CharacterDown.path
     )
 
     override def registerKeyAction(mainPanel: JPanel, tiles: ListMap[Position, MultiLayeredTile]): Unit =
@@ -45,7 +46,11 @@ object KeyHandler:
         val characterTile = tiles.find(t => t._2.playerImage.isDefined).get
         characterTile._2.playerImage = Option.empty
         mainPanel.repaint()
-        val pos = GameController.movePlayer(keyCode)
+        val pos = keyCode match
+          case KeyEvent.VK_R =>
+            GameController.resetRoom()
+            GameController.currentGame.currentPosition
+          case _ => GameController.movePlayer(keyCode)
         println(pos)
         // val newCharacterTileIndex = pos._1 + (pos._2 * DisplayValuesManager.Cols.value)
         tiles(pos).playerImage = Some(ImageIcon(imagePath).getImage)

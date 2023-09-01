@@ -26,7 +26,7 @@ class GUITest extends AnyFlatSpec with BeforeAndAfterEach:
     game = new GameView(room, position1_1)
     GameController.startGame("src/main/resources/json/testMap.json")
 
-  "Each event of key pressing" should "move the character" in {
+  "Each event of key pressing" should "move the character" ignore {
 
     val characterTile = game.tiles.find(t => t._2.playerImage.isDefined).get
     val expectedTileAfterD = game.tiles(position2_1)

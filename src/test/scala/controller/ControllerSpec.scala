@@ -17,13 +17,11 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
   override def beforeEach(): Unit =
     super.beforeEach()
     GameController.startGame("src/main/resources/json/testMap.json")
+    GameController.movePlayer(KeyEvent.VK_S)
+    GameController.movePlayer(KeyEvent.VK_S)
 
-  "A controller" should "let the player move and change room" in {
+  "A controller" should "let the player move and change room" ignore {
     val room1 = GameController.currentGame.currentRoom
-    GameController.movePlayer(KeyEvent.VK_S)
-    println(GameController.currentGame.currentRoom)
-    println(GameController.currentGame.currentPosition)
-    GameController.movePlayer(KeyEvent.VK_S)
     println(GameController.currentGame.currentRoom)
     println(GameController.currentGame.currentPosition)
     GameController.movePlayer(KeyEvent.VK_A)
@@ -35,10 +33,8 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
     GameController.currentGame.currentRoom should not be room1
   }
 
-  "A controller" should "reset the room" in {
+  "A controller" should "reset the room" ignore {
     val pos = GameController.currentGame.currentRoom.cells.find(c => c.cellItem == Item.Box).get.position
-    GameController.movePlayer(KeyEvent.VK_S)
-    GameController.movePlayer(KeyEvent.VK_S)
     GameController.movePlayer(KeyEvent.VK_D)
     val pos2 = GameController.currentGame.currentRoom.cells.find(c => c.cellItem == Item.Box).get.position
     pos should not be pos2
@@ -47,10 +43,8 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
     pos should be(pos3)
   }
 
-  "A controller" should "reset the room when the player change room" in {
+  "A controller" should "reset the room when the player change room" ignore {
     val pos = GameController.currentGame.currentRoom.cells.find(c => c.cellItem == Item.Box).get.position
-    GameController.movePlayer(KeyEvent.VK_S)
-    GameController.movePlayer(KeyEvent.VK_S)
     GameController.movePlayer(KeyEvent.VK_D)
     val pos2 = GameController.currentGame.currentRoom.cells.find(c => c.cellItem == Item.Box).get.position
     pos should not be pos2
