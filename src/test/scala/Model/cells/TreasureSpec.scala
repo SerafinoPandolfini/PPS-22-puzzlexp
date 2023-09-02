@@ -1,15 +1,15 @@
 package model.cells
 
-import model.cells.TreasureSize.*
 import model.cells.logic.TreasureExtension.*
+import model.cells.logic.CellExtension.*
 import model.game.ItemHolder
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.BeforeAndAfterEach
-import utils.TestUtils.defaultPosition
+import utils.TestUtils.*
 
 class TreasureSpec extends AnyFlatSpec with BeforeAndAfterEach:
-  var treasure: TreasureCell = _
+  var treasure: BasicCell = _
   var itemHolder: ItemHolder = _
   var scoreCounter: ScoreCounter = _
 
@@ -17,76 +17,38 @@ class TreasureSpec extends AnyFlatSpec with BeforeAndAfterEach:
     super.beforeEach()
     itemHolder = ItemHolder(List())
     scoreCounter = ScoreCounter()
-    treasure = TreasureCell(
-      defaultPosition,
-      List(Item.Axe, Item.Pick),
-      TreasureSize.Trunk
-    )
+    treasure = BasicCell(defaultPosition)
+
+  "A cell with a treasure" should "be walkable" in {
+    treasure.walkableState should be(WalkableType.Walkable(true))
+  }
 
   "The size of a treasure" should "be related to a score" in {
-    treasure.size.score should be(50)
-    treasure.size.score should not be 20
-    treasure.size.score should not be 10
+    var cells: Set[Cell] = Set(treasure)
+    cells = treasure.updateItem(cells, Item.Key, genericDirection)
+    cells.head.cellItem.mapItemToValue should be(0)
+    cells = treasure.updateItem(cells, Item.Coin, genericDirection)
+    cells.head.cellItem.mapItemToValue should be(10)
+    cells = treasure.updateItem(cells, Item.Bag, genericDirection)
+    cells.head.cellItem.mapItemToValue should be(20)
+    cells = treasure.updateItem(cells, Item.Trunk, genericDirection)
+    cells.head.cellItem.mapItemToValue should be(50)
+
   }
 
-  "A bag treasure" should "have at most one item" in {
-    val bagTreasure = TreasureCell(
-      defaultPosition,
-      List(Item.Axe),
-      TreasureSize.Bag
-    )
-    bagTreasure.checkItems should be(true)
-    val anotherBagTreasure = TreasureCell(
-      defaultPosition,
-      List(Item.Axe, Item.Key),
-      TreasureSize.Bag
-    )
-    anotherBagTreasure.checkItems should be(false)
-  }
-
-  "A trunk treasure" should "be able to have more than one items" in {
-    treasure.checkItems should be(true)
-    val trunkTreasure = TreasureCell(
-      defaultPosition,
-      List(),
-      TreasureSize.Trunk
-    )
-    trunkTreasure.checkItems should be(true)
-  }
-
-  "A coin treasure" should "not have items" in {
-    val coinTreasure = TreasureCell(
-      defaultPosition,
-      List(),
-      TreasureSize.Coin
-    )
-    coinTreasure.checkItems should be(true)
-    val anotherCoinTreasure = TreasureCell(
-      defaultPosition,
-      List(Item.Box),
-      TreasureSize.Coin
-    )
-    anotherCoinTreasure.checkItems should be(false)
-  }
-
-  "The items" should "be gather in the item holder" in {
+  "The treasure" should "be placed in the item holder" in {
+    var cells: Set[Cell] = Set(treasure)
+    cells = treasure.updateItem(cells, Item.Coin, genericDirection)
     itemHolder.itemOwned should be(List())
-    val (treasureUpdated, itemHolderUpdated, _) = treasure.openTheTreasure(itemHolder, scoreCounter)
-    itemHolderUpdated.itemOwned should be(List(Item.Axe, Item.Pick))
-    treasureUpdated.open should be(true)
+    val (updatedCells, _, _, updatedItemHolder) = treasure.moveOnTreasure(cells, itemHolder, scoreCounter)
+    updatedItemHolder.itemOwned should be(List(Item.Coin))
+    updatedCells.head.cellItem should be(Item.Empty)
   }
 
   "The money" should "increase the score counter" in {
+    var cells: Set[Cell] = Set(treasure)
+    cells = treasure.updateItem(cells, Item.Bag, genericDirection)
     scoreCounter.score should be(0)
-    val (_, _, scoreCounterUpdated) = treasure.openTheTreasure(itemHolder, scoreCounter)
-    scoreCounterUpdated.score should be(50)
-  }
-
-  "An opened treasure" should "not have items, it is only walkable" in {
-    treasure.open should be(false)
-    treasure.walkableState should be(WalkableType.Walkable(true))
-    val (openedTreasure, _, _) = treasure.openTheTreasure(itemHolder, scoreCounter)
-    openedTreasure.open should be(true)
-    openedTreasure.walkableState should be(WalkableType.Walkable(true))
-    openedTreasure.items should be(List())
+    val (_, _, updatedScoreCounter, _) = treasure.moveOnTreasure(cells, itemHolder, scoreCounter)
+    updatedScoreCounter.score should be(20)
   }

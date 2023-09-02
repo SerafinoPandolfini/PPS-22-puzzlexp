@@ -1,30 +1,29 @@
 package model.cells.logic
 
-import model.cells.{ScoreCounter, TreasureCell}
-import model.cells.TreasureSize.*
+import model.cells.{Cell, Item, ScoreCounter}
 import model.game.ItemHolder
+import utils.ConstantUtils
+
+import java.security.KeyStore.TrustedCertificateEntry
 
 object TreasureExtension:
-  /** constants that indicate the maximum items in Coin and Bag treasure */
-  val MaxItemsInCoinTreasure: Int = 0
-  val MaxItemsInBagTreasure: Int = 1
-
-  /** extension for adding new methods to the treasure cell
+  /** extension for adding new methods to the treasure item
     */
-  extension (cell: TreasureCell)
-    /** Returns the number of items in the treasure */
-    private def numberOfItems: Int = cell.items.length
+  extension (item: Item)
+    /** Returns true if the item is an treasure */
+    def isTreasure: Boolean = item match
+      case Item.Coin  => true
+      case Item.Bag   => true
+      case Item.Trunk => true
+      case _          => false
 
-    /** Returns the number of items in the treasure */
-    def checkItems: Boolean = cell.size match
-      case Coin => cell.numberOfItems == MaxItemsInCoinTreasure
-      case Bag  => cell.numberOfItems <= MaxItemsInBagTreasure
-      case _    => true
+    /** Returns the value of the item in terms of score points */
+    def mapItemToValue: Int = item match
+      case Item.Coin  => ConstantUtils.CoinValue
+      case Item.Bag   => ConstantUtils.BagValue
+      case Item.Trunk => ConstantUtils.TrunkValue
+      case _          => ConstantUtils.NotValuable
 
-    /** The treasure is opened, the items are added to the [[ItemHolder]] and the [[ScoreCounter]] is increased */
-    def openTheTreasure(itemHolder: ItemHolder, scoreCounter: ScoreCounter): (TreasureCell, ItemHolder, ScoreCounter) =
-      (
-        cell.copy(open = true, items = List()),
-        itemHolder.addItems(cell.items),
-        scoreCounter.copy(score = cell.size.score)
-      )
+    /** Returns the value of the item in terms of score points */
+    def updateScore(scoreCounter: ScoreCounter): ScoreCounter =
+      scoreCounter.copy(score = scoreCounter.score + item.mapItemToValue)
