@@ -34,7 +34,7 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
     GameController.currentGame.currentRoom should not be room1
   }
 
-  "A controller" should "reset the room" ignore {
+  "A controller" should "reset the room" in {
 
     val it = GameController.currentGame.currentRoom.cells.find(c => c.position == (2, 3)).get.cellItem
     val set2 = GameController.currentGame.currentRoom.cells

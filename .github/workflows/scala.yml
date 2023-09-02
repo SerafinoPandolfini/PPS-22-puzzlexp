@@ -43,6 +43,6 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: 'sbt'
-    - name: Run tests
+    - name: Jacoco Coverage
       working-directory: ./
-      run: sbt test
+      run: sbt jacoco

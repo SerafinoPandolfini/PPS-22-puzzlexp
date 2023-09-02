@@ -16,3 +16,14 @@ lazy val root = (project in file("."))
       "io.circe" %% "circe-parser"
     ).map(_ % circeVersion)
   )
+
+jacocoReportSettings := JacocoReportSettings()
+  .withThresholds(
+    JacocoThresholds(
+      instruction = 0,
+      method = 0,
+      branch = 0,
+      complexity = 0,
+      line = 60,
+      clazz = 60)
+  )
