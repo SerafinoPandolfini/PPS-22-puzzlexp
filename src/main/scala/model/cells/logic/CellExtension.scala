@@ -91,7 +91,7 @@ object CellExtension:
       * @return
       *   A set of modified cells after the update
       */
-    def updateItem(cells: Set[Cell], newItem: Item, direction: Direction): Set[Cell] =
+    def updateItem(cells: Set[Cell], newItem: Item, direction: Direction = Direction.Up): Set[Cell] =
       cell match
         case cell: BasicCell               => Set(cell.copy(cellItem = newItem))
         case cell: ButtonBlockCell         => Set(cell.copy(cellItem = newItem))
