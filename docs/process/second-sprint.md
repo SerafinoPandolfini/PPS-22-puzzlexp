@@ -75,6 +75,7 @@ Gli obiettivi di questo Sprint sono:
 04/09/2023
 
 ## Sprint review
-
+L'obiettivo dello Sprint è stato raggiunto il giorno precedente alla deadline
 
 ## Sprint retrospective
+Il carico di lavoro complessivo era ben proporzionato per questo sprint. Invece nel carico di lavoro individuale è stato riscontrato uno squilibrio dei punti funzione che sarà ribilanciato nel prossimo sprint. 
