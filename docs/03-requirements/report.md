@@ -125,12 +125,6 @@ Il modello di dominio comprende le seguenti entità:
   - Ci può essere al più un elemento pressure plate in una stanza e deve essere presente anche almeno una sua controparte(pressure plate block)
   - Ci può essere al più un elemento button per colore in una stanza e deve essere presente anche almeno una sua controparte(button block) del medesimo colore
 - Le mappe devono poter essere codificate/decodificate in JSON
-- Nelle mappe ci sono anche dei tesori, il player è in grado di collezionarlo posizionandosi su di esso.
-- un tesoro acquisito aumenta il punteggio del giocatore
-    - ci sono tre tipi di tesori:
-        -   coin (moneta) => 10 punti
-        -   bag (sacco) => 20 punti
-        -   trunk (baule) => 50 punti
   
 ## Requisiti non funzionali
 
