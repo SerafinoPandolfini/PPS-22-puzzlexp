@@ -12,6 +12,7 @@ Il product backlog è il seguente
 |    7     | Gestione fine gioco                                      |           4           |     4     |     4     |
 |    8     | Realizzazione menu iniziale                              |          12           |     12    |     12    |
 |    9     | Possibilità di scegliere la mappa da giocare             |          10           |     10    |     10    |
-|    10    | Possibilità di mettere in pausa il gioco                 |          12           |     12    |     12    |
-|    11    | Possibilità di salvare il gioco                          |          10           |     10    |     10    |
+|    10    | Possibilità di salvare il gioco                          |          10           |     10    |     10    |
+|    11    | Possibilità di mettere in pausa il gioco                 |          12           |     12    |     12    |
+
 
