@@ -3,6 +3,7 @@ package model.cells.logic
 import model.cells.{Cell, Item, ScoreCounter}
 import model.game.ItemHolder
 import utils.ConstantUtils
+import utils.ItemConversion.given_Conversion_Item_Int
 
 import java.security.KeyStore.TrustedCertificateEntry
 
@@ -18,12 +19,5 @@ object TreasureExtension:
       case _          => false
 
     /** Returns the value of the item in terms of score points */
-    def mapItemToValue: Int = item match
-      case Item.Coin  => ConstantUtils.CoinValue
-      case Item.Bag   => ConstantUtils.BagValue
-      case Item.Trunk => ConstantUtils.TrunkValue
-      case _          => ConstantUtils.NotValuable
-
-    /** Returns the value of the item in terms of score points */
     def updateScore(scoreCounter: ScoreCounter): ScoreCounter =
-      scoreCounter.copy(score = scoreCounter.score + item.mapItemToValue)
+      scoreCounter.copy(score = scoreCounter.score + item)
