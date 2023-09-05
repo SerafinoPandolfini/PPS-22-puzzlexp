@@ -4,7 +4,7 @@ import model.cells.*
 import model.game.ItemHolder
 import utils.PositionExtension.*
 import model.cells.logic.TreasureExtension.{updateScore, isTreasure}
-import utils.ConstantUtils.defaultPosition
+import utils.ConstantUtils.DefaultPosition
 
 object CellExtension:
   /** extension for adding new methods for interacting with cellItems and the player
@@ -70,7 +70,7 @@ object CellExtension:
         itemHolder: ItemHolder,
         scoreCounter: ScoreCounter
     ): (Set[Cell], Position, ScoreCounter, ItemHolder) =
-      cells.foldLeft((cells, defaultPosition, scoreCounter, itemHolder)) {
+      cells.foldLeft((cells, DefaultPosition, scoreCounter, itemHolder)) {
         case ((_, _, currentScoreCounter, currentItemHolder), cell) if cell.cellItem.isTreasure =>
           val updatedScoreCounter = cell.cellItem.updateScore(currentScoreCounter)
           val (updatedCells, updatedItemHolder) = cell.gatherItem(cell, currentItemHolder)
