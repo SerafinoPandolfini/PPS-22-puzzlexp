@@ -6,6 +6,7 @@ enum ImageManager(_path: String):
   case CharacterUp extends ImageManager("src/main/resources/img/HIKER_up.png")
   case CharacterDown extends ImageManager("src/main/resources/img/HIKER_down.png")
   case Berry extends ImageManager("src/main/resources/img/berrytree_AGUAVBERRY.png")
+  case BackGround extends ImageManager("src/main/resources/img/background.png")
 
   /** @return
     *   the path of the image

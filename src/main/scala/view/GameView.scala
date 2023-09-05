@@ -118,11 +118,10 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     _tiles = _tiles.keys.zip(zippedPaths).foldLeft(_tiles) { case (tilesMap, ((x, y), (groundPath, itemPath))) =>
       val updatedTile = tilesMap((x, y))
       updatedTile.itemImage = Option(ImageIcon(s"$BasePath$itemPath$PNGPath").getImage)
-      updatedTile.groundImage = Option(ImageIcon(s"$BasePath$groundPath$PNGPath").getImage)
+      updatedTile.cellImage = Option(ImageIcon(s"$BasePath$groundPath$PNGPath").getImage)
       tilesMap.updated((x, y), updatedTile)
     }
 
 object GameView:
   val BasePath = "src/main/resources/img/"
   val PNGPath = ".png"
-
