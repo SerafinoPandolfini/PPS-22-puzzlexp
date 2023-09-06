@@ -29,11 +29,11 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Set up Xvfb
-          if: matrix.os == 'ubuntu-latest' # Only set up Xvfb on Ubuntu
-          run: |
-            sudo apt-get install xvfb
-            Xvfb :99 -ac &
-            export DISPLAY=:99
+        if: ${{ matrix.os == 'ubuntu-latest'}}
+        run: |
+          sudo apt-get install xvfb
+          Xvfb :99 -ac &
+          export DISPLAY=:99
       - name: Test
         run: sbt test
         
