@@ -30,6 +30,12 @@ object JsonEncoder:
 
   given wallCellEncoder: Encoder[WallCell] = deriveEncoder[WallCell]
 
+  given rockCellEncoder: Encoder[RockCell] = deriveEncoder[RockCell]
+
+  given plantCellEncoder: Encoder[PlantCell] = deriveEncoder[PlantCell]
+
+  given doorCellEncoder: Encoder[DoorCell] = deriveEncoder[DoorCell]
+
   given cellEncoder: Encoder[Cell] = Encoder.instance {
     case basicCell: BasicCell =>
       basicCellEncoder.apply(basicCell).deepMerge(Json.obj("cellType" -> Json.fromString("BasicCell")))
@@ -63,6 +69,12 @@ object JsonEncoder:
         .deepMerge(Json.obj("cellType" -> Json.fromString("TeleportDestinationCell")))
     case wallCell: WallCell =>
       wallCellEncoder.apply(wallCell).deepMerge(Json.obj("cellType" -> Json.fromString("WallCell")))
+    case doorCell: DoorCell =>
+      doorCellEncoder.apply(doorCell).deepMerge(Json.obj("cellType" -> Json.fromString("DoorCell")))
+    case rockCell: RockCell =>
+      rockCellEncoder.apply(rockCell).deepMerge(Json.obj("cellType" -> Json.fromString("RockCell")))
+    case plantCell: PlantCell =>
+      plantCellEncoder.apply(plantCell).deepMerge(Json.obj("cellType" -> Json.fromString("PlantCell")))
   }
 
   /** parte room */

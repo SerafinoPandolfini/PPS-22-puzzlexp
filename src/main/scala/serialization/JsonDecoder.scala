@@ -33,6 +33,12 @@ object JsonDecoder:
 
   given wallCellDecoder: Decoder[WallCell] = deriveDecoder[WallCell]
 
+  given rockCellDecoder: Decoder[RockCell] = deriveDecoder[RockCell]
+
+  given plantCellDecoder: Decoder[PlantCell] = deriveDecoder[PlantCell]
+
+  given doorCellDecoder: Decoder[DoorCell] = deriveDecoder[DoorCell]
+
   private def mapToCell[A <: Cell](decoder: Decoder[A]): Decoder[Cell] =
     decoder.map(identity)
 
@@ -50,6 +56,9 @@ object JsonDecoder:
       case "TeleportCell"            => mapToCell(teleportCellDecoder)
       case "TeleportDestinationCell" => mapToCell(teleportDestinationCellDecoder)
       case "WallCell"                => mapToCell(wallCellDecoder)
+      case "RockCell"                => mapToCell(rockCellDecoder)
+      case "PlantCell"               => mapToCell(plantCellDecoder)
+      case "DoorCell"                => mapToCell(doorCellDecoder)
       case _                         => Decoder.failed(DecodingFailure(s"Unknown cellType: $cellType", c.history))
     decoder(c)
   }
