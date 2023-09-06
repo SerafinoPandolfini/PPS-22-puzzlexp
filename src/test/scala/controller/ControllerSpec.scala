@@ -18,7 +18,7 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    GameController.startGame("src/main/resources/json/testMap.json")
+    if !GraphicsEnvironment.isHeadless then GameController.startGame("src/main/resources/json/testMap.json")
 
   "A controller" should "let the player move and change room" in {
     if !GraphicsEnvironment.isHeadless then
