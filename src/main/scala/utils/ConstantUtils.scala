@@ -13,6 +13,8 @@ object ConstantUtils:
   val PlayText: String = "PLAY"
   val MenuGUIWidth: Int = 500
   val MenuGUIHeight: Int = 610
+  val ControlsGUISize: Int = 510
+  val ControlsPanelSize: Int = ControlsGUISize - 10
   val BackgroundPanelHeight: Int = 580
   val ButtonsPanelHeight: Int = 50
   val ButtonsPanelWidth: Int = 400

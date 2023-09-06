@@ -2,9 +2,11 @@ package menu
 
 import utils.ConstantUtils.*
 import utils.{ColorManager, ImageManager, TransparentButton}
-import java.awt.event.ActionEvent
+
+import java.awt.event.{ActionEvent, WindowAdapter, WindowEvent}
 import java.awt.geom.RoundRectangle2D
 import java.awt.{BorderLayout, Color, Dimension, FlowLayout, Font, Graphics, Graphics2D, Shape}
+import java.util.Locale
 import javax.swing.*
 import scala.language.postfixOps
 
@@ -36,7 +38,7 @@ class MenuView extends JFrame:
     buttonPanel.setOpaque(false)
     val controlsButton: JButton = TransparentButton(ControlsText)
     val playButton: JButton = TransparentButton(PlayText)
-    controlsButton.addActionListener((_: ActionEvent) => JOptionPane.showMessageDialog(this, "Button clicked"))
+    controlsButton.addActionListener((_: ActionEvent) => ControlsView())
     buttonPanel.add(controlsButton)
     buttonPanel.add(playButton)
     buttonPanel.setBounds(ButtonCoordinate.x, ButtonCoordinate.y, ButtonsPanelWidth, ButtonsPanelHeight)
@@ -59,6 +61,17 @@ class MenuView extends JFrame:
   private def configureFrame(): Unit =
     add(startPanel)
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
+    addWindowListener(
+      new WindowAdapter:
+        override def windowClosing(e: WindowEvent): Unit =
+          JOptionPane.showConfirmDialog(
+            null,
+            "Do you really want to quit?",
+            "Confirm Close",
+            JOptionPane.YES_NO_OPTION
+          ) match
+            case JOptionPane.YES_OPTION => dispose()
+    )
     setSize(MenuGUIWidth, MenuGUIHeight)
     setResizable(false)
     setVisible(true)
