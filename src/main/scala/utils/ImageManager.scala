@@ -5,8 +5,11 @@ enum ImageManager(_path: String):
   case CharacterLeft extends ImageManager("src/main/resources/img/HIKER_sx.png")
   case CharacterUp extends ImageManager("src/main/resources/img/HIKER_up.png")
   case CharacterDown extends ImageManager("src/main/resources/img/HIKER_down.png")
-  case Berry extends ImageManager("src/main/resources/img/berrytree_AGUAVBERRY.png")
   case BackGround extends ImageManager("src/main/resources/img/background.png")
+  case Key extends ImageManager("src/main/resources/img/Key.png")
+  case Coin extends ImageManager("src/main/resources/img/Coin.png")
+  case Bag extends ImageManager("src/main/resources/img/Bag.png")
+  case Trunk extends ImageManager("src/main/resources/img/Trunk.png")
 
   /** @return
     *   the path of the image

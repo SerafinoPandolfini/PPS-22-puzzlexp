@@ -57,7 +57,7 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     *   the panel
     */
   private def createToolbarPanel(): JPanel =
-    val toolbarPanel = JPanel(FlowLayout(FlowLayout.LEFT))
+    val toolbarPanel = JPanel(FlowLayout(FlowLayout.LEFT, 0, 0))
     toolbarPanel.setBackground(ColorManager.ToolbarBackground.color)
     toolbarPanel.setOpaque(true)
     toolbarPanel.setPreferredSize(
@@ -68,12 +68,16 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     )
     val border = BorderFactory.createLineBorder(
       ColorManager.ToolbarBorder.color,
-      DisplayValuesManager.ToolbarBorderThickness.value
-    )
-    toolbarPanel.setBorder(border)
-    val berryLabel = JLabel()
-    berryLabel.setIcon(ImageIcon(ImageManager.Berry.path))
-    toolbarPanel.add(berryLabel)
+      DisplayValuesManager.ToolbarBorderThickness.value)
+    //toolbarPanel.setBorder(border)
+    toolbarPanel.add(ToolbarElements.createScoreLabel())
+    toolbarPanel.add(ToolbarElements.createItemCounter(ImageManager.Coin.path))
+    toolbarPanel.add(ToolbarElements.createItemCounter(ImageManager.Bag.path))
+    toolbarPanel.add(ToolbarElements.createItemCounter(ImageManager.Trunk.path))
+    toolbarPanel.add(ToolbarElements.createItemCounter(ImageManager.Key.path))
+    toolbarPanel.add(ToolbarElements.createEmptyLabel(Dimension(32*3, 32)))
+    toolbarPanel.add(ToolbarElements.createPauseButton())
+
     toolbarPanel
 
   /** @return
