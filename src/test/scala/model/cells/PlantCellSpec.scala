@@ -1,11 +1,13 @@
 package model.cells
 
+import controller.GameController
 import utils.TestUtils.{defaultPosition, genericDirection}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
-import model.cells.logic.PowerUpExtension.*
+import model.cells.logic.UseItemExtension.*
 import model.cells.logic.CellExtension.updateItem
+import model.game.CurrentGame
 
 class PlantCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
   var plantCell: PlantCell = _
@@ -46,11 +48,13 @@ class PlantCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "only a axe" should "be able to cut a plant" in {
     var cells: Set[Cell] = Set(plantCell)
-    cells = plantCell.usePowerUp(Item.Pick)
+    CurrentGame.addItem(Item.Pick)
+    cells = cells.concat(plantCell.usePowerUp())
     plantCell = cells.head match
       case cell: PlantCell => cell
     plantCell.cut should be(false)
-    cells = plantCell.usePowerUp(Item.Axe)
+    CurrentGame.addItem(Item.Axe)
+    cells = plantCell.usePowerUp()
     plantCell = cells.head match
       case cell: PlantCell => cell
     plantCell.cut should be(true)
