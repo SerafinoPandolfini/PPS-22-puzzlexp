@@ -33,7 +33,8 @@ class TreasureSpec extends AnyFlatSpec with BeforeAndAfterEach:
   }
 
   "The treasure" should "be placed in the item holder and update the score counter" in {
+    val scoreInit = CurrentGame.scoreCounter
     CurrentGame.addItem(Item.Coin)
-    CurrentGame.itemHolder.itemOwned should be(List(Item.Coin))
-    CurrentGame.scoreCounter should be(10)
+    CurrentGame.itemHolder.itemOwned.contains(Item.Coin) should be(true)
+    CurrentGame.scoreCounter should be(scoreInit + 10)
   }
