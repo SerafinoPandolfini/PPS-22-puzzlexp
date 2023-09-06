@@ -65,3 +65,12 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
     pos2 should not be pos3
     pos should be(pos3)
   }
+
+  "A controller" should "let the player pick up items" ignore {
+    CurrentGame.currentRoom.cells.find(c => c.cellItem == Item.Key).get.position
+    CurrentGame.itemHolder.itemOwned.contains(Item.Key) should be(false)
+    for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
+    GameController.movePlayer(KeyEvent.VK_D)
+    CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Key) should be(false)
+    CurrentGame.itemHolder.itemOwned.contains(Item.Key) should be(true)
+  }
