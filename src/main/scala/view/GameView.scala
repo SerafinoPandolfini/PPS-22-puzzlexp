@@ -70,13 +70,14 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
       ColorManager.ToolbarBorder.color,
       DisplayValuesManager.ToolbarBorderThickness.value)
     //toolbarPanel.setBorder(border)
-    toolbarPanel.add(ToolbarElements.createScoreLabel())
+    toolbarPanel.add(ToolbarElements.createPauseButton())
     toolbarPanel.add(ToolbarElements.createItemCounter(ImageManager.Coin.path))
     toolbarPanel.add(ToolbarElements.createItemCounter(ImageManager.Bag.path))
     toolbarPanel.add(ToolbarElements.createItemCounter(ImageManager.Trunk.path))
     toolbarPanel.add(ToolbarElements.createItemCounter(ImageManager.Key.path))
-    toolbarPanel.add(ToolbarElements.createEmptyLabel(Dimension(32*3, 32)))
-    toolbarPanel.add(ToolbarElements.createPauseButton())
+    toolbarPanel.add(ToolbarElements.createItemLabel(ImageManager.Axe.path))
+    toolbarPanel.add(ToolbarElements.createItemLabel(ImageManager.Pick.path))
+    toolbarPanel.add(ToolbarElements.createScoreLabel())
 
     toolbarPanel
 

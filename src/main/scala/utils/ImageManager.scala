@@ -10,6 +10,8 @@ enum ImageManager(_path: String):
   case Coin extends ImageManager("src/main/resources/img/Coin.png")
   case Bag extends ImageManager("src/main/resources/img/Bag.png")
   case Trunk extends ImageManager("src/main/resources/img/Trunk.png")
+  case Axe extends ImageManager("src/main/resources/img/Axe.png")
+  case Pick extends ImageManager("src/main/resources/img/Pick.png")
 
   /** @return
     *   the path of the image
