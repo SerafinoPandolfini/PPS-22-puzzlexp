@@ -1,8 +1,10 @@
 package menu
 
+import controller.GameController
+import serialization.JsonDecoder
 import utils.ConstantUtils.*
 import utils.{ColorManager, ImageManager, TransparentButton}
-
+import SelectMapExtension.*
 import java.awt.event.{ActionEvent, WindowAdapter, WindowEvent}
 import java.awt.geom.RoundRectangle2D
 import java.awt.{BorderLayout, Color, Dimension, FlowLayout, Font, Graphics, Graphics2D, Shape}
@@ -11,8 +13,9 @@ import javax.swing.*
 import scala.language.postfixOps
 
 /** the GUI of the menu */
-class MenuView extends JFrame:
-  val startPanel: JLayeredPane = createStartPanel()
+class MenuView(val continue: Boolean) extends JFrame:
+  var startPanel: JLayeredPane = createStartPanel()
+  var playButton: JButton = _
   configureFrame()
 
   /** create the start menu panel containing all the panels
@@ -37,8 +40,17 @@ class MenuView extends JFrame:
     val buttonPanel = JPanel(FlowLayout(FlowLayout.CENTER))
     buttonPanel.setOpaque(false)
     val controlsButton: JButton = TransparentButton(ControlsText)
-    val playButton: JButton = TransparentButton(PlayText)
     controlsButton.addActionListener((_: ActionEvent) => ControlsView())
+    if (continue) playButton = TransparentButton(ContinueText)
+    else
+      playButton = TransparentButton(PlayText)
+      playButton.addActionListener((_: ActionEvent) =>
+        startPanel.removeAll()
+        startPanel = this.createPanelsStructure()
+        add(startPanel)
+        revalidate()
+        repaint()
+      )
     buttonPanel.add(controlsButton)
     buttonPanel.add(playButton)
     buttonPanel.setBounds(ButtonCoordinate.x, ButtonCoordinate.y, ButtonsPanelWidth, ButtonsPanelHeight)
@@ -60,7 +72,7 @@ class MenuView extends JFrame:
   /** configure and show the [[JFrame]] */
   private def configureFrame(): Unit =
     add(startPanel)
-    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
+    setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE)
     addWindowListener(
       new WindowAdapter:
         override def windowClosing(e: WindowEvent): Unit =
@@ -73,5 +85,5 @@ class MenuView extends JFrame:
             case JOptionPane.YES_OPTION => dispose()
     )
     setSize(MenuGUIWidth, MenuGUIHeight)
-    setResizable(false)
+    // setResizable(false)
     setVisible(true)

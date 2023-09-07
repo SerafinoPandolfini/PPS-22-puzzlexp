@@ -11,6 +11,7 @@ object ConstantUtils:
   val DefaultPosition: Position = (0, 0)
   val ControlsText: String = "CONTROLS"
   val PlayText: String = "PLAY"
+  val ContinueText: String = "CONTINUE"
   val MenuGUIWidth: Int = 500
   val MenuGUIHeight: Int = 610
   val ControlsGUISize: Int = 510
@@ -23,6 +24,11 @@ object ConstantUtils:
   val ButtonWidth: Int = 150
   val ButtonHeight: Int = 40
   val BorderRadius: Int = 20
+  val FillerWidth: Int = 0
+  val FillerHeight: Int = 40
+  val ComboBoxWidth: Int = ControlsPanelSize - 40
+  val ComboBoxHeight: Int = 50
+  val SelectLabelFontSize: Int = 30
 
   /** Point2D represents a coordinate
     * @param x

@@ -15,12 +15,7 @@ object MenuController:
   def continue_=(value: Boolean): Unit = _continue = value
 
   def start(): Unit =
-    _view = MenuView()
-
-  def startTheGame(): Boolean =
-    if (continue) println("continue the game")
-    else MenuController.start()
-    continue
+    _view = MenuView(continue)
 
 object Start extends App:
-  MenuController.startTheGame()
+  MenuController.start()
