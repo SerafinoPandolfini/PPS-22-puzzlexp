@@ -16,7 +16,7 @@ class GameMap(val name: String, val rooms: Set[Room], val initialRoom: String, v
     */
   def getRoomFromName(roomName: String): Try[Room] =
     Try(rooms.find(_.name == roomName) match
-      case Some(value) => value
+      case Some(value) => value.copy()
       case _           => throw new RoomNotFoundException
     )
 
@@ -35,4 +35,7 @@ class GameMap(val name: String, val rooms: Set[Room], val initialRoom: String, v
         room.links.find(_.from == position).filter(_.direction == direction).getOrElse(throw new LinkNotFoundException)
       )
       toRoom <- getRoomFromName(link.toRoom)
-    yield (toRoom, link.to)
+    yield (toRoom.copy(), link.to)
+
+  def updateRoom(room: Room): Unit =
+    rooms.find(_.name == room.name).get.updateCells(room.cells)

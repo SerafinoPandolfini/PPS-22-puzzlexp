@@ -1,6 +1,6 @@
 package model.cells.logic
 
-import model.cells.{Cell, Item, ScoreCounter}
+import model.cells.{Cell, Item}
 import model.game.ItemHolder
 import utils.ConstantUtils
 
@@ -23,7 +23,3 @@ object TreasureExtension:
       case Item.Bag   => ConstantUtils.BagValue
       case Item.Trunk => ConstantUtils.TrunkValue
       case _          => ConstantUtils.NotValuable
-
-    /** Returns the value of the item in terms of score points */
-    def updateScore(scoreCounter: ScoreCounter): ScoreCounter =
-      scoreCounter.copy(score = scoreCounter.score + item.mapItemToValue)
