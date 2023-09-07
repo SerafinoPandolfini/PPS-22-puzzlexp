@@ -12,6 +12,7 @@ enum DisplayValuesManager(_value: Int):
   case Cols extends DisplayValuesManager(Room.DefaultWidth)
   case ToolbarBorderThickness extends DisplayValuesManager(4)
   case ToolbarElementsHeight extends DisplayValuesManager(96)
+  case ButtonElement extends DisplayValuesManager(88)
   case MediumElementWidth extends DisplayValuesManager(96)
   case SmallElementWidth extends DisplayValuesManager(64)
   case LargeElementWidth extends DisplayValuesManager(192)

@@ -10,23 +10,23 @@ import utils.{ColorManager, DisplayValuesManager, ImageManager}
 import java.awt.event.{ActionEvent, ActionListener, KeyEvent}
 import javax.swing.border.Border
 import model.room.*
+import model.cells.Item
 import model.cells.Cell.given
 import model.cells.{BasicCell, Position, WallCell}
 import model.gameMap.GameMap
 import serialization.{JsonDecoder, JsonEncoder}
-import view.GameView.{BasePath, PNGPath}
+import view.GameView.{BasePath, Borders, PNGPath}
 import utils.PathExtractor.extractPath
 
 /** the standard game GUI
   */
 class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
-  // game interface
+  private var itemLabels = ToolbarElements.generateStandardToolbarElements()
+  private val scoreLabel = ToolbarElements.createScoreLabel()
   val tilesPanel: JPanel = JPanel(GridLayout(DisplayValuesManager.Rows.value, DisplayValuesManager.Cols.value))
   val toolbarPanel: JPanel = createToolbarPanel()
   val mainPanel: JPanel = createMainPanel()
-  // key handling
   val keyHandler: KeyHandler = KeyHandler()
-  // tiles list
   private var _tiles: ListMap[Position, MultiLayeredTile] =
     (for
       row <- 0 until DisplayValuesManager.Rows.value
@@ -34,6 +34,7 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
       position = (col, row)
     yield position -> createTile()).to(ListMap)
   configureFrame()
+
 
   /** @return
     *   the list of tiles shown
@@ -64,25 +65,26 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
       Dimension(
         DisplayValuesManager.Cols.value * DisplayValuesManager.CellSize.value,
         DisplayValuesManager.CellSize.value * DisplayValuesManager.ToolbarHeight.value
+          + Borders * DisplayValuesManager.ToolbarBorderThickness.value
       )
     )
     val border = BorderFactory.createLineBorder(
       ColorManager.ToolbarBorder.color,
-      DisplayValuesManager.ToolbarBorderThickness.value)
-    //toolbarPanel.setBorder(border)
+      DisplayValuesManager.ToolbarBorderThickness.value
+    )
+    toolbarPanel.setBorder(border)
+
     toolbarPanel.add(ToolbarElements.createPauseButton())
-    toolbarPanel.add(ToolbarElements.createItemCounter(ImageManager.Coin.path))
-    toolbarPanel.add(ToolbarElements.createItemCounter(ImageManager.Bag.path))
-    toolbarPanel.add(ToolbarElements.createItemCounter(ImageManager.Trunk.path))
-    toolbarPanel.add(ToolbarElements.createItemCounter(ImageManager.Key.path))
-    toolbarPanel.add(ToolbarElements.createItemLabel(ImageManager.Axe.path))
-    toolbarPanel.add(ToolbarElements.createItemLabel(ImageManager.Pick.path))
-    toolbarPanel.add(ToolbarElements.createScoreLabel())
+    for
+      l <- itemLabels
+    yield
+      toolbarPanel.add(l.label)
+    toolbarPanel.add(scoreLabel)
 
     toolbarPanel
 
   /** @return
-    *   a simple [[MultiLayeredTile]] with no images
+    *   a simple [[MultiLayeredTile]] with only default images
     */
   private def createTile(): MultiLayeredTile =
     val tile = MultiLayeredTile()
@@ -115,7 +117,9 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     updatedTile.get.playerImage = Option(ImageIcon(image).getImage)
 
   /** associate the [[MultiLayeredTile]]s with their respective images
-    */
+   *
+   * @param room the [[Room]] to convert into images for the [[MultiLayeredTile]]s
+   */
   def associateTiles(room: Room): Unit =
     val groundPaths = room.cells.toList.sorted.map(extractPath)
     val itemPaths = room.cells.toList.sorted.map(_.cellItem.toString)
@@ -130,3 +134,4 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
 object GameView:
   val BasePath = "src/main/resources/img/"
   val PNGPath = ".png"
+  val Borders = 2
