@@ -36,30 +36,30 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "A controller" should "let the player pick up items" in {
     if !GraphicsEnvironment.isHeadless then
-      CurrentGame.currentRoom.cells.find(c => c.cellItem == Item.Key).get.position
+      val num = CurrentGame.currentRoom.cells.count(c => c.cellItem == Item.Key)
       CurrentGame.itemHolder.itemOwned.contains(Item.Key) should be(false)
       for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
       GameController.movePlayer(KeyEvent.VK_D)
-      CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Key) should be(false)
+      CurrentGame.currentRoom.cells.count(c => c.cellItem == Item.Key) should be(num - 1)
       CurrentGame.itemHolder.itemOwned.contains(Item.Key) should be(true)
   }
 
   "A controller" should "be able to reset the room" in {
     if !GraphicsEnvironment.isHeadless then
       val boxBefore = CurrentGame.currentRoom.getCell(2, 3).get
-      val keyBefore = CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Key)
-      val pickBefore = CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Pick)
-      val rockBefore = CurrentGame.currentRoom.cells.collect { case c: RockCell => c }.head.broken
-      val lockBefore = CurrentGame.currentRoom.cells.collect { case c: LockCell => c }.head.open
+      val keyBefore = CurrentGame.currentRoom.cells.count(c => c.cellItem == Item.Key)
+      val pickBefore = CurrentGame.currentRoom.cells.count(c => c.cellItem == Item.Pick)
+      val rockBefore = CurrentGame.currentRoom.cells.collect { case c: RockCell => c }.count(c => c.broken)
+      val lockBefore = CurrentGame.currentRoom.cells.collect { case c: LockCell => c }.count(c => c.open)
       val itemBefore = CurrentGame.itemHolder
       for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
       GameController.movePlayer(KeyEvent.VK_D)
       for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_W)
       val boxAfter = CurrentGame.currentRoom.getCell(2, 3).get
-      val keyAfter = CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Key)
-      val pickAfter = CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Pick)
-      val rockAfter = CurrentGame.currentRoom.cells.collect { case c: RockCell => c }.head.broken
-      val lockAfter = CurrentGame.currentRoom.cells.collect { case c: LockCell => c }.head.open
+      val keyAfter = CurrentGame.currentRoom.cells.count(c => c.cellItem == Item.Key)
+      val pickAfter = CurrentGame.currentRoom.cells.count(c => c.cellItem == Item.Pick)
+      val rockAfter = CurrentGame.currentRoom.cells.collect { case c: RockCell => c }.count(c => c.broken)
+      val lockAfter = CurrentGame.currentRoom.cells.collect { case c: LockCell => c }.count(c => c.open)
       val itemAfter = CurrentGame.itemHolder
       boxBefore should not be boxAfter
       keyAfter should not be keyBefore
@@ -69,10 +69,10 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
       lockAfter should not be lockBefore
       GameController.resetRoom()
       val boxReset = CurrentGame.currentRoom.getCell(2, 3).get
-      val keyReset = CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Key)
-      val pickReset = CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Pick)
-      val rockReset = CurrentGame.currentRoom.cells.collect { case c: RockCell => c }.head.broken
-      val lockReset = CurrentGame.currentRoom.cells.collect { case c: LockCell => c }.head.open
+      val keyReset = CurrentGame.currentRoom.cells.count(c => c.cellItem == Item.Key)
+      val pickReset = CurrentGame.currentRoom.cells.count(c => c.cellItem == Item.Pick)
+      val rockReset = CurrentGame.currentRoom.cells.collect { case c: RockCell => c }.count(c => c.broken)
+      val lockReset = CurrentGame.currentRoom.cells.collect { case c: LockCell => c }.count(c => c.open)
       val itemReset = CurrentGame.itemHolder
       boxBefore should be(boxReset)
       keyReset should be(keyAfter)
