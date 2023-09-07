@@ -14,11 +14,7 @@ object UseItemExtension:
       case _: PlantCell if CurrentGame.itemHolder.itemOwned.contains(Item.Axe) =>
         cell.updateItem(Set(cell), newItem = Item.Axe)
       case _: LockCell if CurrentGame.itemHolder.itemOwned.contains(Item.Key) =>
-        CurrentGame.itemHolder.itemOwned.collectFirst {
-          case x if x != Item.Key => x
-        }.toList ++ CurrentGame.itemHolder.itemOwned
-          .dropWhile(_ != Item.Key)
-          .drop(1)
+        CurrentGame.removeItem(Item.Key)
         cell.updateItem(Set(cell), newItem = Item.Key)
       case _ =>
         Set.empty[Cell]

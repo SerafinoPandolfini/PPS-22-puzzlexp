@@ -85,7 +85,7 @@
 6
 ],
 "cellItem" : {
-"Empty" : {
+"Bag" : {
 
 }
 }
@@ -97,7 +97,7 @@
 8
 ],
 "cellItem" : {
-"Empty" : {
+"Coin" : {
 
 }
 }
@@ -109,7 +109,7 @@
 9
 ],
 "cellItem" : {
-"Empty" : {
+"Trunk" : {
 
 }
 }
@@ -121,7 +121,7 @@
 9
 ],
 "cellItem" : {
-"Empty" : {
+"Key" : {
 
 }
 }
