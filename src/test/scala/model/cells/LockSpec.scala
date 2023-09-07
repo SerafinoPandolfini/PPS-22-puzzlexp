@@ -6,12 +6,12 @@ import org.scalatest.matchers.should.Matchers.*
 import utils.TestUtils.{defaultPosition, genericDirection}
 import model.cells.logic.CellExtension.updateItem
 
-class DoorSpec extends AnyFlatSpec with BeforeAndAfterEach:
-  var doorCell: DoorCell = _
+class LockSpec extends AnyFlatSpec with BeforeAndAfterEach:
+  var doorCell: LockCell = _
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    doorCell = DoorCell(defaultPosition)
+    doorCell = LockCell(defaultPosition)
 
   "A door cell" should "be close" in {
     doorCell.open should be(false)
@@ -21,20 +21,20 @@ class DoorSpec extends AnyFlatSpec with BeforeAndAfterEach:
     var cells: Set[Cell] = Set(doorCell)
     doorCell.open should be(false)
     cells = doorCell.updateItem(cells, Item.Axe, genericDirection)
-    doorCell = cells.collectFirst { case cell: DoorCell => cell }.get
+    doorCell = cells.collectFirst { case cell: LockCell => cell }.get
     doorCell.open should be(false)
     cells = doorCell.updateItem(cells, Item.Key, genericDirection)
-    doorCell = cells.collectFirst { case cell: DoorCell => cell }.get
+    doorCell = cells.collectFirst { case cell: LockCell => cell }.get
     doorCell.open should be(true)
   }
 
   "a opened door" should "not be closed" in {
     var cells: Set[Cell] = Set(doorCell)
     cells = doorCell.updateItem(cells, Item.Key, genericDirection)
-    doorCell = cells.collectFirst { case cell: DoorCell => cell }.get
+    doorCell = cells.collectFirst { case cell: LockCell => cell }.get
     doorCell.open should be(true)
     cells = doorCell.updateItem(cells, Item.Key, genericDirection)
-    doorCell = cells.collectFirst { case cell: DoorCell => cell }.get
+    doorCell = cells.collectFirst { case cell: LockCell => cell }.get
     doorCell.open should be(true)
   }
 
@@ -43,7 +43,7 @@ class DoorSpec extends AnyFlatSpec with BeforeAndAfterEach:
     doorCell.open should be(false)
     doorCell.walkableState should be(WalkableType.Walkable(false))
     cells = doorCell.updateItem(cells, Item.Key, genericDirection)
-    doorCell = cells.collectFirst { case cell: DoorCell => cell }.get
+    doorCell = cells.collectFirst { case cell: LockCell => cell }.get
     doorCell.open should be(true)
     doorCell.walkableState should be(WalkableType.Walkable(true))
   }

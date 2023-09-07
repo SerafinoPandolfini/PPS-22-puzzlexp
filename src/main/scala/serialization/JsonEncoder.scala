@@ -34,7 +34,7 @@ object JsonEncoder:
 
   given plantCellEncoder: Encoder[PlantCell] = deriveEncoder[PlantCell]
 
-  given doorCellEncoder: Encoder[DoorCell] = deriveEncoder[DoorCell]
+  given lockCellEncoder: Encoder[LockCell] = deriveEncoder[LockCell]
 
   given cellEncoder: Encoder[Cell] = Encoder.instance {
     case basicCell: BasicCell =>
@@ -69,8 +69,8 @@ object JsonEncoder:
         .deepMerge(Json.obj("cellType" -> Json.fromString("TeleportDestinationCell")))
     case wallCell: WallCell =>
       wallCellEncoder.apply(wallCell).deepMerge(Json.obj("cellType" -> Json.fromString("WallCell")))
-    case doorCell: DoorCell =>
-      doorCellEncoder.apply(doorCell).deepMerge(Json.obj("cellType" -> Json.fromString("DoorCell")))
+    case lockCell: LockCell =>
+      lockCellEncoder.apply(lockCell).deepMerge(Json.obj("cellType" -> Json.fromString("LockCell")))
     case rockCell: RockCell =>
       rockCellEncoder.apply(rockCell).deepMerge(Json.obj("cellType" -> Json.fromString("RockCell")))
     case plantCell: PlantCell =>

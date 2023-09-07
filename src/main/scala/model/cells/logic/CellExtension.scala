@@ -76,7 +76,7 @@ object CellExtension:
         case cell: CoveredHoleCell         => updateCoveredHoleItem(cell, newItem)
         case cell: RockCell                => updateRockItem(cell, newItem)
         case cell: PlantCell               => updatePlantItem(cell, newItem)
-        case cell: DoorCell                => updateDoorItem(cell, newItem)
+        case cell: LockCell                => updateDoorItem(cell, newItem)
         case _: TeleportCell               => updateTeleportItem(cells, newItem, direction)
         case cell: ButtonCell =>
           newItem match
@@ -208,7 +208,7 @@ object CellExtension:
       * @return
       *   the set of changed cells
       */
-    private def updateDoorItem(dCell: DoorCell, newItem: Item): Set[Cell] = newItem match
+    private def updateDoorItem(dCell: LockCell, newItem: Item): Set[Cell] = newItem match
       case Item.Key =>
         if !dCell.open then Set(dCell.copy(cellItem = Item.Empty, open = true))
         else Set(dCell)
