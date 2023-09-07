@@ -57,7 +57,11 @@ object GameController:
     updateToolbarLabels()
 
   private def updateToolbarLabels(): Unit =
-    val itemCounts: Map[Item, Int] = CurrentGame.itemHolder.itemOwned.groupBy(identity).view.mapValues(_.size).toMap
+    val itemCounts: Map[Item, Int] = Item.values.map(item => item -> 0).toMap ++ CurrentGame.itemHolder.itemOwned
+      .groupBy(identity)
+      .view
+      .mapValues(_.size)
+      .toMap
     var score = 0
     itemCounts.foreach { case (item, count) =>
       view.updateItemLabel(item, count)
