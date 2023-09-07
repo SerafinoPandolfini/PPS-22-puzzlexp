@@ -8,7 +8,13 @@ import java.awt.{Dimension, Font}
 import scala.collection.immutable.List
 
 object ToolbarElements:
-  private val TextFont = Font("Arial", Font.PLAIN, 16)
+  private val textFont = Font("Arial", Font.PLAIN, 16)
+  private val counterText = "x0"
+  private val initialScore = "0"
+  val scoreText = "SCORE: "
+  /** @return
+    *   the button to pause the game
+    */
   def createPauseButton(): JButton =
     val pauseButton = JButton(ImageIcon(ImageManager.Pause.path))
     pauseButton.setBorder(BorderFactory.createEmptyBorder())
@@ -18,17 +24,33 @@ object ToolbarElements:
     pauseButton.setBackground(ColorManager.ToolbarBackground.color)
     pauseButton
 
+  /** @param item
+    *   the item assigned to the label
+    * @param iconPath
+    *   the path of the image to show in the label
+    * @return
+    *   a label with a counter for the specified item
+    */
   def createItemCounter(item: Item, iconPath: String): ItemCounterLabel =
     val itemIcon = ImageIcon(iconPath)
     val itemCounterLabel = JLabel(itemIcon)
-    itemCounterLabel.setText("x0")
-    itemCounterLabel.setFont(TextFont)
+    itemCounterLabel.setText(counterText)
+    itemCounterLabel.setFont(textFont)
     itemCounterLabel.setPreferredSize(
       Dimension(DisplayValuesManager.MediumElementWidth.value, DisplayValuesManager.ToolbarElementsHeight.value)
     )
     itemCounterLabel.setForeground(ColorManager.ToolbarText.color)
     ItemCounterLabel(itemCounterLabel, item)
 
+  /** @param item
+    *   the item assigned to the label
+    * @param iconPath
+    *   the path of the image to show in the label
+    * @return
+    *   a label for the specified item
+    * @note
+    *   the image is not initially shown, but it will be shown when the [[Label.amount]] will be greater than 1
+    */
   def createItemLabel(item: Item, iconPath: String): ItemLabel =
     val itemLabel = JLabel()
     itemLabel.setPreferredSize(
@@ -36,11 +58,14 @@ object ToolbarElements:
     )
     ItemLabel(itemLabel, item, itemPath = iconPath)
 
+  /** @return
+    *   a label for showing the current score
+    */
   def createScoreLabel(): JLabel =
     val scoreIcon = ImageIcon(ImageManager.ScoreBackground.path)
-    val scoreLabel = JLabel("SCORE: 0")
+    val scoreLabel = JLabel(scoreText concat initialScore)
     scoreLabel.setIcon(scoreIcon)
-    scoreLabel.setFont(TextFont)
+    scoreLabel.setFont(textFont)
     scoreLabel.setPreferredSize(
       Dimension(DisplayValuesManager.LargeElementWidth.value, DisplayValuesManager.ToolbarElementsHeight.value)
     )
@@ -48,6 +73,9 @@ object ToolbarElements:
     scoreLabel.setVerticalTextPosition(SwingConstants.CENTER)
     scoreLabel
 
+  /** @return
+    *   the standard [[Label]]s for the toolbar
+    */
   def generateStandardToolbarElements(): List[Label] =
     List(
       createItemCounter(Item.Coin, ImageManager.Coin.path),
@@ -57,5 +85,3 @@ object ToolbarElements:
       createItemLabel(Item.Axe, ImageManager.Axe.path),
       createItemLabel(Item.Pick, ImageManager.Pick.path)
     )
-
-

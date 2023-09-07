@@ -15,7 +15,7 @@ import model.cells.Cell.given
 import model.cells.{BasicCell, Position, WallCell}
 import model.gameMap.GameMap
 import serialization.{JsonDecoder, JsonEncoder}
-import view.GameView.{BasePath, Borders, PNGPath}
+import view.GameView.{BasePath, PNGPath}
 import utils.PathExtractor.extractPath
 
 /** the standard game GUI
@@ -58,22 +58,7 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     *   the panel
     */
   private def createToolbarPanel(): JPanel =
-    val toolbarPanel = JPanel(FlowLayout(FlowLayout.LEFT, 0, 0))
-    toolbarPanel.setBackground(ColorManager.ToolbarBackground.color)
-    toolbarPanel.setOpaque(true)
-    toolbarPanel.setPreferredSize(
-      Dimension(
-        DisplayValuesManager.Cols.value * DisplayValuesManager.CellSize.value,
-        DisplayValuesManager.CellSize.value * DisplayValuesManager.ToolbarHeight.value
-          + Borders * DisplayValuesManager.ToolbarBorderThickness.value
-      )
-    )
-    val border = BorderFactory.createLineBorder(
-      ColorManager.ToolbarBorder.color,
-      DisplayValuesManager.ToolbarBorderThickness.value
-    )
-    toolbarPanel.setBorder(border)
-
+    val toolbarPanel = ToolbarPanel.createBaseToolbarPanel()
     toolbarPanel.add(ToolbarElements.createPauseButton())
     for
       l <- itemLabels
@@ -131,7 +116,25 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
       tilesMap.updated((x, y), updatedTile)
     }
 
+  /**
+   * update the label for the specified item
+   * @param item the item of the [[Label]] to update
+   * @param amount the new amount of the specified item
+   */
+  def updateItemLabel(item: Item, amount: Int): Unit =
+    itemLabels = itemLabels.map({
+      case l if l.item == item => l.updateLabel(amount)
+      case l => l
+    })
+
+  /** update the score of the player
+   *
+   * @param score the current score of the player
+   */
+  def updateScore(score: Int): Unit =
+    scoreLabel.setText(ToolbarElements.scoreText concat score.toString)
+
 object GameView:
   val BasePath = "src/main/resources/img/"
   val PNGPath = ".png"
-  val Borders = 2
+

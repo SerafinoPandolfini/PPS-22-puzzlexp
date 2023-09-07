@@ -2,6 +2,7 @@ package controller
 
 import model.cells.logic.UseItemExtension.usePowerUp
 import model.cells.logic.CellExtension.*
+import model.cells.logic.TreasureExtension.*
 import model.cells.*
 import model.game.{CurrentGame, ItemHolder}
 import model.gameMap.GameMap
@@ -58,6 +59,16 @@ object GameController:
       resetRoom()
       dir = KeyEvent.VK_S
     view.updatePlayerImage(CurrentGame.currentPosition, dir)
+    updateToolbarLabels()
+
+  private def updateToolbarLabels(): Unit =
+    val itemCounts: Map[Item, Int] = CurrentGame.itemHolder.itemOwned.groupBy(identity).view.mapValues(_.size).toMap
+    var score = 0
+    itemCounts.foreach { case (item, count) =>
+      view.updateItemLabel(item, count)
+      if item.isTreasure then score = score + item.mapItemToValue * count
+    }
+    view.updateScore(score)
 
   private def checkMoveOnItem(): Unit =
     CurrentGame.currentRoom.getCell(CurrentGame.currentPosition) match
