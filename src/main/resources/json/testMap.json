@@ -7,11 +7,11 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-5,
+12,
 3
 ],
 "cellItem" : {
-"Coin" : {
+"Empty" : {
 
 }
 }
@@ -19,11 +19,11 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-3,
+17,
 8
 ],
 "cellItem" : {
-"Bag" : {
+"Empty" : {
 
 }
 }
@@ -31,8 +31,20 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-1,
-1
+4,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+2
 ],
 "cellItem" : {
 "Empty" : {
@@ -47,19 +59,728 @@
 3
 ]
 },
-  {
-    "cellType" : "HoleCell",
-    "position" : [
-      18,
-      11
-    ],
-    "cellItem" : {
-      "Empty" : {
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+9
+],
+"cellItem" : {
+"Empty" : {
 
-      }
-    },
-    "filled" : false
-  },
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+10,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+14,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+19,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+8
+],
+"cellItem" : {
+"Axe" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+2
+]
+},
+{
+"cellType" : "ButtonBlockCell",
+"position" : [
+16,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+},
+"color" : {
+"Blue" : {
+
+}
+},
+"pressableState" : {
+"NotPressed" : {
+
+}
+}
+},
+{
+"cellType" : "PressurePlateBlockCell",
+"position" : [
+21,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+},
+"activeState" : {
+"ObstacleWhenPressed" : {
+
+}
+},
+"pressableState" : {
+"NotPressed" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+10,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+22,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+0,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+10,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+10,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+4
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+5,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+1,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+9
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+21,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+7,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "CoveredHoleCell",
+"position" : [
+17,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+},
+"cover" : true,
+"filled" : false
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+19,
+0
+]
+},
+{
+"cellType" : "ButtonCell",
+"position" : [
+16,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+},
+"color" : {
+"Red" : {
+
+}
+},
+"pressableState" : {
+"NotPressed" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+5,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "TeleportDestinationCell",
+"position" : [
+17,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "PressurePlateCell",
+"position" : [
+15,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+},
+"pressableState" : {
+"NotPressed" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+1,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+7,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+10,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "PressurePlateBlockCell",
+"position" : [
+11,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+},
+"activeState" : {
+"ObstacleWhenNotPressed" : {
+
+}
+},
+"pressableState" : {
+"NotPressed" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+16,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
 {
 "cellType" : "BasicCell",
 "position" : [
@@ -67,9 +788,457 @@
 9
 ],
 "cellItem" : {
-  "Box" : {
+"Box" : {
 
-  }
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+1,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+8
+],
+"cellItem" : {
+"Pick" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+12,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+6,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "RockCell",
+"position" : [
+2,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+},
+"broken" : false
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+14,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+14,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+23,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+19,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+19,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+5,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+4
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+14,
+0
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+9,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+19,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+5,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+11
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
 }
 },
 {
@@ -79,9 +1248,54 @@
 7
 ],
 "cellItem" : {
-  "Box" : {
-  }
+"Box" : {
+
 }
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "HoleCell",
+"position" : [
+18,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+},
+"filled" : false
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+19,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+13,
+12
+]
 },
 {
 "cellType" : "BasicCell",
@@ -98,7 +1312,325 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-18,
+1,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+8,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+5,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+5
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+11
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+6,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+10,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+1,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+7,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+16,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+22,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+5,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+3,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+1,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
 1
 ],
 "cellItem" : {
@@ -110,7 +1642,38 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-22,
+8,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+1
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
 11
 ],
 "cellItem" : {
@@ -122,26 +1685,53 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-22,
-2
+6,
+10
 ],
 "cellItem" : {
-"Trunk" : {
+"Empty" : {
 
 }
 }
 },
 {
-"cellType" : "WallCell",
+"cellType" : "BasicCell",
 "position" : [
-10,
-0
-]
+13,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "ButtonBlockCell",
+"position" : [
+17,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+},
+"color" : {
+"Red" : {
+
+}
+},
+"pressableState" : {
+"NotPressed" : {
+
+}
+}
 },
 {
 "cellType" : "BasicCell",
 "position" : [
-15,
+5,
 1
 ],
 "cellItem" : {
@@ -153,8 +1743,244 @@
 {
 "cellType" : "BasicCell",
 "position" : [
+2,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+14,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
 23,
-8
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+18,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+14,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+11,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+7,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+8,
+0
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+6,
+0
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+0
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+20,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+1
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+19,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+7,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+16,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+2
 ],
 "cellItem" : {
 "Empty" : {
@@ -177,219 +2003,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-3,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-2
-]
-},
-  {
-    "cellType" : "CoveredHoleCell",
-    "position" : [
-      17,
-      3
-    ],
-    "cellItem" : {
-      "Empty" : {
-
-      }
-    },
-    "cover" : true,
-    "filled" : false
-  },
-{
-"cellType" : "BasicCell",
-"position" : [
-19,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-1,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-  {
-    "cellType" : "PressurePlateBlockCell",
-    "position" : [
-      11,
-      8
-    ],
-    "cellItem" : {
-      "Empty" : {
-
-      }
-    },
-    "activeState" : {
-      "ObstacleWhenNotPressed" : {
-
-      }
-    },
-    "pressableState" : {
-      "NotPressed" : {
-
-      }
-    }
-  },
-  {
-    "cellType" : "PressurePlateBlockCell",
-    "position" : [
-      15,
-      10
-    ],
-    "cellItem" : {
-      "Empty" : {
-
-      }
-    },
-    "activeState" : {
-      "ObstacleWhenPressed" : {
-
-      }
-    },
-    "pressableState" : {
-      "NotPressed" : {
-
-      }
-    }
-  },
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-  {
-    "cellType" : "PressurePlateBlockCell",
-    "position" : [
-      21,
-      6
-    ],
-    "cellItem" : {
-      "Empty" : {
-
-      }
-    },
-    "activeState" : {
-      "ObstacleWhenPressed" : {
-
-      }
-    },
-    "pressableState" : {
-      "NotPressed" : {
-
-      }
-    }
-  },
-{
-"cellType" : "BasicCell",
-"position" : [
-1,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
 17,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-  {
-    "cellType" : "PressurePlateCell",
-    "position" : [
-      15,
-      3
-    ],
-    "cellItem" : {
-      "Empty" : {
-
-      }
-    },
-    "pressableState" : {
-      "NotPressed" : {
-
-      }
-    }
-  },
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
 10
 ],
 "cellItem" : {
@@ -399,42 +2013,10 @@
 }
 },
 {
-"cellType" : "TeleportDestinationCell",
-"position" : [
-17,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "PlantCell",
-"position" : [
-6,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-},
-  "cut" : false
-},
-{
-"cellType" : "WallCell",
-"position" : [
-22,
-12
-]
-},
-{
 "cellType" : "BasicCell",
 "position" : [
-7,
-9
+3,
+8
 ],
 "cellItem" : {
 "Empty" : {
@@ -445,11 +2027,11 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-2,
-3
+23,
+2
 ],
 "cellItem" : {
-"Box" : {
+"Empty" : {
 
 }
 }
@@ -458,159 +2040,20 @@
 "cellType" : "WallCell",
 "position" : [
 24,
-4
+8
 ]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
 },
 {
 "cellType" : "WallCell",
 "position" : [
 0,
-9
+8
 ]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
-8
-],
-"cellItem" : {
-"Axe" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-14,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-3,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-21,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-1,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-1,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
 },
 {
 "cellType" : "BasicCell",
 "position" : [
 12,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
 2
 ],
 "cellItem" : {
@@ -622,8 +2065,264 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-8,
+11,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+5,
 11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+10,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+7,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+14,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+14,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+4,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+18,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+7
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+14,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+16,
+10
 ],
 "cellItem" : {
 "Empty" : {
@@ -644,276 +2343,9 @@
 }
 },
 {
-"cellType" : "WallCell",
-"position" : [
-19,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-1,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-3,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-  {
-    "cellType" : "ButtonBlockCell",
-    "position" : [
-      17,
-      5
-    ],
-    "cellItem" : {
-      "Empty" : {
-
-      }
-    },
-    "color" : {
-      "Red" : {
-
-      }
-    },
-    "pressableState" : {
-      "NotPressed" : {
-
-      }
-    }
-  },
-  {
-    "cellType" : "ButtonBlockCell",
-    "position" : [
-      16,
-      9
-    ],
-    "cellItem" : {
-      "Empty" : {
-
-      }
-    },
-    "color" : {
-      "Blue" : {
-
-      }
-    },
-    "pressableState" : {
-      "NotPressed" : {
-
-      }
-    }
-  },
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-  {
-    "cellType" : "ButtonCell",
-    "position" : [
-      16,
-      5
-    ],
-    "cellItem" : {
-      "Empty" : {
-
-      }
-    },
-    "color" : {
-      "Red" : {
-
-      }
-    },
-    "pressableState" : {
-      "NotPressed" : {
-
-      }
-    }
-  },
-  {
-    "cellType" : "ButtonCell",
-    "position" : [
-      14,
-      10
-    ],
-    "cellItem" : {
-      "Empty" : {
-
-      }
-    },
-    "color" : {
-      "Blue" : {
-
-      }
-    },
-    "pressableState" : {
-      "NotPressed" : {
-
-      }
-    }
-  },
-{
-"cellType" : "BasicCell",
-"position" : [
-16,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-19,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-16,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
 "cellType" : "BasicCell",
 "position" : [
 1,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-19,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-12,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-5,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-14,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-10,
 7
 ],
 "cellItem" : {
@@ -925,7 +2357,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-19,
+18,
 8
 ],
 "cellItem" : {
@@ -935,164 +2367,16 @@
 }
 },
 {
-"cellType" : "BasicCell",
-"position" : [
-21,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
 "cellType" : "WallCell",
 "position" : [
-19,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-23,
+4,
 0
 ]
 },
 {
 "cellType" : "BasicCell",
 "position" : [
-23,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-19,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-4
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-16,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-14,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-10,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-14,
-0
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-9,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-14,
+15,
 8
 ],
 "cellItem" : {
@@ -1105,7 +2389,7 @@
 "cellType" : "BasicCell",
 "position" : [
 20,
-10
+11
 ],
 "cellItem" : {
 "Empty" : {
@@ -1116,7 +2400,100 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-6,
+19,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+16,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+2,
+0
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+11,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+16,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+2
+]
+},
+{
+"cellType" : "ButtonCell",
+"position" : [
+14,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+},
+"color" : {
+"Blue" : {
+
+}
+},
+"pressableState" : {
+"NotPressed" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+19,
 9
 ],
 "cellItem" : {
@@ -1141,67 +2518,7 @@
 "cellType" : "BasicCell",
 "position" : [
 14,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-0,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-4
+1
 ],
 "cellItem" : {
 "Empty" : {
@@ -1211,729 +2528,10 @@
 },
 {
 "cellType" : "WallCell",
-"position" : [
-24,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-11
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-13,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-5
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-16,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-6,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-3,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-8,
-12
-]
-},
-{
-"cellType" : "BasicCell",
 "position" : [
 15,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-11
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-14,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-14,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-5,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-10,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-10,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-22,
 0
 ]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-19,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-3,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-14,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-15,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-1
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-3,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-14,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-14,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-5,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-23,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-10,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-18,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-8,
-0
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-6,
-0
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-0
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-11,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-10,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-20,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-1
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-3,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
 },
 {
 "cellType" : "BasicCell",
@@ -1948,341 +2546,42 @@
 }
 },
 {
-"cellType" : "BasicCell",
-"position" : [
-12,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-5,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-6,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-8
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-10,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
 "cellType" : "WallCell",
 "position" : [
 24,
-8
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
 10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-7,
-12
 ]
 },
 {
 "cellType" : "WallCell",
 "position" : [
-24,
-7
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-4,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-18,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-6,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-16,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-5,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-15,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-19,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-4,
+12,
 0
 ]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+6,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
 },
 {
 "cellType" : "BasicCell",
@@ -2299,219 +2598,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-15,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-16,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-2,
-0
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-11,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-2
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-15,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-16,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-10
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-12,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-6,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-19,
+10,
 1
 ],
 "cellItem" : {
@@ -2519,172 +2606,24 @@
 
 }
 }
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-15,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-6
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-7
-]
 },
 {
 "cellType" : "BasicCell",
 "position" : [
 1,
-5
+2
 ],
 "cellItem" : {
 "Empty" : {
 
 }
 }
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-5,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-3,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-9
-]
 },
 {
 "cellType" : "BasicCell",
 "position" : [
 9,
-1
+9
 ],
 "cellItem" : {
 "Empty" : {
@@ -2695,8 +2634,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-15,
-8
+16,
+6
 ],
 "cellItem" : {
 "Empty" : {
@@ -2705,16 +2644,9 @@
 }
 },
 {
-"cellType" : "WallCell",
-"position" : [
-6,
-12
-]
-},
-{
 "cellType" : "BasicCell",
 "position" : [
-15,
+10,
 7
 ],
 "cellItem" : {
@@ -2726,8 +2658,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-3,
-6
+2,
+9
 ],
 "cellItem" : {
 "Empty" : {
@@ -2738,8 +2670,44 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-21,
-2
+10,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+1,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+7
 ],
 "cellItem" : {
 "Empty" : {
@@ -2750,15 +2718,29 @@
 {
 "cellType" : "WallCell",
 "position" : [
-3,
-0
+15,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+6
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+7
 ]
 },
 {
 "cellType" : "BasicCell",
 "position" : [
-6,
-2
+3,
+11
 ],
 "cellItem" : {
 "Empty" : {
@@ -2781,125 +2763,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-8,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-20,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-3,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-16,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-5,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-1,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
 19,
-9
+3
 ],
 "cellItem" : {
 "Empty" : {
@@ -2909,164 +2774,74 @@
 },
 {
 "cellType" : "BasicCell",
-"position" : [
-17,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-5,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-16,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-10,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-15,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-0
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-7,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-5,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-1,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-9,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
 "position" : [
 21,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+9
+]
+},
+{
+"cellType" : "LockCell",
+"position" : [
+2,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+},
+"open" : false
+},
+{
+"cellType" : "WallCell",
+"position" : [
+6,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+20,
+0
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+3,
 0
 ]
 },
 {
 "cellType" : "BasicCell",
 "position" : [
-10,
-3
+20,
+10
 ],
 "cellItem" : {
 "Empty" : {
@@ -3087,17 +2862,10 @@
 }
 },
 {
-"cellType" : "WallCell",
-"position" : [
-17,
-0
-]
-},
-{
 "cellType" : "BasicCell",
 "position" : [
-7,
-8
+20,
+1
 ],
 "cellItem" : {
 "Empty" : {
@@ -3106,93 +2874,22 @@
 }
 },
 {
-"cellType" : "BasicCell",
+"cellType" : "PlantCell",
 "position" : [
-15,
-9
+6,
+1
 ],
 "cellItem" : {
 "Empty" : {
 
 }
-}
+},
+"cut" : false
 },
 {
 "cellType" : "BasicCell",
 "position" : [
 6,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-19,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
 8
 ],
 "cellItem" : {
@@ -3204,8 +2901,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-20,
-11
+16,
+7
 ],
 "cellItem" : {
 "Empty" : {
@@ -3216,8 +2913,20 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-11,
-6
+7,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+5
 ],
 "cellItem" : {
 "Empty" : {
@@ -3228,9 +2937,21 @@
 {
 "cellType" : "WallCell",
 "position" : [
-17,
-12
+5,
+0
 ]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
 },
 {
 "cellType" : "BasicCell",
@@ -3245,10 +2966,17 @@
 }
 },
 {
+"cellType" : "WallCell",
+"position" : [
+5,
+12
+]
+},
+{
 "cellType" : "BasicCell",
 "position" : [
-8,
-4
+9,
+10
 ],
 "cellItem" : {
 "Empty" : {
@@ -3259,20 +2987,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-16,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-10,
-11
+9,
+3
 ],
 "cellItem" : {
 "Empty" : {
@@ -3295,43 +3011,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-1,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-3,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
+12,
 6
 ],
 "cellItem" : {
@@ -3341,45 +3021,16 @@
 }
 },
 {
-"cellType" : "BasicCell",
+"cellType" : "WallCell",
 "position" : [
-4,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
+1,
+0
+]
 },
 {
 "cellType" : "BasicCell",
 "position" : [
 19,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
 7
 ],
 "cellItem" : {
@@ -3392,18 +3043,6 @@
 "cellType" : "BasicCell",
 "position" : [
 8,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-16,
 8
 ],
 "cellItem" : {
@@ -3415,9 +3054,21 @@
 {
 "cellType" : "WallCell",
 "position" : [
-2,
-12
+7,
+0
 ]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+16,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
 },
 {
 "cellType" : "BasicCell",
@@ -3434,8 +3085,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-21,
-11
+10,
+3
 ],
 "cellItem" : {
 "Empty" : {
@@ -3446,7 +3097,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-8,
+7,
 1
 ],
 "cellItem" : {
@@ -3458,7 +3109,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-20,
+12,
 7
 ],
 "cellItem" : {
@@ -3470,8 +3121,362 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-11,
+8,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+9,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+14,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+21,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+10,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
 9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+19,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+17,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+7,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+16,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+1,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+6,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+17,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+7,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+6,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+3
+],
+"cellItem" : {
+"Box" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+16,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+2,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+3
 ],
 "cellItem" : {
 "Empty" : {
@@ -3494,49 +3499,23 @@
 ]
 },
 {
-"cellType" : "BasicCell",
+"cellType" : "PressurePlateBlockCell",
 "position" : [
-10,
-8
+15,
+10
 ],
 "cellItem" : {
 "Empty" : {
 
 }
-}
 },
-{
-"cellType" : "BasicCell",
-"position" : [
-10,
-9
-],
-"cellItem" : {
-"Empty" : {
+"activeState" : {
+"ObstacleWhenPressed" : {
 
 }
-}
 },
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-2
-],
-"cellItem" : {
-"Empty" : {
+"pressableState" : {
+"NotPressed" : {
 
 }
 }
@@ -3545,7 +3524,55 @@
 "cellType" : "BasicCell",
 "position" : [
 5,
-11
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+6,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+5
 ],
 "cellItem" : {
 "Empty" : {
@@ -3563,8 +3590,20 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-6,
-5
+19,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+10,
+6
 ],
 "cellItem" : {
 "Empty" : {
@@ -3582,44 +3621,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-4,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-6
+22,
+7
 ],
 "cellItem" : {
 "Empty" : {
@@ -3653,7 +3656,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-5,
+12,
 3
 ],
 "cellItem" : {
@@ -3665,7 +3668,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-3,
+17,
 8
 ],
 "cellItem" : {
@@ -3677,55 +3680,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-1,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-5,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-6,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
+4,
 6
 ],
 "cellItem" : {
@@ -3737,32 +3692,20 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-18,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
+9,
 2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+9
 ],
 "cellItem" : {
 "Empty" : {
@@ -3780,177 +3723,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-15,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-3,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-2
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-19,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-1,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-3
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-15,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
+22,
 6
 ],
 "cellItem" : {
@@ -3962,136 +3735,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-1,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-15,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
 22,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-6,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-22,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-4
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-9
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
 8
 ],
 "cellItem" : {
@@ -4115,7 +3759,86 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-2,
+9,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+19,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+2
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
 9
 ],
 "cellItem" : {
@@ -4127,8 +3850,240 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-3,
+15,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+3
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+16,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+10,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+22,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+10,
 11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+10,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+4
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+5,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+1,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+9
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+7
 ],
 "cellItem" : {
 "Empty" : {
@@ -4146,56 +4101,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-13,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-1,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-1,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-1
+7,
+9
 ],
 "cellItem" : {
 "Empty" : {
@@ -4216,42 +4123,6 @@
 }
 },
 {
-"cellType" : "BasicCell",
-"position" : [
-8,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
 "cellType" : "WallCell",
 "position" : [
 19,
@@ -4261,8 +4132,56 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-23,
-2
+5,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+3
 ],
 "cellItem" : {
 "Empty" : {
@@ -4287,7 +4206,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-3,
+7,
 5
 ],
 "cellItem" : {
@@ -4299,8 +4218,32 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-17,
+10,
 5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+2
 ],
 "cellItem" : {
 "Empty" : {
@@ -4312,6 +4255,114 @@
 "cellType" : "BasicCell",
 "position" : [
 16,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+1,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
 9
 ],
 "cellItem" : {
@@ -4321,10 +4372,17 @@
 }
 },
 {
+"cellType" : "WallCell",
+"position" : [
+12,
+12
+]
+},
+{
 "cellType" : "BasicCell",
 "position" : [
-11,
-5
+13,
+1
 ],
 "cellItem" : {
 "Empty" : {
@@ -4335,8 +4393,116 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-16,
-5
+22,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+6,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+24,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+10
 ],
 "cellItem" : {
 "Empty" : {
@@ -4348,6 +4514,228 @@
 "cellType" : "BasicCell",
 "position" : [
 14,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+14,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+23,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+19,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+19,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+5,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+4
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+14,
+0
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+9,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+19,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+5,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
 10
 ],
 "cellItem" : {
@@ -4360,31 +4748,93 @@
 "cellType" : "BasicCell",
 "position" : [
 16,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
 9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+11
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+4
 ],
 "cellItem" : {
 "Empty" : {
@@ -4405,10 +4855,17 @@
 }
 },
 {
+"cellType" : "WallCell",
+"position" : [
+13,
+12
+]
+},
+{
 "cellType" : "BasicCell",
 "position" : [
-16,
-11
+23,
+6
 ],
 "cellItem" : {
 "Empty" : {
@@ -4419,8 +4876,192 @@
 {
 "cellType" : "BasicCell",
 "position" : [
+1,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+8,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+5,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+5
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+11
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
 4,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+6,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+10,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
 2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+5
 ],
 "cellItem" : {
 "Empty" : {
@@ -4443,8 +5084,44 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-19,
+3,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
 6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+7,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+16,
+11
 ],
 "cellItem" : {
 "Empty" : {
@@ -4455,8 +5132,8 @@
 {
 "cellType" : "WallCell",
 "position" : [
-12,
-12
+22,
+0
 ]
 },
 {
@@ -4474,38 +5151,14 @@
 {
 "cellType" : "WallCell",
 "position" : [
-14,
+3,
 12
 ]
 },
 {
 "cellType" : "BasicCell",
 "position" : [
-10,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-19,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
+1,
 10
 ],
 "cellItem" : {
@@ -4517,8 +5170,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-21,
-4
+13,
+7
 ],
 "cellItem" : {
 "Empty" : {
@@ -4528,47 +5181,52 @@
 },
 {
 "cellType" : "BasicCell",
+"position" : [
+13,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
 "position" : [
 24,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-19,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-23,
-0
+1
 ]
 },
 {
 "cellType" : "BasicCell",
 "position" : [
-23,
-3
+18,
+11
 ],
 "cellItem" : {
 "Empty" : {
@@ -4579,8 +5237,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-19,
-7
+5,
+1
 ],
 "cellItem" : {
 "Empty" : {
@@ -4589,16 +5247,9 @@
 }
 },
 {
-"cellType" : "WallCell",
-"position" : [
-0,
-4
-]
-},
-{
 "cellType" : "BasicCell",
 "position" : [
-9,
+8,
 9
 ],
 "cellItem" : {
@@ -4610,8 +5261,94 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-16,
+4,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+6,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+14,
 3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+23,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+18,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+9
 ],
 "cellItem" : {
 "Empty" : {
@@ -4634,7 +5371,169 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-13,
+4,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+11,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+7,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+8,
+0
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+6,
+0
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+5,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+20,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+1
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+19,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+7,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+16,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
 6
 ],
 "cellItem" : {
@@ -4646,8 +5545,56 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-10,
+13,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
 10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+2
 ],
 "cellItem" : {
 "Empty" : {
@@ -4658,16 +5605,260 @@
 {
 "cellType" : "WallCell",
 "position" : [
-14,
-0
+24,
+8
 ]
 },
 {
 "cellType" : "WallCell",
 "position" : [
-9,
-0
+0,
+8
 ]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+5,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+10,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+7,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+4,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+14,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+14,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+4,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+18,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+7
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
 },
 {
 "cellType" : "BasicCell",
@@ -4684,7 +5875,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-20,
+16,
 10
 ],
 "cellItem" : {
@@ -4696,7 +5887,157 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-6,
+1,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+4,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+19,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+16,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+9
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+2,
+0
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+11,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+16,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+24,
+2
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+19,
 9
 ],
 "cellItem" : {
@@ -4720,167 +6061,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-14,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-11
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-13,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-5
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-16,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
 6,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-3,
 7
 ],
 "cellItem" : {
@@ -4890,618 +6071,23 @@
 }
 },
 {
-"cellType" : "WallCell",
+"cellType" : "BasicCell",
 "position" : [
-8,
-12
-]
+14,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
 },
 {
-"cellType" : "BasicCell",
+"cellType" : "WallCell",
 "position" : [
 15,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-11
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-14,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-14,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-5,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-10,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-10,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-22,
 0
 ]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-19,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-3,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-14,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-15,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-1
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-3,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-14,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-14,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-5,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-23,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-10,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-18,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-8,
-0
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-6,
-0
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-0
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-11,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-10,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-20,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-1
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-3,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
 },
 {
 "cellType" : "BasicCell",
@@ -5516,341 +6102,42 @@
 }
 },
 {
-"cellType" : "BasicCell",
-"position" : [
-12,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-5,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-6,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-8
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-10,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
 "cellType" : "WallCell",
 "position" : [
 24,
-8
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
 10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-7,
-12
 ]
 },
 {
 "cellType" : "WallCell",
 "position" : [
-24,
-7
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-4,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-18,
-12
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-6,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-16,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-5,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-15,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-19,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-4,
+12,
 0
 ]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+6,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
 },
 {
 "cellType" : "BasicCell",
@@ -5867,219 +6154,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-15,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-16,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-2,
-0
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-11,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-2
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-15,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-13,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-16,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-10
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-12,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-6,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-19,
+10,
 1
 ],
 "cellItem" : {
@@ -6087,172 +6162,24 @@
 
 }
 }
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-15,
-12
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-6
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-7
-]
 },
 {
 "cellType" : "BasicCell",
 "position" : [
 1,
-5
+2
 ],
 "cellItem" : {
 "Empty" : {
 
 }
 }
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-5,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-17,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-3,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-24,
-9
-]
 },
 {
 "cellType" : "BasicCell",
 "position" : [
 9,
-1
+9
 ],
 "cellItem" : {
 "Empty" : {
@@ -6263,8 +6190,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-15,
-8
+16,
+6
 ],
 "cellItem" : {
 "Empty" : {
@@ -6273,16 +6200,9 @@
 }
 },
 {
-"cellType" : "WallCell",
-"position" : [
-6,
-12
-]
-},
-{
 "cellType" : "BasicCell",
 "position" : [
-15,
+10,
 7
 ],
 "cellItem" : {
@@ -6294,8 +6214,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-3,
-6
+2,
+9
 ],
 "cellItem" : {
 "Empty" : {
@@ -6306,8 +6226,44 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-21,
-2
+10,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+1,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+7
 ],
 "cellItem" : {
 "Empty" : {
@@ -6318,15 +6274,29 @@
 {
 "cellType" : "WallCell",
 "position" : [
-3,
-0
+15,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+6
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+7
 ]
 },
 {
 "cellType" : "BasicCell",
 "position" : [
-6,
-2
+3,
+11
 ],
 "cellItem" : {
 "Empty" : {
@@ -6349,8 +6319,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-8,
-8
+19,
+3
 ],
 "cellItem" : {
 "Empty" : {
@@ -6361,8 +6331,20 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-13,
-1
+21,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+4
 ],
 "cellItem" : {
 "Empty" : {
@@ -6373,15 +6355,72 @@
 {
 "cellType" : "WallCell",
 "position" : [
+24,
+9
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+6,
+12
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
 20,
+0
+]
+},
+{
+"cellType" : "WallCell",
+"position" : [
+3,
 0
 ]
 },
 {
 "cellType" : "BasicCell",
 "position" : [
-3,
-4
+20,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+6,
+8
 ],
 "cellItem" : {
 "Empty" : {
@@ -6402,40 +6441,9 @@
 }
 },
 {
-"cellType" : "WallCell",
-"position" : [
-5,
-0
-]
-},
-{
 "cellType" : "BasicCell",
 "position" : [
 7,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
 8
 ],
 "cellItem" : {
@@ -6447,8 +6455,94 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-18,
-7
+3,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+5,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+20,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+7,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+5,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+9,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+2,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+6
 ],
 "cellItem" : {
 "Empty" : {
@@ -6467,7 +6561,7 @@
 "cellType" : "BasicCell",
 "position" : [
 19,
-9
+7
 ],
 "cellItem" : {
 "Empty" : {
@@ -6478,8 +6572,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-17,
-11
+8,
+8
 ],
 "cellItem" : {
 "Empty" : {
@@ -6490,39 +6584,39 @@
 {
 "cellType" : "WallCell",
 "position" : [
-5,
-12
+7,
+0
 ]
 },
 {
 "cellType" : "BasicCell",
 "position" : [
-13,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
 16,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+14,
 6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+10,
+3
 ],
 "cellItem" : {
 "Empty" : {
@@ -6545,8 +6639,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-10,
-2
+12,
+7
 ],
 "cellItem" : {
 "Empty" : {
@@ -6557,45 +6651,7 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-15,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-0,
-0
-]
-},
-{
-"cellType" : "WallCell",
-"position" : [
-7,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-5,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-1,
+8,
 6
 ],
 "cellItem" : {
@@ -6614,8 +6670,27 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-12,
-4
+11,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+0,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+14,
+7
 ],
 "cellItem" : {
 "Empty" : {
@@ -6634,38 +6709,7 @@
 "cellType" : "BasicCell",
 "position" : [
 10,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "WallCell",
-"position" : [
-17,
-0
-]
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-7,
-8
+4
 ],
 "cellItem" : {
 "Empty" : {
@@ -6677,6 +6721,18 @@
 "cellType" : "BasicCell",
 "position" : [
 15,
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
 9
 ],
 "cellItem" : {
@@ -6688,104 +6744,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-6,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
 19,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-18,
-8
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-6
+1
 ],
 "cellItem" : {
 "Empty" : {
@@ -6803,164 +6763,32 @@
 {
 "cellType" : "BasicCell",
 "position" : [
+8,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
 7,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-16,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-10,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-2,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-1,
 7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-3,
-2
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-4
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-22,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-19,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-11,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-4,
-7
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
-9
 ],
 "cellItem" : {
 "Empty" : {
@@ -6981,53 +6809,22 @@
 }
 },
 {
-"cellType" : "WallCell",
+"cellType" : "BasicCell",
 "position" : [
-2,
-12
-]
+1,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
 },
 {
 "cellType" : "BasicCell",
 "position" : [
 14,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-21,
-11
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-8,
-1
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-7
+10
 ],
 "cellItem" : {
 "Empty" : {
@@ -7039,7 +6836,213 @@
 "cellType" : "BasicCell",
 "position" : [
 11,
-9
+1
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+6,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+17,
+0
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+3,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+8,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+11
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+7,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+7,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+6,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+15,
+10
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+23,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+17,
+4
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+16,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "WallCell",
+"position" : [
+2,
+12
+]
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+11,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+18,
+2
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+13,
+3
 ],
 "cellItem" : {
 "Empty" : {
@@ -7064,7 +7067,19 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-10,
+5,
+7
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+21,
 8
 ],
 "cellItem" : {
@@ -7076,8 +7091,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-10,
-9
+11,
+3
 ],
 "cellItem" : {
 "Empty" : {
@@ -7088,8 +7103,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-17,
-1
+6,
+3
 ],
 "cellItem" : {
 "Empty" : {
@@ -7100,8 +7115,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-2,
-2
+12,
+5
 ],
 "cellItem" : {
 "Empty" : {
@@ -7112,8 +7127,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-5,
-11
+23,
+5
 ],
 "cellItem" : {
 "Empty" : {
@@ -7131,8 +7146,32 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-6,
-5
+19,
+8
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+10,
+6
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+{
+"cellType" : "BasicCell",
+"position" : [
+22,
+7
 ],
 "cellItem" : {
 "Empty" : {
@@ -7150,44 +7189,8 @@
 {
 "cellType" : "BasicCell",
 "position" : [
-4,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-23,
-10
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-9,
-6
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-{
-"cellType" : "BasicCell",
-"position" : [
-20,
-6
+6,
+1
 ],
 "cellItem" : {
 "Empty" : {
@@ -7222,4 +7225,3 @@
 1
 ]
 }
-

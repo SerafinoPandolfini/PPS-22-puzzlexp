@@ -240,7 +240,7 @@ object Room:
       case _: PressurePlateCell       => "PP"
       case _: TeleportCell            => "TL"
       case _: TeleportDestinationCell => "TD"
-      case _: DoorCell                => "DR"
+      case _: LockCell                => "LK"
       case _: RockCell                => "RK"
       case _: PlantCell               => "PL"
       case _                          => "??"

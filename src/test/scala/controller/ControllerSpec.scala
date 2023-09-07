@@ -1,7 +1,7 @@
 package controller
 
 import exceptions.{LinkNotFoundException, RoomNotFoundException}
-import model.cells.{BasicCell, Direction, Item, Position, WallCell}
+import model.cells.{BasicCell, Direction, LockCell, Item, Position, RockCell, WallCell}
 import model.room.{Room, RoomBuilder, RoomLink}
 import model.gameMap.*
 import model.game.CurrentGame
@@ -20,6 +20,10 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
     super.beforeEach()
     if !GraphicsEnvironment.isHeadless then GameController.startGame("src/main/resources/json/testMap.json")
 
+  override def afterEach(): Unit =
+    super.afterEach()
+    if !GraphicsEnvironment.isHeadless then GameController.view.dispose()
+
   "A controller" should "let the player move and change room" in {
     if !GraphicsEnvironment.isHeadless then
       val room1 = CurrentGame.currentRoom
@@ -30,43 +34,6 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
       CurrentGame.currentRoom should not be room1
   }
 
-  "A controller" should "reset the room" in {
-    if !GraphicsEnvironment.isHeadless then
-
-      val it = CurrentGame.currentRoom.cells.find(c => c.position == (2, 3)).get.cellItem
-      val set2 = CurrentGame.currentRoom.cells
-        .find(c => c.position == (2, 3))
-        .get
-        .asInstanceOf[BasicCell]
-        .updateItem(CurrentGame.currentRoom.cells, Item.Empty, Direction.Down)
-      CurrentGame.currentRoom.updateCells(set2)
-      val it2 = CurrentGame.currentRoom.cells.find(c => c.position == (2, 3)).get.cellItem
-      it should not be it2
-      GameController.resetRoom()
-      val it3 = CurrentGame.currentRoom.cells.find(c => c.position == (2, 3)).get.cellItem
-      it should be(it3)
-  }
-
-  "A controller" should "reset the room when the player change room" in {
-    if !GraphicsEnvironment.isHeadless then
-      GameController.movePlayer(KeyEvent.VK_S)
-      GameController.movePlayer(KeyEvent.VK_S)
-      val item = CurrentGame.currentRoom.getCell(2, 3).get.cellItem // box
-      GameController.movePlayer(KeyEvent.VK_D)
-      val item2 = CurrentGame.currentRoom.getCell(2, 3).get.cellItem // empty
-      item should not be item2
-      val item3 = CurrentGame.currentRoom.getCell(3, 3).get.cellItem // box
-      item should be(item3)
-      GameController.movePlayer(KeyEvent.VK_A)
-      GameController.movePlayer(KeyEvent.VK_A)
-      GameController.movePlayer(KeyEvent.VK_D)
-      val item4 = CurrentGame.currentRoom.getCell(2, 3).get.cellItem // box
-      item4 should not be item2
-      item4 should be(item)
-      val item5 = CurrentGame.currentRoom.getCell(3, 3).get.cellItem // empty
-      item5 should not be item
-  }
-
   "A controller" should "let the player pick up items" in {
     if !GraphicsEnvironment.isHeadless then
       CurrentGame.currentRoom.cells.find(c => c.cellItem == Item.Key).get.position
@@ -75,4 +42,42 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
       GameController.movePlayer(KeyEvent.VK_D)
       CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Key) should be(false)
       CurrentGame.itemHolder.itemOwned.contains(Item.Key) should be(true)
+  }
+
+  "A controller" should "be able to reset the room" in {
+    if !GraphicsEnvironment.isHeadless then
+      val boxBefore = CurrentGame.currentRoom.getCell(2, 3).get
+      val keyBefore = CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Key)
+      val pickBefore = CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Pick)
+      val rockBefore = CurrentGame.currentRoom.cells.collect { case c: RockCell => c }.head.broken
+      val lockBefore = CurrentGame.currentRoom.cells.collect { case c: LockCell => c }.head.open
+      val itemBefore = CurrentGame.itemHolder
+      for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
+      GameController.movePlayer(KeyEvent.VK_D)
+      for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_W)
+      val boxAfter = CurrentGame.currentRoom.getCell(2, 3).get
+      val keyAfter = CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Key)
+      val pickAfter = CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Pick)
+      val rockAfter = CurrentGame.currentRoom.cells.collect { case c: RockCell => c }.head.broken
+      val lockAfter = CurrentGame.currentRoom.cells.collect { case c: LockCell => c }.head.open
+      val itemAfter = CurrentGame.itemHolder
+      boxBefore should not be boxAfter
+      keyAfter should not be keyBefore
+      itemAfter should not be itemBefore
+      pickAfter should not be pickBefore
+      rockAfter should not be rockBefore
+      lockAfter should not be lockBefore
+      GameController.resetRoom()
+      val boxReset = CurrentGame.currentRoom.getCell(2, 3).get
+      val keyReset = CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Key)
+      val pickReset = CurrentGame.currentRoom.cells.exists(c => c.cellItem == Item.Pick)
+      val rockReset = CurrentGame.currentRoom.cells.collect { case c: RockCell => c }.head.broken
+      val lockReset = CurrentGame.currentRoom.cells.collect { case c: LockCell => c }.head.open
+      val itemReset = CurrentGame.itemHolder
+      boxBefore should be(boxReset)
+      keyReset should be(keyAfter)
+      itemReset should be(itemAfter)
+      pickReset should be(pickAfter)
+      rockReset should be(rockBefore)
+      lockReset should be(lockAfter)
   }

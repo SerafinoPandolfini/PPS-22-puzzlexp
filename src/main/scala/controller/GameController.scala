@@ -22,6 +22,10 @@ object GameController:
 
   def view: GameView = _view
 
+  /** performs the necessary actions to initialize and start the game
+    * @param mapPath
+    *   the path of the map of the current game
+    */
   def startGame(mapPath: String): Unit =
     CurrentGame.initialize(
       JsonDecoder.mapDecoder(JsonDecoder.getJsonFromPath(mapPath).toOption.get.hcursor).toOption.get
@@ -37,21 +41,12 @@ object GameController:
   def movePlayer(direction: Int): Unit =
     CurrentGame.currentRoom.playerMove(CurrentGame.currentPosition, direction) match
       case Some(position) =>
-        if CurrentGame.currentPosition != position then
-          CurrentGame.currentRoom.checkMovementConsequences(
-            CurrentGame.currentPosition,
-            position
-          ) match
-            case Success(value)     => CurrentGame.currentPosition = value
-            case Failure(exception) => println(exception)
+        if CurrentGame.currentPosition != position then CurrentGame.checkConsequences(position)
         else
-          println(CurrentGame.currentRoom.getCell(position + direction.coordinates).get)
-          println(CurrentGame.itemHolder.itemOwned)
           CurrentGame.currentRoom.updateCells(
             CurrentGame.currentRoom.getCell(position + direction.coordinates).get.usePowerUp()
           )
       case None => checkChangeRoom(direction)
-    // update the GUI
     checkMoveOnItem()
     view.associateTiles(CurrentGame.currentRoom)
     var dir = direction
@@ -70,7 +65,8 @@ object GameController:
     }
     view.updateScore(score)
 
-
+  /** Check if the player has moved on a collectable item and performs the needed actions
+    */
   private def checkMoveOnItem(): Unit =
     CurrentGame.currentRoom.getCell(CurrentGame.currentPosition) match
       case Some(value) =>
@@ -82,7 +78,7 @@ object GameController:
     * @param direction
     *   the [[Direction]] in which the player is moving
     */
-  def checkChangeRoom(direction: Direction): Unit =
+  private def checkChangeRoom(direction: Direction): Unit =
     CurrentGame.gameMap.changeRoom(CurrentGame.currentPosition, CurrentGame.currentRoom.name, direction) match
       case Success((room, pos)) =>
         resetRoom()
@@ -94,7 +90,8 @@ object GameController:
   def resetRoom(): Unit =
     val resettedRoom = CurrentGame.originalGameMap.getRoomFromName(CurrentGame.currentRoom.name).get
     // reset door
-    val doors = CurrentGame.currentRoom.cells.collect { case c: DoorCell => c }.map(c => c.copy(cellItem = Item.Empty))
+    val doors = CurrentGame.currentRoom.cells.collect { case c: LockCell => c }.map(c => c.copy(cellItem = Item.Empty))
+
     resettedRoom.updateCells(doors.asInstanceOf[Set[Cell]])
     // reset items
     val itemEmpty = for
