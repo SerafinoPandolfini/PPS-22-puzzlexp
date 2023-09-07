@@ -1,5 +1,5 @@
 package model.cells.logic
-import model.cells.{Cell, Direction, Item, PlantCell, RockCell, DoorCell}
+import model.cells.{Cell, Direction, Item, PlantCell, RockCell, LockCell}
 import model.cells.logic.CellExtension.updateItem
 import model.game.CurrentGame
 
@@ -13,7 +13,7 @@ object UseItemExtension:
         cell.updateItem(Set(cell), newItem = Item.Pick)
       case _: PlantCell if CurrentGame.itemHolder.itemOwned.contains(Item.Axe) =>
         cell.updateItem(Set(cell), newItem = Item.Axe)
-      case _: DoorCell if CurrentGame.itemHolder.itemOwned.contains(Item.Key) =>
+      case _: LockCell if CurrentGame.itemHolder.itemOwned.contains(Item.Key) =>
         CurrentGame.itemHolder.itemOwned.collectFirst {
           case x if x != Item.Key => x
         }.toList ++ CurrentGame.itemHolder.itemOwned
