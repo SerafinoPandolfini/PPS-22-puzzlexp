@@ -212,7 +212,7 @@ object CellExtension:
       case Item.Key =>
         if !dCell.open then Set(dCell.copy(cellItem = Item.Empty, open = true))
         else Set(dCell)
-      case _ => Set(dCell.copy(cellItem = Item.Empty))
+      case item => Set(dCell.copy(cellItem = item))
 
     /** Find the [[TeleportDestinationCell]] in the provided [[Set]]
       * @param cells
