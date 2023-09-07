@@ -93,6 +93,12 @@ trait Room:
     */
   def cellsRepresentation(mapper: Cell => Option[String] = _ => Option.empty[String]): String
 
+  /** get a copy of the current room
+    * @return
+    *   the copy of the room
+    */
+  def copy(): Room
+
 object Room:
 
   def apply(
@@ -182,6 +188,8 @@ object Room:
         .grouped(cells.maxBy(_.position._1).position._1 + 1)
         .map(row => row.mkString(" | "))
         .mkString("\n", "\n", "\n")
+
+    override def copy(): Room = Room(name, cells, links)
 
   /** the default width of a [[Room]]
     */

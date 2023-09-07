@@ -33,7 +33,10 @@ class GameViewMapSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "A map" should "retrieve a room having its name" in {
     map.getRoomFromName(roomName).isSuccess should be(true)
-    map.getRoomFromName(roomName).success.value should be(room)
+    val room2 = map.getRoomFromName(roomName).success.value
+    room2.name should be(room.name)
+    room2.cells should be(room.cells)
+    room2.links should be(room.links)
   }
 
   "A map" should "retrieve an error if the name is not present when trying to get a room" in {
@@ -48,7 +51,12 @@ class GameViewMapSpec extends AnyFlatSpec with BeforeAndAfterEach:
     val room2: Room = Room(name2, Set.empty, Set(RoomLink(pos2, genericDirection, roomName, defaultPosition)))
     map = new GameMap(mapName, Set(room, room2), roomName, defaultPosition)
     map.changeRoom(pos2, name2, genericDirection).isSuccess should be(true)
-    map.changeRoom(pos2, name2, genericDirection).success.value should be(room, defaultPosition)
+    val (r2, p2) = map.changeRoom(pos2, name2, genericDirection).success.value
+    p2 should be(defaultPosition)
+    r2.name should be(room.name)
+    r2.cells should be(room.cells)
+    r2.links should be(room.links)
+
   }
 
   "A map" should "retrieve an error if the info to get in the next room are not present" in {

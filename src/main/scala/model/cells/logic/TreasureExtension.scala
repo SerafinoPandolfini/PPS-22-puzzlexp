@@ -1,6 +1,6 @@
 package model.cells.logic
 
-import model.cells.{Cell, Item, ScoreCounter}
+import model.cells.{Cell, Item}
 import model.game.ItemHolder
 import utils.ConstantUtils
 import utils.ItemConversion.given_Conversion_Item_Int

@@ -3,8 +3,8 @@ package model.cells.logic
 import model.cells.*
 import model.game.ItemHolder
 import utils.PositionExtension.*
-import model.cells.logic.TreasureExtension.{updateScore, isTreasure}
-import utils.ConstantUtils.DefaultPosition
+import model.cells.logic.TreasureExtension.isTreasure
+import utils.ConstantUtils.defaultPosition
 
 object CellExtension:
   /** extension for adding new methods for interacting with cellItems and the player
@@ -53,32 +53,6 @@ object CellExtension:
     def gatherItem(cellWithItem: Cell, itemHolder: ItemHolder): (Set[Cell], ItemHolder) = cellWithItem match
       case c if c.cellItem != Item.Empty =>
         (c.updateItem(Set(c), Item.Empty, Direction.Down), itemHolder.addItems(List(c.cellItem)))
-
-    /** Perform the necessary operations when the player walks on a cell having a treasure
-      * @param cells
-      *   The set of all cells in the current room
-      * @param scoreCounter
-      *   The [[ScoreCounter]]
-      * @param itemHolder
-      *   The [[ItemHolder]]
-      * @return
-      *   the set of the modified cells in the room, the [[Position]] of the cell in which the player is now, the
-      *   [[ScoreCounter]] and [[ItemHolder]] updated
-      */
-    def moveOnTreasure(
-        cells: Set[Cell],
-        itemHolder: ItemHolder,
-        scoreCounter: ScoreCounter
-    ): (Set[Cell], Position, ScoreCounter, ItemHolder) =
-      cells.foldLeft((cells, DefaultPosition, scoreCounter, itemHolder)) {
-        case ((_, _, currentScoreCounter, currentItemHolder), cell) if cell.cellItem.isTreasure =>
-          val updatedScoreCounter = cell.cellItem.updateScore(currentScoreCounter)
-          val (updatedCells, updatedItemHolder) = cell.gatherItem(cell, currentItemHolder)
-          (updatedCells, cell.position, updatedScoreCounter, updatedItemHolder)
-
-        case ((currentCells, currentPosition, currentScoreCounter, currentItemHolder), _) =>
-          (currentCells, currentPosition, currentScoreCounter, currentItemHolder)
-      }
 
     /** Updates the item in the cell and returns a set of modified cells based on the rules of the game.
       *

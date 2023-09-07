@@ -3,8 +3,9 @@ import java.awt.Color
 
 enum ColorManager(_color: Color):
   case ToolbarBackground extends ColorManager(Color(50, 54, 59))
-  case ToolbarBorder extends ColorManager(Color(41, 43, 46))
   case TransparentButtons extends ColorManager(Color(0, 0, 0, 100))
+  case ToolbarBorder extends ColorManager(new Color(61, 63, 66))
+  case ToolbarText extends ColorManager(new Color(255, 255, 255))
 
   /** @return
     *   the color

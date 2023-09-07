@@ -3,6 +3,7 @@ package view
 import controller.GameController
 import model.cells.{Direction, Position}
 import utils.{DisplayValuesManager, ImageManager}
+import model.game.CurrentGame
 
 import java.awt.event.{ActionEvent, KeyEvent}
 import javax.swing.{AbstractAction, ImageIcon, JComponent, JPanel, KeyStroke, SwingUtilities}
@@ -48,7 +49,7 @@ object KeyHandler:
       keyCode match
         case KeyEvent.VK_R =>
           GameController.resetRoom()
-          tiles(GameController.currentGame.currentPosition).playerImage = Some(
+          tiles(CurrentGame.currentPosition).playerImage = Some(
             ImageIcon(ImageManager.CharacterDown.path).getImage
           )
         case _ => GameController.movePlayer(keyCode)

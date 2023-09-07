@@ -11,7 +11,7 @@
 3
 ],
 "cellItem" : {
-"Empty" : {
+"Coin" : {
 
 }
 }
@@ -23,7 +23,7 @@
 8
 ],
 "cellItem" : {
-"Empty" : {
+"Bag" : {
 
 }
 }
@@ -126,7 +126,7 @@
 2
 ],
 "cellItem" : {
-"Empty" : {
+"Trunk" : {
 
 }
 }
@@ -169,7 +169,7 @@
 11
 ],
 "cellItem" : {
-"Empty" : {
+"Key" : {
 
 }
 }
@@ -411,7 +411,7 @@
 }
 },
 {
-"cellType" : "BasicCell",
+"cellType" : "PlantCell",
 "position" : [
 6,
 1
@@ -420,7 +420,8 @@
 "Empty" : {
 
 }
-}
+},
+  "cut" : false
 },
 {
 "cellType" : "WallCell",
@@ -486,7 +487,7 @@
 8
 ],
 "cellItem" : {
-"Empty" : {
+"Axe" : {
 
 }
 }

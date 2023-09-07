@@ -1,9 +1,10 @@
 package controller
 
-import model.cells.logic.PowerUpExtension
+import model.cells.logic.UseItemExtension.usePowerUp
 import model.cells.logic.CellExtension.*
+import model.cells.logic.TreasureExtension.*
 import model.cells.*
-import model.game.CurrentGame
+import model.game.{CurrentGame, ItemHolder}
 import model.gameMap.GameMap
 import model.room.{Room, RoomBuilder}
 import serialization.{JsonDecoder, JsonEncoder}
@@ -17,19 +18,15 @@ import scala.util.{Failure, Success}
 
 object GameController:
 
-  val currentGame: CurrentGame.type = CurrentGame
   private var _view: GameView = _
 
   def view: GameView = _view
 
   def startGame(mapPath: String): Unit =
-    currentGame.originalGameMap =
+    CurrentGame.initialize(
       JsonDecoder.mapDecoder(JsonDecoder.getJsonFromPath(mapPath).toOption.get.hcursor).toOption.get
-    currentGame.gameMap = JsonDecoder.mapDecoder(JsonDecoder.getJsonFromPath(mapPath).toOption.get.hcursor).toOption.get
-    currentGame.currentRoom = currentGame.gameMap.getRoomFromName(currentGame.gameMap.initialRoom).get
-    currentGame.startPositionInRoom = currentGame.gameMap.initialPosition
-    currentGame.currentPosition = currentGame.gameMap.initialPosition
-    _view = GameView(currentGame.currentRoom, currentGame.gameMap.initialPosition)
+    )
+    _view = GameView(CurrentGame.currentRoom, CurrentGame.gameMap.initialPosition)
 
   /** Performs the actions needed to move the player
     * @param direction
@@ -38,73 +35,78 @@ object GameController:
     *   the [[Position]] in which the player is
     */
   def movePlayer(direction: Int): Unit =
-    currentGame.currentRoom.playerMove(currentGame.currentPosition, direction) match
+    CurrentGame.currentRoom.playerMove(CurrentGame.currentPosition, direction) match
       case Some(position) =>
-        if currentGame.currentPosition != position then
-          currentGame.currentRoom.checkMovementConsequences(
-            currentGame.currentPosition,
+        if CurrentGame.currentPosition != position then
+          CurrentGame.currentRoom.checkMovementConsequences(
+            CurrentGame.currentPosition,
             position
           ) match
-            case Success(value)     => currentGame.currentPosition = value
+            case Success(value)     => CurrentGame.currentPosition = value
             case Failure(exception) => println(exception)
+        else
+          println(CurrentGame.currentRoom.getCell(position + direction.coordinates).get)
+          println(CurrentGame.itemHolder.itemOwned)
+          CurrentGame.currentRoom.updateCells(
+            CurrentGame.currentRoom.getCell(position + direction.coordinates).get.usePowerUp()
+          )
       case None => checkChangeRoom(direction)
     // update the GUI
-    view.associateTiles(currentGame.currentRoom)
+    checkMoveOnItem()
+    view.associateTiles(CurrentGame.currentRoom)
     var dir = direction
-    if CurrentGame.currentRoom.isPlayerDead(currentGame.currentPosition).toOption.get then
+    if CurrentGame.currentRoom.isPlayerDead(CurrentGame.currentPosition).toOption.get then
       resetRoom()
       dir = KeyEvent.VK_S
-    view.updatePlayerImage(currentGame.currentPosition, dir)
+    view.updatePlayerImage(CurrentGame.currentPosition, dir)
+    updateToolbarLabels()
+
+  private def updateToolbarLabels(): Unit =
+    val itemCounts: Map[Item, Int] = CurrentGame.itemHolder.itemOwned.groupBy(identity).view.mapValues(_.size).toMap
+    var score = 0
+    itemCounts.foreach { case (item, count) =>
+      view.updateItemLabel(item, count)
+      if item.isTreasure then score = score + item.mapItemToValue * count
+    }
+    view.updateScore(score)
+
+
+  private def checkMoveOnItem(): Unit =
+    CurrentGame.currentRoom.getCell(CurrentGame.currentPosition) match
+      case Some(value) =>
+        CurrentGame.currentRoom.updateCells(value.updateItem(CurrentGame.currentRoom.cells, Item.Empty))
+        CurrentGame.addItem(value.cellItem)
+      case None => ()
 
   /** check if the room is changing, if that is the case performs the necessary actions
     * @param direction
     *   the [[Direction]] in which the player is moving
     */
   def checkChangeRoom(direction: Direction): Unit =
-    currentGame.gameMap.changeRoom(currentGame.currentPosition, currentGame.currentRoom.name, direction) match
+    CurrentGame.gameMap.changeRoom(CurrentGame.currentPosition, CurrentGame.currentRoom.name, direction) match
       case Success((room, pos)) =>
         resetRoom()
-        currentGame.currentRoom = room
-        currentGame.currentPosition = pos
-        currentGame.startPositionInRoom = pos
+        CurrentGame.changeRoom(room, pos)
       case Failure(_) => () // it is not a link, just do nothing
 
   /** Reset the current room
     */
   def resetRoom(): Unit =
-    val resettedRoom = currentGame.originalGameMap.getRoomFromName(currentGame.currentRoom.name).get
+    val resettedRoom = CurrentGame.originalGameMap.getRoomFromName(CurrentGame.currentRoom.name).get
     // reset door
-    val doors = currentGame.currentRoom.cells.collect { case c: DoorCell => c }.map(c => c.copy(cellItem = Item.Empty))
+    val doors = CurrentGame.currentRoom.cells.collect { case c: DoorCell => c }.map(c => c.copy(cellItem = Item.Empty))
     resettedRoom.updateCells(doors.asInstanceOf[Set[Cell]])
     // reset items
     val itemEmpty = for
-      c <- currentGame.currentRoom.cells
+      c <- CurrentGame.currentRoom.cells
       r <- resettedRoom.cells
       if r.cellItem != Item.Box && r.cellItem != Item.Empty
       if c.position == r.position
       if c.cellItem != r.cellItem
     yield r.updateItem(resettedRoom.cells, Item.Empty).filter(e => e.position == r.position).head
     resettedRoom.updateCells(itemEmpty)
-    // updating
-    updateCurrents(resettedRoom)
-    view.associateTiles(currentGame.currentRoom)
-
-  /** substitute the current room with a new one, updating the current map
-    * @param newRoom
-    *   the new [[Room]]
-    */
-  private def updateCurrents(newRoom: Room): Unit =
-    currentGame.currentRoom = Room(newRoom.name, newRoom.cells, newRoom.links)
-    currentGame.currentPosition = currentGame.startPositionInRoom
-    val newRooms = currentGame.gameMap.rooms
-      - currentGame.gameMap.getRoomFromName(currentGame.currentRoom.name).get
-      + currentGame.currentRoom
-    currentGame.gameMap = GameMap(
-      currentGame.gameMap.name,
-      newRooms,
-      currentGame.gameMap.initialRoom,
-      currentGame.gameMap.initialPosition
-    )
+    CurrentGame.resetRoom(resettedRoom)
+    view.associateTiles(CurrentGame.currentRoom)
 
 object simulate extends App:
   val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/testMap.json")
