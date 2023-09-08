@@ -4,6 +4,7 @@ import model.cells.logic.UseItemExtension.usePowerUp
 import model.cells.logic.CellExtension.*
 import model.cells.logic.TreasureExtension.*
 import model.cells.*
+import model.cells.Item.GoalGem
 import model.game.{CurrentGame, ItemHolder}
 import model.gameMap.GameMap
 import model.room.{Room, RoomBuilder}
@@ -74,8 +75,11 @@ object GameController:
   private def checkMoveOnItem(): Unit =
     CurrentGame.currentRoom.getCell(CurrentGame.currentPosition) match
       case Some(value) =>
-        CurrentGame.currentRoom.updateCells(value.updateItem(CurrentGame.currentRoom.cells, Item.Empty))
-        CurrentGame.addItem(value.cellItem)
+        value.cellItem match
+          case GoalGem => println("the end")
+          case _ =>
+            CurrentGame.currentRoom.updateCells(value.updateItem(CurrentGame.currentRoom.cells, Item.Empty))
+            CurrentGame.addItem(value.cellItem)
       case None => ()
 
   /** check if the room is changing, if that is the case performs the necessary actions
@@ -110,5 +114,7 @@ object GameController:
     view.associateTiles(CurrentGame.currentRoom)
 
 object simulate extends App:
+  val j = JsonEncoder.cellEncoder.apply(BasicCell((0, 0), Item.GoalGem))
+  println(j)
   val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/testMap.json")
   GameController.startGame(p)
