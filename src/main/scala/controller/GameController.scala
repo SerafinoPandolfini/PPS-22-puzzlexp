@@ -12,6 +12,7 @@ import utils.PositionExtension.+
 import utils.KeyDirectionMapping.given
 import utils.PathExtractor.extractPath
 import view.GameView
+import utils.ItemConversion.given
 
 import java.awt.event.KeyEvent
 import scala.util.{Failure, Success}
@@ -66,10 +67,9 @@ object GameController:
     var score = 0
     itemCounts.foreach { case (item, count) =>
       view.updateItemLabel(item, count)
-      if item.isTreasure then score = score + item.mapItemToValue * count
+      if item.isTreasure then score = score + item * count
     }
     view.updateScore(score)
-
 
   private def checkMoveOnItem(): Unit =
     CurrentGame.currentRoom.getCell(CurrentGame.currentPosition) match

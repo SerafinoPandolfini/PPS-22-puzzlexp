@@ -29,6 +29,7 @@ object ConstantUtils:
   val ComboBoxWidth: Int = ControlsPanelSize - 40
   val ComboBoxHeight: Int = 50
   val SelectLabelFontSize: Int = 30
+  val JsonDirectoryPath: String = "src/main/resources/json/"
 
   /** Point2D represents a coordinate
     * @param x

@@ -5,7 +5,7 @@ import model.gameMap.GameMap
 import model.cells.{Position, Item}
 import model.room.Room
 import serialization.JsonDecoder
-import model.cells.logic.TreasureExtension.mapItemToValue
+import utils.ItemConversion.given_Conversion_Item_Int
 
 object CurrentGame:
   private var _scoreCounter: Int = 0
@@ -56,4 +56,4 @@ object CurrentGame:
   def addItem(item: Item): Unit =
     if item != Item.Empty then
       _itemHolder = _itemHolder.addItem(item)
-      _scoreCounter = _scoreCounter + item.mapItemToValue
+      _scoreCounter = _scoreCounter + item

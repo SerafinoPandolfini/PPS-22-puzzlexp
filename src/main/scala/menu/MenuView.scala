@@ -5,15 +5,17 @@ import serialization.JsonDecoder
 import utils.ConstantUtils.*
 import utils.{ColorManager, ImageManager, TransparentButton}
 import SelectMapExtension.*
+
 import java.awt.event.{ActionEvent, WindowAdapter, WindowEvent}
 import java.awt.geom.RoundRectangle2D
 import java.awt.{BorderLayout, Color, Dimension, FlowLayout, Font, Graphics, Graphics2D, Shape}
 import java.util.Locale
 import javax.swing.*
+import scala.collection.immutable.ListMap
 import scala.language.postfixOps
 
 /** the GUI of the menu */
-class MenuView(val continue: Boolean) extends JFrame:
+case class MenuView(continue: Boolean, mapPathAndName: ListMap[String, String]) extends JFrame:
   var startPanel: JLayeredPane = createStartPanel()
   var playButton: JButton = _
   configureFrame()
@@ -85,5 +87,5 @@ class MenuView(val continue: Boolean) extends JFrame:
             case JOptionPane.YES_OPTION => dispose()
     )
     setSize(MenuGUIWidth, MenuGUIHeight)
-    // setResizable(false)
+    setResizable(false)
     setVisible(true)

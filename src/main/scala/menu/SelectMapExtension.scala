@@ -1,6 +1,7 @@
 package menu
 
 import controller.GameController
+import exceptions.MapNotFoundException
 import serialization.JsonDecoder
 import utils.ColorManager.TransparentButtons
 import utils.{ImageManager, TransparentButton}
@@ -55,9 +56,10 @@ object SelectMapExtension:
       *   the panel
       */
     private def createMapFGPanel(): JPanel =
+      var selectedPath: String = ""
       val foreGround = JPanel()
       foreGround.setOpaque(false)
-      val maps: Array[String] = Array("Option 1", "Option 2", "Option 3", "Option 4")
+      val maps: Array[String] = view.mapPathAndName.map { case (_, n) => n }.toArray
       val comboBox: JComboBox[String] = JComboBox(maps)
       val selectLabel: JLabel = JLabel("Select a map")
       val playButton: JButton = JButton(PlayText)
@@ -65,13 +67,17 @@ object SelectMapExtension:
         def actionPerformed(e: ActionEvent): Unit =
           val selectedOption = comboBox.getSelectedItem.toString
           selectLabel.setText("Selected Item: " + selectedOption)
-
+          selectedPath = view.mapPathAndName.find { case (_, n) => n == selectedOption } match
+            case Some((p, _)) => p
+            case None         => throw new MapNotFoundException
       })
       comboBox.setAlignmentX(Component.CENTER_ALIGNMENT)
       comboBox.setMaximumSize(Dimension(ComboBoxWidth, ComboBoxHeight))
       playButton.setAlignmentX(Component.CENTER_ALIGNMENT)
       playButton.addActionListener((_: ActionEvent) =>
-        GameController.startGame(JsonDecoder.getAbsolutePath("src/main/resources/json/testMap.json"))
+        selectedPath match
+          case "" => throw new MapNotFoundException
+          case _  => GameController.startGame(JsonDecoder.getAbsolutePath(selectedPath))
       )
 
       selectLabel.setFont(Font("Arial", Font.BOLD, SelectLabelFontSize))

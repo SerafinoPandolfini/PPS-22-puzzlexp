@@ -17,7 +17,3 @@ object TreasureExtension:
       case Item.Bag   => true
       case Item.Trunk => true
       case _          => false
-
-    /** Returns the value of the item in terms of score points */
-    def updateScore(scoreCounter: ScoreCounter): ScoreCounter =
-      scoreCounter.copy(score = scoreCounter.score + item)
