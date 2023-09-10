@@ -26,6 +26,7 @@ object ConstantUtils:
   val BorderRadius: Int = 20
   val FillerWidth: Int = 0
   val FillerHeight: Int = 40
+  val FillerPlayButtonHeight: Int = ControlsPanelSize - 190
   val ComboBoxWidth: Int = ControlsPanelSize - 40
   val ComboBoxHeight: Int = 50
   val SelectLabelFontSize: Int = 30
