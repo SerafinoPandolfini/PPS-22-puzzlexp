@@ -14,6 +14,10 @@ object ItemHolderExtension:
     @targetName("addItemsAlias")
     def ++(items: List[Item]): ItemHolder = itemHolder.addItems(items)
 
+    /** Alias for [[ItemHolder.addItem()]] */
+    @targetName("addItemAlias")
+    def +(items: Item): ItemHolder = itemHolder.addItem(items)
+
     /** Alias for [[ItemHolder.removeItem()]] */
     @targetName("removeItemAlias")
     def -(item: Item): ItemHolder = itemHolder.removeItem(item)

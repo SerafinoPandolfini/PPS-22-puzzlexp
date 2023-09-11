@@ -46,7 +46,8 @@ class ItemHolderSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "an item holder" should "be able to show its items" in {
     (itemHolder
-      ++ List(Item.Axe, Item.Key, Item.Pick)
+      + Item.Axe
+      ++ List(Item.Key, Item.Pick)
       - Item.Key).itemHolderToString() should be(
       "[ AXE | PICK ]"
     )
