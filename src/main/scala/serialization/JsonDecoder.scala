@@ -37,7 +37,7 @@ object JsonDecoder:
 
   given plantCellDecoder: Decoder[PlantCell] = deriveDecoder[PlantCell]
 
-  given doorCellDecoder: Decoder[DoorCell] = deriveDecoder[DoorCell]
+  given lockCellDecoder: Decoder[LockCell] = deriveDecoder[LockCell]
 
   private def mapToCell[A <: Cell](decoder: Decoder[A]): Decoder[Cell] =
     decoder.map(identity)
@@ -58,7 +58,7 @@ object JsonDecoder:
       case "WallCell"                => mapToCell(wallCellDecoder)
       case "RockCell"                => mapToCell(rockCellDecoder)
       case "PlantCell"               => mapToCell(plantCellDecoder)
-      case "DoorCell"                => mapToCell(doorCellDecoder)
+      case "LockCell"                => mapToCell(lockCellDecoder)
       case _                         => Decoder.failed(DecodingFailure(s"Unknown cellType: $cellType", c.history))
     decoder(c)
   }

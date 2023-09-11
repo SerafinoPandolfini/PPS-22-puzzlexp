@@ -23,7 +23,5 @@ jacocoReportSettings := JacocoReportSettings()
     JacocoThresholds(instruction = 0, method = 0, branch = 0, complexity = 0, line = 60, clazz = 0)
   )
 Test / jacocoExcludes := Seq(
-  "controller.*",
-  "view.*",
-  "model.game.*"
 )
+Test / parallelExecution := false
