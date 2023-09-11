@@ -18,7 +18,7 @@ Il modello di dominio comprende le seguenti entità:
 ### Requisiti utente
 
 - L'utente interagisce tramite GUI
-- L'utente può avviare una partita
+- L'utente può visualizzare nel menù iniziale la schermata dei controlli del gioco oppure avviare una partita
 - L'utente può muovere il player tramite i tasti "W" "A" "S" "D"
   - All'interno di una stanza
   - Tra le diverse stanze della mappa
@@ -34,8 +34,8 @@ Il modello di dominio comprende le seguenti entità:
   - premendo il tasto "R"
   - cambiando stanza
   - morendo
-
  
+  
 ### Requisiti di sistema
 
 - Una mappa è composta da stanze
@@ -108,6 +108,8 @@ Il modello di dominio comprende le seguenti entità:
       - coin (moneta) => 10 punti
       - bag (sacco) => 20 punti
       - trunk (baule) => 50 punti
+  - goalGem (gemma obiettivo)
+    - nel momento in cui questo oggetto viene ottenuto il gioco visualizza la schermata finale
   - power-up
     - axe (ascia)
       - possono essere raccolte camminandoci sopra
@@ -117,7 +119,9 @@ Il modello di dominio comprende le seguenti entità:
       - possono essere raccolte camminandoci sopra
       - si utilizzano per sgretolare le rocce
       - il numero di utilizzi è infinito
-- Il gioco termina quando si completa la stanza conclusiva
+- Il gioco termina quando si ottiene la goalGem 
+  - quando il gioco termina viene visualizzata una schermata conclusiva dove viene mostrata la percentuale di
+  completamento della mappa espressa in punti ottenuti su punti totali
 - Le stanze sono costruite in modo da rispettare regole di game design
   - Il bordo della stanza deve essere costituito da muri o link
   - Il numero di celle è fissato e pari a 325 e le loro posizioni devono essere all'interno dei limiti della stanza (25x13) 
@@ -137,13 +141,20 @@ Il modello di dominio comprende le seguenti entità:
 ## Requisiti di implementazione
 - Scala 3.x
 - toProlog 4.x
-- JDK 17+
+- JDK 11+
 
 ## Requisiti opzionali
 
-- presenza di una schermata di pausa durante il gioco che mostri le stanze esplorate finora
-- possibilità di salvare e riprendere la partita corrente
+- presenza di una schermata di pausa durante il gioco dove:
+  - visualizzare le stanze della mappa e la posizione del giocatore
+  - ritornare alla partita in corso 
 - possibilità di poter scegliere tra più mappe di gioco
+  - schermata aggiunta dopo il menù iniziale contenente le mappe giocabili
+- possibilità di salvare e riprendere la partita corrente
+  - tasto salva nella schermata di pausa
+  - possibilità di scegliere continua dalla schermata contenente le mappe giocabili se sono presenti dati di salvataggio
+  per la mappa selezionata
+
 
 
 [Torna all'indice](../report.md) | [Vai a Design architetturale](../04-architectural-design/report.md)
