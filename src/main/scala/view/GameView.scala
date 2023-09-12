@@ -135,10 +135,10 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
   def updateScore(score: Int): Unit =
     scoreLabel.setText(ToolbarElements.scoreText concat score.toString)
 
-  def endGame(score: Double): Unit =
+  def endGame(playerScore: Int, totalScore: Int, percentage: Double): Unit =
     mainPanel.remove(toolbarPanel)
     mainPanel.remove(tilesPanel)
-    EndGamePanel.createLabel(score.toString)
+    EndGamePanel.createLabel(playerScore.toString, totalScore.toString, percentage.toString)
     mainPanel.add(endPanel)
     mainPanel.revalidate()
 
