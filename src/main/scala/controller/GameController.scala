@@ -13,6 +13,7 @@ import utils.PositionExtension.+
 import utils.KeyDirectionMapping.given
 import utils.PathExtractor.extractPath
 import view.GameView
+import utils.Percentage.%%
 
 import java.awt.event.KeyEvent
 import scala.util.{Failure, Success}
@@ -77,8 +78,9 @@ object GameController:
     CurrentGame.currentRoom.getCell(CurrentGame.currentPosition) match
       case Some(value) =>
         value.cellItem match
-          case GoalGem => println(CurrentGame.scoreCounter * 100 / CurrentGame.gameMap.totalPoints)
-          case Empty   => () // do nothing, it's empty
+          case GoalGem =>
+            _view.endGame(CurrentGame.scoreCounter.toDouble %% CurrentGame.gameMap.totalPoints.toDouble)
+          case Empty => () // do nothing, it's empty
           case _ =>
             CurrentGame.currentRoom.updateCells(value.updateItem(CurrentGame.currentRoom.cells, Item.Empty))
             CurrentGame.addItem(value.cellItem)

@@ -26,6 +26,7 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
   val tilesPanel: JPanel = JPanel(GridLayout(DisplayValuesManager.Rows.value, DisplayValuesManager.Cols.value))
   val toolbarPanel: JPanel = createToolbarPanel()
   val mainPanel: JPanel = createMainPanel()
+  val endPanel: JPanel = EndGamePanel.createEndGamePanel()
   val keyHandler: KeyHandler = KeyHandler()
   private var _tiles: ListMap[Position, MultiLayeredTile] =
     (for
@@ -34,7 +35,6 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
       position = (col, row)
     yield position -> createTile()).to(ListMap)
   configureFrame()
-
 
   /** @return
     *   the list of tiles shown
@@ -60,10 +60,8 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
   private def createToolbarPanel(): JPanel =
     val toolbarPanel = ToolbarPanel.createBaseToolbarPanel()
     toolbarPanel.add(ToolbarElements.createPauseButton())
-    for
-      l <- itemLabels
-    yield
-      toolbarPanel.add(l.label)
+    for l <- itemLabels
+    yield toolbarPanel.add(l.label)
     toolbarPanel.add(scoreLabel)
 
     toolbarPanel
@@ -82,7 +80,7 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     */
   private def configureFrame(): Unit =
     add(mainPanel)
-    keyHandler.registerKeyAction(mainPanel, _tiles)
+    keyHandler.registerKeyAction(tilesPanel, _tiles)
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
     associateTiles(initialRoom)
     updatePlayerImage(initialPos, ImageManager.CharacterRight.path)
@@ -102,9 +100,10 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     updatedTile.get.playerImage = Option(ImageIcon(image).getImage)
 
   /** associate the [[MultiLayeredTile]]s with their respective images
-   *
-   * @param room the [[Room]] to convert into images for the [[MultiLayeredTile]]s
-   */
+    *
+    * @param room
+    *   the [[Room]] to convert into images for the [[MultiLayeredTile]]s
+    */
   def associateTiles(room: Room): Unit =
     val groundPaths = room.cells.toList.sorted.map(extractPath)
     val itemPaths = room.cells.toList.sorted.map(_.cellItem.toString)
@@ -116,25 +115,33 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
       tilesMap.updated((x, y), updatedTile)
     }
 
-  /**
-   * update the label for the specified item
-   * @param item the item of the [[Label]] to update
-   * @param amount the new amount of the specified item
-   */
+  /** update the label for the specified item
+    * @param item
+    *   the item of the [[Label]] to update
+    * @param amount
+    *   the new amount of the specified item
+    */
   def updateItemLabel(item: Item, amount: Int): Unit =
     itemLabels = itemLabels.map({
       case l if l.item == item => l.updateLabel(amount)
-      case l => l
+      case l                   => l
     })
 
   /** update the score of the player
-   *
-   * @param score the current score of the player
-   */
+    *
+    * @param score
+    *   the current score of the player
+    */
   def updateScore(score: Int): Unit =
     scoreLabel.setText(ToolbarElements.scoreText concat score.toString)
+
+  def endGame(score: Double): Unit =
+    mainPanel.remove(toolbarPanel)
+    mainPanel.remove(tilesPanel)
+    EndGamePanel.createLabel(score.toString)
+    mainPanel.add(endPanel)
+    mainPanel.revalidate()
 
 object GameView:
   val BasePath = "src/main/resources/img/"
   val PNGPath = ".png"
-
