@@ -54,7 +54,7 @@ class ResetSpec extends AnyFlatSpec with BeforeAndAfterEach:
     if !GraphicsEnvironment.isHeadless then
       item should not be item2
       item should be(item3)
-      GameController.view.mainPanel.getActionMap.get("keyAction_" + KeyEvent.VK_R).actionPerformed(null)
+      GameController.view.tilesPanel.getActionMap.get("keyAction_" + KeyEvent.VK_R).actionPerformed(null)
       val item4 = CurrentGame.currentRoom.getCell(2, 3).get.cellItem // box
       item4 should not be item2
       item4 should be(item)

@@ -19,7 +19,7 @@ object PathExtractor:
     * @return
     *   a path that match the name of an image file
     */
-  def extractPath(cell: Cell, cells: Set[Cell]): String = {
+  def extractPath(cell: Cell, cells: Set[Cell] = Set.empty[Cell]): String = {
     val namePath = PathSplit concat Room.cellToString(cell, true)
     val walkablePath = extractWalkablePath(cell)
     val coveredPath = extractCoveredPath(cell)
