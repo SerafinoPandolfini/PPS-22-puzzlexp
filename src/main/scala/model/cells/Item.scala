@@ -25,5 +25,8 @@ enum Item:
   /** the coin is a big treasure. It increases the score of the player */
   case Trunk
 
+  /** the goal gem is an item that, once piked up, make the game finish */
+  case GoalGem
+
   /** When there is nothing on the cell */
   case Empty
