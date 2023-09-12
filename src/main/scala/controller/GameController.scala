@@ -79,7 +79,11 @@ object GameController:
       case Some(value) =>
         value.cellItem match
           case GoalGem =>
-            _view.endGame(CurrentGame.scoreCounter.toDouble %% CurrentGame.gameMap.totalPoints.toDouble)
+            _view.endGame(
+              CurrentGame.scoreCounter,
+              CurrentGame.gameMap.totalPoints,
+              CurrentGame.scoreCounter.toDouble %% CurrentGame.gameMap.totalPoints.toDouble
+            )
           case Empty => () // do nothing, it's empty
           case _ =>
             CurrentGame.currentRoom.updateCells(value.updateItem(CurrentGame.currentRoom.cells, Item.Empty))

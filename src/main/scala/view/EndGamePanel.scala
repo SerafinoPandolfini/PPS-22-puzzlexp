@@ -35,9 +35,9 @@ object EndGamePanel:
     endGamePanel.setOpaque(true)
     endGamePanel
 
-  def createLabel(score: String): Unit =
+  def createLabel(playerScore: String, totalScore: String, percentage: String): Unit =
     val label = JLabel(
-      "<html><div style='text-align: center;'>CONGRATULATIONS!<br>You completed the " + score + "% of the map!</div></html>",
+      "<html><div style='text-align: center;'>CONGRATULATIONS!<br>Your score is " + playerScore + "/" + totalScore + " points <br> You completed " + percentage + "% of the map!</div></html>",
       SwingConstants.CENTER
     )
     label.setForeground(ColorManager.ToolbarText.color)
