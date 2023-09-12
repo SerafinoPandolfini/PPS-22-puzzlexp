@@ -106,7 +106,7 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
    * @param room the [[Room]] to convert into images for the [[MultiLayeredTile]]s
    */
   def associateTiles(room: Room): Unit =
-    val groundPaths = room.cells.toList.sorted.map(extractPath)
+    val groundPaths = room.cells.toList.sorted.map(c => extractPath(c, room.cells))
     val itemPaths = room.cells.toList.sorted.map(_.cellItem.toString)
     val zippedPaths = groundPaths zip itemPaths
     _tiles = _tiles.keys.zip(zippedPaths).foldLeft(_tiles) { case (tilesMap, ((x, y), (groundPath, itemPath))) =>
