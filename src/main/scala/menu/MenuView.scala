@@ -53,8 +53,8 @@ case class MenuView(continue: Boolean, mapPathAndName: ListMap[String, String]) 
         revalidate()
         repaint()
       )
-    buttonPanel.add(controlsButton)
     buttonPanel.add(playButton)
+    buttonPanel.add(controlsButton)
     buttonPanel.setBounds(ButtonCoordinate.x, ButtonCoordinate.y, ButtonsPanelWidth, ButtonsPanelHeight)
     buttonPanel
 

@@ -1,28 +1,17 @@
 package menu
 
 import controller.GameController
+import view.{CustomCellRenderer, CustomScrollBarUI}
 import exceptions.MapNotFoundException
 import serialization.JsonDecoder
 import utils.ColorManager.TransparentButtons
-import utils.{ImageManager, TransparentButton}
+import utils.{ColorManager, ImageManager, TransparentButton}
 import utils.ConstantUtils.*
 
 import java.awt.event.{ActionEvent, ActionListener}
-import java.awt.{BorderLayout, Color, Component, Dimension, FlowLayout, Font}
+import java.awt.{BorderLayout, Color, Component, Dimension, FlowLayout, Font, GridLayout}
 import javax.swing.Box.Filler
-import javax.swing.{
-  Box,
-  BoxLayout,
-  ImageIcon,
-  JButton,
-  JComboBox,
-  JFrame,
-  JLabel,
-  JLayeredPane,
-  JOptionPane,
-  JPanel,
-  WindowConstants
-}
+import javax.swing.*
 
 object SelectMapExtension:
   extension (view: MenuView)
@@ -52,28 +41,31 @@ object SelectMapExtension:
       backGround.setBounds(Origin.x, Origin.y, MenuGUIWidth, MenuGUIHeight)
       backGround
 
-    /** create the map selected panel containing the comboBox, its label and the play button
+    /** create the map selected panel containing the scrollPanel, its label and the play button
       *
       * @return
       *   the panel
       */
     private def createMapFGPanel(): JPanel =
       val foreGround: JPanel = JPanel()
+      val listModel: DefaultListModel[String] = DefaultListModel()
       val playButtonContainer: JPanel = JPanel()
       val playButton: JButton = TransparentButton(PlayText)
-      val maps: Array[String] = view.mapPathAndName.map { case (_, n) => n }.toArray
-      val comboBox: JComboBox[String] = JComboBox(maps)
       val selectLabel: JLabel = createSelectedLabel()
-      componentConfiguration(comboBox, playButtonContainer, foreGround)
-      configureListener(playButton, comboBox, selectLabel)
-      playButton.setAlignmentX(Component.BOTTOM_ALIGNMENT)
+      view.mapPathAndName.foreach { case (_, n) => listModel.addElement(n) }
+      val jList: JList[String] = JList(listModel)
+      val scrollPane: JScrollPane = JScrollPane(jList)
+      jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION)
+      jList.setCellRenderer(CustomCellRenderer())
+      jList.setBackground(ColorManager.ScrollPane.color)
       playButtonContainer.add(playButton)
       foreGround.add(computeFiller(FillerWidth, FillerHeight))
       foreGround.add(selectLabel)
       foreGround.add(computeFiller(FillerWidth, FillerHeight))
-      foreGround.add(comboBox)
-      foreGround.add(computeFiller(FillerWidth, FillerPlayButtonHeight))
+      foreGround.add(scrollPane)
+      foreGround.add(computeFiller(FillerWidth, FillerHeight))
       foreGround.add(playButtonContainer)
+      componentConfiguration(scrollPane, foreGround, playButtonContainer)
       foreGround
 
     /** create a Box.Filler with the values specify in input */
@@ -93,19 +85,23 @@ object SelectMapExtension:
       selectLabel.setAlignmentY(Component.BOTTOM_ALIGNMENT)
       selectLabel
 
-    /** configure the comboBox, the playButtonContainer and the foreGround panel */
+    /** configure the scrollPane, the playButtonContainer and the foreGround panel */
     private def componentConfiguration(
-        comboBox: JComboBox[String],
+        scrollPane: JScrollPane,
         playButtonContainer: JPanel,
         foreGround: JPanel
     ): Unit =
-      comboBox.setAlignmentX(Component.CENTER_ALIGNMENT)
-      comboBox.setMaximumSize(Dimension(ComboBoxWidth, ComboBoxHeight))
+      scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS)
+      scrollPane.setMaximumSize(Dimension(SelectLabelSize, MenuGUIHeight))
+      scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER)
+      scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, ScrollBarBorderThickness))
+      scrollPane.getVerticalScrollBar.setUI(CustomScrollBarUI())
       playButtonContainer.setLayout(FlowLayout(FlowLayout.CENTER))
       playButtonContainer.setOpaque(false)
       foreGround.setOpaque(false)
+      foreGround.setAlignmentX(Component.CENTER_ALIGNMENT)
       foreGround.setLayout(BoxLayout(foreGround, BoxLayout.Y_AXIS))
-      foreGround.setBounds(Origin.x, Origin.y, MenuGUIWidth, ControlsPanelSize)
+      foreGround.setBounds(Origin.x, Origin.y, MenuGUIWidth, MenuGUIHeight)
 
     /** this method configure the listener present in this view extension */
     private def configureListener(playButton: JButton, comboBox: JComboBox[String], selectLabel: JLabel): Unit =

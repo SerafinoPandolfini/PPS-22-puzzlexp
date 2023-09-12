@@ -6,7 +6,7 @@ enum ImageManager(_path: String):
   case CharacterUp extends ImageManager("src/main/resources/img/HIKER_up.png")
   case CharacterDown extends ImageManager("src/main/resources/img/HIKER_down.png")
   case StartMenuBackground extends ImageManager("src/main/resources/img/start_menu_image.png")
-  case SelectMapBackground extends ImageManager("src/main/resources/img/select_map_image.png")
+  case SelectMapBackground extends ImageManager("src/main/resources/img/select_map_image.jpg")
   case Controls extends ImageManager("src/main/resources/img/controls_image.png")
   case BackGround extends ImageManager("src/main/resources/img/background.png")
   case ScoreBackground extends ImageManager("src/main/resources/img/score_background.png")

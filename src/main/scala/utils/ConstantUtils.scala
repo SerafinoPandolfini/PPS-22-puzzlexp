@@ -24,13 +24,15 @@ object ConstantUtils:
   val ButtonWidth: Int = 150
   val ButtonHeight: Int = 40
   val BorderRadius: Int = 20
+  val SelectLabelFontSize: Int = 30
+  val SelectLabelSize: Int = 400
+  val ScrollBarBorderThickness: Int = 2
+  val ScrollBarWidth: Int = 10
+  val ZeroDimension: Int = 0
+  val JsonDirectoryPath: String = "src/main/resources/json/"
   val FillerWidth: Int = 0
   val FillerHeight: Int = 40
   val FillerPlayButtonHeight: Int = ControlsPanelSize - 190
-  val ComboBoxWidth: Int = ControlsPanelSize - 40
-  val ComboBoxHeight: Int = 50
-  val SelectLabelFontSize: Int = 30
-  val JsonDirectoryPath: String = "src/main/resources/json/"
 
   /** Point2D represents a coordinate
     * @param x
