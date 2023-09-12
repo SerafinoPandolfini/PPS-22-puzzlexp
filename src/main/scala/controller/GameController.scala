@@ -110,5 +110,5 @@ object GameController:
     view.associateTiles(CurrentGame.currentRoom)
 
 object simulate extends App:
-  val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/testMap.json")
+  val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/firstMap.json")
   GameController.startGame(p)
