@@ -12,10 +12,10 @@ object EndGamePanel:
     ImageIO.read(File("src/main/resources/img/endGame.png"))
   )
 
-  /** provide a base [[JPanel]] with a [[FlowLayout]] to serve as a end game panel
+  /** provide a basic [[JPanel]] to serve as a end game panel
     *
     * @return
-    *   a base for the toolbarPanel
+    *   the endGamePanel without label
     */
   def createEndGamePanel(): JPanel =
     val endGamePanel = JPanel(BorderLayout())
@@ -35,6 +35,14 @@ object EndGamePanel:
     endGamePanel.setOpaque(true)
     endGamePanel
 
+  /** create the endgame label with a message containing info about the player score
+    * @param playerScore
+    *   the score the player did
+    * @param totalScore
+    *   the total score of the map
+    * @param percentage
+    *   the percentage of map completed
+    */
   def createLabel(playerScore: String, totalScore: String, percentage: String): Unit =
     val label = JLabel(
       "<html><div style='text-align: center;'>CONGRATULATIONS!<br>Your score is " + playerScore + "/" + totalScore + " points <br> You completed " + percentage + "% of the map!</div></html>",
