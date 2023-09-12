@@ -71,17 +71,17 @@ object CurrentGame:
       *   the item to add
       */
   def addItem(item: Item): Unit =
-    if item != Item.Empty then
-      _itemHolder = _itemHolder.addItem(item)
-      _scoreCounter = _scoreCounter + item.mapItemToValue
+    _itemHolder = _itemHolder.addItem(item)
+    _scoreCounter = _scoreCounter + item.mapItemToValue
 
   /** remove the specified item
-   * 
-   * @param item the item to remove
-   */
+    *
+    * @param item
+    *   the item to remove
+    */
   def removeItem(item: Item): Unit =
     _itemHolder = _itemHolder.removeItem(item)
-  
+
   /** perform the actions needed when a player moves and adjust its position
     * @param position
     *   the position of the player after the move

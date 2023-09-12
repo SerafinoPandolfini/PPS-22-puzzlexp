@@ -4,6 +4,7 @@ import model.cells.logic.UseItemExtension.usePowerUp
 import model.cells.logic.CellExtension.*
 import model.cells.logic.TreasureExtension.*
 import model.cells.*
+import model.cells.Item.{GoalGem, Empty}
 import model.game.{CurrentGame, ItemHolder}
 import model.gameMap.GameMap
 import model.room.{Room, RoomBuilder}
@@ -12,6 +13,7 @@ import utils.PositionExtension.+
 import utils.KeyDirectionMapping.given
 import utils.PathExtractor.extractPath
 import view.GameView
+import utils.Percentage.%%
 
 import java.awt.event.KeyEvent
 import scala.util.{Failure, Success}
@@ -30,6 +32,7 @@ object GameController:
     CurrentGame.initialize(
       JsonDecoder.mapDecoder(JsonDecoder.getJsonFromPath(mapPath).toOption.get.hcursor).toOption.get
     )
+    println(CurrentGame.gameMap.totalPoints)
     _view = GameView(CurrentGame.currentRoom, CurrentGame.gameMap.initialPosition)
 
   /** Performs the actions needed to move the player
@@ -74,8 +77,17 @@ object GameController:
   private def checkMoveOnItem(): Unit =
     CurrentGame.currentRoom.getCell(CurrentGame.currentPosition) match
       case Some(value) =>
-        CurrentGame.currentRoom.updateCells(value.updateItem(CurrentGame.currentRoom.cells, Item.Empty))
-        CurrentGame.addItem(value.cellItem)
+        value.cellItem match
+          case GoalGem =>
+            _view.endGame(
+              CurrentGame.scoreCounter,
+              CurrentGame.gameMap.totalPoints,
+              CurrentGame.scoreCounter.toDouble %% CurrentGame.gameMap.totalPoints.toDouble
+            )
+          case Empty => () // do nothing, it's empty
+          case _ =>
+            CurrentGame.currentRoom.updateCells(value.updateItem(CurrentGame.currentRoom.cells, Item.Empty))
+            CurrentGame.addItem(value.cellItem)
       case None => ()
 
   /** check if the room is changing, if that is the case performs the necessary actions
