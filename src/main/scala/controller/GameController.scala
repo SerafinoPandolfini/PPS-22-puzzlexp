@@ -32,7 +32,7 @@ object GameController:
     CurrentGame.initialize(
       JsonDecoder.mapDecoder(JsonDecoder.getJsonFromPath(mapPath).toOption.get.hcursor).toOption.get
     )
-    println(CurrentGame.gameMap.totalPoints)
+    println(CurrentGame.originalGameMap.totalPoints)
     _view = GameView(CurrentGame.currentRoom, CurrentGame.gameMap.initialPosition)
 
   /** Performs the actions needed to move the player
@@ -81,8 +81,8 @@ object GameController:
           case GoalGem =>
             _view.endGame(
               CurrentGame.scoreCounter,
-              CurrentGame.gameMap.totalPoints,
-              CurrentGame.scoreCounter.toDouble %% CurrentGame.gameMap.totalPoints.toDouble
+              CurrentGame.originalGameMap.totalPoints,
+              CurrentGame.scoreCounter.toDouble %% CurrentGame.originalGameMap.totalPoints.toDouble
             )
           case Empty => () // do nothing, it's empty
           case _ =>
@@ -122,7 +122,5 @@ object GameController:
     view.associateTiles(CurrentGame.currentRoom)
 
 object simulate extends App:
-  val j = JsonEncoder.cellEncoder.apply(BasicCell((0, 0), Item.GoalGem))
-  println(j)
-  val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/testMap.json")
+  val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/firstMap.json")
   GameController.startGame(p)
