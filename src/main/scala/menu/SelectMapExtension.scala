@@ -12,6 +12,8 @@ import java.awt.event.{ActionEvent, ActionListener}
 import java.awt.{BorderLayout, Color, Component, Dimension, FlowLayout, Font, GridLayout}
 import javax.swing.Box.Filler
 import javax.swing.*
+import javax.swing.JOptionPane.showMessageDialog
+import scala.language.postfixOps
 
 object SelectMapExtension:
   extension (view: MenuView)
@@ -47,17 +49,18 @@ object SelectMapExtension:
       *   the panel
       */
     private def createMapFGPanel(): JPanel =
-      val foreGround: JPanel = JPanel()
+      var foreGround: JPanel = JPanel()
       val listModel: DefaultListModel[String] = DefaultListModel()
       val playButtonContainer: JPanel = JPanel()
       val playButton: JButton = TransparentButton(PlayText)
       val selectLabel: JLabel = createSelectedLabel()
       view.mapPathAndName.foreach { case (_, n) => listModel.addElement(n) }
       val jList: JList[String] = JList(listModel)
-      val scrollPane: JScrollPane = JScrollPane(jList)
+      var scrollPane: JScrollPane = JScrollPane(jList)
       jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION)
       jList.setCellRenderer(CustomCellRenderer())
       jList.setBackground(ColorManager.ScrollPane.color)
+      configureListener(playButton, jList)
       playButtonContainer.add(playButton)
       foreGround.add(computeFiller(FillerWidth, FillerHeight))
       foreGround.add(selectLabel)
@@ -65,7 +68,10 @@ object SelectMapExtension:
       foreGround.add(scrollPane)
       foreGround.add(computeFiller(FillerWidth, FillerHeight))
       foreGround.add(playButtonContainer)
-      componentConfiguration(scrollPane, foreGround, playButtonContainer)
+      scrollPane = scrollPaneConfiguration(scrollPane)
+      foreGround = foreGroundConfiguration(foreGround)
+      playButtonContainer.setLayout(FlowLayout(FlowLayout.CENTER))
+      playButtonContainer.setOpaque(false)
       foreGround
 
     /** create a Box.Filler with the values specify in input */
@@ -85,42 +91,35 @@ object SelectMapExtension:
       selectLabel.setAlignmentY(Component.BOTTOM_ALIGNMENT)
       selectLabel
 
-    /** configure the scrollPane, the playButtonContainer and the foreGround panel */
-    private def componentConfiguration(
-        scrollPane: JScrollPane,
-        playButtonContainer: JPanel,
-        foreGround: JPanel
-    ): Unit =
+    /** configure the scrollPane */
+    private def scrollPaneConfiguration(
+        scrollPane: JScrollPane
+    ): JScrollPane =
       scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS)
       scrollPane.setMaximumSize(Dimension(SelectLabelSize, MenuGUIHeight))
       scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER)
       scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, ScrollBarBorderThickness))
       scrollPane.getVerticalScrollBar.setUI(CustomScrollBarUI())
-      playButtonContainer.setLayout(FlowLayout(FlowLayout.CENTER))
-      playButtonContainer.setOpaque(false)
+      scrollPane
+
+    /** configure the foreground panel */
+    private def foreGroundConfiguration(
+        foreGround: JPanel
+    ): JPanel =
       foreGround.setOpaque(false)
       foreGround.setAlignmentX(Component.CENTER_ALIGNMENT)
       foreGround.setLayout(BoxLayout(foreGround, BoxLayout.Y_AXIS))
       foreGround.setBounds(Origin.x, Origin.y, MenuGUIWidth, MenuGUIHeight)
+      foreGround
 
     /** this method configure the listener present in this view extension */
-    private def configureListener(playButton: JButton, comboBox: JComboBox[String], selectLabel: JLabel): Unit =
-      var selectedPath: String = ""
-      comboBox.addActionListener(new ActionListener() {
-        def actionPerformed(e: ActionEvent): Unit =
-          val selectedOption = comboBox.getSelectedItem.toString
-          selectLabel.setText("Selected Item: " + selectedOption)
-          selectedPath = view.mapPathAndName.find { case (_, n) => n == selectedOption } match
-            case Some((p, _)) => p
-            case None         => throw new MapNotFoundException
-      })
-
+    private def configureListener(playButton: JButton, jList: JList[String]): Unit =
       playButton.addActionListener((_: ActionEvent) =>
-        selectedPath match
-          case "" =>
-            JOptionPane.showMessageDialog(
-              null,
-              "Please, select a correct map"
+        jList.getSelectedValue match
+          case sm if sm != null =>
+            view.dispose()
+            GameController.startGame(
+              JsonDecoder.getAbsolutePath(JsonDirectoryPath + jList.getSelectedValue + JsonExtension)
             )
-          case _ => GameController.startGame(JsonDecoder.getAbsolutePath(selectedPath))
+          case _ => showMessageDialog(null, "Please, select a valid map")
       )

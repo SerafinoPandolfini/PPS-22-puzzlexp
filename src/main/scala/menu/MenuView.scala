@@ -8,7 +8,7 @@ import SelectMapExtension.*
 
 import java.awt.event.{ActionEvent, WindowAdapter, WindowEvent}
 import java.awt.geom.RoundRectangle2D
-import java.awt.{BorderLayout, Color, Dimension, FlowLayout, Font, Graphics, Graphics2D, Shape}
+import java.awt.{BorderLayout, Color, Dimension, FlowLayout, Font, Graphics, Graphics2D, GridLayout, Shape}
 import java.util.Locale
 import javax.swing.*
 import scala.collection.immutable.ListMap
@@ -39,8 +39,12 @@ case class MenuView(continue: Boolean, mapPathAndName: ListMap[String, String]) 
     *   the panel
     */
   private def createButtonsPanel(): JPanel =
-    val buttonPanel = JPanel(FlowLayout(FlowLayout.CENTER))
+    val buttonPanel: JPanel = JPanel()
+    val playButtonContainer: JPanel = JPanel(FlowLayout(FlowLayout.CENTER))
+    val controlsButtonContainer: JPanel = JPanel(FlowLayout(FlowLayout.CENTER))
     buttonPanel.setOpaque(false)
+    playButtonContainer.setOpaque(false)
+    controlsButtonContainer.setOpaque(false)
     val controlsButton: JButton = TransparentButton(ControlsText)
     controlsButton.addActionListener((_: ActionEvent) => ControlsView())
     if (continue) playButton = TransparentButton(ContinueText)
@@ -53,10 +57,34 @@ case class MenuView(continue: Boolean, mapPathAndName: ListMap[String, String]) 
         revalidate()
         repaint()
       )
-    buttonPanel.add(playButton)
-    buttonPanel.add(controlsButton)
+    playButtonContainer.add(playButton)
+    controlsButtonContainer.add(controlsButton)
+    buttonPanel.setLayout(BoxLayout(buttonPanel, BoxLayout.Y_AXIS))
+    buttonPanel.add(playButtonContainer)
+    buttonPanel.add(controlsButtonContainer)
     buttonPanel.setBounds(ButtonCoordinate.x, ButtonCoordinate.y, ButtonsPanelWidth, ButtonsPanelHeight)
     buttonPanel
+
+  /** create the playButtonContainer panel containing the play button
+    *
+    * @return
+    *   the panel
+    */
+  private def playButtonContainer(): JPanel =
+    val playButtonContainer: JPanel = JPanel(FlowLayout(FlowLayout.CENTER))
+    playButtonContainer.setOpaque(false)
+    if (continue) playButton = TransparentButton(ContinueText)
+    else
+      playButton = TransparentButton(PlayText)
+      playButton.addActionListener((_: ActionEvent) =>
+        startPanel.removeAll()
+        startPanel = this.createPanelsStructure()
+        add(startPanel)
+        revalidate()
+        repaint()
+      )
+    playButtonContainer.add(playButton)
+    playButtonContainer
 
   /** create the background panel containing the background image
     *

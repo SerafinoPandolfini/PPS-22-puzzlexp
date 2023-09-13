@@ -13,7 +13,7 @@ import utils.PositionExtension.+
 import utils.KeyDirectionMapping.given
 import utils.PathExtractor.extractPath
 import view.GameView
-import utils.ItemConversion.given
+import utils.ItemConversion.given_Conversion_Item_Int
 import utils.Percentage.%%
 
 import java.awt.event.KeyEvent
@@ -123,5 +123,5 @@ object GameController:
     view.associateTiles(CurrentGame.currentRoom)
 
 object simulate extends App:
-  val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/firstMap.json")
+  val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/FirstMap.json")
   GameController.startGame(p)

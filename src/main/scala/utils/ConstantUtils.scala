@@ -17,7 +17,7 @@ object ConstantUtils:
   val ControlsGUISize: Int = 510
   val ControlsPanelSize: Int = ControlsGUISize - 10
   val BackgroundPanelHeight: Int = 580
-  val ButtonsPanelHeight: Int = 50
+  val ButtonsPanelHeight: Int = 100
   val ButtonsPanelWidth: Int = 400
   val Origin: Point2D = Point2D(0, 0)
   val ButtonCoordinate: Point2D = Point2D(40, 200)
@@ -30,6 +30,7 @@ object ConstantUtils:
   val ScrollBarWidth: Int = 10
   val ZeroDimension: Int = 0
   val JsonDirectoryPath: String = "src/main/resources/json/"
+  val JsonExtension: String = ".json"
   val FillerWidth: Int = 0
   val FillerHeight: Int = 40
   val FillerPlayButtonHeight: Int = ControlsPanelSize - 190

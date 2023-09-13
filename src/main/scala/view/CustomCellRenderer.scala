@@ -22,4 +22,5 @@ class CustomCellRenderer extends JLabel with ListCellRenderer[Any]:
       background = ColorManager.SelectedItemScrollPane.color
     setBackground(background)
     setForeground(foreground)
+
     this
