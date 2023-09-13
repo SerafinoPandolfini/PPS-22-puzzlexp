@@ -1,5 +1,6 @@
 package model.gameMap
 
+import model.cells.logic.TreasureExtension.mapItemToValue
 import model.cells.{Direction, Position}
 import model.room.Room
 
@@ -7,6 +8,16 @@ import scala.util.Try
 import exceptions.{LinkNotFoundException, RoomNotFoundException}
 
 class GameMap(val name: String, val rooms: Set[Room], val initialRoom: String, val initialPosition: Position):
+
+  val totalPoints: Int =
+    var points = 0
+    for
+      r <- rooms
+      c <- r.cells
+      v = c.cellItem.mapItemToValue
+    yield points = points + v
+    points
+
 
   /** get the room from it's name
     * @param roomName

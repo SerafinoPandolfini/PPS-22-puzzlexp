@@ -41,19 +41,6 @@ object CellExtension:
         case cell: CoveredHoleCell => Set(cell.copy(cover = false))
         case _                     => Set.empty
 
-    /** Removes the item from the cell and adds it to the [[ItemHolder]].
-      *
-      * @param cellWithItem
-      *   The specific cell with the item
-      * @param itemHolder
-      *   the itemHolder
-      * @return
-      *   A set of modified cells without the item
-      */
-    def gatherItem(cellWithItem: Cell, itemHolder: ItemHolder): (Set[Cell], ItemHolder) = cellWithItem match
-      case c if c.cellItem != Item.Empty =>
-        (c.updateItem(Set(c), Item.Empty, Direction.Down), itemHolder.addItems(List(c.cellItem)))
-
     /** Updates the item in the cell and returns a set of modified cells based on the rules of the game.
       *
       * @param cells

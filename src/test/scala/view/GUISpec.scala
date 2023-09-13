@@ -31,19 +31,19 @@ class GUISpec extends AnyFlatSpec with BeforeAndAfterEach:
       val expectedTileAfterA = GameController.view.tiles(position1_2)
       val expectedTileAfterW = GameController.view.tiles(position1_1)
 
-      GameController.view.mainPanel.getActionMap.get("keyAction_" + KeyEvent.VK_D).actionPerformed(null)
+      GameController.view.tilesPanel.getActionMap.get("keyAction_" + KeyEvent.VK_D).actionPerformed(null)
       characterTile._2.playerImage.isDefined should be(false)
       expectedTileAfterD.playerImage.isDefined should be(true)
 
-      GameController.view.mainPanel.getActionMap.get("keyAction_" + KeyEvent.VK_S).actionPerformed(null)
+      GameController.view.tilesPanel.getActionMap.get("keyAction_" + KeyEvent.VK_S).actionPerformed(null)
       expectedTileAfterD.playerImage.isDefined should be(false)
       expectedTileAfterS.playerImage.isDefined should be(true)
 
-      GameController.view.mainPanel.getActionMap.get("keyAction_" + KeyEvent.VK_A).actionPerformed(null)
+      GameController.view.tilesPanel.getActionMap.get("keyAction_" + KeyEvent.VK_A).actionPerformed(null)
       expectedTileAfterS.playerImage.isDefined should be(false)
       expectedTileAfterA.playerImage.isDefined should be(true)
 
-      GameController.view.mainPanel.getActionMap.get("keyAction_" + KeyEvent.VK_W).actionPerformed(null)
+      GameController.view.tilesPanel.getActionMap.get("keyAction_" + KeyEvent.VK_W).actionPerformed(null)
       expectedTileAfterA.playerImage.isDefined should be(false)
       expectedTileAfterW.playerImage.isDefined should be(true)
 
