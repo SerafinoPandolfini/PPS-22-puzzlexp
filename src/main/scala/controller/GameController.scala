@@ -121,6 +121,9 @@ object GameController:
     CurrentGame.resetRoom(resettedRoom)
     view.associateTiles(CurrentGame.currentRoom)
 
+  def saveGame(): Unit =
+    println("PIPPO")
+
 object simulate extends App:
   val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/firstMap.json")
   GameController.startGame(p)
