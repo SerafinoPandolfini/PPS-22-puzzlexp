@@ -1,9 +1,10 @@
 package view
 
 import javax.swing.*
-
 import utils.{ColorManager, DisplayValuesManager, ImageManager}
 import model.cells.Item
+import controller.GameController
+import java.awt.event.ActionEvent
 import java.awt.{Dimension, Font}
 import scala.collection.immutable.List
 
@@ -12,6 +13,7 @@ object ToolbarElements:
   private val counterText = "x0"
   private val initialScore = "0"
   val scoreText = "SCORE: "
+
   /** @return
     *   the button to pause the game
     */
@@ -21,6 +23,7 @@ object ToolbarElements:
     pauseButton.setPreferredSize(
       Dimension(DisplayValuesManager.ButtonElement.value, DisplayValuesManager.ButtonElement.value)
     )
+    pauseButton.addActionListener((_: ActionEvent) => GameController.saveGame())
     pauseButton.setBackground(ColorManager.ToolbarBackground.color)
     pauseButton
 

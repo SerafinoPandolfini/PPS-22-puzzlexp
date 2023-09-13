@@ -66,3 +66,9 @@ class SaveGameEncoderDecoderTest extends AnyFlatSpec with BeforeAndAfterEach:
       itemList2 should be(items)
       currentPlayerPosition2 should be(position)
   }
+
+  "A game" should "be savable" in {
+    if !GraphicsEnvironment.isHeadless then
+      GameController.saveGame()
+      assert(Files.exists(Paths.get("src/main/resources/saves/" + originalMap.name + ".json")), s"File does not exist.")
+  }

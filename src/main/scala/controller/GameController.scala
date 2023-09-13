@@ -14,7 +14,8 @@ import utils.KeyDirectionMapping.given
 import utils.PathExtractor.extractPath
 import view.GameView
 import utils.Percentage.%%
-
+import java.io.PrintWriter
+import io.circe.Json
 import java.awt.event.KeyEvent
 import scala.util.{Failure, Success}
 
@@ -120,6 +121,15 @@ object GameController:
     resettedRoom.updateCells(itemEmpty)
     CurrentGame.resetRoom(resettedRoom)
     view.associateTiles(CurrentGame.currentRoom)
+
+  /** saves the actual game writing the needed info in a json file
+    */
+  def saveGame(): Unit =
+    val json: Json = JsonEncoder.saveGameEncoder.apply(CurrentGame)
+    val outputFile = new java.io.File("src/main/resources/saves/" + CurrentGame.originalGameMap.name + ".json")
+    val printWriter = new PrintWriter(outputFile)
+    printWriter.write(json.spaces2)
+    printWriter.close()
 
 object simulate extends App:
   val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/firstMap.json")
