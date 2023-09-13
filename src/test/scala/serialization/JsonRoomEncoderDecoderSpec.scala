@@ -28,7 +28,5 @@ class JsonRoomEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
     roomEncoder.apply(room) shouldBe a[Json]
     val roomJ: Json = roomEncoder.apply(room)
     val room2 = roomDecoder.apply(roomJ.hcursor).toOption.get
-    room2.name should be(room.name)
-    room2.links should be(room.links)
-    room2.cells should be(room.cells)
+    isEqual(room, room2) should be(true)
   }
