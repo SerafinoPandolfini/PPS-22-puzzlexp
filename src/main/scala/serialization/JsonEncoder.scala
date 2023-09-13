@@ -5,10 +5,14 @@ import model.cells.*
 import io.circe.generic.semiauto.deriveEncoder
 import io.circe.{Encoder, Json}
 import io.circe.syntax.*
+import model.game.CurrentGame
 import model.room.{Room, RoomLink}
 import model.gameMap.GameMap
 
 object JsonEncoder:
+
+  given itemEncoder: Encoder[Item] = deriveEncoder[Item]
+
   given basicCellEncoder: Encoder[BasicCell] = deriveEncoder[BasicCell]
 
   given buttonCellEncoder: Encoder[ButtonCell] = deriveEncoder[ButtonCell]
@@ -96,5 +100,17 @@ object JsonEncoder:
       "rooms" -> map.rooms.map(r => roomEncoder.apply(r)).asJson,
       "initialRoom" -> map.initialRoom.asJson,
       "initialPosition" -> map.initialPosition.asJson
+    )
+  }
+
+  given saveGameEncoder: Encoder[Unit] = Encoder.instance { _ =>
+    Json.obj(
+      "mapName" -> CurrentGame.originalGameMap.name.asJson,
+      "map" -> mapEncoder.apply(CurrentGame.gameMap).asJson,
+      "room" -> roomEncoder.apply(CurrentGame.currentRoom).asJson,
+      "currentPos" -> CurrentGame.currentPosition.asJson,
+      "startPos" -> CurrentGame.startPositionInRoom.asJson,
+      "items" -> CurrentGame.itemHolder.itemOwned.asJson,
+      "score" -> CurrentGame.scoreCounter.asJson
     )
   }

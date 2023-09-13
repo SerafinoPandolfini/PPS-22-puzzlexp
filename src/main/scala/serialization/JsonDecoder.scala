@@ -6,10 +6,15 @@ import io.circe.{Decoder, DecodingFailure}
 import io.circe.parser.*
 import io.circe.Json
 import io.circe.Error
+import model.game.CurrentGame
 import model.room.{Room, RoomLink}
 import model.gameMap.GameMap
 
+type SaveData = (String, GameMap, Room, Position, Position, List[Item], Int)
+
 object JsonDecoder:
+
+  given decoderItem: Decoder[Item] = deriveDecoder[Item]
 
   given basicCellDecoder: Decoder[BasicCell] = deriveDecoder[BasicCell]
 
@@ -97,3 +102,23 @@ object JsonDecoder:
       val jsonString = source.mkString
       parse(jsonString)
     finally source.close()
+
+  given saveGameDecoder: Decoder[SaveData] = Decoder.instance { cursor =>
+    for
+      originalMap <- cursor.downField("mapName").as[String]
+      currentMap <- cursor.downField("map").as[GameMap]
+      currentRoom <- cursor.downField("room").as[Room]
+      currentPlayerPosition <- cursor.downField("currentPos").as[Position]
+      startPlayerPosition <- cursor.downField("startPos").as[Position]
+      itemList <- cursor.downField("items").as[List[Item]]
+      score <- cursor.downField("score").as[Int]
+    yield (
+      getAbsolutePath("src/main/resources/json/" + originalMap + ".json"),
+      currentMap,
+      currentRoom,
+      currentPlayerPosition,
+      startPlayerPosition,
+      itemList,
+      score
+    )
+  }

@@ -6,7 +6,7 @@ import model.cells.{Item, Position}
 import model.room.Room
 import serialization.JsonDecoder
 import utils.ItemConversion.given_Conversion_Item_Int
-
+import io.circe.{Json, HCursor}
 import scala.util.{Failure, Success}
 
 object CurrentGame:
@@ -91,3 +91,19 @@ object CurrentGame:
     _currentRoom.checkMovementConsequences(_currentPosition, position) match
       case Success(value)     => _currentPosition = value
       case Failure(exception) => println(exception)
+
+  /** load a saved game
+    * @param json
+    *   the [[Json]] file with the info of the saved game
+    */
+  def load(json: Json): Unit =
+    val (originalMap, currentMap, currentRoom, currentPlayerPosition, startPlayerPosition, itemList, score) =
+      JsonDecoder.saveGameDecoder.apply(json.hcursor).toOption.get
+    _scoreCounter = score
+    _itemHolder = ItemHolder(itemList)
+    _originalGameMap =
+      JsonDecoder.mapDecoder(JsonDecoder.getJsonFromPath(originalMap).toOption.get.hcursor).toOption.get
+    _gameMap = currentMap
+    _currentRoom = currentRoom
+    _currentPosition = currentPlayerPosition
+    _startPositionInRoom = startPlayerPosition
