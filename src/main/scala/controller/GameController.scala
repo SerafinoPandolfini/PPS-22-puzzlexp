@@ -18,6 +18,7 @@ import java.io.PrintWriter
 import io.circe.Json
 import java.awt.event.KeyEvent
 import scala.util.{Failure, Success}
+import java.nio.file.*
 
 object GameController:
 
@@ -26,15 +27,20 @@ object GameController:
   def view: GameView = _view
 
   /** performs the necessary actions to initialize and start the game
-    * @param mapPath
-    *   the path of the map of the current game
+    * @param path
+    *   the path of the json for the current game
     */
-  def startGame(mapPath: String): Unit =
-    CurrentGame.initialize(
-      JsonDecoder.mapDecoder(JsonDecoder.getJsonFromPath(mapPath).toOption.get.hcursor).toOption.get
-    )
+  def startGame(path: String): Unit =
+    val jsonData = JsonDecoder.getJsonFromPath(path).toOption.get
+    if Path.of(path).startsWith(Paths.get("src/main/resources/saves/").toAbsolutePath) then
+      CurrentGame.load(jsonData)
+    else
+      CurrentGame.initialize(
+        JsonDecoder.mapDecoder(jsonData.hcursor).toOption.get
+      )
     println(CurrentGame.originalGameMap.totalPoints)
-    _view = GameView(CurrentGame.currentRoom, CurrentGame.gameMap.initialPosition)
+    _view = GameView(CurrentGame.currentRoom, CurrentGame.currentPosition)
+    updateToolbarLabels()
 
   /** Performs the actions needed to move the player
     * @param direction
@@ -126,11 +132,15 @@ object GameController:
     */
   def saveGame(): Unit =
     val json: Json = JsonEncoder.saveGameEncoder.apply(CurrentGame)
-    val outputFile = new java.io.File("src/main/resources/saves/" + CurrentGame.originalGameMap.name + ".json")
+    val outputFile = new java.io.File(s"src/main/resources/saves/${CurrentGame.originalGameMap.name}.json")
     val printWriter = new PrintWriter(outputFile)
     printWriter.write(json.spaces2)
     printWriter.close()
 
 object simulate extends App:
-  val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/firstMap.json")
+  val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/FirstMap.json")
+  GameController.startGame(p)
+
+object useSave extends App:
+  val p: String = JsonDecoder.getAbsolutePath("src/main/resources/saves/FirstMap.json")
   GameController.startGame(p)
