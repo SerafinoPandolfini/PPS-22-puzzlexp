@@ -1,11 +1,14 @@
 package view
 
+import controller.GameController
+
 import javax.swing.*
 import utils.{ColorManager, DisplayValuesManager, ImageManager}
 import model.cells.Item
-import controller.GameController
 import java.awt.event.ActionEvent
+
 import java.awt.{Dimension, Font}
+import java.awt.event.ActionEvent
 import scala.collection.immutable.List
 
 object ToolbarElements:
@@ -23,7 +26,7 @@ object ToolbarElements:
     pauseButton.setPreferredSize(
       Dimension(DisplayValuesManager.ButtonElement.value, DisplayValuesManager.ButtonElement.value)
     )
-    pauseButton.addActionListener((_: ActionEvent) => GameController.saveGame())
+    pauseButton.addActionListener(_ => GameController.saveGame())
     pauseButton.setBackground(ColorManager.ToolbarBackground.color)
     pauseButton
 
