@@ -72,3 +72,23 @@ class SaveGameEncoderDecoderTest extends AnyFlatSpec with BeforeAndAfterEach:
       GameController.saveGame()
       assert(Files.exists(Paths.get("src/main/resources/saves/" + originalMap.name + ".json")), s"File does not exist.")
   }
+
+  "A game" should "be retrievable from the save file" in {
+    if !GraphicsEnvironment.isHeadless then
+      GameController.saveGame()
+      val json: Json = JsonDecoder
+        .getJsonFromPath(JsonDecoder.getAbsolutePath("src/main/resources/saves/" + originalMap.name + ".json"))
+        .toOption
+        .get
+      CurrentGame.load(json)
+      isEqual(
+        CurrentGame.originalGameMap,
+        originalMap
+      ) should be(true)
+      isEqual(CurrentGame.gameMap, map) should be(true)
+      isEqual(CurrentGame.currentRoom, room) should be(true)
+      CurrentGame.startPositionInRoom should be(startPosition)
+      CurrentGame.scoreCounter should be(score)
+      CurrentGame.itemHolder.itemOwned should be(items)
+      CurrentGame.currentPosition should be(position)
+  }
