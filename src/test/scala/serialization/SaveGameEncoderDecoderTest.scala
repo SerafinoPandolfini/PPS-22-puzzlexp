@@ -8,7 +8,7 @@ import io.circe.parser.*
 import io.circe.{Decoder, HCursor, Json}
 import io.circe.syntax.*
 import model.game.CurrentGame
-import serialization.JsonDecoder.{saveGameDecoder, getAbsolutePath, getJsonFromPath}
+import serialization.JsonDecoder.{saveGameDecoder, getJsonFromPath}
 import serialization.JsonEncoder.saveGameEncoder
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.BeforeAndAfterEach
@@ -33,7 +33,7 @@ class SaveGameEncoderDecoderTest extends AnyFlatSpec with BeforeAndAfterEach:
   override def beforeEach(): Unit =
     super.beforeEach()
     if !GraphicsEnvironment.isHeadless then
-      GameController.startGame(JsonDecoder.getAbsolutePath("src/main/resources/json/testMap.json"))
+      GameController.startGame("src/main/resources/json/testMap.json")
       for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
       GameController.movePlayer(KeyEvent.VK_D)
       for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_W)
@@ -77,7 +77,7 @@ class SaveGameEncoderDecoderTest extends AnyFlatSpec with BeforeAndAfterEach:
     if !GraphicsEnvironment.isHeadless then
       GameController.saveGame()
       val json: Json = JsonDecoder
-        .getJsonFromPath(JsonDecoder.getAbsolutePath("src/main/resources/saves/" + originalMap.name + ".json"))
+        .getJsonFromPath("src/main/resources/saves/" + originalMap.name + ".json")
         .toOption
         .get
       CurrentGame.load(json)

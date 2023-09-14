@@ -110,6 +110,7 @@ object JsonDecoder:
       score <- cursor.downField("score").as[Int]
     yield (
       "src/main/resources/json/" + originalMap + ".json",
+      currentMap,
       currentRoom,
       currentPlayerPosition,
       startPlayerPosition,
