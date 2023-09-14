@@ -92,12 +92,7 @@ object JsonDecoder:
 
   }
 
-  def getAbsolutePath(partialPath: String): String =
-    import java.nio.file.Paths
-    Paths.get(partialPath).toAbsolutePath.toString
-
   def getJsonFromPath(filePath: String): Try[Json] =
-    import scala.io.Source
     Try {
       val source = Source.fromFile(filePath)
       try
@@ -116,7 +111,7 @@ object JsonDecoder:
       itemList <- cursor.downField("items").as[List[Item]]
       score <- cursor.downField("score").as[Int]
     yield (
-      getAbsolutePath("src/main/resources/json/" + originalMap + ".json"),
+      "src/main/resources/json/" + originalMap + ".json",
       currentMap,
       currentRoom,
       currentPlayerPosition,

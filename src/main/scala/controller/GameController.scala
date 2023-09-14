@@ -27,10 +27,10 @@ object GameController:
     *   the path of the json for the current game
     */
   def startGame(path: String): Unit =
+    val appDir = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves")
     JsonDecoder.getJsonFromPath(path) match
       case Success(jsonData) =>
-        if Path.of(path).startsWith(Paths.get("src/main/resources/saves/").toAbsolutePath) then
-          CurrentGame.load(jsonData)
+        if Path.of(path).startsWith(appDir) then CurrentGame.load(jsonData)
         else
           JsonDecoder.mapDecoder(jsonData.hcursor) match
             case Right(map)  => CurrentGame.initialize(map)
@@ -82,15 +82,18 @@ object GameController:
   /** saves the actual game writing the needed info in a json file
     */
   def saveGame(): Unit =
-    val outputFile = java.io.File(s"src/main/resources/saves/${CurrentGame.originalGameMap.name}.json")
+    val appDir = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves")
+    if !Files.exists(appDir) then Files.createDirectories(appDir)
+    val outputFile = java.io.File(
+      appDir.toString + java.io.File.separator + CurrentGame.originalGameMap.name + ".json"
+    )
     val printWriter = PrintWriter(outputFile)
     printWriter.write(JsonEncoder.saveGameEncoder.apply(CurrentGame).spaces2)
     printWriter.close()
 
 object simulate extends App:
-  val p: String = JsonDecoder.getAbsolutePath("src/main/resources/json/FirstMap.json")
-  GameController.startGame(p)
+  GameController.startGame("src/main/resources/json/FirstMap.json")
 
 object useSave extends App:
-  val p: String = JsonDecoder.getAbsolutePath("src/main/resources/saves/FirstMap.json")
-  GameController.startGame(p)
+  val appDir = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves", "FirstMap.json").toString
+  GameController.startGame(appDir)
