@@ -12,6 +12,7 @@ object ConstantUtils:
   val ControlsText: String = "CONTROLS"
   val PlayText: String = "PLAY"
   val ContinueText: String = "CONTINUE"
+  val NewGameText: String = "NEW GAME"
   val MenuGUIWidth: Int = 500
   val MenuGUIHeight: Int = 610
   val ControlsGUISize: Int = 510
@@ -26,10 +27,14 @@ object ConstantUtils:
   val BorderRadius: Int = 20
   val SelectLabelFontSize: Int = 30
   val SelectLabelSize: Int = 400
+  val SelectCellHeight: Int = 20
   val ScrollBarBorderThickness: Int = 2
   val ScrollBarWidth: Int = 10
   val ZeroDimension: Int = 0
   val JsonDirectoryPath: String = "src/main/resources/json/"
+  val SavesDirectoryPath: String = "src/main/resources/saves/"
+  val CheckExistingFile: String = "src/main/resources/saves/FirstMap.json"
+  val CheckWrongFile: String = "src/main/resources/saves/ZeroMap.json"
   val JsonExtension: String = ".json"
   val FillerWidth: Int = 0
   val FillerHeight: Int = 40

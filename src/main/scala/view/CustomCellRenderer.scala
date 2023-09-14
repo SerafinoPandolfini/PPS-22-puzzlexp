@@ -1,12 +1,13 @@
 package view
 
 import utils.ColorManager
+import utils.ConstantUtils.{ScrollBarBorderThickness, SelectCellHeight}
 
-import java.awt.{Color, Component}
-import javax.swing.{JLabel, JList, ListCellRenderer}
+import java.awt.{Color, Component, Dimension}
+import javax.swing.{BorderFactory, JButton, JLabel, JList, ListCellRenderer}
 
 /** this is a custom JLabel in the scrollPanel */
-class CustomCellRenderer extends JLabel with ListCellRenderer[Any]:
+class CustomCellRenderer extends JButton with ListCellRenderer[Any]:
   def getListCellRendererComponent(
       list: JList[_],
       value: Any,
@@ -22,5 +23,6 @@ class CustomCellRenderer extends JLabel with ListCellRenderer[Any]:
       background = ColorManager.SelectedItemScrollPane.color
     setBackground(background)
     setForeground(foreground)
-
+    setBorder(BorderFactory.createLineBorder(ColorManager.ScrollPane.color, ScrollBarBorderThickness))
+    setPreferredSize(Dimension(getPreferredSize.width, SelectCellHeight))
     this

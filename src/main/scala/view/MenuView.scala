@@ -1,4 +1,4 @@
-package menu
+package view
 
 import controller.GameController
 import serialization.JsonDecoder
@@ -11,13 +11,15 @@ import java.awt.geom.RoundRectangle2D
 import java.awt.{BorderLayout, Color, Dimension, FlowLayout, Font, Graphics, Graphics2D, GridLayout, Shape}
 import java.util.Locale
 import javax.swing.*
+import controller.MenuController
 import scala.collection.immutable.ListMap
 import scala.language.postfixOps
 
 /** the GUI of the menu */
-case class MenuView(continue: Boolean, mapPathAndName: ListMap[String, String]) extends JFrame:
+case class MenuView(controller: MenuController) extends JFrame:
   var startPanel: JLayeredPane = createStartPanel()
   var playButton: JButton = _
+  var mapPathAndName: ListMap[String, String] = controller.searchMapFiles()
   configureFrame()
 
   /** create the start menu panel containing all the panels
@@ -47,16 +49,14 @@ case class MenuView(continue: Boolean, mapPathAndName: ListMap[String, String]) 
     controlsButtonContainer.setOpaque(false)
     val controlsButton: JButton = TransparentButton(ControlsText)
     controlsButton.addActionListener((_: ActionEvent) => ControlsView())
-    if (continue) playButton = TransparentButton(ContinueText)
-    else
-      playButton = TransparentButton(PlayText)
-      playButton.addActionListener((_: ActionEvent) =>
-        startPanel.removeAll()
-        startPanel = this.createPanelsStructure()
-        add(startPanel)
-        revalidate()
-        repaint()
-      )
+    playButton = TransparentButton(PlayText)
+    playButton.addActionListener((_: ActionEvent) =>
+      startPanel.removeAll()
+      startPanel = this.createPanelsStructure()
+      add(startPanel)
+      revalidate()
+      repaint()
+    )
     playButtonContainer.add(playButton)
     controlsButtonContainer.add(controlsButton)
     buttonPanel.setLayout(BoxLayout(buttonPanel, BoxLayout.Y_AXIS))
@@ -64,27 +64,6 @@ case class MenuView(continue: Boolean, mapPathAndName: ListMap[String, String]) 
     buttonPanel.add(controlsButtonContainer)
     buttonPanel.setBounds(ButtonCoordinate.x, ButtonCoordinate.y, ButtonsPanelWidth, ButtonsPanelHeight)
     buttonPanel
-
-  /** create the playButtonContainer panel containing the play button
-    *
-    * @return
-    *   the panel
-    */
-  private def playButtonContainer(): JPanel =
-    val playButtonContainer: JPanel = JPanel(FlowLayout(FlowLayout.CENTER))
-    playButtonContainer.setOpaque(false)
-    if (continue) playButton = TransparentButton(ContinueText)
-    else
-      playButton = TransparentButton(PlayText)
-      playButton.addActionListener((_: ActionEvent) =>
-        startPanel.removeAll()
-        startPanel = this.createPanelsStructure()
-        add(startPanel)
-        revalidate()
-        repaint()
-      )
-    playButtonContainer.add(playButton)
-    playButtonContainer
 
   /** create the background panel containing the background image
     *

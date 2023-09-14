@@ -1,10 +1,10 @@
-package menu
+package view
 
 import utils.ConstantUtils.*
 import utils.ImageManager
 
 import java.awt.BorderLayout
-import javax.swing.{ImageIcon, JFrame, JLabel, JLayeredPane, JPanel, WindowConstants}
+import javax.swing.*
 
 /** the GUI of the controls */
 class ControlsView extends JFrame:

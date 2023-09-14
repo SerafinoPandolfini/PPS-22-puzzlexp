@@ -1,4 +1,4 @@
-package menu
+package view
 
 import controller.GameController
 import view.{CustomCellRenderer, CustomScrollBarUI}
@@ -13,6 +13,8 @@ import java.awt.{BorderLayout, Color, Component, Dimension, FlowLayout, Font, Gr
 import javax.swing.Box.Filler
 import javax.swing.*
 import javax.swing.JOptionPane.showMessageDialog
+import javax.swing.event.ListSelectionListener
+import javax.swing.event.ListSelectionEvent
 import scala.language.postfixOps
 
 object SelectMapExtension:
@@ -50,28 +52,17 @@ object SelectMapExtension:
       */
     private def createMapFGPanel(): JPanel =
       var foreGround: JPanel = JPanel()
-      val listModel: DefaultListModel[String] = DefaultListModel()
-      val playButtonContainer: JPanel = JPanel()
-      val playButton: JButton = TransparentButton(PlayText)
       val selectLabel: JLabel = createSelectedLabel()
-      view.mapPathAndName.foreach { case (_, n) => listModel.addElement(n) }
-      val jList: JList[String] = JList(listModel)
+      val (buttonContainer: JPanel, jList: JList[String]) = configureListModelAndButtonContainer()
       var scrollPane: JScrollPane = JScrollPane(jList)
-      jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION)
-      jList.setCellRenderer(CustomCellRenderer())
-      jList.setBackground(ColorManager.ScrollPane.color)
-      configureListener(playButton, jList)
-      playButtonContainer.add(playButton)
       foreGround.add(computeFiller(FillerWidth, FillerHeight))
       foreGround.add(selectLabel)
       foreGround.add(computeFiller(FillerWidth, FillerHeight))
       foreGround.add(scrollPane)
       foreGround.add(computeFiller(FillerWidth, FillerHeight))
-      foreGround.add(playButtonContainer)
+      foreGround.add(buttonContainer)
       scrollPane = scrollPaneConfiguration(scrollPane)
       foreGround = foreGroundConfiguration(foreGround)
-      playButtonContainer.setLayout(FlowLayout(FlowLayout.CENTER))
-      playButtonContainer.setOpaque(false)
       foreGround
 
     /** create a Box.Filler with the values specify in input */
@@ -112,14 +103,49 @@ object SelectMapExtension:
       foreGround.setBounds(Origin.x, Origin.y, MenuGUIWidth, MenuGUIHeight)
       foreGround
 
-    /** this method configure the listener present in this view extension */
-    private def configureListener(playButton: JButton, jList: JList[String]): Unit =
-      playButton.addActionListener((_: ActionEvent) =>
-        jList.getSelectedValue match
-          case sm if sm != null =>
-            view.dispose()
-            GameController.startGame(
-              JsonDecoder.getAbsolutePath(JsonDirectoryPath + jList.getSelectedValue + JsonExtension)
-            )
-          case _ => showMessageDialog(null, "Please, select a valid map")
+    /** it configures a lister that starts the game */
+    private def configureListener(button: JButton, jList: JList[String], directoryPath: String): Unit =
+      button.addActionListener((_: ActionEvent) =>
+        view.dispose()
+        GameController.startGame(
+          JsonDecoder.getAbsolutePath(directoryPath + jList.getSelectedValue + JsonExtension)
+        )
       )
+
+    /** Enable the button if there's the file of the map */
+    private def handleSelectedValue(jList: JList[String], button: JButton, directoryPath: String): JButton =
+      if (view.controller.isFilePresent(directoryPath + jList.getSelectedValue + JsonExtension))
+        button.setEnabled(true)
+      else button.setEnabled(false)
+      button
+
+    /** it creates the button container with the two buttons and the list model for the scrollPane */
+    private def configureListModelAndButtonContainer(): (JPanel, JList[String]) =
+      val buttonContainer: JPanel = JPanel()
+      var newGameButton: JButton = TransparentButton(NewGameText)
+      var continueButton: JButton = TransparentButton(ContinueText)
+      continueButton.setEnabled(false)
+      newGameButton.setEnabled(false)
+      val jList: JList[String] = configureListModel()
+      val listSelectionListener: ListSelectionListener = (e: ListSelectionEvent) =>
+        if (!e.getValueIsAdjusting)
+          continueButton = handleSelectedValue(jList, continueButton, SavesDirectoryPath)
+          newGameButton = handleSelectedValue(jList, newGameButton, JsonDirectoryPath)
+      jList.addListSelectionListener(listSelectionListener)
+      configureListener(newGameButton, jList, JsonDirectoryPath)
+      configureListener(continueButton, jList, SavesDirectoryPath)
+      buttonContainer.setLayout(FlowLayout(FlowLayout.CENTER))
+      buttonContainer.setOpaque(false)
+      buttonContainer.add(newGameButton)
+      buttonContainer.add(continueButton)
+      (buttonContainer, jList)
+
+    /** configures the list model */
+    private def configureListModel(): JList[String] =
+      val listModel: DefaultListModel[String] = DefaultListModel()
+      view.mapPathAndName.foreach { case (_, n) => listModel.addElement(n) }
+      val jList: JList[String] = JList(listModel)
+      jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION)
+      jList.setCellRenderer(CustomCellRenderer())
+      jList.setBackground(ColorManager.ScrollPane.color)
+      jList
