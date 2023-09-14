@@ -10,6 +10,7 @@ import model.game.CurrentGame
 import model.room.{Room, RoomLink}
 import model.gameMap.GameMap
 import scala.util.Try
+import scala.io.Source
 
 type SaveData = (String, GameMap, Room, Position, Position, List[Item], Int)
 

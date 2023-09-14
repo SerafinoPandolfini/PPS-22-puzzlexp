@@ -8,6 +8,7 @@ import org.scalatest.TryValues.*
 import utils.TestUtils.*
 import exceptions.PlayerOutOfBoundsException
 import scala.Option
+import scala.util.Failure
 
 class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -38,8 +39,8 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
   "A room" should "be able to check if the player is on a deadly cell" in {
     room.isPlayerDead(position1_1) should not be true
     room.isPlayerDead(outOfBoundPosition) match
-      case Left(exception) => exception shouldBe a[PlayerOutOfBoundsException]
-      case _               => fail("Expected Left(PlayerOutOfBoundsException) but got Right")
+      case Failure(exception) => exception shouldBe a[PlayerOutOfBoundsException]
+      case _                  => fail("Expected Left(PlayerOutOfBoundsException) but got Right")
   }
 
   "A room" should "not let the player to walk into a non walkable cell" in {
