@@ -7,7 +7,7 @@ import utils.TestUtils.*
 import io.circe.parser.*
 import io.circe.syntax.*
 import io.circe.{Decoder, HCursor, Json}
-import serialization.JsonDecoder.{mapDecoder, getJsonFromPath, getAbsolutePath}
+import serialization.JsonDecoder.{mapDecoder, getJsonFromPath}
 import serialization.JsonEncoder.mapEncoder
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
@@ -35,8 +35,7 @@ class JsonMapEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
   }
 
   "A map" should "be retrievable from a json file" in {
-    val pathabs = getAbsolutePath("src/main/resources/json/testMap.json")
-    val j = getJsonFromPath(pathabs).toOption.get
+    val j = getJsonFromPath("src/main/resources/json/testMap.json").toOption.get
     j shouldBe a[Json]
     mapDecoder.apply(j.hcursor).toOption.get shouldBe a[GameMap]
   }
