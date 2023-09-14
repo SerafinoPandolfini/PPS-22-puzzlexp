@@ -19,7 +19,8 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    if !GraphicsEnvironment.isHeadless then GameController.startGame("src/main/resources/json/testMap.json")
+    if !GraphicsEnvironment.isHeadless then
+      GameController.startGame(JsonDecoder.getAbsolutePath("src/main/resources/json/testMap.json"))
 
   override def afterEach(): Unit =
     super.afterEach()

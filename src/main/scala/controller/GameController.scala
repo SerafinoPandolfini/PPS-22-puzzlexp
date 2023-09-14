@@ -14,10 +14,10 @@ import utils.KeyDirectionMapping.given
 import utils.PathExtractor.extractPath
 import view.GameView
 import utils.Percentage.%%
-import scala.util.{Failure, Success}
-import java.awt.event.KeyEvent
-import io.circe.Json
 import java.io.PrintWriter
+import io.circe.Json
+import java.awt.event.KeyEvent
+import scala.util.{Failure, Success}
 import java.nio.file.*
 
 object GameController:
@@ -142,8 +142,7 @@ object GameController:
     printWriter.close()
 
 object simulate extends App:
-  val p: String = "src/main/resources/json/FirstMap.json"
-  GameController.startGame(p)
+  GameController.startGame("src/main/resources/json/FirstMap.json")
 
 object useSave extends App:
   val appDir = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves", "FirstMap.json").toString

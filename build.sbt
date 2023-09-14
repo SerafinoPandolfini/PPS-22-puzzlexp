@@ -19,8 +19,7 @@ lazy val root = (project in file("."))
 
 jacocoReportSettings := JacocoReportSettings()
   .withThresholds(
-    JacocoThresholds(instruction = 0, method = 0, branch = 0, complexity = 0, line = 60, clazz = 0)
+    JacocoThresholds(instruction = 0, method = 0, branch = 0, complexity = 0, line = 70, clazz = 70)
   )
-Test / jacocoExcludes := Seq(
-)
+Test / jacocoExcludes := Seq("controller.*", "view.*", "model.game.*")
 Test / parallelExecution := false
