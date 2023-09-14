@@ -9,6 +9,7 @@ import utils.ConstantUtils.*
 import view.MenuView
 
 import java.awt.GraphicsEnvironment
+import java.nio.file.Paths
 
 class MenuSpec extends AnyFlatSpec with BeforeAndAfterEach:
   var controller: MenuController = _
@@ -29,6 +30,11 @@ class MenuSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "a controller menu" should "be able to get all the name of the map" in {
     if !GraphicsEnvironment.isHeadless then view.mapPathAndName.map((_, n) => n) shouldBe a[List[String]]
+    println(
+      Paths
+        .get(System.getProperty("user.home"), "puzzlexp", "saves", "FirstMap.json")
+        .toString
+    )
   }
 
   "a controller menu" should "be able to check if a file exist" in {

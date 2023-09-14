@@ -10,6 +10,7 @@ import utils.ConstantUtils.*
 
 import java.awt.event.{ActionEvent, ActionListener}
 import java.awt.{BorderLayout, Color, Component, Dimension, FlowLayout, Font, GridLayout}
+import java.nio.file.Paths
 import javax.swing.Box.Filler
 import javax.swing.*
 import javax.swing.JOptionPane.showMessageDialog
@@ -108,13 +109,22 @@ object SelectMapExtension:
       button.addActionListener((_: ActionEvent) =>
         view.dispose()
         GameController.startGame(
-          JsonDecoder.getAbsolutePath(directoryPath + jList.getSelectedValue + JsonExtension)
+          Paths
+            .get(System.getProperty("user.home"), "puzzlexp", "saves", jList.getSelectedValue + JsonExtension)
+            .toString
         )
+        // JsonDecoder.getAbsolutePath(directoryPath + jList.getSelectedValue + JsonExtension)
       )
 
     /** Enable the button if there's the file of the map */
     private def handleSelectedValue(jList: JList[String], button: JButton, directoryPath: String): JButton =
-      if (view.controller.isFilePresent(directoryPath + jList.getSelectedValue + JsonExtension))
+      if (
+        view.controller.isFilePresent(
+          Paths
+            .get(System.getProperty("user.home"), "puzzlexp", "saves", jList.getSelectedValue + JsonExtension)
+            .toString
+        )
+      ) // directoryPath + jList.getSelectedValue + JsonExtension))
         button.setEnabled(true)
       else button.setEnabled(false)
       button
