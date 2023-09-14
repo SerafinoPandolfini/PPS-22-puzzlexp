@@ -2,6 +2,9 @@ package utils
 
 import model.cells.{Direction, Position}
 
+import java.io.File
+import java.nio.file.Paths
+
 object ConstantUtils:
   val CoinValue: Int = 10
   val BagValue: Int = 20
@@ -32,7 +35,9 @@ object ConstantUtils:
   val ScrollBarWidth: Int = 10
   val ZeroDimension: Int = 0
   val JsonDirectoryPath: String = "src/main/resources/json/"
-  val SavesDirectoryPath: String = "src/main/resources/saves/"
+  val SavesDirectoryPath: String = Paths
+    .get(System.getProperty("user.home"), "puzzlexp", "saves")
+    .toString + File.separator
   val CheckExistingFile: String = "src/main/resources/saves/FirstMap.json"
   val CheckWrongFile: String = "src/main/resources/saves/ZeroMap.json"
   val JsonExtension: String = ".json"

@@ -13,8 +13,6 @@ import scala.io.Source
 
 type SaveData = (String, GameMap, Room, Position, Position, List[Item], Int)
 
-type SaveData = (String, GameMap, Room, Position, Position, List[Item], Int)
-
 object JsonDecoder:
 
   given decoderItem: Decoder[Item] = deriveDecoder[Item]

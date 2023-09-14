@@ -39,7 +39,6 @@ class MenuSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "a controller menu" should "be able to check if a file exist" in {
     if !GraphicsEnvironment.isHeadless then
-      controller.isFilePresent(JsonDecoder.getAbsolutePath(CheckExistingFile)) should be(true)
-      controller.isFilePresent(JsonDecoder.getAbsolutePath(CheckWrongFile)) should be(false)
-
+      controller.isFilePresent(CheckExistingFile) should be(true)
+      controller.isFilePresent(CheckWrongFile) should be(false)
   }
