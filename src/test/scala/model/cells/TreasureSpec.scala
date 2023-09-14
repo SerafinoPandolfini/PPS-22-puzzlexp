@@ -7,6 +7,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.BeforeAndAfterEach
 import utils.TestUtils.*
+import utils.ItemConversion.given_Conversion_Item_Int
 
 class TreasureSpec extends AnyFlatSpec with BeforeAndAfterEach:
   var treasure: BasicCell = _
@@ -22,13 +23,13 @@ class TreasureSpec extends AnyFlatSpec with BeforeAndAfterEach:
   "The size of a treasure" should "be related to a score" in {
     var cells: Set[Cell] = Set(treasure)
     cells = treasure.updateItem(cells, Item.Key, genericDirection)
-    cells.head.cellItem.mapItemToValue should be(0)
+    cells.head.cellItem.convert should be(0)
     cells = treasure.updateItem(cells, Item.Coin, genericDirection)
-    cells.head.cellItem.mapItemToValue should be(10)
+    cells.head.cellItem.convert should be(10)
     cells = treasure.updateItem(cells, Item.Bag, genericDirection)
-    cells.head.cellItem.mapItemToValue should be(20)
+    cells.head.cellItem.convert should be(20)
     cells = treasure.updateItem(cells, Item.Trunk, genericDirection)
-    cells.head.cellItem.mapItemToValue should be(50)
+    cells.head.cellItem.convert should be(50)
 
   }
 

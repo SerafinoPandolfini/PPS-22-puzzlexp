@@ -27,6 +27,7 @@ object GameController:
     *   the path of the json for the current game
     */
   def startGame(path: String): Unit =
+
     val appDir = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves")
     JsonDecoder.getJsonFromPath(path) match
       case Success(jsonData) =>
@@ -64,32 +65,32 @@ object GameController:
     view.updatePlayerImage(CurrentGame.currentPosition, playerDirection)
     ToolbarUpdater.updateToolbarLabels()
 
-  /** Reset the current room
-    */
-  def resetRoom(): Unit =
-    val resettedRoom = CurrentGame.originalGameMap.getRoomFromName(CurrentGame.currentRoom.name).get
-    val doors = CurrentGame.currentRoom.cells.collect { case c: LockCell => c }.map(c => c.copy(cellItem = Item.Empty))
-    resettedRoom.updateCells(doors.asInstanceOf[Set[Cell]])
-    val itemEmpty = for
-      c <- CurrentGame.currentRoom.cells
-      r <- resettedRoom.cells
-      if r.cellItem != Item.Box && r.cellItem != Item.Empty && c.position == r.position && c.cellItem != r.cellItem
-    yield r.updateItem(resettedRoom.cells, Item.Empty).filter(e => e.position == r.position).head
-    resettedRoom.updateCells(itemEmpty)
-    CurrentGame.resetRoom(resettedRoom)
-    view.associateTiles(CurrentGame.currentRoom)
+/** Reset the current room
+  */
+def resetRoom(): Unit =
+  val resettedRoom = CurrentGame.originalGameMap.getRoomFromName(CurrentGame.currentRoom.name).get
+  val doors = CurrentGame.currentRoom.cells.collect { case c: LockCell => c }.map(c => c.copy(cellItem = Item.Empty))
+  resettedRoom.updateCells(doors.asInstanceOf[Set[Cell]])
+  val itemEmpty = for
+    c <- CurrentGame.currentRoom.cells
+    r <- resettedRoom.cells
+    if r.cellItem != Item.Box && r.cellItem != Item.Empty && c.position == r.position && c.cellItem != r.cellItem
+  yield r.updateItem(resettedRoom.cells, Item.Empty).filter(e => e.position == r.position).head
+  resettedRoom.updateCells(itemEmpty)
+  CurrentGame.resetRoom(resettedRoom)
+  view.associateTiles(CurrentGame.currentRoom)
 
-  /** saves the actual game writing the needed info in a json file
-    */
-  def saveGame(): Unit =
-    val appDir = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves")
-    if !Files.exists(appDir) then Files.createDirectories(appDir)
-    val outputFile = java.io.File(
-      appDir.toString + java.io.File.separator + CurrentGame.originalGameMap.name + ".json"
-    )
-    val printWriter = PrintWriter(outputFile)
-    printWriter.write(JsonEncoder.saveGameEncoder.apply(CurrentGame).spaces2)
-    printWriter.close()
+/** saves the actual game writing the needed info in a json file
+  */
+def saveGame(): Unit =
+  val appDir = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves")
+  if !Files.exists(appDir) then Files.createDirectories(appDir)
+  val outputFile = java.io.File(
+    appDir.toString + java.io.File.separator + CurrentGame.originalGameMap.name + ".json"
+  )
+  val printWriter = PrintWriter(outputFile)
+  printWriter.write(JsonEncoder.saveGameEncoder.apply(CurrentGame).spaces2)
+  printWriter.close()
 
 object simulate extends App:
   GameController.startGame("src/main/resources/json/FirstMap.json")

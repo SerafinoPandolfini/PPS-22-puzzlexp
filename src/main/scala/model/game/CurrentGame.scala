@@ -5,7 +5,7 @@ import model.gameMap.GameMap
 import model.cells.{Item, Position}
 import model.room.Room
 import serialization.JsonDecoder
-import model.cells.logic.TreasureExtension.mapItemToValue
+import utils.ItemConversion.given_Conversion_Item_Int
 import io.circe.{Json, HCursor}
 import scala.util.{Failure, Success}
 
@@ -70,8 +70,9 @@ object CurrentGame:
     *   the item to add
     */
   def addItem(item: Item): Unit =
-    _itemHolder = _itemHolder.addItem(item)
-    _scoreCounter = _scoreCounter + item.mapItemToValue
+    if item != Item.Empty then
+      _itemHolder = _itemHolder.addItem(item)
+      _scoreCounter = _scoreCounter + item
 
   /** remove the specified item
     * @param item
