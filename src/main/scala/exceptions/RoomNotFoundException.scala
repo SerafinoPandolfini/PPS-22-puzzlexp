@@ -1,3 +1,3 @@
 package exceptions
 
-class RoomNotFoundException() extends Exception()
+class RoomNotFoundException extends Exception

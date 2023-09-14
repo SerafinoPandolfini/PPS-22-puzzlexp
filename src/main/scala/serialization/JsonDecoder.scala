@@ -9,6 +9,7 @@ import io.circe.Error
 import model.game.CurrentGame
 import model.room.{Room, RoomLink}
 import model.gameMap.GameMap
+import scala.util.Try
 
 type SaveData = (String, GameMap, Room, Position, Position, List[Item], Int)
 
@@ -87,7 +88,7 @@ object JsonDecoder:
       rooms <- cursor.downField("rooms").as[Set[Room]]
       initialRoom <- cursor.downField("initialRoom").as[String]
       initialPosition <- cursor.downField("initialPosition").as[Position]
-    yield new GameMap(name, rooms, initialRoom, initialPosition)
+    yield GameMap(name, rooms, initialRoom, initialPosition)
 
   }
 
@@ -95,13 +96,15 @@ object JsonDecoder:
     import java.nio.file.Paths
     Paths.get(partialPath).toAbsolutePath.toString
 
-  def getJsonFromPath(filePath: String): Either[Error, Json] =
+  def getJsonFromPath(filePath: String): Try[Json] =
     import scala.io.Source
-    val source = Source.fromFile(filePath)
-    try
-      val jsonString = source.mkString
-      parse(jsonString)
-    finally source.close()
+    Try {
+      val source = Source.fromFile(filePath)
+      try
+        val jsonString = source.mkString
+        parse(jsonString).getOrElse(throw new Exception("Parsing failed"))
+      finally source.close()
+    }
 
   given saveGameDecoder: Decoder[SaveData] = Decoder.instance { cursor =>
     for

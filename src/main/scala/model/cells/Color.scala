@@ -5,5 +5,4 @@ enum Color:
   case Blue
   case Red
   case Green
-  case Yellow
   case Purple

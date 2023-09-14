@@ -82,7 +82,7 @@ trait Room:
     * @return
     *   if the cell is deadly or not or a PlayerOutOfBoundsException
     */
-  def isPlayerDead(currentPosition: Position): Either[PlayerOutOfBoundsException, Boolean]
+  def isPlayerDead(currentPosition: Position): Try[Boolean]
 
   /** represent the [[Room.cells]] as a stirng matrix
     *
@@ -177,10 +177,10 @@ object Room:
             case None => Failure(new PlayerOutOfBoundsException)
         case None => Failure(new PlayerOutOfBoundsException)
 
-    override def isPlayerDead(currentPosition: Position): Either[PlayerOutOfBoundsException, Boolean] =
+    override def isPlayerDead(currentPosition: Position): Try[Boolean] =
       getCell(currentPosition) match
-        case Some(c) => Right(c.isDeadly)
-        case _       => Left(new PlayerOutOfBoundsException)
+        case Some(c) => Success(c.isDeadly)
+        case _       => Failure(PlayerOutOfBoundsException())
 
     override def cellsRepresentation(mapper: Cell => Option[String] = _ => Option.empty[String]): String =
       cells.toList.sorted

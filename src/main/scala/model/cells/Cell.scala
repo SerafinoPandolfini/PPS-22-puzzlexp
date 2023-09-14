@@ -19,16 +19,19 @@ abstract class Cell:
     */
   def cellItem: Item
 
-  /** @return the walking state of the cell */
+  /** @return
+    *   the walking state of the cell
+    */
   def walkableState: WalkableType = Walkable(true)
 
-  /** @return if the cell is deadly */
+  /** @return
+    *   if the cell is deadly
+    */
   def isDeadly: Boolean = false
 
 /** Companion Object for [[Cell]] */
 object Cell:
   /** given for [[Cell]] that provide a way to order them based on position
-    *
     * @return
     *   the ordering logic for [[Cell]]
     */
