@@ -9,6 +9,9 @@ import io.circe.Error
 import model.game.CurrentGame
 import model.room.{Room, RoomLink}
 import model.gameMap.GameMap
+import scala.io.Source
+
+type SaveData = (String, GameMap, Room, Position, Position, List[Item], Int)
 
 type SaveData = (String, GameMap, Room, Position, Position, List[Item], Int)
 
@@ -91,12 +94,7 @@ object JsonDecoder:
 
   }
 
-  def getAbsolutePath(partialPath: String): String =
-    import java.nio.file.Paths
-    Paths.get(partialPath).toAbsolutePath.toString
-
   def getJsonFromPath(filePath: String): Either[Error, Json] =
-    import scala.io.Source
     val source = Source.fromFile(filePath)
     try
       val jsonString = source.mkString
@@ -113,7 +111,7 @@ object JsonDecoder:
       itemList <- cursor.downField("items").as[List[Item]]
       score <- cursor.downField("score").as[Int]
     yield (
-      getAbsolutePath("src/main/resources/json/" + originalMap + ".json"),
+      "src/main/resources/json/" + originalMap + ".json",
       currentMap,
       currentRoom,
       currentPlayerPosition,
