@@ -3,6 +3,7 @@ package utils
 import model.room.Room
 import model.cells.*
 import model.cells.Cell.given
+import utils.ConstantUtils.AdjacentDirection
 
 object PathExtractor:
 
@@ -33,41 +34,50 @@ object PathExtractor:
 
   private def extractWalkablePath(cell: Cell): String = cell.walkableState match {
     case WalkableType.Walkable(b) => if (b) PathWalkable else NoPath
-    case WalkableType.DirectionWalkable(_) => cell match {
-      case cliffCell: CliffCell => s"$PathSplit${cliffCell.direction.toString.toUpperCase}"
-      case _ => NoPath
-    }
+    case WalkableType.DirectionWalkable(_) =>
+      cell match {
+        case cliffCell: CliffCell => s"$PathSplit${cliffCell.direction.toString.toUpperCase}"
+        case _                    => NoPath
+      }
   }
 
   private def extractCoveredPath(cell: Cell): String = cell match {
     case coveredCell: Cell with CoveredHole => if (coveredCell.cover) PathCovered else NoPath
-    case _ => NoPath
+    case _                                  => NoPath
   }
 
   private def extractColorPath(cell: Cell): String = cell match {
     case colorCell: Cell with Colorable => s"$PathSplit${colorCell.color.toString.toUpperCase}"
-    case _ => NoPath
+    case _                              => NoPath
   }
 
   private def extractPressedPath(cell: Cell): String = cell match {
     case buttonCell: ButtonCell => if (buttonCell.pressableState == PressableState.Pressed) PathPressed else NoPath
-    case _ => NoPath
+    case _                      => NoPath
   }
 
-  private def extractWallPath(cell: Cell, cells: Set[Cell]): String =
+  /** @param cell
+    * @return
+    *   a list with the adjacent cells
+    */
+  def computeAdjacentCells(cell: Cell): List[Position] =
+    AdjacentDirection.map(p => (p._1 + cell.position._1, p._2 + cell.position._2))
+
+  def extractWallPath(cell: Cell, cells: Set[Cell]): String = // was private
+    val adjacentList: List[Cell] = cells.filter(c => computeAdjacentCells(cell) contains c.position).toList
+    println(adjacentList)
     NoPath
-    //cercare usando le coordinate le celle attorno a cell
-    //ASSICURATI CHE SE è UNA CELLA SUL BORDO DI CONSIDERARE L'OUT OF BOUND COME MURO
+    // cercare usando le coordinate le celle attorno a cell
+    // ASSICURATI CHE SE è UNA CELLA SUL BORDO DI CONSIDERARE L'OUT OF BOUND COME MURO
 
-    //PROLOG APPROACH
-    //usare le celle attorno e convertirle in notazione prolog (dividere celle muro e celle non muro)
-    //chiamare il solve prolog
-    //convertire il ritorno delle teoria prolog usando i given
-    //RICORDA CHE PROLOG DEVE RITORNARE UNA STRINGA LOWERCASE, TU LA DEVI FARE UPPERCASE
+    // PROLOG APPROACH
+    // usare le celle attorno e convertirle in notazione prolog (dividere celle muro e celle non muro)
+    // chiamare il solve prolog
+    // convertire il ritorno delle teoria prolog usando i given
+    // RICORDA CHE PROLOG DEVE RITORNARE UNA STRINGA LOWERCASE, TU LA DEVI FARE UPPERCASE
 
-    //SCALA APPROACH
-    //dividere celle muro e non muro
-    //creare costanti per le stringhe mancanti
+    // SCALA APPROACH
+    // dividere celle muro e non muro
+    // creare costanti per le stringhe mancanti
 
-    //return PathSplit + roba prolog
-
+    // return PathSplit + roba prolog
