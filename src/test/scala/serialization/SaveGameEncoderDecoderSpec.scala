@@ -8,7 +8,7 @@ import io.circe.parser.*
 import io.circe.{Decoder, HCursor, Json}
 import io.circe.syntax.*
 import model.game.CurrentGame
-import serialization.JsonDecoder.{saveGameDecoder, getAbsolutePath, getJsonFromPath}
+import serialization.JsonDecoder.{getJsonFromPath, saveGameDecoder}
 import serialization.JsonEncoder.saveGameEncoder
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.BeforeAndAfterEach
@@ -20,8 +20,9 @@ import java.awt.GraphicsEnvironment
 import java.awt.event.KeyEvent
 import java.nio.file.{Files, Paths}
 
-class SaveGameEncoderDecoderTest extends AnyFlatSpec with BeforeAndAfterEach:
+class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
+  val path: String = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves", "testMap.json").toString
   var position: Position = _
   var startPosition: Position = _
   var map: GameMap = _
@@ -33,7 +34,7 @@ class SaveGameEncoderDecoderTest extends AnyFlatSpec with BeforeAndAfterEach:
   override def beforeEach(): Unit =
     super.beforeEach()
     if !GraphicsEnvironment.isHeadless then
-      GameController.startGame(JsonDecoder.getAbsolutePath("src/main/resources/json/testMap.json"))
+      GameController.startGame("src/main/resources/json/testMap.json")
       for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
       GameController.movePlayer(KeyEvent.VK_D)
       for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_W)
@@ -70,14 +71,14 @@ class SaveGameEncoderDecoderTest extends AnyFlatSpec with BeforeAndAfterEach:
   "A game" should "be savable" in {
     if !GraphicsEnvironment.isHeadless then
       GameController.saveGame()
-      assert(Files.exists(Paths.get("src/main/resources/saves/" + originalMap.name + ".json")), s"File does not exist.")
+      assert(Files.exists(Paths.get(path)), s"File does not exist.")
   }
 
   "A game" should "be retrievable from the save file" in {
     if !GraphicsEnvironment.isHeadless then
       GameController.saveGame()
       val json: Json = JsonDecoder
-        .getJsonFromPath(JsonDecoder.getAbsolutePath("src/main/resources/saves/" + originalMap.name + ".json"))
+        .getJsonFromPath(path)
         .toOption
         .get
       CurrentGame.load(json)
