@@ -4,7 +4,7 @@ import model.cells.*
 import model.game.ItemHolder
 import utils.PositionExtension.*
 import model.cells.logic.TreasureExtension.isTreasure
-import utils.ConstantUtils.defaultPosition
+import utils.ConstantUtils.DefaultPosition
 
 object CellExtension:
   /** extension for adding new methods for interacting with cellItems and the player

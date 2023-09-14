@@ -3,6 +3,7 @@ package model.cells.logic
 import model.cells.{Cell, Item}
 import model.game.ItemHolder
 import utils.ConstantUtils
+import utils.ItemConversion.given_Conversion_Item_Int
 
 import java.security.KeyStore.TrustedCertificateEntry
 
@@ -16,10 +17,3 @@ object TreasureExtension:
       case Item.Bag   => true
       case Item.Trunk => true
       case _          => false
-
-    /** Returns the value of the item in terms of score points */
-    def mapItemToValue: Int = item match
-      case Item.Coin  => ConstantUtils.CoinValue
-      case Item.Bag   => ConstantUtils.BagValue
-      case Item.Trunk => ConstantUtils.TrunkValue
-      case _          => ConstantUtils.NotValuable
