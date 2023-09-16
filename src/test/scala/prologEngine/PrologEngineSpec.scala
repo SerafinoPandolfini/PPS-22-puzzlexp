@@ -10,7 +10,6 @@ import prologEngine.PrologConverter.*
 import utils.TestUtils.*
 
 class PrologEngineSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   var engine: PrologEngine = _
   var cells: Set[Cell] = _
 

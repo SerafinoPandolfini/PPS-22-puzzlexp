@@ -1,6 +1,10 @@
 package model.cells
 
+import model.cells.properties.{Color, Colorable, Item, PressableState}
+import model.cells.traits.ButtonBlock
+
 /** A cell with a block linked to a button
+ *
   * @param position
   *   the position of the cell in the room
   * @param color

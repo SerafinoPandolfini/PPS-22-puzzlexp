@@ -7,11 +7,29 @@ import alice.tuprolog.{Struct, Term}
 import prologEngine.PrologConverter.convertCellToProlog
 import prologEngine.PrologEngine.{*, given}
 
+/**
+ * the base rule for the consistency in a playable [[Room]]
+ */
 trait BaseRoomRule:
 
+  /** check if the room violate any building rules
+   *
+   * @param room the room to validate
+   * @return the list of rules violated by the room
+   */
   def checkRoomValidity(room: Room): List[String] = List.empty[String]
 
-  protected def checkRuleValidity(
+  /** verifiy if a specific rule is violated
+   *
+   * @param ruleMessage the message related to the rule
+   * @param violations all the previous violations
+   * @param cells the cells of the analyzed room
+   * @param property the property for converting cells into prolog code
+   * @param theory the file name of the [[alice.tuprolog.Theory]]
+   * @param terms the [[alice.tuprolog.Term]]s for the theory
+   * @return the list of all violations considering this rule
+   */
+  private[rules] def checkRuleValidity(
       ruleMessage: String,
       violations: List[String],
       cells: Set[Cell],

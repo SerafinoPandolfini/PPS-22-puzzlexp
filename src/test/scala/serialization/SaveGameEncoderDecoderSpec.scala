@@ -1,27 +1,30 @@
 package serialization
 
-import controller.GameController
+import controller.game.GameController
 import model.room.*
-import model.cells.{Item, Position}
-import utils.TestUtils.*
+import model.cells.Position
 import io.circe.parser.*
 import io.circe.{Decoder, HCursor, Json}
 import io.circe.syntax.*
+import model.cells.properties.Item
 import model.game.CurrentGame
-import serialization.JsonDecoder.{getJsonFromPath, saveGameDecoder}
+<<<<<<<< HEAD:src/test/scala/serialization/SaveGameEncoderDecoderTest.scala
+import serialization.JsonDecoder.{saveGameDecoder, getJsonFromPath}
 import serialization.JsonEncoder.saveGameEncoder
+========
+>>>>>>>> feature/refactor:src/test/scala/serialization/SaveGameEncoderDecoderSpec.scala
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import utils.TestUtils.*
 import model.gameMap.*
-
+import serialization.JsonDecoder.saveGameDecoder
+import serialization.JsonEncoder.saveGameEncoder
 import java.awt.GraphicsEnvironment
 import java.awt.event.KeyEvent
 import java.nio.file.{Files, Paths}
 
 class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   val path: String = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves", "testMap.json").toString
   var position: Position = _
   var startPosition: Position = _
@@ -35,9 +38,13 @@ class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
     super.beforeEach()
     if !GraphicsEnvironment.isHeadless then
       GameController.startGame("src/main/resources/json/testMap.json")
+<<<<<<<< HEAD:src/test/scala/serialization/SaveGameEncoderDecoderTest.scala
       for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
+========
+      for _ <- 0 to RoomImpl.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
+>>>>>>>> feature/refactor:src/test/scala/serialization/SaveGameEncoderDecoderSpec.scala
       GameController.movePlayer(KeyEvent.VK_D)
-      for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_W)
+      for _ <- 0 to RoomImpl.DefaultHeight do GameController.movePlayer(KeyEvent.VK_W)
       position = CurrentGame.currentPosition
       originalMap = CurrentGame.originalGameMap
       room = CurrentGame.currentRoom
@@ -78,7 +85,11 @@ class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
     if !GraphicsEnvironment.isHeadless then
       GameController.saveGame()
       val json: Json = JsonDecoder
+<<<<<<<< HEAD:src/test/scala/serialization/SaveGameEncoderDecoderTest.scala
+        .getJsonFromPath("src/main/resources/saves/" + originalMap.name + ".json")
+========
         .getJsonFromPath(path)
+>>>>>>>> feature/refactor:src/test/scala/serialization/SaveGameEncoderDecoderSpec.scala
         .toOption
         .get
       CurrentGame.load(json)

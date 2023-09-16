@@ -1,14 +1,14 @@
 package view
 
-import controller.GameController
+import controller.game.GameController
+import model.cells.properties.Direction
 import model.room.{Room, RoomBuilder}
-import model.cells.Direction
-import utils.ImageManager
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import serialization.JsonDecoder
 import utils.TestUtils.*
+import utils.constants.ImageManager
 
 import java.awt.event.KeyEvent
 import scala.None

@@ -5,6 +5,7 @@ import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.BeforeAndAfterEach
 
 import model.cells.logic.CellExtension.*
+import model.cells.properties.{WalkableType, Item}
 import model.game.ItemHolder
 import utils.TestUtils.*
 
@@ -32,7 +33,6 @@ class BasicCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
   "A basic cell" should "update the cell item correctly" in {
     basicCell.cellItem should be(Item.Empty)
     var cells: Set[Cell] = Set(basicCell)
-    // update with new item
     cells = basicCell.updateItem(Set(basicCell), Item.Box, genericDirection)
     cells.head.cellItem should be(Item.Box)
   }

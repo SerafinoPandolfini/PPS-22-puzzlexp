@@ -1,8 +1,9 @@
 package controller
 
+import controller.game.GameController
 import exceptions.{LinkNotFoundException, RoomNotFoundException}
-import model.cells.{BasicCell, Direction, LockCell, Item, Position, RockCell, WallCell}
-import model.room.{Room, RoomBuilder, RoomLink}
+import model.cells.{BasicCell, LockCell, Position, RockCell, WallCell}
+import model.room.{Room, RoomBuilder, RoomImpl, RoomLink}
 import model.gameMap.*
 import model.game.CurrentGame
 import org.scalatest.BeforeAndAfterEach
@@ -11,9 +12,11 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import utils.TestUtils.*
 import model.cells.logic.CellExtension.*
+import model.cells.properties.{Direction, Item}
+import serialization.JsonDecoder
+
 import java.awt.GraphicsEnvironment
 import java.awt.event.KeyEvent
-import serialization.JsonDecoder
 
 class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -39,7 +42,7 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
     if !GraphicsEnvironment.isHeadless then
       val num = CurrentGame.currentRoom.cells.count(c => c.cellItem == Item.Key)
       CurrentGame.itemHolder.itemOwned.contains(Item.Key) should be(false)
-      for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
+      for _ <- 0 to RoomImpl.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
       GameController.movePlayer(KeyEvent.VK_D)
       CurrentGame.currentRoom.cells.count(c => c.cellItem == Item.Key) should be(num - 1)
       CurrentGame.itemHolder.itemOwned.contains(Item.Key) should be(true)
@@ -53,9 +56,9 @@ class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
       val rockBefore = CurrentGame.currentRoom.cells.collect { case c: RockCell => c }.count(c => c.broken)
       val lockBefore = CurrentGame.currentRoom.cells.collect { case c: LockCell => c }.count(c => c.open)
       val itemBefore = CurrentGame.itemHolder
-      for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
+      for _ <- 0 to RoomImpl.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
       GameController.movePlayer(KeyEvent.VK_D)
-      for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_W)
+      for _ <- 0 to RoomImpl.DefaultHeight do GameController.movePlayer(KeyEvent.VK_W)
       val boxAfter = CurrentGame.currentRoom.getCell(2, 3).get
       val keyAfter = CurrentGame.currentRoom.cells.count(c => c.cellItem == Item.Key)
       val pickAfter = CurrentGame.currentRoom.cells.count(c => c.cellItem == Item.Pick)

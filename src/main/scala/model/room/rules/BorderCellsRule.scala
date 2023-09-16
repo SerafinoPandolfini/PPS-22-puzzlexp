@@ -6,6 +6,8 @@ import prologEngine.PrologConverter.*
 import model.room.rules.BorderCellsRule.{Rule, RuleMessage}
 import model.room.rules.CommonGroundTerm.{HeightLimit, WidthLimit}
 
+/** rule related to the structure of the [[Room]] border
+  */
 trait BorderCellsRule extends BaseRoomRule:
 
   override def checkRoomValidity(room: Room): List[String] =

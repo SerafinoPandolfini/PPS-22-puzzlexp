@@ -5,9 +5,9 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import utils.TestUtils.*
 import model.cells.logic.CellExtension.updateItem
+import model.cells.properties.{Item, WalkableType}
 
 class TeleportDestinationCellsSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   var cells: Set[Cell] = _
 
   override def beforeEach(): Unit =

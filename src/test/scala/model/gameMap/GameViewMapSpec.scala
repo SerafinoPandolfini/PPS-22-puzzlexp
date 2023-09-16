@@ -2,7 +2,8 @@ package model.gameMap
 
 import exceptions.{LinkNotFoundException, RoomNotFoundException}
 import model.room.{Room, RoomBuilder, RoomLink}
-import model.cells.{Direction, Position}
+import model.cells.Position
+import model.cells.properties.Direction
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
@@ -10,7 +11,6 @@ import org.scalatest.TryValues.*
 import utils.TestUtils.*
 
 class GameViewMapSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   var map: GameMap = _
   val mapName = "mappa 1"
   var rooms: Set[Room] = _
@@ -61,13 +61,10 @@ class GameViewMapSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "A map" should "retrieve an error if the info to get in the next room are not present" in {
     val wrongName: String = "pippo"
-    // start room not present
     map.changeRoom(defaultPosition, wrongName, genericDirection).isFailure should be(true)
     map.changeRoom(defaultPosition, wrongName, genericDirection).failure.exception shouldBe a[RoomNotFoundException]
-    // start room without the link
     map.changeRoom(defaultPosition, roomName, genericDirection).isFailure should be(true)
     map.changeRoom(defaultPosition, roomName, genericDirection).failure.exception shouldBe a[LinkNotFoundException]
-    // start room with the link but it has the wrong direction
     room = Room(roomName, Set.empty, Set(RoomLink(defaultPosition, genericDirection, wrongName, (1, 1))))
     map = new GameMap(mapName, Set(room), roomName, defaultPosition)
     map.changeRoom(defaultPosition, roomName, genericDirection.opposite).isFailure should be(true)
@@ -75,7 +72,6 @@ class GameViewMapSpec extends AnyFlatSpec with BeforeAndAfterEach:
       .changeRoom(defaultPosition, roomName, genericDirection.opposite)
       .failure
       .exception shouldBe a[LinkNotFoundException]
-    // room with the link but the destination room in the link doesn't exist
     map.changeRoom(defaultPosition, roomName, genericDirection).isFailure should be(true)
     map.changeRoom(defaultPosition, roomName, genericDirection).failure.exception shouldBe a[RoomNotFoundException]
   }

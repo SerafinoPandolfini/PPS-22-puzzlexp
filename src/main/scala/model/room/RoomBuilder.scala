@@ -1,19 +1,20 @@
 package model.room
 
-import model.cells.{BasicCell, Cell, Item, Position, WallCell}
+import model.cells.properties.Item
+import model.cells.{BasicCell, Cell, Position, WallCell}
 import model.room.Room
 
 import scala.annotation.targetName
 
-/** A builder for room
+/** A builder for [[Room]]
   */
-class RoomBuilder(val RoomWidth: Int = Room.DefaultWidth, val RoomHeight: Int = Room.DefaultHeight):
+class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: Int = RoomImpl.DefaultHeight):
   private var name: String = ""
   private var cells: Set[Cell] = Set.empty[Cell]
   private var links: Set[RoomLink] = Set.empty[RoomLink]
   private var validity = false
 
-  // make sure there are no duplicate cells in the same position
+  /** make sure there are no duplicate cells in the same position */
   private def updateCells(c: Set[Cell]): Unit =
     cells = cells.filter(cell => !c.exists(_.position == cell.position)) ++ c
 
@@ -36,9 +37,7 @@ class RoomBuilder(val RoomWidth: Int = Room.DefaultWidth, val RoomHeight: Int = 
     *   this
     */
   def addLinks(roomLinks: RoomLink*): this.type =
-    roomLinks.foreach(l =>
-      updateCells(Set(BasicCell(l.from, Item.Empty)))
-    )
+    roomLinks.foreach(l => updateCells(Set(BasicCell(l.from, Item.Empty))))
     links = links ++ roomLinks
     this
 
@@ -120,12 +119,10 @@ class RoomBuilder(val RoomWidth: Int = Room.DefaultWidth, val RoomHeight: Int = 
     *   this
     */
   def standardize: this.type =
-    // Remove cells outside the border
     cells = cells.filter(cell =>
       cell.position._1 >= 0 && cell.position._1 < RoomWidth &&
         cell.position._2 >= 0 && cell.position._2 < RoomHeight
     )
-    // Fill empty positions with BasicCell
     for
       x <- 0 until RoomWidth
       y <- 0 until RoomHeight

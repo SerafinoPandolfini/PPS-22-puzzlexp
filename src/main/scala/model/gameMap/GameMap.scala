@@ -1,13 +1,16 @@
 package model.gameMap
 
-import model.cells.{Direction, Position}
+import model.cells.Position
 import model.room.Room
-import utils.ItemConversion.given_Conversion_Item_Int
+import utils.givens.ItemConversion.given_Conversion_Item_Int
 import scala.util.Try
 import exceptions.{LinkNotFoundException, RoomNotFoundException}
+import model.cells.properties.Direction
 
 class GameMap(val name: String, val rooms: Set[Room], val initialRoom: String, val initialPosition: Position):
 
+  /** get the total points of the map
+    */
   val totalPoints: Int =
     var points = 0
     for
@@ -46,5 +49,9 @@ class GameMap(val name: String, val rooms: Set[Room], val initialRoom: String, v
       toRoom <- getRoomFromName(link.toRoom)
     yield (toRoom.copy(), link.to)
 
+  /** update a room that is in the map with a new version
+    * @param room
+    *   the new room
+    */
   def updateRoom(room: Room): Unit =
     rooms.find(_.name == room.name).get.updateCells(room.cells)

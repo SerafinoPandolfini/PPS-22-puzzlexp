@@ -4,6 +4,8 @@ import model.room.Room
 import model.room.rules.TeleportCellsRule.{Rule, RuleMessage}
 import prologEngine.PrologConverter.noProperty
 
+/** rule for controlling the number of [[model.cells.TeleportCell]] and [[model.cells.TeleportDestinationCell]]
+ */
 trait TeleportCellsRule extends BaseRoomRule:
 
   override def checkRoomValidity(room: Room): List[String] =

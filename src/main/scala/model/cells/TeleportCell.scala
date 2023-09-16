@@ -1,5 +1,7 @@
 package model.cells
 
+import model.cells.properties.Item
+
 /** A cell that can teleport items and the player in another cell of the room
   *
   * @param position

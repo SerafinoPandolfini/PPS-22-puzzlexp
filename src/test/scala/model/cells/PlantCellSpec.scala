@@ -1,12 +1,13 @@
 package model.cells
 
-import controller.GameController
+import controller.game.GameController
 import utils.TestUtils.{defaultPosition, genericDirection}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import model.cells.logic.UseItemExtension.*
 import model.cells.logic.CellExtension.updateItem
+import model.cells.properties.{WalkableType, Item}
 import model.game.CurrentGame
 
 class PlantCellSpec extends AnyFlatSpec with BeforeAndAfterEach:

@@ -1,12 +1,14 @@
 package view
 
-import utils.DisplayValuesManager
-
 import java.awt.*
 import javax.swing.*
 
+/** a JPanel with a background image. The image is scaled in a way that maintain the original ratio and fit the panel
+  * cutting the dimension (width or height) that is too large for the panel (if any)
+  * @param image
+  *   the [[Image]] to display in the background
+  */
 class ImagePanel(image: Image) extends JPanel {
-
   override def paintComponent(g: Graphics): Unit = {
     super.paintComponent(g)
 

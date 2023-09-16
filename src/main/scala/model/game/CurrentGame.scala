@@ -1,12 +1,13 @@
 package model.game
 
-import controller.GameController
+//import controller.GameController
 import model.gameMap.GameMap
-import model.cells.{Item, Position}
+import model.cells.Position
 import model.room.Room
-import serialization.JsonDecoder
-import utils.ItemConversion.given_Conversion_Item_Int
+import utils.givens.ItemConversion.given_Conversion_Item_Int
 import io.circe.{Json, HCursor}
+import model.cells.properties.Item
+import serialization.JsonDecoder
 import scala.util.{Failure, Success}
 
 object CurrentGame:
@@ -60,23 +61,21 @@ object CurrentGame:
     * @param pos
     *   the initial position in the new room
     */
-
   def changeRoom(room: Room, pos: Position): Unit =
     _currentRoom = room
     _currentPosition = pos
     _startPositionInRoom = pos
 
-    /** Adds an item to the [[ItemHolder]] and calculate its score
-      * @param item
-      *   the item to add
-      */
+  /** Adds an item to the [[ItemHolder]] and calculate its score
+    * @param item
+    *   the item to add
+    */
   def addItem(item: Item): Unit =
     if item != Item.Empty then
       _itemHolder = _itemHolder.addItem(item)
       _scoreCounter = _scoreCounter + item
 
   /** remove the specified item
-    *
     * @param item
     *   the item to remove
     */
@@ -97,13 +96,18 @@ object CurrentGame:
     *   the [[Json]] file with the info of the saved game
     */
   def load(json: Json): Unit =
-    val (originalMap, currentMap, currentRoom, currentPlayerPosition, startPlayerPosition, itemList, score) =
-      JsonDecoder.saveGameDecoder.apply(json.hcursor).toOption.get
-    _scoreCounter = score
-    _itemHolder = ItemHolder(itemList)
-    _originalGameMap =
-      JsonDecoder.mapDecoder(JsonDecoder.getJsonFromPath(originalMap).toOption.get.hcursor).toOption.get
-    _gameMap = currentMap
-    _currentRoom = currentRoom
-    _currentPosition = currentPlayerPosition
-    _startPositionInRoom = startPlayerPosition
+    JsonDecoder.saveGameDecoder.apply(json.hcursor) match
+      case Right(originalMap, currentMap, currentRoom, currentPlayerPosition, startPlayerPosition, itemList, score) =>
+        _scoreCounter = score
+        _itemHolder = ItemHolder(itemList)
+        JsonDecoder.getJsonFromPath(originalMap) match
+          case Success(value) =>
+            JsonDecoder.mapDecoder(value.hcursor) match
+              case Right(map) => _originalGameMap = map
+              case Left(ex)   => println(ex)
+          case Failure(exception) => println(exception)
+        _gameMap = currentMap
+        _currentRoom = currentRoom
+        _currentPosition = currentPlayerPosition
+        _startPositionInRoom = startPlayerPosition
+      case Left(ex) => println(ex)
