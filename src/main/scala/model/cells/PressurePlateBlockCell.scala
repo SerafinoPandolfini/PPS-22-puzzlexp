@@ -1,6 +1,7 @@
 package model.cells
 
 import model.cells.properties.{Item, PressableState, PressurePlateBlockGroup}
+import model.cells.traits.PressurePlateBlock
 
 /** A cell that represent a cell with a block linked to a plate
  *

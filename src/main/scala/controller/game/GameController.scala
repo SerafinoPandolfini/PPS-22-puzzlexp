@@ -14,6 +14,7 @@ import utils.givens.KeyDirectionMapping.given
 import utils.PathExtractor.extractPath
 import utils.extensions.PositionExtension.+
 import view.game.GameView
+import view.game.ViewUpdater.*
 
 import java.awt.event.KeyEvent
 import java.io.PrintWriter

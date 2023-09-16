@@ -6,6 +6,7 @@ import model.cells.logic.CellExtension.*
 import model.cells.properties.{Direction, Item}
 import model.game.CurrentGame
 import utils.extensions.Percentage.%%
+import view.game.ViewUpdater.endGame
 
 import scala.util.{Failure, Success}
 

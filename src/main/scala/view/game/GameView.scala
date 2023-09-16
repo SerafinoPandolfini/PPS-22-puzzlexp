@@ -7,10 +7,9 @@ import model.cells.{BasicCell, Position, WallCell}
 import model.gameMap.GameMap
 import model.room.*
 import serialization.{JsonDecoder, JsonEncoder}
-import utils.PathExtractor.extractPath
 import utils.constants.{ColorManager, GraphicManager, ImageManager}
 import view.game.EndGamePanel
-import view.game.GameView.{BasePath, PNGPath}
+import view.game.ViewUpdater.*
 
 import java.awt.*
 import java.awt.event.{ActionEvent, ActionListener, KeyEvent}
@@ -21,8 +20,8 @@ import scala.collection.immutable.{List, ListMap}
 /** the standard game GUI
   */
 class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
-  private var itemLabels = ToolbarElements.generateStandardToolbarElements()
-  private val scoreLabel = ToolbarElements.createScoreLabel()
+  private[game] var itemLabels = ToolbarElements.generateStandardToolbarElements()
+  private[game] val scoreLabel = ToolbarElements.createScoreLabel()
   val tilesPanel: JPanel = JPanel(GridLayout(GraphicManager.Rows, GraphicManager.Cols))
   val toolbarPanel: JPanel = createToolbarPanel()
   val mainPanel: JPanel = createMainPanel()
@@ -40,6 +39,8 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     *   the list of tiles shown
     */
   def tiles: ListMap[Position, MultiLayeredTile] = _tiles
+
+  def tiles_=(newTiles: ListMap[Position, MultiLayeredTile]) = _tiles = newTiles
 
   /** create the game main panel containing the tiles panel and the toolbar panel
     *
@@ -82,66 +83,8 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     add(mainPanel)
     keyHandler.registerKeyAction(tilesPanel, _tiles)
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
-    associateTiles(initialRoom)
-    updatePlayerImage(initialPos, ImageManager.CharacterDown.path)
+    this.associateTiles(initialRoom)
+    this.updatePlayerImage(initialPos, ImageManager.CharacterDown.path)
     setResizable(false)
     setVisible(true)
     pack()
-
-  /** update the tiles with the current player position
-    * @param position
-    *   the position of the player
-    * @param image
-    *   the image repsenting the player
-    */
-  def updatePlayerImage(position: Position, image: String): Unit =
-    val updatedTile = _tiles.get(position)
-    println(position)
-    updatedTile.get.playerImage = Option(ImageIcon(image).getImage)
-
-  /** associate the [[MultiLayeredTile]]s with their respective images
-    *
-    * @param room
-    *   the [[Room]] to convert into images for the [[MultiLayeredTile]]s
-    */
-  def associateTiles(room: Room): Unit =
-    val groundPaths = room.cells.toList.sorted.map(c => extractPath(c, room.cells))
-    val itemPaths = room.cells.toList.sorted.map(_.cellItem.toString)
-    val zippedPaths = groundPaths zip itemPaths
-    _tiles = _tiles.keys.zip(zippedPaths).foldLeft(_tiles) { case (tilesMap, ((x, y), (groundPath, itemPath))) =>
-      val updatedTile = tilesMap((x, y))
-      updatedTile.itemImage = Option(ImageIcon(s"$BasePath$itemPath$PNGPath").getImage)
-      updatedTile.cellImage = Option(ImageIcon(s"$BasePath$groundPath$PNGPath").getImage)
-      tilesMap.updated((x, y), updatedTile)
-    }
-
-  /** update the label for the specified item
-    * @param item
-    *   the item of the [[Label]] to update
-    * @param amount
-    *   the new amount of the specified item
-    */
-  def updateItemLabel(item: Item, amount: Int): Unit =
-    itemLabels = itemLabels.map({
-      case l if l.item == item => l.updateLabel(amount)
-      case l                   => l
-    })
-
-  /** update the score of the player
-    *
-    * @param score
-    *   the current score of the player
-    */
-  def updateScore(score: Int): Unit =
-    scoreLabel.setText(ToolbarElements.scoreText concat score.toString)
-
-  def endGame(playerScore: Int, totalScore: Int, percentage: Double): Unit =
-    mainPanel.remove(toolbarPanel)
-    mainPanel.remove(tilesPanel)
-    EndGamePanel.createLabel(playerScore.toString, totalScore.toString, percentage.toString)
-    mainPanel.add(endPanel)
-    mainPanel.revalidate()
-
-object GameView:
-  val BasePath = "src/main/resources/img/"
-  val PNGPath = ".png"

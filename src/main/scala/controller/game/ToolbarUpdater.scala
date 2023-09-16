@@ -1,9 +1,10 @@
 package controller.game
 
-import controller.game.GameController.view
+import controller.game.GameController._view
 import model.cells.logic.TreasureExtension.*
 import model.cells.properties.Item
 import model.game.CurrentGame
+import view.game.ViewUpdater.{updateItemLabel, updateScore}
 import utils.givens.ItemConversion.given_Conversion_Item_Int
 
 object ToolbarUpdater:
@@ -18,7 +19,7 @@ object ToolbarUpdater:
       .toMap
     var score = 0
     itemCounts.foreach { case (item, count) =>
-      view.updateItemLabel(item, count)
+      _view.updateItemLabel(item, count)
       if item.isTreasure then score = score + item * count
     }
-    view.updateScore(score)
+    _view.updateScore(score)
