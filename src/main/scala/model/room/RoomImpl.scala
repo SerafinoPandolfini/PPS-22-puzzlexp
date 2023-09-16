@@ -1,9 +1,10 @@
 package model.room
 
 import exceptions.PlayerOutOfBoundsException
-import model.cells.{Cell, Direction, Item, Position, WalkableType, WallCell}
+import model.cells.{Cell, Position, WallCell}
 import model.cells.logic.CellExtension.*
-import utils.PositionExtension.+
+import model.cells.properties.{Direction, Item, WalkableType}
+import utils.extensions.PositionExtension.+
 import model.room.RoomImpl.DummyCell
 
 import scala.util.{Failure, Success, Try}

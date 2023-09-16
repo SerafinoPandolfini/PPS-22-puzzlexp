@@ -10,9 +10,9 @@ import org.scalatest.matchers.should.Matchers.*
 import serialization.JsonDecoder.cellDecoder
 import serialization.JsonEncoder.cellEncoder
 import utils.TestUtils.*
+import model.cells.properties.{Item, Color, PressurePlateBlockGroup, Direction}
 
 class JsonCellEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   var cell: Cell = _
   var cells: Set[Cell] = _
 

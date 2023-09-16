@@ -1,9 +1,10 @@
 package prologEngine
 
-import model.cells.{BasicCell, ButtonBlockCell, ButtonCell, Cell, Colorable}
+import model.cells.{BasicCell, ButtonBlockCell, ButtonCell, Cell}
 import model.room.{Room, RoomLink}
 import alice.tuprolog.{Struct, Term, Theory}
-import utils.RoomCellsRepresentation.cellToString
+import model.cells.properties.Colorable
+import utils.extensions.RoomCellsRepresentation.cellToString
 
 object PrologConverter:
   val Separator = ","

@@ -3,7 +3,9 @@ package utils
 import model.room.Room
 import model.cells.*
 import model.cells.Cell.given
-import utils.RoomCellsRepresentation.cellToString
+import model.cells.properties.{Colorable, PressableState, WalkableType}
+import model.cells.traits.CoveredHole
+import utils.extensions.RoomCellsRepresentation.cellToString
 
 object PathExtractor:
 

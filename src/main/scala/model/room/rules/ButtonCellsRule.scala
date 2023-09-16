@@ -1,8 +1,9 @@
 package model.room.rules
 
+import model.cells.properties.Color
 import model.room.rules.ButtonCellsRule.{Rule, RuleMessage}
 import model.room.Room
-import model.cells.{Color, ButtonCell, ButtonBlockCell}
+import model.cells.{ButtonCell, ButtonBlockCell}
 import prologEngine.PrologConverter.addColor
 import prologEngine.PrologEngine.{*, given}
 

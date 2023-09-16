@@ -6,6 +6,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import model.cells.logic.CellExtension.updateItem
 import model.cells.logic.UseItemExtension.*
+import model.cells.properties.{Item, WalkableType}
 import model.game.CurrentGame
 
 class RockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:

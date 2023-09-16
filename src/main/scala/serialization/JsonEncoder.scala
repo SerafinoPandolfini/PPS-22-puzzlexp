@@ -4,6 +4,7 @@ import model.cells.*
 import io.circe.generic.semiauto.deriveEncoder
 import io.circe.{Encoder, Json}
 import io.circe.syntax.*
+import model.cells.properties.Item
 import model.game.CurrentGame
 import model.room.{Room, RoomLink}
 import model.gameMap.GameMap

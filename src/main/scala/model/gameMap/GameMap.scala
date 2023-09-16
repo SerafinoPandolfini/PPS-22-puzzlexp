@@ -1,10 +1,11 @@
 package model.gameMap
 
-import model.cells.{Direction, Position}
+import model.cells.Position
 import model.room.Room
-import utils.ItemConversion.given_Conversion_Item_Int
+import utils.givens.ItemConversion.given_Conversion_Item_Int
 import scala.util.Try
 import exceptions.{LinkNotFoundException, RoomNotFoundException}
+import model.cells.properties.Direction
 
 class GameMap(val name: String, val rooms: Set[Room], val initialRoom: String, val initialPosition: Position):
 

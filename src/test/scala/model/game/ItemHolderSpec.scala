@@ -1,15 +1,14 @@
 package model.game
 
-import model.cells.Item
 import model.cells.logic.ItemHolderExtension.*
+import model.cells.properties.Item
 import model.game.ItemHolder
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
-import utils.ItemConversion.given_Conversion_Item_String
+import utils.givens.ItemConversion.given_Conversion_Item_String
 
 class ItemHolderSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   var itemHolder: ItemHolder = _
 
   override def beforeEach(): Unit =

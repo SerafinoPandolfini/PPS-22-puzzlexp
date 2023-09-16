@@ -1,9 +1,10 @@
 package model.cells.logic
 
-import model.cells.{Cell, Item}
+import model.cells.Cell
+import model.cells.properties.Item
 import model.game.ItemHolder
-import utils.ConstantUtils
-import utils.ItemConversion.given_Conversion_Item_Int
+import utils.givens.ItemConversion.given_Conversion_Item_Int
+import utils.constants.GraphicManager
 
 import java.security.KeyStore.TrustedCertificateEntry
 

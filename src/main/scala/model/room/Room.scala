@@ -1,6 +1,8 @@
 package model.room
 
 import model.cells.*
+import model.cells.properties.{Direction, Item}
+
 import scala.util.Try
 import model.room.rules.RoomRules
 

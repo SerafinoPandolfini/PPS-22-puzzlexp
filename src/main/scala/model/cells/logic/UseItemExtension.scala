@@ -1,7 +1,8 @@
 package model.cells.logic
 
-import model.cells.{Cell, Direction, Item, PlantCell, RockCell, LockCell}
+import model.cells.{Cell, PlantCell, RockCell, LockCell}
 import model.cells.logic.CellExtension.updateItem
+import model.cells.properties.{Direction, Item}
 import model.game.CurrentGame
 
 object UseItemExtension:

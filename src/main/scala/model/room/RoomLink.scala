@@ -1,6 +1,6 @@
 package model.room
 
-import model.cells.Direction
+import model.cells.properties.Direction
 
 /**
  * the link between [[Room]]s

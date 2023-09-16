@@ -4,8 +4,10 @@ import model.cells.*
 import io.circe.generic.semiauto.deriveDecoder
 import io.circe.{Decoder, DecodingFailure, Json}
 import io.circe.parser.*
+import model.cells.properties.Item
 import model.room.{Room, RoomLink}
 import model.gameMap.GameMap
+
 import scala.util.Try
 import scala.io.Source
 

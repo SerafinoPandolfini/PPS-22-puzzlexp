@@ -2,7 +2,8 @@ package model.cells.logic
 
 import model.cells.*
 import CellExtension.updateItem
-import utils.PositionExtension.+
+import model.cells.properties.{Color, Direction, Item, PressableState}
+import utils.extensions.PositionExtension.+
 
 object UpdateMethods:
   /** set he button pressable state to "Pressed" and the corresponding blocks

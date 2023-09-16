@@ -5,6 +5,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import utils.TestUtils.*
 import model.cells.logic.CellExtension.updateItem
+import model.cells.properties.Item
 
 class HoleCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -24,7 +25,6 @@ class HoleCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     holeCell = cells.collectFirst { case cell: HoleCell => cell }.get
     holeCell.cellItem should be(Item.Empty)
     holeCell.isDeadly should not be true
-    // now the box can be placed on the cell
     cells = holeCell.updateItem(cells, Item.Box, genericDirection)
     cells.head.cellItem should be(Item.Box)
   }

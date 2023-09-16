@@ -14,7 +14,6 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 
 class JsonMapEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   var map: GameMap = _
 
   override def beforeEach(): Unit =

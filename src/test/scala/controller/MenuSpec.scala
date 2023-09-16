@@ -1,12 +1,12 @@
 package controller
 
-import controller.MenuController
+import controller.menu.MenuController
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import serialization.JsonDecoder
 import utils.TestUtils.*
-import view.MenuView
+import view.menu.MenuView
 
 import java.awt.GraphicsEnvironment
 import java.nio.file.Paths

@@ -1,8 +1,9 @@
 package controller
 
+import controller.game.GameController
 import exceptions.{LinkNotFoundException, RoomNotFoundException}
-import model.cells.{BasicCell, Direction, LockCell, Item, Position, RockCell, WallCell}
-import model.room.{Room, RoomBuilder, RoomLink, RoomImpl}
+import model.cells.{BasicCell, LockCell, Position, RockCell, WallCell}
+import model.room.{Room, RoomBuilder, RoomImpl, RoomLink}
 import model.gameMap.*
 import model.game.CurrentGame
 import org.scalatest.BeforeAndAfterEach
@@ -11,7 +12,9 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import utils.TestUtils.*
 import model.cells.logic.CellExtension.*
+import model.cells.properties.{Direction, Item}
 import serialization.JsonDecoder
+
 import java.awt.GraphicsEnvironment
 import java.awt.event.KeyEvent
 

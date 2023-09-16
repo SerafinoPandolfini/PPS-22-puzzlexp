@@ -13,7 +13,6 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 
 class JsonRoomEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   var room: Room = _
 
   override def beforeEach(): Unit =

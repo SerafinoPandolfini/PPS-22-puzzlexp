@@ -5,6 +5,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import utils.TestUtils.{defaultPosition, genericDirection}
 import model.cells.logic.CellExtension.updateItem
+import model.cells.properties.{Item, WalkableType}
 
 class LockSpec extends AnyFlatSpec with BeforeAndAfterEach:
   var doorCell: LockCell = _

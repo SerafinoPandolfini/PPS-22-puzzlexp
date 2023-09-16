@@ -1,6 +1,7 @@
 package model.cells
 
-import WalkableType.*
+import model.cells.properties.WalkableType.*
+import model.cells.properties.{Pressable, PressurePlateBlockGroup, WalkableType, PressableState}
 
 /** A mixin that represent a cell with a block linked to a plate */
 trait PressurePlateBlock extends Cell with Pressable:

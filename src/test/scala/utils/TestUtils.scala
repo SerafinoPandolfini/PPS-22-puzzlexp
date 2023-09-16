@@ -1,9 +1,9 @@
 package utils
 
-import model.cells.Direction
 import model.room.RoomLink
 import model.room.rules.RoomRules
 import model.cells.Position
+import model.cells.properties.Direction
 import model.room.Room
 import model.gameMap.GameMap
 

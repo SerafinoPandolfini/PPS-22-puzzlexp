@@ -1,6 +1,7 @@
 package model.room
 
-import model.cells.{BasicCell, Cell, Item, Position, WallCell}
+import model.cells.properties.Item
+import model.cells.{BasicCell, Cell, Position, WallCell}
 import model.room.Room
 
 import scala.annotation.targetName

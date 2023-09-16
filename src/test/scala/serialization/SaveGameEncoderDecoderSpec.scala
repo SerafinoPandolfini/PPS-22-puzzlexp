@@ -1,11 +1,12 @@
 package serialization
 
-import controller.GameController
+import controller.game.GameController
 import model.room.*
-import model.cells.{Item, Position}
+import model.cells.Position
 import io.circe.parser.*
 import io.circe.{Decoder, HCursor, Json}
 import io.circe.syntax.*
+import model.cells.properties.Item
 import model.game.CurrentGame
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.BeforeAndAfterEach
@@ -19,7 +20,6 @@ import java.awt.event.KeyEvent
 import java.nio.file.{Files, Paths}
 
 class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   val path: String = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves", "testMap.json").toString
   var position: Position = _
   var startPosition: Position = _

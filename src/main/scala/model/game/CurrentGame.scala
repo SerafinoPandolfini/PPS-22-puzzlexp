@@ -2,10 +2,11 @@ package model.game
 
 //import controller.GameController
 import model.gameMap.GameMap
-import model.cells.{Item, Position}
+import model.cells.Position
 import model.room.Room
-import utils.ItemConversion.given_Conversion_Item_Int
+import utils.givens.ItemConversion.given_Conversion_Item_Int
 import io.circe.{Json, HCursor}
+import model.cells.properties.Item
 import serialization.JsonDecoder
 import scala.util.{Failure, Success}
 

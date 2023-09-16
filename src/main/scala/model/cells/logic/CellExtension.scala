@@ -2,6 +2,7 @@ package model.cells.logic
 
 import model.cells.*
 import model.cells.logic.UpdateMethods.*
+import model.cells.properties.{Direction, Item, PressableState}
 
 object CellExtension:
   /** extension for adding new methods for interacting with cellItems and the player
