@@ -1,10 +1,12 @@
 package model.room.rules
 
 import model.room.Room
+import model.cells.Cell
 import model.room.rules.CorrectCellsNumberRule.{RuleMessage, Rule}
 import prologEngine.PrologEngine.{*, given}
 import prologEngine.PrologConverter.*
 
+/** rule for controlling if the [[Room]] have the right number of [[Cell]]s */
 trait CorrectCellsNumberRule extends BaseRoomRule:
 
   override def checkRoomValidity(room: Room): List[String] =

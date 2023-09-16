@@ -7,6 +7,8 @@ import alice.tuprolog.{Struct, Term}
 import prologEngine.PrologConverter.convertCellToProlog
 import prologEngine.PrologEngine.{*, given}
 
+/** all the standard rules for a [[Room]]
+ */
 class RoomRules
     extends BaseRoomRule
     with ValidPositionsRule
