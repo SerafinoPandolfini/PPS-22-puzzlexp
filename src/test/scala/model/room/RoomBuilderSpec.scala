@@ -2,11 +2,13 @@ package model.room
 
 import model.cells.{BasicCell, HoleCell, CoveredHoleCell, Direction}
 import utils.TestUtils.*
+import model.room.RoomImpl
 import model.room.RoomBuilder.*
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
 import utils.TestUtils.*
+import utils.RoomCellsRepresentation.cellsRepresentation
 
 class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -18,7 +20,7 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
     baseRoom = RoomBuilder().build
 
   "A room builder" should "always produce a complete set of cells" in {
-    baseRoom.cells.size should be(Room.DefaultWidth * Room.DefaultHeight)
+    baseRoom.cells.size should be(RoomImpl.DefaultWidth * RoomImpl.DefaultHeight)
   }
 
   "A room builder" should "not have room outside its border" in {

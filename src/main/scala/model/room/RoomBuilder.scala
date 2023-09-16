@@ -7,7 +7,7 @@ import scala.annotation.targetName
 
 /** A builder for [[Room]]
   */
-class RoomBuilder(val RoomWidth: Int = Room.DefaultWidth, val RoomHeight: Int = Room.DefaultHeight):
+class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: Int = RoomImpl.DefaultHeight):
   private var name: String = ""
   private var cells: Set[Cell] = Set.empty[Cell]
   private var links: Set[RoomLink] = Set.empty[RoomLink]

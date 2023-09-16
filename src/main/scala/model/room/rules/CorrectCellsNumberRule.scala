@@ -1,6 +1,6 @@
 package model.room.rules
 
-import model.room.Room
+import model.room.{Room, RoomImpl}
 import model.cells.Cell
 import model.room.rules.CorrectCellsNumberRule.{RuleMessage, Rule}
 import prologEngine.PrologEngine.{*, given}
@@ -11,7 +11,7 @@ trait CorrectCellsNumberRule extends BaseRoomRule:
 
   override def checkRoomValidity(room: Room): List[String] =
     val ruleViolations = super.checkRoomValidity(room)
-    val totalCells = Room.DefaultWidth * Room.DefaultHeight
+    val totalCells = RoomImpl.DefaultWidth * RoomImpl.DefaultHeight
     checkRuleValidity(RuleMessage, ruleViolations, room.cells, noProperty, Rule, totalCells)
 
 object CorrectCellsNumberRule:

@@ -33,9 +33,9 @@ class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
     super.beforeEach()
     if !GraphicsEnvironment.isHeadless then
       GameController.startGame("src/main/resources/json/testMap.json")
-      for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
+      for _ <- 0 to RoomImpl.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
       GameController.movePlayer(KeyEvent.VK_D)
-      for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_W)
+      for _ <- 0 to RoomImpl.DefaultHeight do GameController.movePlayer(KeyEvent.VK_W)
       position = CurrentGame.currentPosition
       originalMap = CurrentGame.originalGameMap
       room = CurrentGame.currentRoom

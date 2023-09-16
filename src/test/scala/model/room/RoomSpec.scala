@@ -9,6 +9,7 @@ import utils.TestUtils.*
 import exceptions.PlayerOutOfBoundsException
 import scala.Option
 import scala.util.Failure
+import utils.RoomCellsRepresentation.{cellsRepresentation, showPlayerAndBoxes}
 
 class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -52,10 +53,10 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
       "WL |    | bx | WL\n" +
       "WL | WL | WL | WL\n"
     playerPosition = room.playerMove(playerPosition, Direction.Up).get
-    room.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
+    room.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     // try to go in a cliff cell from the wrong direction
     playerPosition = room.playerMove(playerPosition, Direction.Right).get
-    room.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
+    room.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     // try to go out of room bounds
     playerPosition = position3_1
     room.playerMove(playerPosition, Direction.Right) should be(Option.empty)
@@ -76,13 +77,13 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
       "WL |    | bx |    | WL\n" +
       "WL |    |    |    | WL\n" +
       "WL | WL | WL | WL | WL\n"
-    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
+    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     playerPosition = largerRoom.playerMove(playerPosition, Direction.Right).get
     // the representation does not change
-    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
+    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     // move a box
     playerPosition = position1_2
-    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(
+    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(
       "\n" +
         "WL | WL | WL | WL | WL\n" +
         "WL |    |    | bx | WL\n" +
@@ -91,7 +92,7 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
         "WL | WL | WL | WL | WL\n"
     )
     playerPosition = largerRoom.playerMove(playerPosition, Direction.Right).get
-    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(
+    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(
       "\n" +
         "WL | WL | WL | WL | WL\n" +
         "WL |    |    | bx | WL\n" +
@@ -107,10 +108,10 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
       "WL |    |    | bx | WL\n" +
       "WL |    |    | pl | WL\n" +
       "WL | WL | WL | WL | WL\n"
-    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
+    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     playerPosition = largerRoom.playerMove(playerPosition, Direction.Up).get
     // the representation does not change
-    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
+    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
   }
 
   "A room" should "be able to change according to player movement" in {

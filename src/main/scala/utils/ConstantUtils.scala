@@ -1,6 +1,6 @@
 package utils
 
-import model.room.Room
+import model.room.RoomImpl
 import model.cells.{Direction, Position}
 import utils.ConstantUtils.Point2D
 
@@ -20,8 +20,8 @@ object ConstantUtils:
   val JsonDirectoryPath: String = "src/main/resources/json/"
   val CellSize: Int = 32
   val ScreenHeight: Int = Toolkit.getDefaultToolkit.getScreenSize.height
-  val Rows: Int = Room.DefaultHeight
-  val Cols: Int = Room.DefaultWidth
+  val Rows: Int = RoomImpl.DefaultHeight
+  val Cols: Int = RoomImpl.DefaultWidth
 
   /** Point2D represents a coordinate
     * @param x

@@ -5,7 +5,7 @@ import model.cells.logic.CellExtension.*
 import model.cells.*
 import model.game.CurrentGame
 import model.gameMap.*
-import model.room.{Room, RoomBuilder, RoomLink}
+import model.room.{Room, RoomBuilder, RoomImpl, RoomLink}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.TryValues.*
 import org.scalatest.flatspec.AnyFlatSpec
@@ -67,8 +67,8 @@ class ResetSpec extends AnyFlatSpec with BeforeAndAfterEach:
     if !GraphicsEnvironment.isHeadless then
       item should not be item2
       item should be(item3)
-      for _ <- 0 to Room.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
-      for _ <- 0 to Room.DefaultWidth do GameController.movePlayer(KeyEvent.VK_D)
+      for _ <- 0 to RoomImpl.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
+      for _ <- 0 to RoomImpl.DefaultWidth do GameController.movePlayer(KeyEvent.VK_D)
       val item4 = CurrentGame.currentRoom.getCell(2, 3).get.cellItem // box
       item4 should not be item2
       item4 should be(item)

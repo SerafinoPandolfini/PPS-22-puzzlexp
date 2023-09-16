@@ -3,6 +3,7 @@ package utils
 import model.room.Room
 import model.cells.*
 import model.cells.Cell.given
+import utils.RoomCellsRepresentation.cellToString
 
 object PathExtractor:
 
@@ -20,7 +21,7 @@ object PathExtractor:
     *   a path that match the name of an image file
     */
   def extractPath(cell: Cell, cells: Set[Cell] = Set.empty[Cell]): String = {
-    val namePath = PathSplit concat Room.cellToString(cell, true)
+    val namePath = PathSplit concat cellToString(cell, true)
     val walkablePath = extractWalkablePath(cell)
     val coveredPath = extractCoveredPath(cell)
     val colorPath = extractColorPath(cell)
