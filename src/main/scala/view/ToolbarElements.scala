@@ -3,7 +3,7 @@ package view
 import controller.GameController
 
 import javax.swing.*
-import utils.{ColorManager, DisplayValuesManager, ImageManager}
+import utils.{ColorManager, ImageManager}
 import model.cells.Item
 import java.awt.event.ActionEvent
 
@@ -15,6 +15,11 @@ object ToolbarElements:
   private val textFont = Font("Arial", Font.PLAIN, 16)
   private val counterText = "x0"
   private val initialScore = "0"
+  private val ToolbarElementsHeight = 96
+  private val ButtonElement = 88
+  private val MediumElementWidth = 96
+  private val SmallElementWidth = 64
+  private val LargeElementWidth = 192
   val scoreText = "SCORE: "
 
   /** @return
@@ -24,10 +29,10 @@ object ToolbarElements:
     val pauseButton = JButton(ImageIcon(ImageManager.Pause.path))
     pauseButton.setBorder(BorderFactory.createEmptyBorder())
     pauseButton.setPreferredSize(
-      Dimension(DisplayValuesManager.ButtonElement.value, DisplayValuesManager.ButtonElement.value)
+      Dimension(ButtonElement, ButtonElement)
     )
     pauseButton.addActionListener(_ => GameController.saveGame())
-    pauseButton.setBackground(ColorManager.ToolbarBackground.color)
+    pauseButton.setBackground(ColorManager.ToolbarBackground)
     pauseButton
 
   /** @param item
@@ -43,9 +48,9 @@ object ToolbarElements:
     itemCounterLabel.setText(counterText)
     itemCounterLabel.setFont(textFont)
     itemCounterLabel.setPreferredSize(
-      Dimension(DisplayValuesManager.MediumElementWidth.value, DisplayValuesManager.ToolbarElementsHeight.value)
+      Dimension(MediumElementWidth, ToolbarElementsHeight)
     )
-    itemCounterLabel.setForeground(ColorManager.ToolbarText.color)
+    itemCounterLabel.setForeground(ColorManager.ToolbarText)
     ItemCounterLabel(itemCounterLabel, item)
 
   /** @param item
@@ -60,7 +65,7 @@ object ToolbarElements:
   def createItemLabel(item: Item, iconPath: String): ItemLabel =
     val itemLabel = JLabel()
     itemLabel.setPreferredSize(
-      Dimension(DisplayValuesManager.SmallElementWidth.value, DisplayValuesManager.ToolbarElementsHeight.value)
+      Dimension(SmallElementWidth, ToolbarElementsHeight)
     )
     ItemLabel(itemLabel, item, itemPath = iconPath)
 
@@ -73,7 +78,7 @@ object ToolbarElements:
     scoreLabel.setIcon(scoreIcon)
     scoreLabel.setFont(textFont)
     scoreLabel.setPreferredSize(
-      Dimension(DisplayValuesManager.LargeElementWidth.value, DisplayValuesManager.ToolbarElementsHeight.value)
+      Dimension(LargeElementWidth, ToolbarElementsHeight)
     )
     scoreLabel.setHorizontalTextPosition(SwingConstants.CENTER)
     scoreLabel.setVerticalTextPosition(SwingConstants.CENTER)

@@ -11,9 +11,9 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import utils.TestUtils.*
 import model.cells.logic.CellExtension.*
+import serialization.JsonDecoder
 import java.awt.GraphicsEnvironment
 import java.awt.event.KeyEvent
-import serialization.JsonDecoder
 
 class ControllerSpec extends AnyFlatSpec with BeforeAndAfterEach:
 

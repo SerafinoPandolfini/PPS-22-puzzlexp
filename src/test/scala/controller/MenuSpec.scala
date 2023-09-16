@@ -5,7 +5,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import serialization.JsonDecoder
-import utils.ConstantUtils.*
+import utils.TestUtils.*
 import view.MenuView
 
 import java.awt.GraphicsEnvironment

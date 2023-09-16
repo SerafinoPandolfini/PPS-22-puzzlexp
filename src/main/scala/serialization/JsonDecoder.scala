@@ -2,11 +2,8 @@ package serialization
 
 import model.cells.*
 import io.circe.generic.semiauto.deriveDecoder
-import io.circe.{Decoder, DecodingFailure}
+import io.circe.{Decoder, DecodingFailure, Json}
 import io.circe.parser.*
-import io.circe.Json
-import io.circe.Error
-import model.game.CurrentGame
 import model.room.{Room, RoomLink}
 import model.gameMap.GameMap
 import scala.util.Try
@@ -49,6 +46,10 @@ object JsonDecoder:
   private def mapToCell[A <: Cell](decoder: Decoder[A]): Decoder[Cell] =
     decoder.map(identity)
 
+  /** decoder for all the [[Cell]]
+    * @return
+    *   a decoder for Cell
+    */
   given cellDecoder: Decoder[Cell] = Decoder.instance { c =>
     val cellType = c.downField("cellType").as[String].getOrElse("Unknown")
     val decoder: Decoder[Cell] = cellType match
@@ -70,10 +71,12 @@ object JsonDecoder:
     decoder(c)
   }
 
-  /** parte room */
-
   given roomLinkDecoder: Decoder[RoomLink] = deriveDecoder[RoomLink]
 
+  /** a decoder for [[Room]]
+    * @return
+    *   a room decoder
+    */
   given roomDecoder: Decoder[Room] = Decoder.instance { cursor =>
     for
       name <- cursor.downField("name").as[String]
@@ -82,7 +85,10 @@ object JsonDecoder:
     yield Room(name, cells, links)
   }
 
-  /** parte map */
+  /** a decoder for [[GameMap]]
+    * @return
+    *   a map decoder
+    */
   given mapDecoder: Decoder[GameMap] = Decoder.instance { cursor =>
     for
       name <- cursor.downField("name").as[String]
@@ -93,6 +99,12 @@ object JsonDecoder:
 
   }
 
+  /** obtain a json from a specified path
+    * @param filePath
+    *   a [[String]] representing the path of the json
+    * @return
+    *   the [[Json]] if present, an exception otherwise
+    */
   def getJsonFromPath(filePath: String): Try[Json] =
     Try {
       val source = Source.fromFile(filePath)
@@ -102,6 +114,10 @@ object JsonDecoder:
       finally source.close()
     }
 
+  /** a decoder for a save game file
+    * @return
+    *   a decoder for a save game file
+    */
   given saveGameDecoder: Decoder[SaveData] = Decoder.instance { cursor =>
     for
       originalMap <- cursor.downField("mapName").as[String]

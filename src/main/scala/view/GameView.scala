@@ -5,7 +5,7 @@ import controller.GameController
 import java.awt.*
 import javax.swing.*
 import scala.collection.immutable.{List, ListMap}
-import utils.{ColorManager, DisplayValuesManager, ImageManager}
+import utils.{ColorManager, ConstantUtils, ImageManager}
 
 import java.awt.event.{ActionEvent, ActionListener, KeyEvent}
 import javax.swing.border.Border
@@ -23,15 +23,15 @@ import utils.PathExtractor.extractPath
 class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
   private var itemLabels = ToolbarElements.generateStandardToolbarElements()
   private val scoreLabel = ToolbarElements.createScoreLabel()
-  val tilesPanel: JPanel = JPanel(GridLayout(DisplayValuesManager.Rows.value, DisplayValuesManager.Cols.value))
+  val tilesPanel: JPanel = JPanel(GridLayout(ConstantUtils.Rows, ConstantUtils.Cols))
   val toolbarPanel: JPanel = createToolbarPanel()
   val mainPanel: JPanel = createMainPanel()
   val endPanel: JPanel = EndGamePanel.createEndGamePanel()
   val keyHandler: KeyHandler = KeyHandler()
   private var _tiles: ListMap[Position, MultiLayeredTile] =
     (for
-      row <- 0 until DisplayValuesManager.Rows.value
-      col <- 0 until DisplayValuesManager.Cols.value
+      row <- 0 until ConstantUtils.Rows
+      col <- 0 until ConstantUtils.Cols
       position = (col, row)
     yield position -> createTile()).to(ListMap)
   configureFrame()
@@ -71,7 +71,7 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     */
   private def createTile(): MultiLayeredTile =
     val tile = MultiLayeredTile()
-    tile.setPreferredSize(Dimension(DisplayValuesManager.CellSize.value, DisplayValuesManager.CellSize.value))
+    tile.setPreferredSize(Dimension(ConstantUtils.CellSize, ConstantUtils.CellSize))
     tilesPanel.add(tile)
     tile
 
@@ -83,7 +83,7 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     keyHandler.registerKeyAction(tilesPanel, _tiles)
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
     associateTiles(initialRoom)
-    updatePlayerImage(initialPos, ImageManager.CharacterRight.path)
+    updatePlayerImage(initialPos, ImageManager.CharacterDown.path)
     setResizable(false)
     setVisible(true)
     pack()

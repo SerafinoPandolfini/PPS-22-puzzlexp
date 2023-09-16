@@ -1,8 +1,7 @@
 package view
 
-import utils.ConstantUtils.*
 import utils.ImageManager
-
+import utils.ConstantUtils.Origin
 import java.awt.BorderLayout
 import javax.swing.*
 
@@ -32,13 +31,17 @@ class ControlsView extends JFrame:
     val icon: ImageIcon = ImageIcon(ImageManager.Controls.path)
     val bgLabel: JLabel = JLabel(icon)
     controlsPanel.add(bgLabel, BorderLayout.CENTER)
-    controlsPanel.setBounds(Origin.x, Origin.y, ControlsPanelSize, ControlsPanelSize)
+    controlsPanel.setBounds(Origin.x, Origin.y, ControlsView.ControlsPanelSize, ControlsView.ControlsPanelSize)
     controlsPanel
 
   /** configure and show the [[JFrame]] */
   private def configureFrame(): Unit =
     add(controlsPanel)
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE)
-    setSize(ControlsGUISize, ControlsGUISize)
+    setSize(ControlsView.ControlsGUISize, ControlsView.ControlsGUISize)
     setResizable(false)
     setVisible(true)
+
+object ControlsView:
+  val ControlsGUISize: Int = 510
+  val ControlsPanelSize: Int = ControlsGUISize - 10

@@ -1,7 +1,7 @@
 package view
 
 import utils.ColorManager
-import utils.ConstantUtils.{ScrollBarBorderThickness, SelectCellHeight}
+import utils.ConstantUtils.ScrollBarBorderThickness
 
 import java.awt.{Color, Component, Dimension}
 import javax.swing.{BorderFactory, JButton, JLabel, JList, ListCellRenderer}
@@ -16,13 +16,16 @@ class CustomCellRenderer extends JButton with ListCellRenderer[Any]:
       cellHasFocus: Boolean
   ): Component =
     setText(value.toString)
-    var background: Color = ColorManager.ScrollPane.color
+    var background: Color = ColorManager.ScrollPane
     val foreground: Color = Color.WHITE
     if (isSelected)
       setOpaque(true)
-      background = ColorManager.SelectedItemScrollPane.color
+      background = ColorManager.SelectedItemScrollPane
     setBackground(background)
     setForeground(foreground)
-    setBorder(BorderFactory.createLineBorder(ColorManager.ScrollPane.color, ScrollBarBorderThickness))
-    setPreferredSize(Dimension(getPreferredSize.width, SelectCellHeight))
+    setBorder(BorderFactory.createLineBorder(ColorManager.ScrollPane, ScrollBarBorderThickness))
+    setPreferredSize(Dimension(getPreferredSize.width, CustomCellRenderer.SelectCellHeight))
     this
+
+object CustomCellRenderer:
+  val SelectCellHeight: Int = 20

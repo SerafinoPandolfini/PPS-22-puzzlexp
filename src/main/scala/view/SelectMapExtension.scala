@@ -1,15 +1,16 @@
 package view
 
 import controller.GameController
-import view.{CustomCellRenderer, CustomScrollBarUI}
+import view.{CustomCellRenderer, CustomScrollBarUI, TransparentButton}
 import exceptions.MapNotFoundException
 import serialization.JsonDecoder
 import utils.ColorManager.TransparentButtons
-import utils.{ColorManager, ImageManager, TransparentButton}
+import utils.{ColorManager, ImageManager}
 import utils.ConstantUtils.*
 
 import java.awt.event.{ActionEvent, ActionListener}
 import java.awt.{BorderLayout, Color, Component, Dimension, FlowLayout, Font, GridLayout}
+import java.io.File
 import java.nio.file.Paths
 import javax.swing.Box.Filler
 import javax.swing.*
@@ -19,6 +20,18 @@ import javax.swing.event.ListSelectionEvent
 import scala.language.postfixOps
 
 object SelectMapExtension:
+
+  private val SelectLabelFontSize: Int = 30
+  private val SelectLabelSize: Int = 400
+  private val FillerWidth: Int = 0
+  private val FillerHeight: Int = 40
+  private val ContinueText: String = "CONTINUE"
+  private val NewGameText: String = "NEW GAME"
+  private val SavesDirectoryPath: String = Paths
+    .get(System.getProperty("user.home"), "puzzlexp", "saves")
+    .toString + File.separator
+  private val JsonExtension: String = ".json"
+
   extension (view: MenuView)
     /** create a layered panel containing all the possible panels
       *
@@ -43,7 +56,12 @@ object SelectMapExtension:
       val icon: ImageIcon = ImageIcon(ImageManager.SelectMapBackground.path)
       val bgLabel: JLabel = JLabel(icon)
       backGround.add(bgLabel, BorderLayout.CENTER)
-      backGround.setBounds(Origin.x, Origin.y, MenuGUIWidth, MenuGUIHeight)
+      backGround.setBounds(
+        Origin.x,
+        Origin.y,
+        MenuGUIWidth,
+        MenuGUIHeight
+      )
       backGround
 
     /** create the map selected panel containing the scrollPanel, its label and the play button
@@ -101,7 +119,12 @@ object SelectMapExtension:
       foreGround.setOpaque(false)
       foreGround.setAlignmentX(Component.CENTER_ALIGNMENT)
       foreGround.setLayout(BoxLayout(foreGround, BoxLayout.Y_AXIS))
-      foreGround.setBounds(Origin.x, Origin.y, MenuGUIWidth, MenuGUIHeight)
+      foreGround.setBounds(
+        Origin.x,
+        Origin.y,
+        MenuGUIWidth,
+        MenuGUIHeight
+      )
       foreGround
 
     /** it configures a lister that starts the game */
@@ -152,5 +175,5 @@ object SelectMapExtension:
       val jList: JList[String] = JList(listModel)
       jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION)
       jList.setCellRenderer(CustomCellRenderer())
-      jList.setBackground(ColorManager.ScrollPane.color)
+      jList.setBackground(ColorManager.ScrollPane)
       jList

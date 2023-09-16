@@ -4,9 +4,9 @@ package model.game
 import model.gameMap.GameMap
 import model.cells.{Item, Position}
 import model.room.Room
-import serialization.JsonDecoder
 import utils.ItemConversion.given_Conversion_Item_Int
 import io.circe.{Json, HCursor}
+import serialization.JsonDecoder
 import scala.util.{Failure, Success}
 
 object CurrentGame:

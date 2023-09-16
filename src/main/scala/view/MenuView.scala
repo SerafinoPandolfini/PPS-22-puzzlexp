@@ -1,9 +1,7 @@
 package view
 
 import controller.GameController
-import serialization.JsonDecoder
-import utils.ConstantUtils.*
-import utils.{ColorManager, ImageManager, TransparentButton}
+import utils.{ColorManager, ImageManager}
 import SelectMapExtension.*
 
 import java.awt.event.{ActionEvent, WindowAdapter, WindowEvent}
@@ -12,6 +10,9 @@ import java.awt.{BorderLayout, Color, Dimension, FlowLayout, Font, Graphics, Gra
 import java.util.Locale
 import javax.swing.*
 import controller.MenuController
+import serialization.JsonDecoder
+import utils.ConstantUtils.{Point2D, Origin, MenuGUIWidth, MenuGUIHeight}
+
 import scala.collection.immutable.ListMap
 import scala.language.postfixOps
 
@@ -47,9 +48,9 @@ case class MenuView(controller: MenuController) extends JFrame:
     buttonPanel.setOpaque(false)
     playButtonContainer.setOpaque(false)
     controlsButtonContainer.setOpaque(false)
-    val controlsButton: JButton = TransparentButton(ControlsText)
+    val controlsButton: JButton = TransparentButton(MenuView.ControlsText)
     controlsButton.addActionListener((_: ActionEvent) => ControlsView())
-    playButton = TransparentButton(PlayText)
+    playButton = TransparentButton(MenuView.PlayText)
     playButton.addActionListener((_: ActionEvent) =>
       startPanel.removeAll()
       startPanel = this.createPanelsStructure()
@@ -62,7 +63,12 @@ case class MenuView(controller: MenuController) extends JFrame:
     buttonPanel.setLayout(BoxLayout(buttonPanel, BoxLayout.Y_AXIS))
     buttonPanel.add(playButtonContainer)
     buttonPanel.add(controlsButtonContainer)
-    buttonPanel.setBounds(ButtonCoordinate.x, ButtonCoordinate.y, ButtonsPanelWidth, ButtonsPanelHeight)
+    buttonPanel.setBounds(
+      MenuView.ButtonCoordinate.x,
+      MenuView.ButtonCoordinate.y,
+      MenuView.ButtonsPanelWidth,
+      MenuView.ButtonsPanelHeight
+    )
     buttonPanel
 
   /** create the background panel containing the background image
@@ -75,7 +81,7 @@ case class MenuView(controller: MenuController) extends JFrame:
     val icon: ImageIcon = ImageIcon(ImageManager.StartMenuBackground.path)
     val bgLabel: JLabel = JLabel(icon)
     startMenuPanel.add(bgLabel, BorderLayout.CENTER)
-    startMenuPanel.setBounds(Origin.x, Origin.y, MenuGUIWidth, BackgroundPanelHeight)
+    startMenuPanel.setBounds(Origin.x, Origin.y, MenuGUIWidth, MenuView.BackgroundPanelHeight)
     startMenuPanel
 
   /** configure and show the [[JFrame]] */
@@ -96,3 +102,11 @@ case class MenuView(controller: MenuController) extends JFrame:
     setSize(MenuGUIWidth, MenuGUIHeight)
     setResizable(false)
     setVisible(true)
+
+object MenuView:
+  val ControlsText: String = "CONTROLS"
+  val PlayText: String = "PLAY"
+  val BackgroundPanelHeight: Int = 580
+  val ButtonsPanelHeight: Int = 100
+  val ButtonsPanelWidth: Int = 400
+  val ButtonCoordinate: Point2D = Point2D(40, 200)

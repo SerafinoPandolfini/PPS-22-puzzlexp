@@ -5,6 +5,7 @@ import org.json4s.*
 import org.json4s.native.JsonMethods.*
 import utils.ConstantUtils.JsonDirectoryPath
 import view.MenuView
+
 import java.io.File
 import scala.collection.immutable.{List, ListMap}
 import scala.io.Source

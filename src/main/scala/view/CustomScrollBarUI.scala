@@ -1,6 +1,5 @@
 package view
 
-import utils.ConstantUtils.{ScrollBarWidth, ZeroDimension}
 import utils.{ColorManager, ImageManager}
 
 import java.awt.{Color, Dimension, Graphics, Graphics2D, Rectangle}
@@ -11,7 +10,7 @@ import javax.swing.plaf.basic.{BasicArrowButton, BasicScrollBarUI}
 class CustomScrollBarUI() extends BasicScrollBarUI:
   /** configuration of the background (trackColor) and foreground (thumbColor) of the scrollbar */
   override def configureScrollBarColors(): Unit =
-    thumbColor = ColorManager.ScrollBarForeground.color
+    thumbColor = ColorManager.ScrollBarForeground
     trackColor = Color.WHITE
 
   /** set the foreground of the scrollbar */
@@ -28,14 +27,14 @@ class CustomScrollBarUI() extends BasicScrollBarUI:
 
   /** set the size of the scrollbar */
   override def getPreferredSize(c: JComponent): Dimension =
-    val width = ScrollBarWidth
+    val width = CustomScrollBarUI.ScrollBarWidth
     super.getPreferredSize(c)
     Dimension(width, c.getHeight)
 
   /** configure the decrease button of the scrollbar */
   override def createDecreaseButton(direction: Int): JButton =
     val decreaseButton: JButton = JButton()
-    decreaseButton.setPreferredSize(Dimension(ZeroDimension, ZeroDimension))
+    decreaseButton.setPreferredSize(Dimension(CustomScrollBarUI.ZeroDimension, CustomScrollBarUI.ZeroDimension))
     decreaseButton.setBackground(Color.WHITE)
     decreaseButton.setForeground(Color.BLACK)
     decreaseButton
@@ -43,7 +42,11 @@ class CustomScrollBarUI() extends BasicScrollBarUI:
   /** configure the increase button of the scrollbar */
   override def createIncreaseButton(direction: Int): JButton =
     val increaseButton: JButton = JButton()
-    increaseButton.setPreferredSize(Dimension(ZeroDimension, ZeroDimension))
+    increaseButton.setPreferredSize(Dimension(CustomScrollBarUI.ZeroDimension, CustomScrollBarUI.ZeroDimension))
     increaseButton.setBackground(Color.WHITE)
     increaseButton.setForeground(Color.BLACK)
     increaseButton
+
+object CustomScrollBarUI:
+  val ScrollBarWidth: Int = 10
+  val ZeroDimension: Int = 0

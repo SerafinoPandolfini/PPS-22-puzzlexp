@@ -23,14 +23,12 @@ object PrologConverter:
 
   def convertLinkToProlog(link: RoomLink): String = convertCellToProlog(BasicCell(link.from))
 
-  /** aggiunge la proprietà color alle celle costruite
+  /** add color property to prolog cells
     */
   val addColor: Cell => String = cell =>
-    s"$Separator${
-      (cell match
+    s"$Separator${(cell match
         case c: Cell with Colorable => c.color
-        case _ => "nil"
-        ).toString.toLowerCase
-    }"
-    
-  val noProperty: Cell => String =  _ => ""
+        case _                      => "nil"
+      ).toString.toLowerCase}"
+
+  val noProperty: Cell => String = _ => ""

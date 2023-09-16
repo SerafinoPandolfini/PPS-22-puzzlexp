@@ -2,7 +2,7 @@ package view
 
 import controller.GameController
 import model.cells.{Direction, Position}
-import utils.{DisplayValuesManager, ImageManager}
+import utils.ImageManager
 import model.game.CurrentGame
 
 import java.awt.event.{ActionEvent, KeyEvent}

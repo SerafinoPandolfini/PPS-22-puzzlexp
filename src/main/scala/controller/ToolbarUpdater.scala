@@ -4,6 +4,7 @@ import model.cells.logic.TreasureExtension.*
 import controller.GameController.view
 import model.cells.Item
 import model.game.CurrentGame
+import utils.ItemConversion.given_Conversion_Item_Int
 
 object ToolbarUpdater:
 
@@ -18,6 +19,6 @@ object ToolbarUpdater:
     var score = 0
     itemCounts.foreach { case (item, count) =>
       view.updateItemLabel(item, count)
-      if item.isTreasure then score = score + item.mapItemToValue * count
+      if item.isTreasure then score = score + item * count
     }
     view.updateScore(score)

@@ -10,8 +10,8 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.TryValues.*
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
-import utils.TestUtils.*
 import serialization.JsonDecoder
+import utils.TestUtils.*
 
 import java.awt.GraphicsEnvironment
 import java.awt.event.KeyEvent

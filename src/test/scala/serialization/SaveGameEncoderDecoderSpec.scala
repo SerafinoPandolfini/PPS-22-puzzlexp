@@ -3,23 +3,17 @@ package serialization
 import controller.GameController
 import model.room.*
 import model.cells.{Item, Position}
-import utils.TestUtils.*
 import io.circe.parser.*
 import io.circe.{Decoder, HCursor, Json}
 import io.circe.syntax.*
 import model.game.CurrentGame
-<<<<<<<< HEAD:src/test/scala/serialization/SaveGameEncoderDecoderSpec.scala
-import serialization.JsonDecoder.{getJsonFromPath, saveGameDecoder}
-========
-import serialization.JsonDecoder.{saveGameDecoder, getJsonFromPath}
->>>>>>>> develop:src/test/scala/serialization/SaveGameEncoderDecoderTest.scala
-import serialization.JsonEncoder.saveGameEncoder
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import utils.TestUtils.*
 import model.gameMap.*
-
+import serialization.JsonDecoder.saveGameDecoder
+import serialization.JsonEncoder.saveGameEncoder
 import java.awt.GraphicsEnvironment
 import java.awt.event.KeyEvent
 import java.nio.file.{Files, Paths}
@@ -82,11 +76,7 @@ class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
     if !GraphicsEnvironment.isHeadless then
       GameController.saveGame()
       val json: Json = JsonDecoder
-<<<<<<<< HEAD:src/test/scala/serialization/SaveGameEncoderDecoderSpec.scala
         .getJsonFromPath(path)
-========
-        .getJsonFromPath("src/main/resources/saves/" + originalMap.name + ".json")
->>>>>>>> develop:src/test/scala/serialization/SaveGameEncoderDecoderTest.scala
         .toOption
         .get
       CurrentGame.load(json)

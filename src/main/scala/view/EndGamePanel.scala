@@ -1,6 +1,6 @@
 package view
 
-import utils.{ColorManager, DisplayValuesManager, ImageManager}
+import utils.{ColorManager, ConstantUtils, ImageManager}
 
 import java.awt.*
 import javax.swing.{BorderFactory, ImageIcon, JButton, JComponent, JFrame, JLabel, JPanel, SwingConstants}
@@ -8,27 +8,28 @@ import java.io.File
 import javax.imageio.ImageIO
 
 object EndGamePanel:
-  private val imagePanel = ImagePanel(
-    ImageIO.read(File("src/main/resources/img/endGame.png"))
-  )
+
+  private val labelFont = Font("Arial", Font.PLAIN, 43)
+  private val homeButtonDimension = Dimension(102, 102)
+  private val borderLayoutGap = BorderLayout(0, 230)
+  private val imagePanel = ImagePanel(ImageIO.read(File("src/main/resources/img/endGame.png")))
+  private val homeIcon = ImageIcon("src/main/resources/img/home.png")
+  private val labelHeight = 6
 
   /** provide a basic [[JPanel]] to serve as a end game panel
-    *
     * @return
     *   the endGamePanel without label
     */
   def createEndGamePanel(): JPanel =
     val endGamePanel = JPanel(BorderLayout())
-    imagePanel.setLayout(BorderLayout(0, 230))
+    imagePanel.setLayout(borderLayoutGap)
 
     val homeButton = JButton()
     homeButton.setOpaque(false)
     homeButton.setContentAreaFilled(false)
     homeButton.setBorderPainted(false)
-    homeButton.setIcon(ImageIcon("src/main/resources/img/home.png"))
-    homeButton.setPreferredSize(
-      Dimension(102, 102)
-    )
+    homeButton.setIcon(homeIcon)
+    homeButton.setPreferredSize(homeButtonDimension)
     imagePanel.add(homeButton, BorderLayout.LINE_START)
 
     endGamePanel.add(imagePanel, BorderLayout.CENTER)
@@ -45,17 +46,14 @@ object EndGamePanel:
     */
   def createLabel(playerScore: String, totalScore: String, percentage: String): Unit =
     val label = JLabel(
-      "<html><div style='text-align: center;'>CONGRATULATIONS!<br>Your score is " + playerScore + "/" + totalScore + " points <br> You completed " + percentage + "% of the map!</div></html>",
+      "<html><div style='text-align: center;'>CONGRATULATIONS!<br>Your score is " +
+        playerScore + "/" + totalScore + " points <br> You completed " +
+        percentage + "% of the map!</div></html>",
       SwingConstants.CENTER
     )
-    label.setForeground(ColorManager.ToolbarText.color)
-    label.setPreferredSize(
-      Dimension(
-        DisplayValuesManager.Cols.value * DisplayValuesManager.CellSize.value,
-        DisplayValuesManager.CellSize.value * DisplayValuesManager.ToolbarHeight.value * 2
-      )
-    )
+    label.setForeground(ColorManager.ToolbarText)
+    label.setPreferredSize(Dimension(ConstantUtils.Cols * ConstantUtils.CellSize, ConstantUtils.CellSize * labelHeight))
 
-    label.setFont(Font("Arial", Font.PLAIN, 43))
+    label.setFont(labelFont)
 
     imagePanel.add(label, BorderLayout.SOUTH)
