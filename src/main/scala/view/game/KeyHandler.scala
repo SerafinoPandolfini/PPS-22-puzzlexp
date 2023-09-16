@@ -5,7 +5,6 @@ import model.cells.Position
 import model.cells.properties.Direction
 import model.game.CurrentGame
 import utils.constants.ImageManager
-import view.game.GameView.{BasePath, PNGPath}
 import view.game.KeyHandler
 
 import java.awt.event.{ActionEvent, KeyEvent}
