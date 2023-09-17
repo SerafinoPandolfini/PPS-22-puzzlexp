@@ -3,7 +3,12 @@ package utils
 import model.room.Room
 import model.cells.*
 import model.cells.Cell.given
+import prologEngine.PrologConverter.noProperty
 import utils.ConstantUtils.AdjacentDirection
+import prologEngine.PrologConverter.*
+import prologEngine.PrologEngine
+import prologEngine.PrologEngine.{*, given}
+import alice.tuprolog.{Struct, Term}
 
 object PathExtractor:
 
@@ -63,9 +68,14 @@ object PathExtractor:
   def computeAdjacentCells(cell: Cell): List[Position] =
     AdjacentDirection.map(p => (p._1 + cell.position._1, p._2 + cell.position._2))
 
-  def extractWallPath(cell: Cell, cells: Set[Cell]): String = // was private
+  private def extractWallPath(cell: Cell, cells: Set[Cell]): String =
     val adjacentList: List[Cell] = cells.filter(c => computeAdjacentCells(cell) contains c.position).toList
-    println(adjacentList)
+    val adjacentPrologList: List[String] = adjacentList.map(cell => convertCellToProlog(cell, isWall))
+    // val engine = PrologEngine("../prologTheory/filter_wall_cells")
+    // val input = Struct.of("filter_wall_cells", adjacentPrologList, "wall")
+    // val result = engine.solve(input)
+    // adjacentPrologList.filter(cell => cell == c(_, _, _, wall)) // c(wl,2,1,wall)
+    // println(adjacentPrologList)
     NoPath
     // cercare usando le coordinate le celle attorno a cell
     // ASSICURATI CHE SE è UNA CELLA SUL BORDO DI CONSIDERARE L'OUT OF BOUND COME MURO
@@ -76,8 +86,8 @@ object PathExtractor:
     // convertire il ritorno delle teoria prolog usando i given
     // RICORDA CHE PROLOG DEVE RITORNARE UNA STRINGA LOWERCASE, TU LA DEVI FARE UPPERCASE
 
-    // SCALA APPROACH
-    // dividere celle muro e non muro
-    // creare costanti per le stringhe mancanti
+// SCALA APPROACH
+// dividere celle muro e non muro
+// creare costanti per le stringhe mancanti
 
-    // return PathSplit + roba prolog
+// return PathSplit + roba prolog

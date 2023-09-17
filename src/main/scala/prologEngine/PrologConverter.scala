@@ -1,6 +1,6 @@
 package prologEngine
 
-import model.cells.{BasicCell, ButtonBlockCell, ButtonCell, Cell, Colorable}
+import model.cells.{BasicCell, ButtonBlockCell, ButtonCell, Cell, Colorable, WallCell}
 import model.room.{Room, RoomLink}
 import alice.tuprolog.{Struct, Term, Theory}
 
@@ -26,11 +26,17 @@ object PrologConverter:
   /** aggiunge la proprietà color alle celle costruite
     */
   val addColor: Cell => String = cell =>
-    s"$Separator${
-      (cell match
+    s"$Separator${(cell match
         case c: Cell with Colorable => c.color
-        case _ => "nil"
-        ).toString.toLowerCase
-    }"
-    
-  val noProperty: Cell => String =  _ => ""
+        case _                      => "nil"
+      ).toString.toLowerCase}"
+
+  /** add the wall property if the cell is a wall
+    */
+  val isWall: Cell => String = cell =>
+    s"$Separator${(cell match
+        case c: WallCell => "wall"
+        case _           => "nil"
+      ).toLowerCase}"
+
+  val noProperty: Cell => String = _ => ""
