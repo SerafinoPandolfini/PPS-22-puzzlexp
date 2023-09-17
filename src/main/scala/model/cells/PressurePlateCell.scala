@@ -1,6 +1,9 @@
 package model.cells
 
+import model.cells.properties.{Item, Pressable, PressableState}
+
 /** A cell with a pressure plate
+ *
   * @param position
   *   the position of the cell in the room
   */

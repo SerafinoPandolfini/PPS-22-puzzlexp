@@ -5,10 +5,9 @@ import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
 import utils.TestUtils.*
 import model.cells.logic.CellExtension.updateItem
-
+import model.cells.properties.{Item, WalkableType}
 
 class WallCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   var wallCell: WallCell = _
 
   override def beforeEach(): Unit =

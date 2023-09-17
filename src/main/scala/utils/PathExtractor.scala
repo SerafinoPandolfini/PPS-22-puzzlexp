@@ -9,6 +9,9 @@ import prologEngine.PrologConverter.*
 import prologEngine.PrologEngine
 import prologEngine.PrologEngine.{*, given}
 import alice.tuprolog.{Struct, Term}
+import model.cells.properties.{Colorable, PressableState, WalkableType}
+import model.cells.traits.CoveredHole
+import utils.extensions.RoomCellsRepresentation.cellToString
 
 object PathExtractor:
 
@@ -26,7 +29,7 @@ object PathExtractor:
     *   a path that match the name of an image file
     */
   def extractPath(cell: Cell, cells: Set[Cell] = Set.empty[Cell]): String = {
-    val namePath = PathSplit concat Room.cellToString(cell, true)
+    val namePath = PathSplit concat cellToString(cell, true)
     val walkablePath = extractWalkablePath(cell)
     val coveredPath = extractCoveredPath(cell)
     val colorPath = extractColorPath(cell)

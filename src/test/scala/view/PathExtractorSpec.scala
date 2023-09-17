@@ -1,18 +1,7 @@
 package view
 
-import model.cells.{
-  BasicCell,
-  ButtonCell,
-  Cell,
-  CliffCell,
-  Color,
-  CoveredHoleCell,
-  Direction,
-  HoleCell,
-  Item,
-  PressableState,
-  WallCell
-}
+import model.cells.properties.{Color, Direction, Item, PressableState}
+import model.cells.{BasicCell, ButtonCell, Cell, CliffCell, CoveredHoleCell, HoleCell, WallCell}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
 import utils.ConstantUtils.AdjacentDirection

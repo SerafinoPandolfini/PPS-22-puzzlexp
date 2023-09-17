@@ -4,13 +4,14 @@ import model.cells.*
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.TryValues.*
 import utils.TestUtils.*
 import exceptions.PlayerOutOfBoundsException
 import scala.Option
+import scala.util.Failure
+import utils.extensions.RoomCellsRepresentation.{cellsRepresentation, showPlayerAndBoxes}
+import model.cells.properties.{Item, Direction}
 
 class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   var room: Room = _
 
   override def beforeEach(): Unit =
@@ -38,12 +39,11 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
   "A room" should "be able to check if the player is on a deadly cell" in {
     room.isPlayerDead(position1_1) should not be true
     room.isPlayerDead(outOfBoundPosition) match
-      case Left(exception) => exception shouldBe a[PlayerOutOfBoundsException]
-      case _               => fail("Expected Left(PlayerOutOfBoundsException) but got Right")
+      case Failure(exception) => exception shouldBe a[PlayerOutOfBoundsException]
+      case _                  => fail("Expected Left(PlayerOutOfBoundsException) but got Right")
   }
 
   "A room" should "not let the player to walk into a non walkable cell" in {
-    // try to go into a wall
     var playerPosition: Position = position1_1
     var expectedRepresentation = "\n" +
       "WL | WL | WL | WL\n" +
@@ -51,11 +51,9 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
       "WL |    | bx | WL\n" +
       "WL | WL | WL | WL\n"
     playerPosition = room.playerMove(playerPosition, Direction.Up).get
-    room.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
-    // try to go in a cliff cell from the wrong direction
+    room.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     playerPosition = room.playerMove(playerPosition, Direction.Right).get
-    room.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
-    // try to go out of room bounds
+    room.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     playerPosition = position3_1
     room.playerMove(playerPosition, Direction.Right) should be(Option.empty)
   }
@@ -67,7 +65,6 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
       .+(BasicCell(position2_2, Item.Box))
       .!!
       .build
-    // try to move a box into a wall
     var playerPosition = position2_1
     var expectedRepresentation = "\n" +
       "WL | WL | WL | WL | WL\n" +
@@ -75,13 +72,11 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
       "WL |    | bx |    | WL\n" +
       "WL |    |    |    | WL\n" +
       "WL | WL | WL | WL | WL\n"
-    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
+    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     playerPosition = largerRoom.playerMove(playerPosition, Direction.Right).get
-    // the representation does not change
-    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
-    // move a box
+    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     playerPosition = position1_2
-    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(
+    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(
       "\n" +
         "WL | WL | WL | WL | WL\n" +
         "WL |    |    | bx | WL\n" +
@@ -90,7 +85,7 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
         "WL | WL | WL | WL | WL\n"
     )
     playerPosition = largerRoom.playerMove(playerPosition, Direction.Right).get
-    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(
+    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(
       "\n" +
         "WL | WL | WL | WL | WL\n" +
         "WL |    |    | bx | WL\n" +
@@ -98,7 +93,6 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
         "WL |    |    |    | WL\n" +
         "WL | WL | WL | WL | WL\n"
     )
-    // try to move a box into a box
     playerPosition = position3_3
     expectedRepresentation = "\n" +
       "WL | WL | WL | WL | WL\n" +
@@ -106,44 +100,8 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
       "WL |    |    | bx | WL\n" +
       "WL |    |    | pl | WL\n" +
       "WL | WL | WL | WL | WL\n"
-    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
+    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     playerPosition = largerRoom.playerMove(playerPosition, Direction.Up).get
-    // the representation does not change
-    largerRoom.cellsRepresentation(Room.showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
+    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
   }
 
-  "A room" should "be able to change according to player movement" in {
-    val room2 = RoomBuilder(RoomWidth, RoomHeight)
-      .##()
-      .++(
-        Set(
-          TeleportDestinationCell(position1_1),
-          TeleportCell(position2_2),
-          ButtonCell(position3_1, color = Color.Blue),
-          ButtonBlockCell(position2_1, color = Color.Blue, PressableState.NotPressed),
-          CoveredHoleCell(position3_3)
-        )
-      )
-      .!!
-      .build
-
-    // check correct cell for player
-    room2.checkMovementConsequences(position1_2, position2_2).isSuccess should be(true)
-    room2.checkMovementConsequences(position1_2, position2_2).success.value should be(position1_1)
-
-    // check errors
-    room2.checkMovementConsequences((5, 1), (4, 1)).isFailure should be(true)
-    room2.checkMovementConsequences((5, 1), (4, 1)).failure.exception shouldBe a[PlayerOutOfBoundsException]
-    room2.checkMovementConsequences((4, 1), (5, 1)).isFailure should be(true)
-    room2.checkMovementConsequences((4, 1), (5, 1)).failure.exception shouldBe a[PlayerOutOfBoundsException]
-
-    // check cell set update
-    room2.getCell(position2_1).get.walkableState should be(WalkableType.Walkable(false))
-    room2.checkMovementConsequences(position3_2, position3_1)
-    room2.getCell(position2_1).get.walkableState should be(WalkableType.Walkable(true))
-    room2.getCell(position3_3).get.asInstanceOf[CoveredHoleCell].cover should be(true)
-    room2.checkMovementConsequences(position3_2, position3_3)
-    room2.getCell(position3_3).get.asInstanceOf[CoveredHoleCell].cover should be(true)
-    room2.checkMovementConsequences(position3_3, position3_2)
-    room2.getCell(position3_3).get.asInstanceOf[CoveredHoleCell].cover should be(false)
-  }

@@ -1,7 +1,8 @@
 package model.room.rules
 
-import model.room.Room
+import model.room.RoomImpl
 
+/** common values used by the rules of [[Room]] */
 object CommonGroundTerm:
-  val WidthLimit: Int = Room.DefaultWidth - 1
-  val HeightLimit: Int = Room.DefaultHeight - 1
+  val WidthLimit: Int = RoomImpl.DefaultWidth - 1
+  val HeightLimit: Int = RoomImpl.DefaultHeight - 1

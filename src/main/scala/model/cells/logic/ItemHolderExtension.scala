@@ -1,8 +1,8 @@
 package model.cells.logic
 
-import model.cells.Item
+import model.cells.properties.Item
 import model.game.ItemHolder
-import utils.ItemConversion.given_Conversion_Item_String
+import utils.givens.ItemConversion.given_Conversion_Item_String
 
 import scala.annotation.targetName
 

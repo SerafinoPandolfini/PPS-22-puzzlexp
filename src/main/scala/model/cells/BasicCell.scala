@@ -1,5 +1,7 @@
 package model.cells
 
+import model.cells.properties.Item
+
 /** The classic, walkable cell, with no peculiar effects
   *
   * @param position

@@ -3,10 +3,10 @@ package model.cells
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
-import Color.*
+import model.cells.properties.Color.*
 import utils.TestUtils.*
-import model.cells.logic.CellExtension.{updateItem, moveIn}
-
+import model.cells.logic.CellExtension.{moveIn, updateItem}
+import model.cells.properties.{Color, WalkableType, Item}
 
 class ButtonBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -19,7 +19,6 @@ class ButtonBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "A button cell" should "be openable moving a box on the corresponding button" in {
     buttonBlockCell.walkableState should be(WalkableType.Walkable(false))
-    // update with new item
     val buttonCell: ButtonCell = ButtonCell((0, 1), color = color)
     val cells = buttonCell.updateItem(Set(buttonCell, buttonBlockCell), Item.Box, genericDirection)
     buttonBlockCell = cells.collect { case c: ButtonBlockCell => c }.head
@@ -32,7 +31,6 @@ class ButtonBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "A button cell" should "be openable moving on the corresponding button" in {
     buttonBlockCell.walkableState should be(WalkableType.Walkable(false))
-    // update with new item
     val buttonCell: ButtonCell = ButtonCell((0, 1), color = color)
     val (cells, _) = buttonCell.moveIn(Set(buttonCell, buttonBlockCell))
     buttonBlockCell = cells.collect { case c: ButtonBlockCell => c }.head

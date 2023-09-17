@@ -1,15 +1,17 @@
 package model.room.rules
 
-import model.room.Room
+import model.room.{Room, RoomImpl}
+import model.cells.Cell
 import model.room.rules.CorrectCellsNumberRule.{RuleMessage, Rule}
 import prologEngine.PrologEngine.{*, given}
 import prologEngine.PrologConverter.*
 
+/** rule for controlling if the [[Room]] have the right number of [[Cell]]s */
 trait CorrectCellsNumberRule extends BaseRoomRule:
 
   override def checkRoomValidity(room: Room): List[String] =
     val ruleViolations = super.checkRoomValidity(room)
-    val totalCells = Room.DefaultWidth * Room.DefaultHeight
+    val totalCells = RoomImpl.DefaultWidth * RoomImpl.DefaultHeight
     checkRuleValidity(RuleMessage, ruleViolations, room.cells, noProperty, Rule, totalCells)
 
 object CorrectCellsNumberRule:

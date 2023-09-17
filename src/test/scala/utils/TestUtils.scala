@@ -1,9 +1,9 @@
 package utils
 
-import model.cells.Direction
 import model.room.RoomLink
 import model.room.rules.RoomRules
 import model.cells.Position
+import model.cells.properties.Direction
 import model.room.Room
 import model.gameMap.GameMap
 
@@ -24,6 +24,8 @@ object TestUtils:
   val genericDirection: Direction = Direction.Up
   val leftLink: RoomLink = RoomLink((0, 3), Direction.Left, "test2", (RoomWidth - 1, 3))
   val roomRules: RoomRules = RoomRules()
+  val CheckExistingFile: String = "src/main/resources/json/testMap.json"
+  val CheckWrongFile: String = "src/main/resources/json/ZeroMap.json"
 
   def isEqual(room1: Room, room2: Room): Boolean =
     room2.name == room1.name &&

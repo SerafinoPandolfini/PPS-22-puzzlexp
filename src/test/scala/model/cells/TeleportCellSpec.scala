@@ -5,11 +5,10 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import utils.TestUtils.*
 import model.cells.logic.CellExtension.{updateItem, moveIn}
-import utils.PositionExtension.+
-
+import utils.extensions.PositionExtension.+
+import model.cells.properties.{Item, Direction}
 
 class TeleportCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   var teleportCell: TeleportCell = _
   var teleportDestinationCell: TeleportDestinationCell = _
   val otherPosition: Position = (2, 2)

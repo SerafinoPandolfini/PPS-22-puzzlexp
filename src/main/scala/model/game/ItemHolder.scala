@@ -1,6 +1,6 @@
 package model.game
 
-import model.cells.Item
+import model.cells.properties.Item
 
 case class ItemHolder(itemOwned: List[Item]):
   /** check if the item is present in the item holder */

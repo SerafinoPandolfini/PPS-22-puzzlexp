@@ -4,6 +4,7 @@ import model.cells.*
 import prologEngine.PrologEngine
 import prologEngine.PrologEngine.{*, given}
 import alice.tuprolog.{Struct, Term}
+import model.cells.properties.Color
 import prologEngine.PrologConverter.*
 
 object ButtonBlockFinder:

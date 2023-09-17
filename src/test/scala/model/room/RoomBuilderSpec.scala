@@ -1,15 +1,17 @@
 package model.room
 
-import model.cells.{BasicCell, HoleCell, CoveredHoleCell, Direction}
+import model.cells.properties.Direction
+import model.cells.{BasicCell, HoleCell, CoveredHoleCell}
 import utils.TestUtils.*
+import model.room.RoomImpl
 import model.room.RoomBuilder.*
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
 import utils.TestUtils.*
+import utils.extensions.RoomCellsRepresentation.cellsRepresentation
 
 class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   var baseRoom: Room = _
   val RoomName = "prova"
 
@@ -18,7 +20,7 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
     baseRoom = RoomBuilder().build
 
   "A room builder" should "always produce a complete set of cells" in {
-    baseRoom.cells.size should be(Room.DefaultWidth * Room.DefaultHeight)
+    baseRoom.cells.size should be(RoomImpl.DefaultWidth * RoomImpl.DefaultHeight)
   }
 
   "A room builder" should "not have room outside its border" in {
@@ -32,10 +34,10 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach:
   "A room builder" should "create the required room" in {
     val room = RoomBuilder(RoomWidth, RoomHeight)
       .name(RoomName)
-      .borderWalls() // the border of the cell is WL
-      .addLinks(RoomLink(position3_2, Direction.Left, "", defaultPosition)) // cell in (3, 2) becomes BasicCell
-      .wallRectangle(position1_1, 1, 1) // (1, 1) becomes wall
-      .addCells(Set(HoleCell(position2_2), CoveredHoleCell(position1_2))) // (2, 2) becomes HL, (1, 2) becomes CH
+      .borderWalls()
+      .addLinks(RoomLink(position3_2, Direction.Left, "", defaultPosition))
+      .wallRectangle(position1_1, 1, 1)
+      .addCells(Set(HoleCell(position2_2), CoveredHoleCell(position1_2)))
       .standardize
       .build
 
