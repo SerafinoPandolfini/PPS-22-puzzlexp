@@ -74,12 +74,18 @@ object PathExtractor:
   private def extractWallPath(cell: Cell, cells: Set[Cell]): String =
     val adjacentList: List[Cell] = cells.filter(c => computeAdjacentCells(cell) contains c.position).toList
     val adjacentPrologList: List[String] = adjacentList.map(cell => convertCellToProlog(cell, isWall))
-    // val engine = PrologEngine("../prologTheory/filter_wall_cells")
-    // val input = Struct.of("filter_wall_cells", adjacentPrologList, "wall")
-    // val result = engine.solve(input)
+    val engine = PrologEngine("/prologTheory/filter_wall_cells.pl")
+    val input = Struct.of("filter_wall_cells", adjacentPrologList, "Filtered") // soluzione
+    val adjacentWall = engine.solve(input, "Filtered") // nomi var che deve ritornare //metti come cost
+    // string è filtered, e term è la lista. poi ci sarà il pezzo da aggiungere al file
+    // in prolong engine fai conversion da term a string
     // adjacentPrologList.filter(cell => cell == c(_, _, _, wall)) // c(wl,2,1,wall)
     // println(adjacentPrologList)
-    NoPath
+    // check_border_cells ha regole che si chiamano a vicenda
+    NoPath // testo undercase di quello che va aggiunto alla fine deò file
+
+    // due proprietà prolog che is chiamano a vicenda
+
     // cercare usando le coordinate le celle attorno a cell
     // ASSICURATI CHE SE è UNA CELLA SUL BORDO DI CONSIDERARE L'OUT OF BOUND COME MURO
 
