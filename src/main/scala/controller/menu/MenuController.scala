@@ -41,6 +41,3 @@ case class MenuController():
     val file: File = File(path)
     file.exists()
 
-object Start extends App:
-  val controller: MenuController = MenuController()
-  controller.start()

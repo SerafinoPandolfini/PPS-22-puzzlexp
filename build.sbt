@@ -24,3 +24,5 @@ jacocoReportSettings := JacocoReportSettings()
   )
 Test / jacocoExcludes := Seq("controller.*", "view.*", "model.game.*")
 Test / parallelExecution := false
+
+Compile / mainClass  := Some("Main")
