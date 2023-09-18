@@ -1,0 +1,55 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+name: Scala CI
+on:
+  push:
+    branches:
+      - 'master'
+      - 'develop'
+    paths-ignore:
+      - 'README.md'
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  Test:
+    strategy:
+      fail-fast: false
+      matrix:
+          os: [ macos-latest, windows-latest, ubuntu-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Set up Xvfb
+        if: ${{ matrix.os == 'ubuntu-latest'}}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          Xvfb :99 -ac &
+          export DISPLAY=:99
+      - name: Test
+        run: sbt test
+        
+  Coverage:
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: 'sbt'
+    - name: Jacoco Coverage
+      working-directory: ./
+      run: sbt jacoco
