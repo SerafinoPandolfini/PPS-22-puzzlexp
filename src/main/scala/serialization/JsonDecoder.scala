@@ -113,7 +113,7 @@ object JsonDecoder:
   def getJsonFromPath(filePath: String): Try[Json] =
     Try {
       val source = filePath match {
-        case externalPath if externalPath.startsWith("C") =>
+        case externalPath if externalPath.contains("saves") =>
           Source.fromFile(filePath)
         case internalPath =>
           val classLoader = getClass.getClassLoader
