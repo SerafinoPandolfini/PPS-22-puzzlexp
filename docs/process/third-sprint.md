@@ -74,6 +74,8 @@ L'obiettivo di questo sprint è la realizzazione del gioco completo con tutte le
 18/09/2023
 
 ## Sprint review
-
+L'obiettivo dello Sprint è stato raggiunto il giorno successivo alla deadline 
 
 ## Sprint retrospective
+Il ritardo è stato causato da problematiche dovute all'inesperienza del team nella gestione dei percorsi delle risorse interne al file jar.
+Per quanto riguarda il carico di lavoro è stato suddiviso al fine di riequilibrare il lavoro svolto finora dai membri del gruppo
