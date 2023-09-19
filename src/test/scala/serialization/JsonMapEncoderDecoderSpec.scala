@@ -33,7 +33,7 @@ class JsonMapEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
   }
 
   "A map" should "be retrievable from a json file" in {
-    val j = getJsonFromPath("src/main/resources/json/testMap.json").toOption.get
+    val j = getJsonFromPath("json/testMap.json").toOption.get
     j shouldBe a[Json]
     mapDecoder.apply(j.hcursor).toOption.get shouldBe a[GameMap]
   }
