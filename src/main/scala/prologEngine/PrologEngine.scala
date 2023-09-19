@@ -64,6 +64,7 @@ object PrologEngine:
   given Conversion[Int, Term] = _.toString
   given Conversion[Set[_], Term] = _.toList
   given Conversion[String, Theory] = theoryName =>
+    println(theoryName)
     Theory.parseWithStandardOperators(getClass.getResourceAsStream(theoryName))
   given Conversion[Term, List[Int]] = term => "\\d+".r.findAllIn(term.toString).map(_.toInt).toList
   given Conversion[Term, Int] = term => "\\d+".r.findFirstIn(term.toString).get.toInt

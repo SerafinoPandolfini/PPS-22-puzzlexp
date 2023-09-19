@@ -34,7 +34,8 @@ object GameController:
     val appDir = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves")
     JsonDecoder.getJsonFromPath(path) match
       case Success(jsonData) =>
-        if Path.of(path).startsWith(appDir) then CurrentGame.load(jsonData)
+        if Path.of(path).startsWith(appDir) then
+          CurrentGame.load(jsonData)
         else
           JsonDecoder.mapDecoder(jsonData.hcursor) match
             case Right(map)  => CurrentGame.initialize(map)

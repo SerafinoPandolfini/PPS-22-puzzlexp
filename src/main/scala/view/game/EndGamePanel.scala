@@ -13,8 +13,8 @@ object EndGamePanel:
   private val labelFont = Font("Arial", Font.PLAIN, 43)
   private val homeButtonDimension = Dimension(102, 102)
   private val borderLayoutGap = BorderLayout(0, 230)
-  private val imagePanel = ImagePanel(ImageIO.read(File("src/main/resources/img/endGame.png")))
-  private val homeIcon = ImageIcon("src/main/resources/img/home.png")
+  private val imagePanel = ImagePanel(ImageIO.read(ImageManager.End.path))
+  private val homeIcon = ImageIcon(ImageManager.Home.path)
   private val labelHeight = 6
 
   /** provide a basic [[JPanel]] to serve as a end game panel
