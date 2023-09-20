@@ -45,7 +45,7 @@ quanto sbt nasce orientato a scala e utilizza la sintassi di scala.
 Per la metodologia di testing si è scelto di utilizzare un approccio prevalentemente basato sul Test Driven Development,
 seguendo il ciclo Red-Green-Refactor visto a lezione. <br>
 Per la scrittura dei test si è utilizzato ScalaTest seguendo lo stile FlatSpec. <br>
-Inoltre si è utilizzato JaCoCo come plugin per la verifica della coverage, fissata al 70% delle linee di codice.
+Inoltre si è utilizzato JaCoCo come plugin per la verifica della coverage, fissata al 70% delle linee di codice e classi.
 
 ## Continuous Integration
 Per limitare quanto possibile l'emergere di problemi durante lo sviluppo del progetto, in particolare in situazioni di 
@@ -53,5 +53,11 @@ merge su develop, si è scelto di utilizzare GitHub Actions come servizio. <br>
 Tramite le Actions è possibile verificare la corretta esecuzione di tutti i test ogni volta che la code base viene 
 aggiornata su diversi sistemi operativi (Windows, Linux, Mac), e di garantire che la coverage minima imposta sia 
 rispettata.  
+
+## Assegnazione dei ruoli
+- **Pandolfini Serafino:** sviluppatore, esperto di dominio; tale ruolo ha la funzione di garantire qualità e usabilità del risultato, definendo i requisiti del prodotto
+- **Tosi Sofia:** sviluppatore, product owner; tale ruolo ha la responsabilità di identificare feature del prodotto e creare e mantienere product backlog e sprint backlog
+- **Leonardi Laura:** sviluppatore
+
 
 [Torna all'indice](../report.md) | [Vai ad Analisi del sistema e requisiti](../03-requirements/report.md)
