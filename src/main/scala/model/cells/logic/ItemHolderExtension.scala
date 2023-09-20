@@ -1,7 +1,8 @@
 package model.cells.logic
 
-import model.cells.Item
+import model.cells.properties.Item
 import model.game.ItemHolder
+import utils.givens.ItemConversion.given_Conversion_Item_String
 
 import scala.annotation.targetName
 
@@ -13,6 +14,10 @@ object ItemHolderExtension:
     @targetName("addItemsAlias")
     def ++(items: List[Item]): ItemHolder = itemHolder.addItems(items)
 
+    /** Alias for [[ItemHolder.addItem()]] */
+    @targetName("addItemAlias")
+    def +(items: Item): ItemHolder = itemHolder.addItem(items)
+
     /** Alias for [[ItemHolder.removeItem()]] */
     @targetName("removeItemAlias")
     def -(item: Item): ItemHolder = itemHolder.removeItem(item)
@@ -21,21 +26,6 @@ object ItemHolderExtension:
     @targetName("isPresentAlias")
     def ?(item: Item): Boolean = itemHolder.isPresent(item)
 
-    /** map every [[Cell]] type to a two char string
-      *
-      * @param item
-      *   the item to map
-      * @return
-      *   the mapped item
-      */
-    def stringedItem(item: Item): String =
-      item match
-        case i if i == Item.Box  => "BOX"
-        case i if i == Item.Axe  => "AXE"
-        case i if i == Item.Key  => "KEY"
-        case i if i == Item.Pick => "PICK"
-        case _                   => "??"
-
     /** return a visual representation of [[ItemHolder.itemOwned]]
       *
       * @param mapper
@@ -43,5 +33,5 @@ object ItemHolderExtension:
       * @return
       *   the string with the items in [[ItemHolder.itemOwned]]
       */
-    def itemHolderToString(mapper: Item => String): String =
-      "[ " + itemHolder.itemOwned.map(item => mapper(item)).mkString(" | ") + " ]"
+    def itemHolderToString(): String =
+      "[ " + itemHolder.itemOwned.map(item => item: String).mkString(" | ") + " ]"

@@ -1,6 +1,9 @@
 package model.cells
 
+import model.cells.properties.{Color, Colorable, Item, Pressable, PressableState}
+
 /** A cell with a pressable button
+ *
   * @param position
   *   the position of the cell in the room
   * @param cellItem

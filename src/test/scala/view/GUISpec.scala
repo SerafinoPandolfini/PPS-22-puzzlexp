@@ -1,13 +1,14 @@
 package view
 
-import controller.GameController
+import controller.game.GameController
+import model.cells.properties.Direction
 import model.room.{Room, RoomBuilder}
-import model.cells.Direction
-import utils.ImageManager
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
+import serialization.JsonDecoder
 import utils.TestUtils.*
+import utils.constants.ImageManager
 
 import java.awt.event.KeyEvent
 import scala.None
@@ -17,7 +18,7 @@ class GUISpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    if !GraphicsEnvironment.isHeadless then GameController.startGame("src/main/resources/json/testMap.json")
+    if !GraphicsEnvironment.isHeadless then GameController.startGame("json/testMap.json")
 
   override def afterEach(): Unit =
     super.afterEach()

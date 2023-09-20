@@ -1,19 +1,18 @@
 package serialization
 
 import model.cells.*
-import utils.TestUtils.*
 import io.circe.parser.*
 import io.circe.{Decoder, HCursor, Json}
 import io.circe.syntax.*
-import serialization.JsonDecoder.cellDecoder
-import serialization.JsonEncoder.cellEncoder
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.{BeforeAndAfterEach, color}
 import org.scalatest.matchers.should.Matchers.*
+import serialization.JsonDecoder.cellDecoder
+import serialization.JsonEncoder.cellEncoder
 import utils.TestUtils.*
+import model.cells.properties.{Item, Color, PressurePlateBlockGroup, Direction}
 
 class JsonCellEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
-
   var cell: Cell = _
   var cells: Set[Cell] = _
 

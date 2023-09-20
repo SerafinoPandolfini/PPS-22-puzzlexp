@@ -1,13 +1,11 @@
 package model.room.rules
 
+import model.cells.properties.{Color, Item, PressurePlateBlockGroup}
 import model.cells.{
   BasicCell,
   ButtonBlockCell,
   ButtonCell,
-  Color,
-  Item,
   PressurePlateBlockCell,
-  PressurePlateBlockGroup,
   PressurePlateCell,
   TeleportCell,
   TeleportDestinationCell,

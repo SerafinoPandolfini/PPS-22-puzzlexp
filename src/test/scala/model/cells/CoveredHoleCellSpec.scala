@@ -5,6 +5,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import utils.TestUtils.*
 import model.cells.logic.CellExtension.*
+import model.cells.properties.Item
 
 class CoveredHoleCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
@@ -25,7 +26,6 @@ class CoveredHoleCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     coveredHoleCell.cellItem should be(Item.Empty)
     coveredHoleCell.isDeadly should not be true
     coveredHoleCell.cover should not be true
-    // now the box can be placed on the cell
     cells = coveredHoleCell.updateItem(cells, Item.Box, genericDirection)
     cells.head.cellItem should be(Item.Box)
   }

@@ -2,14 +2,23 @@ package serialization
 
 import model.cells.*
 import io.circe.generic.semiauto.deriveDecoder
-import io.circe.{Decoder, DecodingFailure}
+import io.circe.{Decoder, DecodingFailure, Json}
 import io.circe.parser.*
-import io.circe.Json
-import io.circe.Error
+import model.cells.properties.Item
 import model.room.{Room, RoomLink}
 import model.gameMap.GameMap
+import utils.constants.PathManager.{JsonDirectoryPath, JsonExtension}
+import scala.io.Source
+
+import scala.util.{Try, Using}
+import scala.io.Source
+import scala.io.BufferedSource
+
+type SaveData = (String, GameMap, Room, Position, Position, List[Item], Int)
 
 object JsonDecoder:
+
+  given decoderItem: Decoder[Item] = deriveDecoder[Item]
 
   given basicCellDecoder: Decoder[BasicCell] = deriveDecoder[BasicCell]
 
@@ -42,6 +51,10 @@ object JsonDecoder:
   private def mapToCell[A <: Cell](decoder: Decoder[A]): Decoder[Cell] =
     decoder.map(identity)
 
+  /** decoder for all the [[Cell]]
+    * @return
+    *   a decoder for Cell
+    */
   given cellDecoder: Decoder[Cell] = Decoder.instance { c =>
     val cellType = c.downField("cellType").as[String].getOrElse("Unknown")
     val decoder: Decoder[Cell] = cellType match
@@ -63,10 +76,12 @@ object JsonDecoder:
     decoder(c)
   }
 
-  /** parte room */
-
   given roomLinkDecoder: Decoder[RoomLink] = deriveDecoder[RoomLink]
 
+  /** a decoder for [[Room]]
+    * @return
+    *   a room decoder
+    */
   given roomDecoder: Decoder[Room] = Decoder.instance { cursor =>
     for
       name <- cursor.downField("name").as[String]
@@ -75,25 +90,63 @@ object JsonDecoder:
     yield Room(name, cells, links)
   }
 
-  /** parte map */
+  /** a decoder for [[GameMap]]
+    * @return
+    *   a map decoder
+    */
   given mapDecoder: Decoder[GameMap] = Decoder.instance { cursor =>
     for
       name <- cursor.downField("name").as[String]
       rooms <- cursor.downField("rooms").as[Set[Room]]
       initialRoom <- cursor.downField("initialRoom").as[String]
       initialPosition <- cursor.downField("initialPosition").as[Position]
-    yield new GameMap(name, rooms, initialRoom, initialPosition)
+    yield GameMap(name, rooms, initialRoom, initialPosition)
 
   }
 
-  def getAbsolutePath(partialPath: String): String =
-    import java.nio.file.Paths
-    Paths.get(partialPath).toAbsolutePath.toString
+  /** obtain a json from a specified path
+    * @param filePath
+    *   a [[String]] representing the path of the json
+    * @return
+    *   the [[Json]] if present, an exception otherwise
+    */
+  def getJsonFromPath(filePath: String): Try[Json] =
+    Try {
+      val source = filePath match {
+        case externalPath if externalPath.contains("saves") =>
+          Source.fromFile(filePath)
+        case internalPath =>
+          val classLoader = getClass.getClassLoader
+          val inputStream = classLoader.getResourceAsStream(internalPath)
+          Source.fromInputStream(inputStream)
+      }
 
-  def getJsonFromPath(filePath: String): Either[Error, Json] =
-    import scala.io.Source
-    val source = Source.fromFile(filePath)
-    try
-      val jsonString = source.mkString
-      parse(jsonString)
-    finally source.close()
+      Using(source) { source =>
+        val jsonString = source.mkString
+        parse(jsonString).getOrElse(throw new Exception("Parsing failed"))
+      }
+    }.flatten
+
+  /** a decoder for a save game file
+    * @return
+    *   a decoder for a save game file
+    */
+  given saveGameDecoder: Decoder[SaveData] = Decoder.instance { cursor =>
+    for
+      originalMap <- cursor.downField("mapName").as[String]
+      currentMap <- cursor.downField("map").as[GameMap]
+      currentRoom <- cursor.downField("room").as[Room]
+      currentPlayerPosition <- cursor.downField("currentPos").as[Position]
+      startPlayerPosition <- cursor.downField("startPos").as[Position]
+      itemList <- cursor.downField("items").as[List[Item]]
+      score <- cursor.downField("score").as[Int]
+    yield (
+      JsonDirectoryPath + originalMap + JsonExtension,
+      currentMap,
+      currentRoom,
+      currentPlayerPosition,
+      startPlayerPosition,
+      itemList,
+      score
+    )
+  }

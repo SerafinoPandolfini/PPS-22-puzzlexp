@@ -5,10 +5,15 @@ import model.cells.*
 import io.circe.generic.semiauto.deriveEncoder
 import io.circe.{Encoder, Json}
 import io.circe.syntax.*
+import model.cells.properties.Item
+import model.game.CurrentGame
 import model.room.{Room, RoomLink}
 import model.gameMap.GameMap
 
 object JsonEncoder:
+
+  given itemEncoder: Encoder[Item] = deriveEncoder[Item]
+
   given basicCellEncoder: Encoder[BasicCell] = deriveEncoder[BasicCell]
 
   given buttonCellEncoder: Encoder[ButtonCell] = deriveEncoder[ButtonCell]
@@ -37,6 +42,10 @@ object JsonEncoder:
 
   given lockCellEncoder: Encoder[LockCell] = deriveEncoder[LockCell]
 
+  /** encoder for [[Cell]]
+    * @return
+    *   an encoder for [[Cell]]
+    */
   given cellEncoder: Encoder[Cell] = Encoder.instance {
     case basicCell: BasicCell =>
       basicCellEncoder.apply(basicCell).deepMerge(Json.obj("cellType" -> Json.fromString("BasicCell")))
@@ -78,9 +87,12 @@ object JsonEncoder:
       plantCellEncoder.apply(plantCell).deepMerge(Json.obj("cellType" -> Json.fromString("PlantCell")))
   }
 
-  /** parte room */
   given roomLinkEncoder: Encoder[RoomLink] = deriveEncoder[RoomLink]
 
+  /** encoder for [[Room]]
+    * @return
+    *   an encoder for room
+    */
   given roomEncoder: Encoder[Room] = Encoder.instance { room =>
     Json.obj(
       "name" -> room.name.asJson,
@@ -89,12 +101,31 @@ object JsonEncoder:
     )
   }
 
-  /** parte map */
+  /** encoder for [[GameMap]]
+    * @return
+    *   an encoder for GameMap
+    */
   given mapEncoder: Encoder[GameMap] = Encoder.instance { map =>
     Json.obj(
       "name" -> map.name.asJson,
       "rooms" -> map.rooms.map(r => roomEncoder.apply(r)).asJson,
       "initialRoom" -> map.initialRoom.asJson,
       "initialPosition" -> map.initialPosition.asJson
+    )
+  }
+
+  /** an encoder for the game to save
+    * @return
+    *   an encoder for the save game file
+    */
+  given saveGameEncoder: Encoder[Unit] = Encoder.instance { _ =>
+    Json.obj(
+      "mapName" -> CurrentGame.originalGameMap.name.asJson,
+      "map" -> mapEncoder.apply(CurrentGame.gameMap).asJson,
+      "room" -> roomEncoder.apply(CurrentGame.currentRoom).asJson,
+      "currentPos" -> CurrentGame.currentPosition.asJson,
+      "startPos" -> CurrentGame.startPositionInRoom.asJson,
+      "items" -> CurrentGame.itemHolder.itemOwned.asJson,
+      "score" -> CurrentGame.scoreCounter.asJson
     )
   }
