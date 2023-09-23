@@ -13,7 +13,9 @@ object Minimap:
       val (rooms, initialRoom) = map.rooms.partition(_.name != map.initialRoom)
       val minimapElements = extendMapping(initialRoom.head, rooms.toList, (0, 0))
       val correctionValue = standardizePosition(minimapElements)
-      minimapElements.map(e => e.copy(position = e.position - correctionValue)).toList
+      minimapElements.map(e => e.copy(position = e.position - correctionValue)).toList.sorted(MinimapOrdering)
+
+  given MinimapOrdering: Ordering[MinimapElement] = Ordering.by(e => (e.position._2, e.position._1))
 
   private def extendMapping(room: Room, rooms: List[Room], position: Position): Set[MinimapElement] =
     val (connectedRooms, unmappedRooms) = rooms.partition(r => room.links.map(link => link.toRoom).contains(r.name))

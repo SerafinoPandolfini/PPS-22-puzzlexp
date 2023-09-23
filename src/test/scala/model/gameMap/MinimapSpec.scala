@@ -54,4 +54,11 @@ class MinimapSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenThen
     minimap.map(_.position).toSet.size should be(minimap.size)
   }
 
+  "A Minimap" should "be sorted using the positions of its elements" in {
+    Given("a minimap")
+    val minimap = maps.tail.head.createMinimap()
+    val supposedPositions = List(defaultPosition, position1_0, position0_1, position1_1)
+    Then("its positions should be correctly sorted for rows")
+    minimap.zip(supposedPositions).foreach(e => e._1.position should be(e._2))
+  }
 
