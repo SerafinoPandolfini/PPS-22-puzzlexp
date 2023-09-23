@@ -14,3 +14,11 @@ object PositionExtension:
       *   the sum of the positions
       */
     def +(q: Position): Position = (p._1 + q._1, p._2 + q._2)
+
+    @targetName("diffAlias")
+    /** @param q
+      *   the Position to subtract
+      * @return
+      *   the subtract of the positions
+      */
+    def -(q: Position): Position = (p._1 - q._1, p._2 - q._2)

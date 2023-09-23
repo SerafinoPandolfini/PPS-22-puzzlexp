@@ -4,14 +4,16 @@ import model.room.Room
 import model.cells.*
 import model.cells.Cell.given
 import prologEngine.PrologConverter.noProperty
-import utils.ConstantUtils.AdjacentDirection
+import utils.constants.GraphicManager
 import prologEngine.PrologConverter.*
 import prologEngine.PrologEngine
 import prologEngine.PrologEngine.{*, given}
 import alice.tuprolog.{Struct, Term}
 import model.cells.properties.{Colorable, PressableState, WalkableType}
 import model.cells.traits.CoveredHole
+import utils.constants.GraphicManager.AdjacentDirection
 import utils.extensions.RoomCellsRepresentation.cellToString
+import utils.givens.CellMapping.*
 
 object PathExtractor:
 
@@ -65,24 +67,60 @@ object PathExtractor:
   }
 
   /** @param cell
+    *   the cell that needs the pathString
     * @return
-    *   a list with the adjacent cells
+    *   a list with the adjacent position of cell
     */
-  def computeAdjacentCells(cell: Cell): List[Position] =
-    AdjacentDirection.map(p => (p._1 + cell.position._1, p._2 + cell.position._2))
+  def computeAdjacentPositions(cell: Cell): List[Position] =
+    AdjacentDirection.map(p => (p._1 + cell.position._1, p._2 + cell.position._2)).toList
 
+  /** @param positions
+    *   the list with the adjacent positions
+    * @param cells
+    *   the set with all the cells of the game
+    * @return
+    *   a set with the adjacent cells. Bounds are excluded
+    */
+  private def computeAdjacentList(positions: List[Position], cells: Set[Cell]): Set[Cell] =
+    cells.filter(c => positions contains c.position)
+
+  /** @param cell
+    *   the cell that needs the pathString
+    * @param adjacentCellsList
+    *   the set with the adjacent cells of cell without the bounds
+    * @return
+    *   a set with the adjacent cells mapped in a 3x3 matrix in which bounds are added.
+    */
+  private def mapCellsWithBounds(cell: Cell, adjacentCellsList: Set[Cell]): Set[Cell] =
+    val mappedCells: Set[Cell] = cell.convertCellsPositions(adjacentCellsList)
+    val mappedCellsWithBound: Set[Cell] = mappedCells ++ (for
+      pos <- AdjacentDirection
+      if !mappedCells.exists(c => c.position == pos)
+    yield WallCell(position = pos)).toSet
+    mappedCellsWithBound
+
+  /** @param cell
+    *   the cell that needs the pathString
+    * @param cells
+    *   the set with all the cells of the game
+    * @return
+    *   the pathString of cell
+    */
   private def extractWallPath(cell: Cell, cells: Set[Cell]): String =
-    val adjacentList: List[Cell] = cells.filter(c => computeAdjacentCells(cell) contains c.position).toList
-    val adjacentPrologList: List[String] = adjacentList.map(cell => convertCellToProlog(cell, isWall))
-    val engine = PrologEngine("/prologTheory/filter_wall_cells.pl")
-    val input = Struct.of("filter_wall_cells", adjacentPrologList, "Filtered") // soluzione
-    val adjacentWall = engine.solve(input, "Filtered") // nomi var che deve ritornare //metti come cost
+    val adjacentCellsList: Set[Cell] = computeAdjacentList(
+      computeAdjacentPositions(cell),
+      cells
+    )
+    val adjacentPrologList: List[String] =
+      mapCellsWithBounds(cell, adjacentCellsList).map(cell => convertCellToProlog(cell, isWall)).toList
+    println("->" + adjacentPrologList)
+    val engine = PrologEngine("/prologTheory/filter_wall_cells_and_check_corners.pl")
+    val input = Struct.of("filter_wall_and_check_corners", adjacentPrologList, "Path") // soluzione
+    val adjacentWall = engine.solve(input, "Path") // nomi var che deve ritornare //metti come cost
     // string è filtered, e term è la lista. poi ci sarà il pezzo da aggiungere al file
     // in prolong engine fai conversion da term a string
-    // adjacentPrologList.filter(cell => cell == c(_, _, _, wall)) // c(wl,2,1,wall)
-    // println(adjacentPrologList)
-    // check_border_cells ha regole che si chiamano a vicenda
-    NoPath // testo undercase di quello che va aggiunto alla fine deò file
+
+    s"$PathSplit${adjacentWall("Path").toString.toUpperCase}" // testo undercase di quello che va aggiunto alla fine deò file
 
     // due proprietà prolog che is chiamano a vicenda
 

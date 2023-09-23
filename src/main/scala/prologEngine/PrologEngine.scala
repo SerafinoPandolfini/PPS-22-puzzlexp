@@ -4,6 +4,8 @@ import model.cells.*
 import model.room.*
 import alice.tuprolog.{Prolog, SolveInfo, Struct, Term, Theory}
 
+import scala.collection.immutable.Map
+
 /** a prolog engine for executing [[Prolog]] code
   * @param clauses
   *   the [[Theory]] provided

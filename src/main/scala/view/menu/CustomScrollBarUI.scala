@@ -16,6 +16,7 @@ class CustomScrollBarUI() extends BasicScrollBarUI:
 
   /** set the foreground of the scrollbar */
   override def paintThumb(g: Graphics, c: JComponent, thumbBounds: Rectangle): Unit =
+    // Option[
     if (!thumbBounds.isEmpty && thumbColor != null)
       g.setColor(thumbColor)
       g.fillRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height)

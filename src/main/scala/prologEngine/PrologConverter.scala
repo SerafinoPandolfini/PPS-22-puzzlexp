@@ -1,6 +1,6 @@
 package prologEngine
 
-import model.cells.{BasicCell, ButtonBlockCell, ButtonCell, Cell}
+import model.cells.{BasicCell, ButtonBlockCell, ButtonCell, Cell, WallCell}
 import model.room.{Room, RoomLink}
 import alice.tuprolog.{Struct, Term, Theory}
 import model.cells.properties.Colorable
@@ -37,7 +37,7 @@ object PrologConverter:
     */
   val isWall: Cell => String = cell =>
     s"$Separator${(cell match
-        case c: WallCell => "wall"
+        case _: WallCell => "wall"
         case _           => "nil"
       ).toLowerCase}"
 

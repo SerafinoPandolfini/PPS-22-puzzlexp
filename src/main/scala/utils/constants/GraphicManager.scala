@@ -14,6 +14,12 @@ object GraphicManager:
   // val GenericDirection: Direction = Direction.Down
   // val DefaultPosition: Position = (0, 0)
   // val FillerPlayButtonHeight: Int = ControlsPanelSize - 190
+  val adjacentValues: Seq[Int] = Seq(0, 1, -1)
+  val AdjacentDirection: Seq[(Int, Int)] =
+    for
+      x <- adjacentValues
+      y <- adjacentValues
+    yield (x, y)
   val Origin: Point2D = Point2D(0, 0)
   val ScrollBarBorderThickness: Int = 2
   val MenuGUIWidth: Int = 500
