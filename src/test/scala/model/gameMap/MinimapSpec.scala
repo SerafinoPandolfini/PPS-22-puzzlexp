@@ -7,6 +7,7 @@ import org.scalatest.GivenWhenThen
 import Minimap.createMinimap
 import scala.util.Success
 import serialization.JsonDecoder
+import utils.TestUtils.{defaultPosition, position1_0, position0_1, position1_1}
 
 class MinimapSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenThen:
 
@@ -43,4 +44,14 @@ class MinimapSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenThen
       )
     })
   }
+
+  "A Minimap" should "have the positions of its elements in a non negative range" in {
+    Given("a minimap")
+    val minimap = maps.head.createMinimap()
+    Then("its positions should be non negative")
+    minimap.foreach(e => e.position._1 >= 0 && e.position._2 >= 0 should be(true))
+    And("there should not be any overlapping between them")
+    minimap.map(_.position).toSet.size should be(minimap.size)
+  }
+
 
