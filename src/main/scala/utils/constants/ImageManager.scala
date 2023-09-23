@@ -25,6 +25,10 @@ enum ImageManager(_path: String):
   case Play extends ImageManager("Play.png")
   case End extends ImageManager("endGame.png")
   case Home extends ImageManager("home.png")
+  case Room extends ImageManager("room.png")
+  case CurrentRoom extends ImageManager("CurrentRoom.png")
+  case LinkVertical extends ImageManager("linkVertical.png")
+  case LinkHorizontal extends ImageManager("linkHorizontal.png")
 
   /** @return
     *   the path of the image
