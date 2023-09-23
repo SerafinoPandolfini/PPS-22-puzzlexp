@@ -4,7 +4,7 @@ import controller.game.GameController
 import model.cells.properties.Item
 import utils.constants.{ColorManager, ImageManager}
 import view.game.labels.{ItemCounterLabel, ItemLabel, Label}
-
+import view.game.ViewUpdater.pause
 import java.awt.event.ActionEvent
 import java.awt.{Dimension, Font}
 import java.net.URL
@@ -31,7 +31,7 @@ object ToolbarElements:
     pauseButton.setPreferredSize(
       Dimension(ButtonElement, ButtonElement)
     )
-    pauseButton.addActionListener(_ => GameController.saveGame())
+    pauseButton.addActionListener(_ => GameController.view.pause())
     pauseButton.setBackground(ColorManager.ToolbarBackground)
     pauseButton
 
