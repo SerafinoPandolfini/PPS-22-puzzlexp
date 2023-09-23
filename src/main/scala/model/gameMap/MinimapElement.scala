@@ -5,4 +5,10 @@ import model.cells.properties.Direction
 
 import scala.collection.immutable.Set
 
-case class MinimapElement(name: String, position: Position, directions: Set[Direction], visited: Boolean)
+case class MinimapElement(
+    name: String,
+    position: Position,
+    directions: Set[Direction],
+    visited: Boolean,
+    existing: Boolean
+)

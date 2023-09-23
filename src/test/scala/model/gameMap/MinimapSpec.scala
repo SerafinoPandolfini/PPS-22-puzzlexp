@@ -11,7 +11,7 @@ import utils.TestUtils.{defaultPosition, position1_0, position0_1, position1_1}
 
 class MinimapSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenThen:
 
-  var mapFiles = List("json/testMap.json", "json/cyclicMap.json")
+  var mapFiles = List("json/testMap.json", "json/cyclicMap.json", "json/gapMap.json")
   var maps = List.empty[GameMap]
 
   override def beforeEach(): Unit =
@@ -24,9 +24,9 @@ class MinimapSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenThen
         case _ => ()
     )
 
-  "A Minimap" should "represent every room of the map" in {
+  "A complete Minimap" should "represent every room of the map" in {
     Given("a list of GameMaps")
-    maps.foreach(map => {
+    maps.filter(_.name != "gapMap").foreach(map => {
       When("a minimap is created for map " + map.name)
       val minimap = map.createMinimap()
       Then("the size should match the map's room's size")
@@ -60,5 +60,14 @@ class MinimapSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenThen
     val supposedPositions = List(defaultPosition, position1_0, position0_1, position1_1)
     Then("its positions should be correctly sorted for rows")
     minimap.zip(supposedPositions).foreach(e => e._1.position should be(e._2))
+  }
+
+  "An incomplete minimap" should "fill its gap to be represented as a matrix" in {
+    Given("an incomplete map")
+    val incompleteMap = maps.tail.tail.head
+    When("a minimap is created")
+    val minimap = incompleteMap.createMinimap()
+    Then("there should be at least one element that is a placeholder")
+    minimap.filter(!_.existing).isEmpty should not be true
   }
 
