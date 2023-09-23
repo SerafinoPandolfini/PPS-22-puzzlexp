@@ -10,6 +10,8 @@ import model.gameMap.GameMap
 object TestUtils:
   val defaultPosition: Position = (0, 0)
   val outOfBoundPosition: Position = (-1, -1)
+  val position0_1: Position = (0, 1)
+  val position1_0: Position = (1, 0)
   val position1_1: Position = (1, 1)
   val position1_2: Position = (1, 2)
   val position1_3: Position = (1, 3)

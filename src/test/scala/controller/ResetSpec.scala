@@ -27,7 +27,7 @@ class ResetSpec extends AnyFlatSpec with BeforeAndAfterEach:
   override def beforeEach(): Unit =
     super.beforeEach()
     if !GraphicsEnvironment.isHeadless then
-      GameController.startGame("src/main/resources/json/testMap.json")
+      GameController.startGame("json/testMap.json")
       GameController.movePlayer(KeyEvent.VK_S)
       GameController.movePlayer(KeyEvent.VK_S)
       item = CurrentGame.currentRoom.getCell(2, 3).get.cellItem // box

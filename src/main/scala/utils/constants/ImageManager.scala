@@ -1,6 +1,7 @@
 package utils.constants
 
 import utils.constants.ImageManager
+import java.net.URL
 
 enum ImageManager(_path: String):
   case CharacterRight extends ImageManager("HIKER_dx.png")
@@ -19,8 +20,14 @@ enum ImageManager(_path: String):
   case Axe extends ImageManager("Axe.png")
   case Pick extends ImageManager("Pick.png")
   case Pause extends ImageManager("Pause.png")
+  case End extends ImageManager("endGame.png")
+  case Home extends ImageManager("home.png")
 
   /** @return
     *   the path of the image
     */
-  val path: String = "src/main/resources/img/" + _path
+  val path: URL = printIt(getClass.getClassLoader.getResource("img/" + _path))
+
+  def printIt(url: URL): URL =
+    println(url)
+    url

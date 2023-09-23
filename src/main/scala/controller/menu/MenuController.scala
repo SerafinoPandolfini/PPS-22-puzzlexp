@@ -2,12 +2,11 @@ package controller.menu
 
 import controller.menu.MenuController
 import exceptions.MapNotFoundException
-import org.json4s.*
-import org.json4s.native.JsonMethods.*
-import utils.constants.GraphicManager.JsonDirectoryPath
 import view.menu.MenuView
+import utils.constants.PathManager.*
+import utils.constants.PlayableMaps.getPlayableMaps
 
-import java.io.File
+import java.io.{File, InputStream}
 import scala.collection.immutable.{List, ListMap}
 import scala.io.Source
 import scala.util.{Try, Using}
@@ -22,16 +21,11 @@ case class MenuController():
     *   a list with the tuple path of the map file and name of the map
     */
   def searchMapFiles(): ListMap[String, String] =
-    val jsonDirectory: File = File(JsonDirectoryPath)
-    val jsonFiles = jsonDirectory.listFiles.filter(_.isFile).toList
+    val classLoader = getClass.getClassLoader
     (for
-      file <- jsonFiles
-      jsonString <- Using(Source.fromFile(file))(source => source.mkString).toOption
-      json <- Try(parse(jsonString)).toOption
-      nameField <- json \ "name" match
-        case JString(name) => Some(name)
-        case _             => throw new MapNotFoundException
-    yield (JsonDirectoryPath + file.getName) -> nameField).to(ListMap)
+      map <- getPlayableMaps()
+      resource = map + JsonExtension
+    yield (map -> resource)).to(ListMap)
 
   /** check if the @param path is present
     * @return
@@ -41,6 +35,5 @@ case class MenuController():
     val file: File = File(path)
     file.exists()
 
-object Start extends App:
-  val controller: MenuController = MenuController()
-  controller.start()
+  def isInternalFilePresent(path: String): Boolean =
+    Option(getClass.getClassLoader.getResource(JsonDirectoryPath + path)).isDefined

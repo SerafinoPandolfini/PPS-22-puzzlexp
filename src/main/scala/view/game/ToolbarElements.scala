@@ -7,6 +7,7 @@ import view.game.labels.{ItemCounterLabel, ItemLabel, Label}
 
 import java.awt.event.ActionEvent
 import java.awt.{Dimension, Font}
+import java.net.URL
 import javax.swing.*
 import scala.collection.immutable.List
 
@@ -41,9 +42,9 @@ object ToolbarElements:
     * @return
     *   a label with a counter for the specified item
     */
-  def createItemCounter(item: Item, iconPath: String): ItemCounterLabel =
-    val itemIcon = ImageIcon(iconPath)
-    val itemCounterLabel = JLabel(itemIcon)
+  def createItemCounter(item: Item, iconPath: URL): ItemCounterLabel =
+    val itemCounterLabel = JLabel()
+    itemCounterLabel.setIcon(ImageIcon(iconPath))
     itemCounterLabel.setText(counterText)
     itemCounterLabel.setFont(textFont)
     itemCounterLabel.setPreferredSize(
@@ -61,7 +62,7 @@ object ToolbarElements:
     * @note
     *   the image is not initially shown, but it will be shown when the [[Label.amount]] will be greater than 1
     */
-  def createItemLabel(item: Item, iconPath: String): ItemLabel =
+  def createItemLabel(item: Item, iconPath: URL): ItemLabel =
     val itemLabel = JLabel()
     itemLabel.setPreferredSize(
       Dimension(SmallElementWidth, ToolbarElementsHeight)

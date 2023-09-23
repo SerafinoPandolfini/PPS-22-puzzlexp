@@ -24,7 +24,6 @@ object GraphicManager:
   val ScrollBarBorderThickness: Int = 2
   val MenuGUIWidth: Int = 500
   val MenuGUIHeight: Int = 610
-  val JsonDirectoryPath: String = "src/main/resources/json/"
   val CellSize: Int = 32
   val ScreenHeight: Int = Toolkit.getDefaultToolkit.getScreenSize.height
   val Rows: Int = RoomImpl.DefaultHeight

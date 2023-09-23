@@ -1,6 +1,5 @@
 package model.game
 
-//import controller.GameController
 import model.gameMap.GameMap
 import model.cells.Position
 import model.room.Room

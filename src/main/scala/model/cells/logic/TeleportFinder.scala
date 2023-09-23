@@ -18,7 +18,7 @@ object TeleportFinder:
     */
   def findDestination(cells: Set[Cell]): Option[Position] =
     val set = cells.map(convertCellToProlog(_))
-    val engine = PrologEngine("../prologTheory/search_teleport_destination.pl")
+    val engine = PrologEngine("/prologTheory/search_teleport_destination.pl")
     val input = Struct.of("search_teleport_destination", set.toList, termX, termY)
     val result = engine.solve(input, termX, termY)
     if result.isEmpty then Option.empty

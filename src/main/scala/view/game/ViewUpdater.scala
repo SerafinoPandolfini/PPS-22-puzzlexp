@@ -4,11 +4,13 @@ import model.cells.Position
 import model.cells.properties.Item
 import model.room.Room
 import utils.PathExtractor.extractPath
+import utils.constants.PathManager.{ImagePath, PngExtension}
+
+import java.awt.Image
+import java.net.URL
 import javax.swing.ImageIcon
 
 object ViewUpdater:
-  private val BasePath = "src/main/resources/img/"
-  private val PNGPath = ".png"
 
   extension (view: GameView)
 
@@ -19,7 +21,7 @@ object ViewUpdater:
      * @param image
      * the image repsenting the player
      */
-    def updatePlayerImage(position: Position, image: String): Unit =
+    def updatePlayerImage(position: Position, image: URL): Unit =
       val updatedTile = view.tiles.get(position)
       println(position)
       updatedTile.get.playerImage = Option(ImageIcon(image).getImage)
@@ -35,8 +37,8 @@ object ViewUpdater:
       val zippedPaths = groundPaths zip itemPaths
       view.tiles = view.tiles.keys.zip(zippedPaths).foldLeft(view.tiles) { case (tilesMap, ((x, y), (groundPath, itemPath))) =>
         val updatedTile = tilesMap((x, y))
-        updatedTile.itemImage = Option(ImageIcon(s"$BasePath$itemPath$PNGPath").getImage)
-        updatedTile.cellImage = Option(ImageIcon(s"$BasePath$groundPath$PNGPath").getImage)
+        updatedTile.itemImage = Option(getCellImage(itemPath))
+        updatedTile.cellImage = Option(getCellImage(groundPath))
         tilesMap.updated((x, y), updatedTile)
       }
 
@@ -68,3 +70,7 @@ object ViewUpdater:
       view.mainPanel.add(view.endPanel)
       view.mainPanel.revalidate()
 
+    private def getCellImage(path: String): Image =
+      val imageURL = Option(getClass.getClassLoader.getResource(ImagePath + path + PngExtension))
+      if imageURL.isEmpty then ImageIcon("").getImage
+      else ImageIcon(imageURL.get).getImage

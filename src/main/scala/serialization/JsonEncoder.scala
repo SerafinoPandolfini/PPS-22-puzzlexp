@@ -1,5 +1,6 @@
 package serialization
 
+import model.cells.properties.Item
 import model.cells.*
 import io.circe.generic.semiauto.deriveEncoder
 import io.circe.{Encoder, Json}

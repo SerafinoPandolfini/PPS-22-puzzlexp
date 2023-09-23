@@ -5,6 +5,7 @@ import exceptions.MapNotFoundException
 import serialization.JsonDecoder
 import utils.constants.ColorManager.TransparentButtons
 import utils.constants.GraphicManager.*
+import utils.constants.PathManager.JsonDirectoryPath
 import utils.constants.{ColorManager, ImageManager}
 import view.menu.{CustomCellRenderer, CustomScrollBarUI, MenuView}
 
@@ -29,7 +30,7 @@ object SelectMapExtension:
   private val SavesDirectoryPath: String = Paths
     .get(System.getProperty("user.home"), "puzzlexp", "saves")
     .toString + File.separator
-  private val JsonExtension: String = ".json"
+  
 
   extension (view: MenuView)
     /** create a layered panel containing all the possible panels
@@ -130,16 +131,14 @@ object SelectMapExtension:
     private def configureListener(button: JButton, jList: JList[String], directoryPath: String): Unit =
       button.addActionListener((_: ActionEvent) =>
         view.dispose()
-        GameController.startGame(
-          directoryPath + jList.getSelectedValue + JsonExtension
-        )
+        GameController.startGame(directoryPath + jList.getSelectedValue)
       )
 
     /** Enable the button if there's the file of the map */
     private def handleSelectedValue(jList: JList[String], button: JButton, directoryPath: String): JButton =
       if (
         view.controller.isFilePresent(
-          directoryPath + jList.getSelectedValue + JsonExtension
+          directoryPath + jList.getSelectedValue
         )
       )
         button.setEnabled(true)
@@ -157,7 +156,7 @@ object SelectMapExtension:
       val listSelectionListener: ListSelectionListener = (e: ListSelectionEvent) =>
         if (!e.getValueIsAdjusting)
           continueButton = handleSelectedValue(jList, continueButton, SavesDirectoryPath)
-          newGameButton = handleSelectedValue(jList, newGameButton, JsonDirectoryPath)
+          newGameButton.setEnabled(view.controller.isInternalFilePresent(jList.getSelectedValue))
       jList.addListSelectionListener(listSelectionListener)
       configureListener(newGameButton, jList, JsonDirectoryPath)
       configureListener(continueButton, jList, SavesDirectoryPath)

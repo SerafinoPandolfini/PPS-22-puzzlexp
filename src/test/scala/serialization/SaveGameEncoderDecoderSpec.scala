@@ -32,7 +32,7 @@ class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
   override def beforeEach(): Unit =
     super.beforeEach()
     if !GraphicsEnvironment.isHeadless then
-      GameController.startGame("src/main/resources/json/testMap.json")
+      GameController.startGame("json/testMap.json")
       for _ <- 0 to RoomImpl.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
       GameController.movePlayer(KeyEvent.VK_D)
       for _ <- 0 to RoomImpl.DefaultHeight do GameController.movePlayer(KeyEvent.VK_W)

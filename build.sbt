@@ -1,4 +1,4 @@
-ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / version := "1.0.1"
 
 ThisBuild / scalaVersion := "3.1.3"
 
@@ -10,7 +10,6 @@ lazy val root = (project in file("."))
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.15" % "test",
     libraryDependencies += "org.scalatest" %% "scalatest-funsuite" % "3.2.16" % "test",
     libraryDependencies += "it.unibo.alice.tuprolog" % "2p-core" % "4.1.1",
-    libraryDependencies += "org.json4s" %% "json4s-native" % "4.0.6",
     libraryDependencies ++= Seq(
       "io.circe" %% "circe-core",
       "io.circe" %% "circe-generic",
@@ -24,3 +23,5 @@ jacocoReportSettings := JacocoReportSettings()
   )
 Test / jacocoExcludes := Seq("controller.*", "view.*", "model.game.*")
 Test / parallelExecution := false
+
+Compile / mainClass  := Some("Main")

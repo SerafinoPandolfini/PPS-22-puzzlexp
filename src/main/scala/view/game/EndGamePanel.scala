@@ -1,6 +1,8 @@
 package view.game
 
+import controller.game.GameController
 import utils.constants.{ColorManager, GraphicManager, ImageManager}
+import controller.menu.MenuController
 
 import java.awt.*
 import java.io.File
@@ -8,13 +10,16 @@ import javax.imageio.ImageIO
 import javax.swing.*
 import view.ImagePanel
 
+import javax.swing.border.*
+
 object EndGamePanel:
 
   private val labelFont = Font("Arial", Font.PLAIN, 43)
-  private val homeButtonDimension = Dimension(102, 102)
-  private val borderLayoutGap = BorderLayout(0, 230)
-  private val imagePanel = ImagePanel(ImageIO.read(File("src/main/resources/img/endGame.png")))
-  private val homeIcon = ImageIcon("src/main/resources/img/home.png")
+  private val homeButtonDimension = 64
+  private val padding = 9
+  private val borderLayoutGap = BorderLayout(0, 250)
+  private val imagePanel = ImagePanel(ImageIO.read(ImageManager.End.path))
+  private val homeIcon = ImageIcon(ImageManager.Home.path)
   private val labelHeight = 6
 
   /** provide a basic [[JPanel]] to serve as a end game panel
@@ -24,15 +29,9 @@ object EndGamePanel:
   def createEndGamePanel(): JPanel =
     val endGamePanel = JPanel(BorderLayout())
     imagePanel.setLayout(borderLayoutGap)
-
-    val homeButton = JButton()
-    homeButton.setOpaque(false)
-    homeButton.setContentAreaFilled(false)
-    homeButton.setBorderPainted(false)
-    homeButton.setIcon(homeIcon)
-    homeButton.setPreferredSize(homeButtonDimension)
+    imagePanel.setBorder(EmptyBorder(padding, padding, padding, padding))
+    val homeButton = createHomeButton()
     imagePanel.add(homeButton, BorderLayout.LINE_START)
-
     endGamePanel.add(imagePanel, BorderLayout.CENTER)
     endGamePanel.setOpaque(true)
     endGamePanel
@@ -53,8 +52,21 @@ object EndGamePanel:
       SwingConstants.CENTER
     )
     label.setForeground(ColorManager.ToolbarText)
-    label.setPreferredSize(Dimension(GraphicManager.Cols * GraphicManager.CellSize, GraphicManager.CellSize * labelHeight))
-
+    label.setPreferredSize(
+      Dimension(GraphicManager.Cols * GraphicManager.CellSize, GraphicManager.CellSize * labelHeight)
+    )
     label.setFont(labelFont)
-
     imagePanel.add(label, BorderLayout.SOUTH)
+
+  private def createHomeButton(): JButton =
+    val homeButton = JButton()
+    homeButton.setOpaque(false)
+    homeButton.setContentAreaFilled(false)
+    homeButton.setBorderPainted(false)
+    homeButton.setIcon(homeIcon)
+    homeButton.setPreferredSize(Dimension(homeButtonDimension, homeButtonDimension))
+    homeButton.addActionListener(_ => {
+      GameController.view.dispose()
+      MenuController().start()
+    })
+    homeButton

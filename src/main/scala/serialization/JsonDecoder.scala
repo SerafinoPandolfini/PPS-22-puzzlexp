@@ -7,10 +7,12 @@ import io.circe.parser.*
 import model.cells.properties.Item
 import model.room.{Room, RoomLink}
 import model.gameMap.GameMap
+import utils.constants.PathManager.{JsonDirectoryPath, JsonExtension}
 import scala.io.Source
 
-import scala.util.Try
+import scala.util.{Try, Using}
 import scala.io.Source
+import scala.io.BufferedSource
 
 type SaveData = (String, GameMap, Room, Position, Position, List[Item], Int)
 
@@ -110,12 +112,20 @@ object JsonDecoder:
     */
   def getJsonFromPath(filePath: String): Try[Json] =
     Try {
-      val source = Source.fromFile(filePath)
-      try
+      val source = filePath match {
+        case externalPath if externalPath.contains("saves") =>
+          Source.fromFile(filePath)
+        case internalPath =>
+          val classLoader = getClass.getClassLoader
+          val inputStream = classLoader.getResourceAsStream(internalPath)
+          Source.fromInputStream(inputStream)
+      }
+
+      Using(source) { source =>
         val jsonString = source.mkString
         parse(jsonString).getOrElse(throw new Exception("Parsing failed"))
-      finally source.close()
-    }
+      }
+    }.flatten
 
   /** a decoder for a save game file
     * @return
@@ -131,7 +141,7 @@ object JsonDecoder:
       itemList <- cursor.downField("items").as[List[Item]]
       score <- cursor.downField("score").as[Int]
     yield (
-      "src/main/resources/json/" + originalMap + ".json",
+      JsonDirectoryPath + originalMap + JsonExtension,
       currentMap,
       currentRoom,
       currentPlayerPosition,
