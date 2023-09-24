@@ -3,6 +3,7 @@ package view.game
 import controller.game.GameController
 import model.cells.Position
 import model.cells.properties.{Direction, Item}
+import model.gameMap.MinimapElement
 import model.room.Room
 import utils.PathExtractor.extractPath
 import utils.constants.PathManager.{ImagePath, PngExtension}
@@ -78,8 +79,7 @@ object ViewUpdater:
       if imageURL.isEmpty then ImageIcon("").getImage
       else ImageIcon(imageURL.get).getImage
 
-    def pause(): Unit =
-      val list = GameController.getMinimap
+    def pause(list: List[MinimapElement]): Unit =
       view.mainPanel.remove(view.toolbarPanel)
       view.mainPanel.remove(view.tilesPanel)
       view.mainPanel.add(
@@ -89,8 +89,8 @@ object ViewUpdater:
       view.mainPanel.repaint()
       view.mainPanel.revalidate()
 
-    def back(pausePanel: JPanel): Unit =
-      view.mainPanel.remove(pausePanel)
+    def back(): Unit =
+      view.mainPanel.removeAll()
       view.mainPanel.add(view.toolbarPanel, BorderLayout.NORTH)
       view.mainPanel.add(view.tilesPanel, BorderLayout.CENTER)
       view.mainPanel.repaint()

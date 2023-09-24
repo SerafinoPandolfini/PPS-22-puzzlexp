@@ -43,7 +43,7 @@ class PauseGamePanel(val list: List[MinimapElement], var width: Int, var height:
   def createPauseGamePanel(): JPanel =
     val endGamePanel = JPanel(BorderLayout())
     PanelImage.setLayout(BorderLayout())
-    val backButton = createButton(PlayIcon, _ => GameController.view.back(endGamePanel))
+    val backButton = createButton(PlayIcon, _ => GameController.backToGame())
     val saveButton = createButton(SaveIcon, _ => GameController.saveGame())
     PanelImage.add(saveButton, BorderLayout.LINE_END)
     PanelImage.add(backButton, BorderLayout.LINE_START)

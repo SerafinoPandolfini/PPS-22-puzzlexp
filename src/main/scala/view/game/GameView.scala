@@ -1,6 +1,5 @@
 package view.game
 
-import controller.game.GameController
 import model.cells.Cell.given
 import model.cells.properties.Item
 import model.cells.{BasicCell, Position, WallCell}

@@ -31,7 +31,7 @@ object ToolbarElements:
     pauseButton.setPreferredSize(
       Dimension(ButtonElement, ButtonElement)
     )
-    pauseButton.addActionListener(_ => GameController.view.pause())
+    pauseButton.addActionListener(_ => GameController.pauseGame())
     pauseButton.setBackground(ColorManager.ToolbarBackground)
     pauseButton
 

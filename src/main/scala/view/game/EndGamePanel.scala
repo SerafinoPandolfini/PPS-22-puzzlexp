@@ -66,7 +66,7 @@ object EndGamePanel:
     homeButton.setIcon(homeIcon)
     homeButton.setPreferredSize(Dimension(homeButtonDimension, homeButtonDimension))
     homeButton.addActionListener(_ => {
-      GameController.view.dispose()
+      GameController.endGame()
       MenuController().start()
     })
     homeButton
