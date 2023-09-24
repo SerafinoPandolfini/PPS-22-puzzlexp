@@ -8,10 +8,9 @@ import utils.PathExtractor.extractPath
 import utils.constants.PathManager.{ImagePath, PngExtension}
 import view.game.pause.PauseGamePanel
 
-import javax.swing.JPanel
+import javax.swing.{ImageIcon, JPanel, SwingUtilities}
 import java.awt.{BorderLayout, Image}
 import java.net.URL
-import javax.swing.{ImageIcon, JPanel}
 
 object ViewUpdater:
 
@@ -80,9 +79,13 @@ object ViewUpdater:
       else ImageIcon(imageURL.get).getImage
 
     def pause(): Unit =
+      val list = GameController.getMinimap
       view.mainPanel.remove(view.toolbarPanel)
       view.mainPanel.remove(view.tilesPanel)
-      view.mainPanel.add(PauseGamePanel().createPauseGamePanel())
+      view.mainPanel.add(
+        PauseGamePanel(list, view.mainPanel.getWidth, view.mainPanel.getHeight).createPauseGamePanel(),
+        BorderLayout.CENTER
+      )
       view.mainPanel.repaint()
       view.mainPanel.revalidate()
 
