@@ -1,20 +1,20 @@
 package serialization
 
+import model.cells.properties.Direction
 import model.cells.*
 import io.circe.generic.semiauto.deriveDecoder
 import io.circe.{Decoder, DecodingFailure, Json}
 import io.circe.parser.*
 import model.cells.properties.Item
 import model.room.{Room, RoomLink}
-import model.gameMap.GameMap
+import model.gameMap.{GameMap, MinimapElement}
 import utils.constants.PathManager.{JsonDirectoryPath, JsonExtension}
 import scala.io.Source
-
 import scala.util.{Try, Using}
 import scala.io.Source
 import scala.io.BufferedSource
 
-type SaveData = (String, GameMap, Room, Position, Position, List[Item], Int)
+type SaveData = (String, GameMap, Room, Position, Position, List[Item], Int, List[MinimapElement])
 
 object JsonDecoder:
 
@@ -78,6 +78,14 @@ object JsonDecoder:
 
   given roomLinkDecoder: Decoder[RoomLink] = deriveDecoder[RoomLink]
 
+  given directionDecoder: Decoder[Direction] = deriveDecoder[Direction]
+
+  /** a decoder for the mini map
+    * @return
+    *   a [[Decoder]] for MinimapElement
+    */
+  given minimapElementDecoder: Decoder[MinimapElement] = deriveDecoder[MinimapElement]
+
   /** a decoder for [[Room]]
     * @return
     *   a room decoder
@@ -140,6 +148,7 @@ object JsonDecoder:
       startPlayerPosition <- cursor.downField("startPos").as[Position]
       itemList <- cursor.downField("items").as[List[Item]]
       score <- cursor.downField("score").as[Int]
+      minimap <- cursor.downField("minimap").as[List[MinimapElement]]
     yield (
       JsonDirectoryPath + originalMap + JsonExtension,
       currentMap,
@@ -147,6 +156,7 @@ object JsonDecoder:
       currentPlayerPosition,
       startPlayerPosition,
       itemList,
-      score
+      score,
+      minimap
     )
   }

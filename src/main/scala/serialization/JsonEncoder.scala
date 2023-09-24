@@ -1,5 +1,6 @@
 package serialization
 
+import model.cells.properties.Direction
 import model.cells.properties.Item
 import model.cells.*
 import io.circe.generic.semiauto.deriveEncoder
@@ -8,7 +9,7 @@ import io.circe.syntax.*
 import model.cells.properties.Item
 import model.game.CurrentGame
 import model.room.{Room, RoomLink}
-import model.gameMap.GameMap
+import model.gameMap.{GameMap, MinimapElement}
 
 object JsonEncoder:
 
@@ -89,6 +90,14 @@ object JsonEncoder:
 
   given roomLinkEncoder: Encoder[RoomLink] = deriveEncoder[RoomLink]
 
+  given directionEncoder: Encoder[Direction] = deriveEncoder[Direction]
+
+  /** an encoder for mini map
+    * @return
+    *   a [[Encoder]] for MinimapElement
+    */
+  given minimapElementEncoder: Encoder[MinimapElement] = deriveEncoder[MinimapElement]
+
   /** encoder for [[Room]]
     * @return
     *   an encoder for room
@@ -126,6 +135,7 @@ object JsonEncoder:
       "currentPos" -> CurrentGame.currentPosition.asJson,
       "startPos" -> CurrentGame.startPositionInRoom.asJson,
       "items" -> CurrentGame.itemHolder.itemOwned.asJson,
-      "score" -> CurrentGame.scoreCounter.asJson
+      "score" -> CurrentGame.scoreCounter.asJson,
+      "minimap" -> CurrentGame.minimapElement.asJson
     )
   }
