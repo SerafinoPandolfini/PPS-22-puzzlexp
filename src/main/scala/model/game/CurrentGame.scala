@@ -1,12 +1,13 @@
 package model.game
 
-import model.gameMap.GameMap
+import model.gameMap.{GameMap, MinimapElement}
 import model.cells.Position
 import model.room.Room
 import utils.givens.ItemConversion.given_Conversion_Item_Int
-import io.circe.{Json, HCursor}
+import io.circe.{HCursor, Json}
 import model.cells.properties.Item
 import serialization.JsonDecoder
+import model.gameMap.Minimap.createMinimap
 import scala.util.{Failure, Success}
 
 object CurrentGame:
@@ -17,6 +18,7 @@ object CurrentGame:
   private var _currentRoom: Room = _
   private var _currentPosition: Position = _
   private var _startPositionInRoom: Position = _
+  private var _minMapElement: List[MinimapElement] = _
 
   def scoreCounter: Int = _scoreCounter
 
@@ -32,6 +34,8 @@ object CurrentGame:
 
   def originalGameMap: GameMap = _originalGameMap
 
+  def minimapElement: List[MinimapElement] = _minMapElement
+
   /** initialize all the values that depends on the game map
     * @param value
     *   the map
@@ -44,6 +48,9 @@ object CurrentGame:
     _currentRoom = value.getRoomFromName(value.initialRoom).get
     _currentPosition = value.initialPosition
     _startPositionInRoom = value.initialPosition
+    _minMapElement = _gameMap.createMinimap()
+    println(_minMapElement.toString())
+    _minMapElement = visitRoom()
 
   /** substitute the current room with a new one, updating the current map
     * @param newRoom
@@ -64,6 +71,7 @@ object CurrentGame:
     _currentRoom = room
     _currentPosition = pos
     _startPositionInRoom = pos
+    _minMapElement = visitRoom()
 
   /** Adds an item to the [[ItemHolder]] and calculate its score
     * @param item
@@ -96,7 +104,16 @@ object CurrentGame:
     */
   def load(json: Json): Unit =
     JsonDecoder.saveGameDecoder.apply(json.hcursor) match
-      case Right(originalMap, currentMap, currentRoom, currentPlayerPosition, startPlayerPosition, itemList, score) =>
+      case Right(
+            originalMap,
+            currentMap,
+            currentRoom,
+            currentPlayerPosition,
+            startPlayerPosition,
+            itemList,
+            score,
+            minmap
+          ) =>
         _scoreCounter = score
         _itemHolder = ItemHolder(itemList)
         JsonDecoder.getJsonFromPath(originalMap) match
@@ -109,4 +126,15 @@ object CurrentGame:
         _currentRoom = currentRoom
         _currentPosition = currentPlayerPosition
         _startPositionInRoom = startPlayerPosition
+        _minMapElement = minmap
       case Left(ex) => println(ex)
+
+  /** change the minimap marking the current room as visited
+    * @return
+    *   the modified minimap
+    */
+  private def visitRoom(): List[MinimapElement] =
+    _minMapElement.map(element =>
+      if (element.name == _currentRoom.name) then element.visit()
+      else element
+    )

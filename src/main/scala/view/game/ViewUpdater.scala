@@ -1,13 +1,15 @@
 package view.game
 
+import controller.game.GameController
 import model.cells.Position
-import model.cells.properties.Item
+import model.cells.properties.{Direction, Item}
 import model.room.Room
 import utils.PathExtractor.extractPath
 import utils.constants.PathManager.{ImagePath, PngExtension}
-import java.awt.Image
+import view.game.pause.PauseGamePanel
+import javax.swing.{ImageIcon, JPanel, SwingUtilities}
+import java.awt.{BorderLayout, Image}
 import java.net.URL
-import javax.swing.ImageIcon
 
 object ViewUpdater:
 
@@ -83,3 +85,21 @@ object ViewUpdater:
       val imageURL = Option(getClass.getClassLoader.getResource(ImagePath + path + PngExtension))
       if imageURL.isEmpty then ImageIcon("").getImage
       else ImageIcon(imageURL.get).getImage
+
+    def pause(): Unit =
+      val list = GameController.getMinimap
+      view.mainPanel.remove(view.toolbarPanel)
+      view.mainPanel.remove(view.tilesPanel)
+      view.mainPanel.add(
+        PauseGamePanel(list, view.mainPanel.getWidth, view.mainPanel.getHeight).createPauseGamePanel(),
+        BorderLayout.CENTER
+      )
+      view.mainPanel.repaint()
+      view.mainPanel.revalidate()
+
+    def back(pausePanel: JPanel): Unit =
+      view.mainPanel.remove(pausePanel)
+      view.mainPanel.add(view.toolbarPanel, BorderLayout.NORTH)
+      view.mainPanel.add(view.tilesPanel, BorderLayout.CENTER)
+      view.mainPanel.repaint()
+      view.mainPanel.revalidate()
