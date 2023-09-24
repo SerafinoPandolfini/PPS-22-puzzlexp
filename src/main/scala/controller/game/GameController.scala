@@ -95,12 +95,23 @@ object GameController:
     printWriter.write(JsonEncoder.saveGameEncoder.apply(CurrentGame).spaces2)
     printWriter.close()
 
-  /** return a representation of the map
-    * @return
-    *   a list of [[MinimapElement]]
+  /** pause the game
     */
-  def getMinimap: List[MinimapElement] =
-    CurrentGame.minimapElement
+  def pauseGame(): Unit = _view.pause(CurrentGame.minimapElement)
+
+  /** goes back to game from the pause screen
+    */
+  def backToGame(): Unit = _view.back()
+
+  /** delete the current frame
+    */
+  def endGame(): Unit = _view.dispose()
+
+  /** get the room name
+    * @return
+    *   the current room name
+    */
+  def getCurrentRoomName: String = CurrentGame.currentRoom.name
 
 object simulate extends App:
   GameController.startGame("src/main/resources/json/FirstMap.json")
