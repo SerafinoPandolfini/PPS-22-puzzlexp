@@ -28,6 +28,7 @@ class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
   var room: Room = _
   var score: Int = _
   var items: List[Item] = _
+  var minMap: List[MinimapElement] = _
 
   override def beforeEach(): Unit =
     super.beforeEach()
@@ -43,6 +44,7 @@ class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
       startPosition = CurrentGame.startPositionInRoom
       score = CurrentGame.scoreCounter
       items = CurrentGame.itemHolder.itemOwned
+      minMap = CurrentGame.minimapElement
 
   override def afterEach(): Unit =
     super.afterEach()
@@ -52,7 +54,16 @@ class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
     if !GraphicsEnvironment.isHeadless then
       saveGameEncoder.apply(CurrentGame) shouldBe a[Json]
       val saveJ: Json = saveGameEncoder.apply(CurrentGame)
-      val (originalMap2, currentMap2, currentRoom2, currentPlayerPosition2, startPlayerPosition2, itemList2, score2) =
+      val (
+        originalMap2,
+        currentMap2,
+        currentRoom2,
+        currentPlayerPosition2,
+        startPlayerPosition2,
+        itemList2,
+        score2,
+        minmap2
+      ) =
         saveGameDecoder.apply(saveJ.hcursor).toOption.get
       isEqual(
         JsonDecoder.mapDecoder(JsonDecoder.getJsonFromPath(originalMap2).toOption.get.hcursor).toOption.get,
@@ -63,6 +74,7 @@ class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
       startPlayerPosition2 should be(startPosition)
       score2 should be(score)
       itemList2 should be(items)
+      minmap2 should be(minMap)
       currentPlayerPosition2 should be(position)
   }
 
