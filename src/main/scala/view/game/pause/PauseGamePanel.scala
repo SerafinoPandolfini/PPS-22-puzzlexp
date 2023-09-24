@@ -6,6 +6,7 @@ import view.ImagePanel
 import view.game.ViewUpdater.back
 import model.gameMap.MinimapElement
 import view.game.pause.PauseExtension.popolateMap
+import view.game.pause.PauseGamePanel.*
 import java.awt.event.ActionListener
 import java.awt.{BorderLayout, Dimension}
 import javax.imageio.ImageIO
@@ -13,28 +14,26 @@ import javax.swing.*
 import javax.swing.border.*
 
 class PauseGamePanel(val list: List[MinimapElement], var width: Int, var height: Int):
-  private val ButtonDimension = 88
-  private val Padding = 9
-  private val NoScale = 1.0
-  private val PanelImage = ImagePanel(ImageIO.read(ImageManager.PauseBackground.path))
-  private val SaveIcon = ImageIcon(ImageManager.Save.path)
-  private val PlayIcon = ImageIcon(ImageManager.Play.path)
-  private[pause] val RoomIcon = ImageIcon(ImageManager.Room.path)
-  private val notScaledRoomPanelWidth =
-    RoomIcon.getIconWidth + (ImageIcon(ImageManager.LinkHorizontal.path).getIconWidth * 2)
-  private val notScaledRoomPanelHeight =
-    RoomIcon.getIconHeight + (ImageIcon(ImageManager.LinkHorizontal.path).getIconWidth * 2)
-  private[pause] val cols = list.map(e => e.position._1).max + 1
-  private[pause] val rows = list.map(e => e.position._2).max + 1
-  private[pause] val scale = scaling(
-    width - Padding * 2,
+
+  private val panelImage = ImagePanel(ImageIO.read(ImageManager.PauseBackground.path))
+  private val saveIcon = ImageIcon(ImageManager.Save.path)
+  private val playIcon = ImageIcon(ImageManager.Play.path)
+  private[pause] val roomIcon = ImageIcon(ImageManager.Room.path)
+  val notScaledRoomPanelWidth: Int =
+    roomIcon.getIconWidth + (ImageIcon(ImageManager.LinkHorizontal.path).getIconWidth * Quantity)
+  val notScaledRoomPanelHeight: Int =
+    roomIcon.getIconHeight + (ImageIcon(ImageManager.LinkHorizontal.path).getIconWidth * Quantity)
+  val cols: Int = list.map(e => e.position._1).max + 1
+  val rows: Int = list.map(e => e.position._2).max + 1
+  val scale: Double = scaling(
+    width - Padding * Quantity,
     notScaledRoomPanelWidth * cols,
-    height - Padding * 2 - ButtonDimension,
+    height - Padding * Quantity - ButtonDimension,
     notScaledRoomPanelHeight * rows
   )
   private[pause] val linkWidth = (ImageIcon(ImageManager.LinkHorizontal.path).getIconWidth * scale).toInt
-  private[pause] val roomWidth = (RoomIcon.getIconWidth * scale).toInt
-  private[pause] val mapWidth = (roomWidth + (linkWidth * 2)) * cols
+  private[pause] val roomWidth = (roomIcon.getIconWidth * scale).toInt
+  private[pause] val mapWidth = (roomWidth + (linkWidth * Quantity)) * cols
 
   /** provide a basic [[JPanel]] to serve as a end game panel
     * @return
@@ -42,23 +41,23 @@ class PauseGamePanel(val list: List[MinimapElement], var width: Int, var height:
     */
   def createPauseGamePanel(): JPanel =
     val endGamePanel = JPanel(BorderLayout())
-    PanelImage.setLayout(BorderLayout())
-    val backButton = createButton(PlayIcon, _ => GameController.backToGame())
-    val saveButton = createButton(SaveIcon, _ => GameController.saveGame())
-    PanelImage.add(saveButton, BorderLayout.LINE_END)
-    PanelImage.add(backButton, BorderLayout.LINE_START)
+    panelImage.setLayout(BorderLayout())
+    val backButton = createButton(playIcon, _ => GameController.backToGame())
+    val saveButton = createButton(saveIcon, _ => GameController.saveGame())
+    panelImage.add(saveButton, BorderLayout.LINE_END)
+    panelImage.add(backButton, BorderLayout.LINE_START)
     val mapPanel = this.popolateMap()
     mapPanel.setOpaque(false)
-    PanelImage.setBorder(
+    panelImage.setBorder(
       EmptyBorder(
         Padding,
-        Padding + (width - Padding - mapWidth) / 2,
+        Padding + (width - Padding - mapWidth) / Quantity,
         Padding,
-        Padding + (width - Padding - mapWidth) / 2
+        Padding + (width - Padding - mapWidth) / Quantity
       )
     )
-    PanelImage.add(mapPanel, BorderLayout.SOUTH)
-    endGamePanel.add(PanelImage, BorderLayout.CENTER)
+    panelImage.add(mapPanel, BorderLayout.SOUTH)
+    endGamePanel.add(panelImage, BorderLayout.CENTER)
     endGamePanel.setOpaque(true)
     endGamePanel
 
@@ -96,3 +95,9 @@ class PauseGamePanel(val list: List[MinimapElement], var width: Int, var height:
     val scalingWidth = if xtot < x then xtot / x else NoScale
     val scalingHeight = if ytot < y then ytot / y else NoScale
     Math.min(scalingWidth, scalingHeight)
+
+object PauseGamePanel:
+  val ButtonDimension = 88
+  val Padding = 9
+  val NoScale = 1.0
+  val Quantity = 2

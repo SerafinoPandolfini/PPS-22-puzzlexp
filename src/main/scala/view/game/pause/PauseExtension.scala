@@ -6,7 +6,6 @@ import model.game.CurrentGame
 import model.gameMap.MinimapElement
 import utils.constants.ImageManager
 import utils.givens.DirectionMapping.given_Conversion_Direction_URL_String
-
 import java.awt.{BorderLayout, Dimension, GridLayout}
 import java.net.URL
 import javax.swing.{ImageIcon, JLabel, JPanel}
@@ -15,7 +14,7 @@ object PauseExtension:
 
   extension (pauseGamePanel: PauseGamePanel)
 
-    private def roomHeight = (pauseGamePanel.RoomIcon.getIconHeight * pauseGamePanel.scale).toInt
+    private def roomHeight = (pauseGamePanel.roomIcon.getIconHeight * pauseGamePanel.scale).toInt
 
     /** popolate the minimap in the pause menu
       * @return
@@ -45,7 +44,7 @@ object PauseExtension:
       val (img, dir) = tup
       val room =
         if l.name.equals(GameController.getCurrentRoomName) then ImageIcon(ImageManager.CurrentRoom.path)
-        else pauseGamePanel.RoomIcon
+        else pauseGamePanel.roomIcon
       val (roomLabel, linkLabel) =
         if l.visited && l.existing then
           (
