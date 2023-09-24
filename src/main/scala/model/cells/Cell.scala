@@ -1,12 +1,12 @@
 package model.cells
 
-import model.cells.properties.WalkableType.*
+import model.cells.properties.WalkableType.Walkable
 import model.cells.properties.{Item, WalkableType}
 
 /** Type that represent the position of an element */
 type Position = (Int, Int)
 
-/** The basic element that compose a room
+/** The basic element that compose a [[model.room.Room]]
   */
 abstract class Cell:
 

@@ -1,16 +1,7 @@
 package model.room.rules
 
 import model.cells.properties.{Color, Item, PressurePlateBlockGroup}
-import model.cells.{
-  BasicCell,
-  ButtonBlockCell,
-  ButtonCell,
-  PressurePlateBlockCell,
-  PressurePlateCell,
-  TeleportCell,
-  TeleportDestinationCell,
-  WallCell
-}
+import model.cells.*
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*

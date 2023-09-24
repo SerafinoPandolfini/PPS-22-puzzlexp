@@ -5,7 +5,7 @@ import model.room.rules.PressureCellsRule.{Rule, RuleMessage}
 import prologEngine.PrologConverter.noProperty
 
 /** rule for controlling the number of [[model.cells.PressurePlateCell]] and [[model.cells.PressurePlateBlockCell]]
- */
+  */
 trait PressureCellsRule extends BaseRoomRule:
 
   override def checkRoomValidity(room: Room): List[String] =

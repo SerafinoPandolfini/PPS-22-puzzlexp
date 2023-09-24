@@ -4,12 +4,10 @@ import controller.game.GameController
 import model.cells.properties.Item
 import utils.constants.{ColorManager, ImageManager}
 import view.game.labels.{ItemCounterLabel, ItemLabel, Label}
-
 import java.awt.event.ActionEvent
 import java.awt.{Dimension, Font}
 import java.net.URL
 import javax.swing.*
-import scala.collection.immutable.List
 
 object ToolbarElements:
   private val textFont = Font("Arial", Font.PLAIN, 16)

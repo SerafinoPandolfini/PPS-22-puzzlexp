@@ -2,7 +2,6 @@ package view.game
 
 import utils.constants.ImageManager
 import view.game.MultiLayeredTile.{BackgroundImage, StartX, StartY}
-
 import java.awt.*
 import javax.swing.*
 

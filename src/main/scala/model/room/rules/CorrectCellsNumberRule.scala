@@ -3,8 +3,8 @@ package model.room.rules
 import model.room.{Room, RoomImpl}
 import model.cells.Cell
 import model.room.rules.CorrectCellsNumberRule.{RuleMessage, Rule}
-import prologEngine.PrologEngine.{*, given}
-import prologEngine.PrologConverter.*
+import prologEngine.PrologConverter.noProperty
+import prologEngine.PrologEngine.given
 
 /** rule for controlling if the [[Room]] have the right number of [[Cell]]s */
 trait CorrectCellsNumberRule extends BaseRoomRule:

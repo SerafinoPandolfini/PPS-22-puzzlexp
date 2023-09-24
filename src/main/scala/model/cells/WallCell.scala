@@ -1,6 +1,6 @@
 package model.cells
 
-import model.cells.properties.WalkableType.*
+import model.cells.properties.WalkableType.Walkable
 import model.cells.properties.{Item, WalkableType}
 
 /** The cell representing a non walkable obstacle

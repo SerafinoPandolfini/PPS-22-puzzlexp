@@ -1,6 +1,7 @@
 package model.cells.properties
 
 import model.cells.Position
+
 /** Enumeration representing the direction of movement of a player or item
   */
 enum Direction(val coordinates: Position):

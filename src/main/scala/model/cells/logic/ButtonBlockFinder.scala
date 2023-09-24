@@ -6,10 +6,12 @@ import prologEngine.PrologEngine.{*, given}
 import alice.tuprolog.{Struct, Term}
 import model.cells.properties.Color
 import prologEngine.PrologConverter.*
+import utils.constants.PathManager.{PrologExtension, TheoryDirectoryPath}
 
 object ButtonBlockFinder:
   val termX = "X"
   val termY = "Y"
+  val theoryName = "search_button_block"
 
   /** Find the button block cells of the specified color from the specified set
     * @param cells
@@ -21,8 +23,8 @@ object ButtonBlockFinder:
     */
   def positionToRevert(cells: Set[Cell], color: Color): Set[Position] =
     val set = cells.map(convertCellToProlog(_, addColor))
-    val engine = PrologEngine("/prologTheory/search_button_block.pl")
-    val input = Struct.of("search_button_block", set.toList, termX, termY, color.toString.toLowerCase)
+    val engine = PrologEngine(TheoryDirectoryPath + theoryName + PrologExtension)
+    val input = Struct.of(theoryName, set.toList, termX, termY, color.toString.toLowerCase)
     val result = engine.solve(input, termX, termY)
     extractPositions(result)
 

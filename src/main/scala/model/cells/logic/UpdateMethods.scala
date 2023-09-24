@@ -6,6 +6,7 @@ import model.cells.properties.{Color, Direction, Item, PressableState}
 import utils.extensions.PositionExtension.+
 
 object UpdateMethods:
+
   /** set he button pressable state to "Pressed" and the corresponding blocks
     * @param cells
     *   the set of the cells that may be changed

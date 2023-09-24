@@ -26,8 +26,4 @@ enum ImageManager(_path: String):
   /** @return
     *   the path of the image
     */
-  val path: URL = printIt(getClass.getClassLoader.getResource("img/" + _path))
-
-  def printIt(url: URL): URL =
-    println(url)
-    url
+  val path: URL = getClass.getClassLoader.getResource(PathManager.ImagePath + _path)

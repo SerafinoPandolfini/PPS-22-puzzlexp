@@ -6,6 +6,7 @@ import model.cells.properties.Color
   */
 trait Colorable:
 
-  /** the color of the colorable element
+  /** @return
+    *   the color of the colorable element
     */
   def color: Color

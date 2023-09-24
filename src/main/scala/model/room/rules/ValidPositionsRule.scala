@@ -3,8 +3,8 @@ package model.room.rules
 import model.room.Room
 import model.cells.Cell
 import model.room.rules.ValidPositionsRule.{RuleMessage, Rule}
-import prologEngine.PrologEngine.{*, given}
-import prologEngine.PrologConverter.*
+import prologEngine.PrologEngine.given
+import prologEngine.PrologConverter.noProperty
 import model.room.rules.CommonGroundTerm.{HeightLimit, WidthLimit}
 
 /** rules that check if there are [[Cell]]s out of the [[Room]] */

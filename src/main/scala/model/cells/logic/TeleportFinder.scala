@@ -5,10 +5,12 @@ import prologEngine.PrologEngine
 import prologEngine.PrologEngine.{*, given}
 import alice.tuprolog.{Struct, Term}
 import prologEngine.PrologConverter.*
+import utils.constants.PathManager.{PrologExtension, TheoryDirectoryPath}
 
 object TeleportFinder:
   val termX = "X"
   val termY = "Y"
+  val theoryName = "search_teleport_destination"
 
   /** Find the teleport destination cell from the specified set
     * @param cells
@@ -18,8 +20,8 @@ object TeleportFinder:
     */
   def findDestination(cells: Set[Cell]): Option[Position] =
     val set = cells.map(convertCellToProlog(_))
-    val engine = PrologEngine("/prologTheory/search_teleport_destination.pl")
-    val input = Struct.of("search_teleport_destination", set.toList, termX, termY)
+    val engine = PrologEngine(TheoryDirectoryPath + theoryName + PrologExtension)
+    val input = Struct.of(theoryName, set.toList, termX, termY)
     val result = engine.solve(input, termX, termY)
     if result.isEmpty then Option.empty
     else

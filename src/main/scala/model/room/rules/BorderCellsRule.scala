@@ -1,8 +1,8 @@
 package model.room.rules
 
 import model.room.Room
-import prologEngine.PrologEngine.{*, given}
-import prologEngine.PrologConverter.*
+import prologEngine.PrologEngine.given
+import prologEngine.PrologConverter.{noProperty, convertLinkToProlog}
 import model.room.rules.BorderCellsRule.{Rule, RuleMessage}
 import model.room.rules.CommonGroundTerm.{HeightLimit, WidthLimit}
 
