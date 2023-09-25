@@ -2,7 +2,6 @@ package utils
 
 import model.room.Room
 import model.cells.*
-import model.cells.Cell.given
 import prologEngine.PrologConverter.noProperty
 import utils.constants.GraphicManager
 import prologEngine.PrologConverter.*
@@ -13,17 +12,25 @@ import model.cells.properties.{Colorable, PressableState, WalkableType}
 import model.cells.traits.CoveredHole
 import utils.constants.GraphicManager.AdjacentDirection
 import utils.extensions.RoomCellsRepresentation.cellToString
-import utils.givens.CellMapping.*
 
 object PathExtractor:
 
-  val PathStart = "cell"
-  val PathSplit = "_"
-  val PathWalkable = "_W"
-  val PathDeadly = "_D"
-  val PathCovered = "_C"
-  val PathPressed = "_P"
-  val NoPath = ""
+  val PathStart: String = "cell"
+  val PathSplit: String = "_"
+  val PathWalkable: String = "_W"
+  val PathDeadly: String = "_D"
+  val PathCovered: String = "_C"
+  val PathPressed: String = "_P"
+  val NoPath: String = ""
+  val lowerAdjacentBound: Int = 0
+  val upperAdjacentBound: Int = 2
+  val offsetFactor: Int = 1
+  val validCorners: List[List[(Int, Int)]] = List(
+    List((0, 0), (0, 1), (1, 0)),
+    List((1, 0), (2, 0), (2, 1)),
+    List((0, 1), (0, 2), (1, 2)),
+    List((1, 2), (2, 1), (2, 2))
+  )
 
   /** @param cell
     *   the cell from which the path is extracted
@@ -68,73 +75,47 @@ object PathExtractor:
 
   /** @param cell
     *   the cell that needs the pathString
-    * @return
-    *   a list with the adjacent position of cell
-    */
-  def computeAdjacentPositions(cell: Cell): List[Position] =
-    AdjacentDirection.map(p => (p._1 + cell.position._1, p._2 + cell.position._2)).toList
-
-  /** @param positions
-    *   the list with the adjacent positions
-    * @param cells
-    *   the set with all the cells of the game
-    * @return
-    *   a set with the adjacent cells. Bounds are excluded
-    */
-  private def computeAdjacentList(positions: List[Position], cells: Set[Cell]): Set[Cell] =
-    cells.filter(c => positions contains c.position)
-
-  /** @param cell
-    *   the cell that needs the pathString
-    * @param adjacentCellsList
-    *   the set with the adjacent cells of cell without the bounds
-    * @return
-    *   a set with the adjacent cells mapped in a 3x3 matrix in which bounds are added.
-    */
-  private def mapCellsWithBounds(cell: Cell, adjacentCellsList: Set[Cell]): Set[Cell] =
-    val mappedCells: Set[Cell] = cell.convertCellsPositions(adjacentCellsList)
-    val mappedCellsWithBound: Set[Cell] = mappedCells ++ (for
-      pos <- AdjacentDirection
-      if !mappedCells.exists(c => c.position == pos)
-    yield WallCell(position = pos)).toSet
-    mappedCellsWithBound
-
-  /** @param cell
-    *   the cell that needs the pathString
     * @param cells
     *   the set with all the cells of the game
     * @return
     *   the pathString of cell
     */
-  private def extractWallPath(cell: Cell, cells: Set[Cell]): String =
-    val adjacentCellsList: Set[Cell] = computeAdjacentList(
-      computeAdjacentPositions(cell),
-      cells
-    )
-    val adjacentPrologList: List[String] =
-      mapCellsWithBounds(cell, adjacentCellsList).map(cell => convertCellToProlog(cell, isWall)).toList
-    println("->" + adjacentPrologList)
-    val engine = PrologEngine("/prologTheory/filter_wall_cells_and_check_corners.pl")
-    val input = Struct.of("filter_wall_and_check_corners", adjacentPrologList, "Path") // soluzione
-    val adjacentWall = engine.solve(input, "Path") // nomi var che deve ritornare //metti come cost
-    // string è filtered, e term è la lista. poi ci sarà il pezzo da aggiungere al file
-    // in prolong engine fai conversion da term a string
+  private def extractWallPath(cell: Cell, cells: Set[Cell]): String = cell match
+    case cell: WallCell =>
+      val adjacentCells: Map[(Int, Int), Boolean] = (for
+        y <- lowerAdjacentBound to upperAdjacentBound
+        x <- lowerAdjacentBound to upperAdjacentBound
+        yOffset = y + cell.position._2 - offsetFactor
+        xOffset = x + cell.position._1 - offsetFactor
+        c = cells.find(_.position == (xOffset, yOffset))
+      yield (x, y) -> c.forall {
+        case _: WallCell => true
+        case _           => false
+      }).toMap
+      computeWallType(adjacentCells)
+    case _ => NoPath
 
-    s"$PathSplit${adjacentWall("Path").toString.toUpperCase}" // testo undercase di quello che va aggiunto alla fine deò file
-
-    // due proprietà prolog che is chiamano a vicenda
-
-    // cercare usando le coordinate le celle attorno a cell
-    // ASSICURATI CHE SE è UNA CELLA SUL BORDO DI CONSIDERARE L'OUT OF BOUND COME MURO
-
-    // PROLOG APPROACH
-    // usare le celle attorno e convertirle in notazione prolog (dividere celle muro e celle non muro)
-    // chiamare il solve prolog
-    // convertire il ritorno delle teoria prolog usando i given
-    // RICORDA CHE PROLOG DEVE RITORNARE UNA STRINGA LOWERCASE, TU LA DEVI FARE UPPERCASE
-
-// SCALA APPROACH
-// dividere celle muro e non muro
-// creare costanti per le stringhe mancanti
-
-// return PathSplit + roba prolog
+  /** check if the cell is a particular configuration of wall based on how many corners are there in adjacent cells.
+    * List((0, 0), (0, 1), (1, 0)) is TopLeft corner List((1, 0), (2, 0), (2, 1)) is TopRight corner List((0, 1), (0,
+    * 2), (1, 2)) is BottomLeft corner List((1, 2), (2, 1), (2, 2)) is BottomRight corner
+    * @param adjacentCells
+    *   the map with the adjacent cells and a boolean. It's true if the cell is a [[WallCell]]
+    * @return
+    *   the pathString of cell
+    */
+  private def computeWallType(adjacentCells: Map[(Int, Int), Boolean]): String =
+    validCorners.map(pattern => pattern.forall(adjacentCells.getOrElse(_, false))) match
+      case List(true, true, true, true)    => "_C"
+      case List(true, true, true, false)   => "_INW"
+      case List(true, true, false, true)   => "_INE"
+      case List(true, false, true, true)   => "_ISW"
+      case List(false, true, true, true)   => "_ISE"
+      case List(true, true, false, false)  => "_S"
+      case List(true, false, true, false)  => "_E"
+      case List(false, true, false, true)  => "_W"
+      case List(false, false, true, true)  => "_N"
+      case List(true, false, false, false) => "_SE"
+      case List(false, true, false, false) => "_SW"
+      case List(false, false, true, false) => "_NE"
+      case List(false, false, false, true) => "_NW"
+      case _                               => "_A"
