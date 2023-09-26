@@ -2,7 +2,7 @@
 is_wall_cell(c(_, _, _, wall)).
 
 % Define a predicate to filter a list of wall cells
-filter_wall_cells([], []).% :- !, check_corner(Filtered, B, S).
+filter_wall_cells([], []).
 filter_wall_cells([H|T], Filtered) :-
     is_wall_cell(H),
     !,
@@ -22,9 +22,8 @@ filter_wall_cells([_|T], Filtered) :-
 check_list([], _ ).
 check_list([H | T], L) :-
     member(H, L),
-    !,  % Cut here to prevent backtracking if H is a member
+    !,
     check_list(T, L).
-%check_list(_, L, false).
 
 %13) TopRight-BottomLeft-BottomRight-TopLeft C
 check_corner(L, c) :-

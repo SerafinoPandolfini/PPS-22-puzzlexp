@@ -49,9 +49,7 @@ object KeyHandler:
       keyCode match
         case KeyEvent.VK_R =>
           GameController.resetRoom()
-          tiles(CurrentGame.currentPosition).playerImage = Some(
-            ImageIcon(ImageManager.CharacterDown.path).getImage
-          )
+          tiles(CurrentGame.currentPosition).playerImage = Option(ImageIcon(ImageManager.CharacterDown.path).getImage)
         case _ => GameController.movePlayer(keyCode)
 
   def apply(): KeyHandler = KeyHandlerImpl()

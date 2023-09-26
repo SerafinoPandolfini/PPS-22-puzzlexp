@@ -40,7 +40,7 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     */
   def tiles: ListMap[Position, MultiLayeredTile] = _tiles
 
-  def tiles_=(newTiles: ListMap[Position, MultiLayeredTile]) = _tiles = newTiles
+  def tiles_=(newTiles: ListMap[Position, MultiLayeredTile]): Unit = _tiles = newTiles
 
   /** create the game main panel containing the tiles panel and the toolbar panel
     *

@@ -1,7 +1,6 @@
 package controller.menu
 
 import controller.menu.MenuController
-import exceptions.MapNotFoundException
 import view.menu.MenuView
 import utils.constants.PathManager.*
 import utils.constants.PlayableMaps.getPlayableMaps
@@ -21,11 +20,10 @@ case class MenuController():
     *   a list with the tuple path of the map file and name of the map
     */
   def searchMapFiles(): ListMap[String, String] =
-    val classLoader = getClass.getClassLoader
     (for
-      map <- getPlayableMaps()
-      resource = map + JsonExtension
-    yield (map -> resource)).to(ListMap)
+      map <- getPlayableMaps
+      resource = map.replace(" ", "") + JsonExtension
+    yield map -> resource).to(ListMap)
 
   /** check if the @param path is present
     * @return

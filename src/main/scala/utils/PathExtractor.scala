@@ -81,7 +81,7 @@ object PathExtractor:
     *   the pathString of cell
     */
   private def extractWallPath(cell: Cell, cells: Set[Cell]): String = cell match
-    case cell: WallCell =>
+    case _: WallCell =>
       val adjacentCells: Map[(Int, Int), Boolean] = (for
         y <- lowerAdjacentBound to upperAdjacentBound
         x <- lowerAdjacentBound to upperAdjacentBound

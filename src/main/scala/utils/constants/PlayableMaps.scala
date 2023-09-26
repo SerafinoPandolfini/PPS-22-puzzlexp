@@ -2,4 +2,4 @@ package utils.constants
 
 object PlayableMaps:
 
-  def getPlayableMaps() : List[String] = List("FirstMap")
+  def getPlayableMaps: List[String] = List("First Map")
