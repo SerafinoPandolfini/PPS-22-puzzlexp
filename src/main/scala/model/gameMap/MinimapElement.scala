@@ -26,8 +26,9 @@ case class MinimapElement(
 ):
 
   /** visit the MinimapElement if it exist
-   * @return a visited [[MinimapElement]]
-   */
+    * @return
+    *   a visited [[MinimapElement]]
+    */
   def visit(): MinimapElement =
     if existing then copy(visited = true)
     else copy()

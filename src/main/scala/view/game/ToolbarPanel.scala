@@ -1,7 +1,6 @@
 package view.game
 
 import utils.constants.{ColorManager, GraphicManager, ImageManager}
-
 import java.awt.*
 import javax.swing.{BorderFactory, JPanel}
 

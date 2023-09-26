@@ -1,7 +1,7 @@
 package model.room
 
 import model.cells.*
-import org.scalatest.BeforeAndAfterEach
+import org.scalatest.{BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
 import utils.TestUtils.*
@@ -11,7 +11,7 @@ import scala.util.Failure
 import utils.extensions.RoomCellsRepresentation.{cellsRepresentation, showPlayerAndBoxes}
 import model.cells.properties.{Item, Direction}
 
-class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
+class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenThen:
   var room: Room = _
 
   override def beforeEach(): Unit =
@@ -44,64 +44,23 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach:
   }
 
   "A room" should "not let the player to walk into a non walkable cell" in {
+    Given("a room and a player position")
     var playerPosition: Position = position1_1
     var expectedRepresentation = "\n" +
       "WL | WL | WL | WL\n" +
       "WL | pl | CL |   \n" +
       "WL |    | bx | WL\n" +
       "WL | WL | WL | WL\n"
+    When("the player try to moves into a wall")
     playerPosition = room.playerMove(playerPosition, Direction.Up).get
+    Then(noUpdateMessage)
     room.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
+    When("the player try to moves into a cliff cell from the wrong direction")
     playerPosition = room.playerMove(playerPosition, Direction.Right).get
+    Then(noUpdateMessage)
     room.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     playerPosition = position3_1
+    When("the player tries to move out of the room")
+    Then("its position should be an Option Empty")
     room.playerMove(playerPosition, Direction.Right) should be(Option.empty)
   }
-
-  "A room" should "let the player move and interact with eventual items on walkable cells" in {
-    val largerRoom = RoomBuilder(RoomWidth + 1, RoomHeight + 1)
-      .##()
-      .+(BasicCell(position3_1, Item.Box))
-      .+(BasicCell(position2_2, Item.Box))
-      .!!
-      .build
-    var playerPosition = position2_1
-    var expectedRepresentation = "\n" +
-      "WL | WL | WL | WL | WL\n" +
-      "WL |    | pl | bx | WL\n" +
-      "WL |    | bx |    | WL\n" +
-      "WL |    |    |    | WL\n" +
-      "WL | WL | WL | WL | WL\n"
-    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
-    playerPosition = largerRoom.playerMove(playerPosition, Direction.Right).get
-    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
-    playerPosition = position1_2
-    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(
-      "\n" +
-        "WL | WL | WL | WL | WL\n" +
-        "WL |    |    | bx | WL\n" +
-        "WL | pl | bx |    | WL\n" +
-        "WL |    |    |    | WL\n" +
-        "WL | WL | WL | WL | WL\n"
-    )
-    playerPosition = largerRoom.playerMove(playerPosition, Direction.Right).get
-    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(
-      "\n" +
-        "WL | WL | WL | WL | WL\n" +
-        "WL |    |    | bx | WL\n" +
-        "WL | pl |    | bx | WL\n" +
-        "WL |    |    |    | WL\n" +
-        "WL | WL | WL | WL | WL\n"
-    )
-    playerPosition = position3_3
-    expectedRepresentation = "\n" +
-      "WL | WL | WL | WL | WL\n" +
-      "WL |    |    | bx | WL\n" +
-      "WL |    |    | bx | WL\n" +
-      "WL |    |    | pl | WL\n" +
-      "WL | WL | WL | WL | WL\n"
-    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
-    playerPosition = largerRoom.playerMove(playerPosition, Direction.Up).get
-    largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
-  }
-

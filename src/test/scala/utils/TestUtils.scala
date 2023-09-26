@@ -23,6 +23,7 @@ object TestUtils:
   val position3_3: Position = (3, 3)
   val RoomWidth = 4
   val RoomHeight = 4
+  val noUpdateMessage = "the player should not move and the room should not change"
   val genericDirection: Direction = Direction.Up
   val leftLink: RoomLink = RoomLink((0, 3), Direction.Left, "test2", (RoomWidth - 1, 3))
   val roomRules: RoomRules = RoomRules()

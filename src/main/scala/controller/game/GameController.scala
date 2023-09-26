@@ -7,7 +7,7 @@ import model.cells.properties.{Direction, Item}
 import model.cells.logic.CellExtension.*
 import model.cells.logic.UseItemExtension.usePowerUp
 import model.game.{CurrentGame, ItemHolder}
-import model.gameMap.GameMap
+import model.gameMap.{GameMap, MinimapElement}
 import model.room.Room
 import serialization.{JsonDecoder, JsonEncoder}
 import utils.givens.KeyDirectionMapping.given
@@ -15,7 +15,7 @@ import utils.PathExtractor.extractPath
 import utils.extensions.PositionExtension.+
 import view.game.GameView
 import view.game.ViewUpdater.*
-
+import model.gameMap.Minimap.createMinimap
 import java.awt.event.KeyEvent
 import java.io.PrintWriter
 import java.nio.file.*
@@ -34,8 +34,7 @@ object GameController:
     val appDir = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves")
     JsonDecoder.getJsonFromPath(path) match
       case Success(jsonData) =>
-        if Path.of(path).startsWith(appDir) then
-          CurrentGame.load(jsonData)
+        if Path.of(path).startsWith(appDir) then CurrentGame.load(jsonData)
         else
           JsonDecoder.mapDecoder(jsonData.hcursor) match
             case Right(map)  => CurrentGame.initialize(map)
@@ -95,6 +94,24 @@ object GameController:
     val printWriter = PrintWriter(outputFile)
     printWriter.write(JsonEncoder.saveGameEncoder.apply(CurrentGame).spaces2)
     printWriter.close()
+
+  /** pause the game
+    */
+  def pauseGame(): Unit = _view.pause(CurrentGame.minimapElement)
+
+  /** goes back to game from the pause screen
+    */
+  def backToGame(): Unit = _view.back()
+
+  /** delete the current frame
+    */
+  def endGame(): Unit = _view.dispose()
+
+  /** get the room name
+    * @return
+    *   the current room name
+    */
+  def getCurrentRoomName: String = CurrentGame.currentRoom.name
 
 object simulate extends App:
   GameController.startGame("src/main/resources/json/FirstMap.json")

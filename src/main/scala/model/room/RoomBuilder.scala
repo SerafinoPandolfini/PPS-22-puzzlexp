@@ -3,11 +3,9 @@ package model.room
 import model.cells.properties.Item
 import model.cells.{BasicCell, Cell, Position, WallCell}
 import model.room.Room
-
 import scala.annotation.targetName
 
-/** A builder for [[Room]]
-  */
+/** A builder for [[Room]] */
 class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: Int = RoomImpl.DefaultHeight):
   private var name: String = ""
   private var cells: Set[Cell] = Set.empty[Cell]
@@ -19,7 +17,6 @@ class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: In
     cells = cells.filter(cell => !c.exists(_.position == cell.position)) ++ c
 
   /** Add the room name
-    *
     * @param roomName
     *   name of the room
     * @return
@@ -30,7 +27,6 @@ class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: In
     this
 
   /** add a links to the room and create the cells for the linkings
-    *
     * @param roomLinks
     *   the links to add to the room
     * @return
@@ -42,7 +38,6 @@ class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: In
     this
 
   /** add a new cell to the room
-    *
     * @param cell
     *   the new cell
     * @return
@@ -57,7 +52,6 @@ class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: In
   def +(cell: Cell): this.type = addCell(cell)
 
   /** add new cells or replace existing cells of the room with the new ones
-    *
     * @param roomCells
     *   the new cell for the room
     * @return
@@ -72,7 +66,6 @@ class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: In
   def ++(roomCells: Set[Cell]): this.type = addCells(roomCells)
 
   /** create the border of the room so that every border cell is a wall
-    *
     * @return
     *   this
     */
@@ -88,7 +81,6 @@ class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: In
   def ##(): this.type = borderWalls()
 
   /** create a rectangle of wall cell
-    *
     * @param position
     *   north-west angle of the rectangle
     * @param width
@@ -114,7 +106,6 @@ class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: In
   def ||(position: Position, width: Int, height: Int): this.type = wallRectangle(position, width, height)
 
   /** remove the cells outside the room border and fill the inside of the room with basic cells
-    *
     * @return
     *   this
     */

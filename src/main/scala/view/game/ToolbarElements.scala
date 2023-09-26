@@ -4,12 +4,11 @@ import controller.game.GameController
 import model.cells.properties.Item
 import utils.constants.{ColorManager, ImageManager}
 import view.game.labels.{ItemCounterLabel, ItemLabel, Label}
-
+import view.game.ViewUpdater.pause
 import java.awt.event.ActionEvent
 import java.awt.{Dimension, Font}
 import java.net.URL
 import javax.swing.*
-import scala.collection.immutable.List
 
 object ToolbarElements:
   private val textFont = Font("Arial", Font.PLAIN, 16)
@@ -31,7 +30,7 @@ object ToolbarElements:
     pauseButton.setPreferredSize(
       Dimension(ButtonElement, ButtonElement)
     )
-    pauseButton.addActionListener(_ => GameController.saveGame())
+    pauseButton.addActionListener(_ => GameController.pauseGame())
     pauseButton.setBackground(ColorManager.ToolbarBackground)
     pauseButton
 

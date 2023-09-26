@@ -1,5 +1,6 @@
 package view
 
+import view.ImagePanel.*
 import java.awt.*
 import javax.swing.*
 
@@ -8,8 +9,8 @@ import javax.swing.*
   * @param image
   *   the [[Image]] to display in the background
   */
-class ImagePanel(image: Image) extends JPanel {
-  override def paintComponent(g: Graphics): Unit = {
+class ImagePanel(image: Image) extends JPanel:
+  override def paintComponent(g: Graphics): Unit =
     super.paintComponent(g)
 
     val g2d = g.asInstanceOf[Graphics2D]
@@ -22,8 +23,8 @@ class ImagePanel(image: Image) extends JPanel {
     val newWidth = (image.getWidth(null) * scale).toInt
     val newHeight = (image.getHeight(null) * scale).toInt
 
-    val x = (getWidth - newWidth) / 2
-    val y = (getHeight - newHeight) / 2
+    val x = (getWidth - newWidth) / Quantity
+    val y = (getHeight - newHeight) / Quantity
 
     g2d.drawImage(
       image,
@@ -33,5 +34,6 @@ class ImagePanel(image: Image) extends JPanel {
       newHeight,
       null
     )
-  }
-}
+
+object ImagePanel:
+  val Quantity = 2

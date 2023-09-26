@@ -13,6 +13,7 @@ enum ImageManager(_path: String):
   case Controls extends ImageManager("controls_image.png")
   case BackGround extends ImageManager("background.png")
   case ScoreBackground extends ImageManager("score_background.png")
+  case PauseBackground extends ImageManager("pauseBackground.jpg")
   case Key extends ImageManager("Key.png")
   case Coin extends ImageManager("Coin.png")
   case Bag extends ImageManager("Bag.png")
@@ -20,14 +21,16 @@ enum ImageManager(_path: String):
   case Axe extends ImageManager("Axe.png")
   case Pick extends ImageManager("Pick.png")
   case Pause extends ImageManager("Pause.png")
+  case Save extends ImageManager("Save.png")
+  case Play extends ImageManager("Play.png")
   case End extends ImageManager("endGame.png")
   case Home extends ImageManager("home.png")
+  case Room extends ImageManager("room.png")
+  case CurrentRoom extends ImageManager("CurrentRoom.png")
+  case LinkVertical extends ImageManager("linkVertical.png")
+  case LinkHorizontal extends ImageManager("linkHorizontal.png")
 
   /** @return
     *   the path of the image
     */
-  val path: URL = printIt(getClass.getClassLoader.getResource("img/" + _path))
-
-  def printIt(url: URL): URL =
-    println(url)
-    url
+  val path: URL = getClass.getClassLoader.getResource(PathManager.ImagePath + _path)

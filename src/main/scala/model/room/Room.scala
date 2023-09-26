@@ -2,11 +2,10 @@ package model.room
 
 import model.cells.*
 import model.cells.properties.{Direction, Item}
-
 import scala.util.Try
 import model.room.rules.RoomRules
 
-/** the concept of a grid of [[Cell]]s with a name and [[RoomLink]]s to other rooms*/
+/** the concept of a grid of [[Cell]]s with a name and [[RoomLink]]s to other rooms */
 trait Room:
 
   /** @return
@@ -25,7 +24,6 @@ trait Room:
   def cells: Set[Cell]
 
   /** get a specific [[Cell]] from its position
-    *
     * @param position
     *   the position of the cell
     * @return
@@ -34,16 +32,15 @@ trait Room:
   def getCell(position: Position): Option[Cell]
 
   /** update the cells of the room
-    *
     * @param updateSet
     *   the set of item update to apply to the room
     */
   def updateCellsItems(updateSet: Set[(Position, Item, Direction)]): Unit
 
-  def updateCells(cells: Set[Cell]): Unit
+  /** @param newCells the set of cells to update in the room */
+  def updateCells(newCells: Set[Cell]): Unit
 
   /** check if the cell admit the player to walk on it
-    *
     * @param cell
     *   the cell in which the player wants to move
     * @param dir
@@ -74,7 +71,6 @@ trait Room:
   def checkMovementConsequences(previous: Position, next: Position): Try[Position]
 
   /** check if the cell the player is standing on is deadly
-    *
     * @param currentPosition
     *   the [[Position]] of the player
     * @return

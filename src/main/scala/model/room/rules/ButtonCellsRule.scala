@@ -5,7 +5,7 @@ import model.room.rules.ButtonCellsRule.{Rule, RuleMessage}
 import model.room.Room
 import model.cells.{ButtonCell, ButtonBlockCell}
 import prologEngine.PrologConverter.addColor
-import prologEngine.PrologEngine.{*, given}
+import prologEngine.PrologEngine.given
 
 /** rule for controlling the number of [[ButtonCell]] and [[ButtonBlockCell]]
   */
