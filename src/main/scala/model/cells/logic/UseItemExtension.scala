@@ -19,7 +19,7 @@ object UseItemExtension:
         cell.updateItem(Set(cell), newItem = Item.Pick)
       case _: PlantCell if CurrentGame.itemHolder.itemOwned.contains(Item.Axe) =>
         cell.updateItem(Set(cell), newItem = Item.Axe)
-      case _: LockCell if CurrentGame.itemHolder.itemOwned.contains(Item.Key) =>
+      case c: LockCell if CurrentGame.itemHolder.itemOwned.contains(Item.Key) && !c.open =>
         CurrentGame.removeItem(Item.Key)
         cell.updateItem(Set(cell), newItem = Item.Key)
       case _ =>

@@ -17,8 +17,8 @@ object CellExtension:
       */
     def moveIn(cells: Set[Cell]): (Set[Cell], Position) =
       cell match
-        case cell: ButtonCell =>
-          (pressed(cells, cell.color) + cell.copy(pressableState = PressableState.Pressed), cell.position)
+        case c: ButtonCell =>
+          (pressed(cells, c.color) + c.copy(pressableState = PressableState.Pressed), cell.position)
         case _: TeleportCell =>
           (
             Set.empty,
@@ -36,7 +36,7 @@ object CellExtension:
       */
     def moveOut(cells: Set[Cell]): Set[Cell] =
       cell match
-        case cell: CoveredHoleCell => Set(cell.copy(cover = false))
+        case c: CoveredHoleCell => Set(c.copy(cover = false))
         case _                     => Set.empty
 
     /** Updates the item in the cell and returns a set of modified cells based on the rules of the game.
@@ -52,27 +52,27 @@ object CellExtension:
       */
     def updateItem(cells: Set[Cell], newItem: Item, direction: Direction = Direction.Up): Set[Cell] =
       cell match
-        case cell: BasicCell               => Set(cell.copy(cellItem = newItem))
-        case cell: ButtonBlockCell         => Set(cell.copy(cellItem = newItem))
-        case cell: CliffCell               => Set(cell.copy(cellItem = newItem))
-        case cell: PressurePlateBlockCell  => Set(cell.copy(cellItem = newItem))
-        case cell: TeleportDestinationCell => Set(cell.copy(cellItem = newItem))
-        case cell: HoleCell                => updateHoleItem(cell, newItem)
-        case cell: CoveredHoleCell         => updateCoveredHoleItem(cell, newItem)
-        case cell: RockCell                => updateRockItem(cell, newItem)
-        case cell: PlantCell               => updatePlantItem(cell, newItem)
-        case cell: LockCell                => updateDoorItem(cell, newItem)
+        case c: BasicCell               => Set(c.copy(cellItem = newItem))
+        case c: ButtonBlockCell         => Set(c.copy(cellItem = newItem))
+        case c: CliffCell               => Set(c.copy(cellItem = newItem))
+        case c: PressurePlateBlockCell  => Set(c.copy(cellItem = newItem))
+        case c: TeleportDestinationCell => Set(c.copy(cellItem = newItem))
+        case c: HoleCell                => updateHoleItem(c, newItem)
+        case c: CoveredHoleCell         => updateCoveredHoleItem(c, newItem)
+        case c: RockCell                => updateRockItem(c, newItem)
+        case c: PlantCell               => updatePlantItem(c, newItem)
+        case c: LockCell                => updateDoorItem(c, newItem)
         case _: TeleportCell               => updateTeleportItem(cells, newItem, direction)
-        case cell: ButtonCell =>
+        case c: ButtonCell =>
           newItem match
             case Item.Box =>
-              pressed(cells, cell.color) + cell.copy(cellItem = newItem, pressableState = PressableState.Pressed)
-            case _ => Set(cell.copy(cellItem = newItem))
-        case cell: PressurePlateCell =>
+              pressed(cells, c.color) + c.copy(cellItem = newItem, pressableState = PressableState.Pressed)
+            case _ => Set(c.copy(cellItem = newItem))
+        case c: PressurePlateCell =>
           val pressableState = newItem match
             case Item.Box => PressableState.Pressed
             case _        => PressableState.NotPressed
-          updatePressurePlate(cells, pressableState) + cell.copy(
+          updatePressurePlate(cells, pressableState) + c.copy(
             cellItem = newItem,
             pressableState = pressableState
           )

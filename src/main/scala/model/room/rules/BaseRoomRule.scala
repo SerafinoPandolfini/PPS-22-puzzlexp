@@ -46,7 +46,7 @@ trait BaseRoomRule:
       theory: String,
       terms: Term*
   ): List[String] =
-    val engine = PrologEngine(TheoryDirectoryPath + theory + PrologExtension)
+    val engine = PrologEngine(s"$TheoryDirectoryPath$theory$PrologExtension")
     val convertedCells: Term = cells.map(convertCellToProlog(_, property))
     val input = Struct.of(theory, Array(convertedCells) ++ terms)
     if engine.solve(input) then violations
