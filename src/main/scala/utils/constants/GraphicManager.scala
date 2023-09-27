@@ -10,11 +10,11 @@ import java.io.File
 import java.nio.file.Paths
 
 object GraphicManager:
-  val adjacentValues: Seq[Int] = Seq(0, 1, -1)
+  val AdjacentValues: Seq[Int] = Seq(0, 1, -1)
   val AdjacentDirection: Seq[(Int, Int)] =
     for
-      x <- adjacentValues
-      y <- adjacentValues
+      x <- AdjacentValues
+      y <- AdjacentValues
     yield (x, y)
   val Origin: Point2D = Point2D(0, 0)
   val ScrollBarBorderThickness: Int = 2
@@ -25,9 +25,9 @@ object GraphicManager:
   val Cols: Int = RoomImpl.DefaultWidth
 
   /** Point2D represents a coordinate
-   * @param x
-   *   the value of abscissa axis
-   * @param y
-   *   the value of ordinate axis
-   */
+    * @param x
+    *   the value of abscissa axis
+    * @param y
+    *   the value of ordinate axis
+    */
   case class Point2D(x: Int, y: Int)

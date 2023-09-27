@@ -36,7 +36,7 @@ object CellExtension:
     def moveOut(cells: Set[Cell]): Set[Cell] =
       cell match
         case c: CoveredHoleCell => Set(c.copy(cover = false))
-        case _                     => Set.empty
+        case _                  => Set.empty
 
     /** Updates the item in the cell and returns a set of modified cells based on the rules of the game.
       *
@@ -60,8 +60,8 @@ object CellExtension:
         case c: CoveredHoleCell         => updateCoveredHoleItem(c, newItem)
         case c: RockCell                => updateRockItem(c, newItem)
         case c: PlantCell               => updatePlantItem(c, newItem)
-        case c: LockCell                => updateDoorItem(c, newItem)
-        case _: TeleportCell               => updateTeleportItem(cells, newItem, direction)
+        case c: LockCell                => updateLockItem(c, newItem)
+        case _: TeleportCell            => updateTeleportItem(cells, newItem, direction)
         case c: ButtonCell =>
           newItem match
             case Item.Box =>

@@ -112,7 +112,7 @@ object UpdateMethods:
     case Item.Axe => Set(pCell.copy(cellItem = Item.Empty, cut = true))
     case _        => Set(pCell.copy(cellItem = Item.Empty))
 
-  /** update the door cell
+  /** update the lock cell
     * @param dCell
     *   the cell to be updated
     * @param newItem
@@ -120,7 +120,7 @@ object UpdateMethods:
     * @return
     *   the set of changed cells
     */
-  private[logic] def updateDoorItem(dCell: LockCell, newItem: Item): Set[Cell] = newItem match
+  private[logic] def updateLockItem(dCell: LockCell, newItem: Item): Set[Cell] = newItem match
     case Item.Key =>
       if !dCell.open then Set(dCell.copy(cellItem = Item.Empty, open = true))
       else Set(dCell)

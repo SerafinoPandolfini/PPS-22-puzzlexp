@@ -1,7 +1,7 @@
 package utils.extensions.paths
 
 import model.cells.{WallCell, Cell}
-import utils.extensions.paths.PathValue.{NoPath, validCorners, lowerAdjacentBound, upperAdjacentBound, offsetFactor}
+import utils.extensions.paths.PathValue.{NoPath, ValidCorners, LowerAdjacentBound, UpperAdjacentBound, OffsetFactor}
 
 object WallPathExtractor:
 
@@ -15,10 +15,10 @@ object WallPathExtractor:
   private[paths] def extractWallPath(cell: Cell, cells: Set[Cell]): String = cell match
     case _: WallCell =>
       val adjacentCells: Map[(Int, Int), Boolean] = (for
-        y <- lowerAdjacentBound to upperAdjacentBound
-        x <- lowerAdjacentBound to upperAdjacentBound
-        yOffset = y + cell.position._2 - offsetFactor
-        xOffset = x + cell.position._1 - offsetFactor
+        y <- LowerAdjacentBound to UpperAdjacentBound
+        x <- LowerAdjacentBound to UpperAdjacentBound
+        yOffset = y + cell.position._2 - OffsetFactor
+        xOffset = x + cell.position._1 - OffsetFactor
         c = cells.find(_.position == (xOffset, yOffset))
       yield (x, y) -> c.forall {
         case _: WallCell => true
@@ -37,7 +37,7 @@ object WallPathExtractor:
     *   the pathString of cell
     */
   private def computeWallType(adjacentCells: Map[(Int, Int), Boolean]): String =
-    validCorners.map(pattern => pattern.forall(adjacentCells.getOrElse(_, false))) match
+    ValidCorners.map(pattern => pattern.forall(adjacentCells.getOrElse(_, false))) match
       case List(true, true, true, true)    => "_C"
       case List(true, true, true, false)   => "_INW"
       case List(true, true, false, true)   => "_INE"
