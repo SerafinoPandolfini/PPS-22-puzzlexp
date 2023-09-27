@@ -11,6 +11,9 @@ import javax.swing.JButton
 /** This class creates a custom [[JButton]] with border radius, a black transparent background and a white font */
 class TransparentButton(text: String) extends JButton(text):
 
+  /** @param g
+    *   the graphic object Calls the UI delegate's paint method
+    */
   override protected def paintComponent(g: Graphics): Unit =
     val g2d = g.asInstanceOf[Graphics2D]
     val shape: Shape =

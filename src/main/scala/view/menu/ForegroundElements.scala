@@ -15,7 +15,7 @@ import javax.swing.Box.Filler
 import javax.swing.event.{ListSelectionEvent, ListSelectionListener}
 import scala.language.postfixOps
 
-object ForeGroundElements:
+object ForegroundElements:
   private val SelectLabelFontSize: Int = 30
   private val SelectLabelSize: Int = 400
   private val ContinueText: String = "CONTINUE"

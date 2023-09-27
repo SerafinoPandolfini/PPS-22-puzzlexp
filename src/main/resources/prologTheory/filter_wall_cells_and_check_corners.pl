@@ -25,7 +25,7 @@ check_list([H | T], L) :-
     !,
     check_list(T, L).
 
-%13) TopRight-BottomLeft-BottomRight-TopLeft C
+%1) TopRight-BottomLeft-BottomRight-TopLeft C
 check_corner(L, c) :-
     check_list([c(wl, 1, -1, wall), c(wl, 0, -1, wall), c(wl, 1, 0, wall)], L),
     check_list([c(wl, -1, 0, wall), c(wl, -1, 1, wall), c(wl, 0, 1, wall)], L),
@@ -33,74 +33,74 @@ check_corner(L, c) :-
     check_list([c(wl, -1, -1, wall), c(wl, 0, -1, wall), c(wl, -1, 0, wall)], L),
     !.
 
-%4) TopLeft-TopRight-BottomLeft INW
+%2) TopLeft-TopRight-BottomLeft INW
 check_corner(L, inw) :-
     check_list([c(wl, -1, -1, wall), c(wl, 0, -1, wall), c(wl, -1, 0, wall)], L),
     check_list([c(wl, 1, -1, wall), c(wl, 0, -1, wall), c(wl, 1, 0, wall)], L),
     check_list([c(wl, -1, 0, wall), c(wl, -1, 1, wall), c(wl, 0, 1, wall)], L),
     !.
 
-%5) TopLeft-TopRight-BottomRight INE
+%3) TopLeft-TopRight-BottomRight INE
 check_corner(L, ine) :-
     check_list([c(wl, -1, -1, wall), c(wl, 0, -1, wall), c(wl, -1, 0, wall)], L),
     check_list([c(wl, 1, -1, wall), c(wl, 0, -1, wall), c(wl, 1, 0, wall)], L),
     check_list([c(wl, 1, 0, wall), c(wl, 0, 1, wall), c(wl, 1, 1, wall)], L),
     !.
 
-%8) TopLeft-BottomLeft-BottomRight ISW
+%4) TopLeft-BottomLeft-BottomRight ISW
 check_corner(L, isw) :-
     check_list([c(wl, -1, -1, wall), c(wl, 0, -1, wall), c(wl, -1, 0, wall)], L),
     check_list([c(wl, -1, 0, wall), c(wl, -1, 1, wall), c(wl, 0, 1, wall)], L),
     check_list([c(wl, 1, 0, wall), c(wl, 0, 1, wall), c(wl, 1, 1, wall)], L),
     !.
 
-%12) TopRight-BottomLeft-BottomRight ISE
+%5) TopRight-BottomLeft-BottomRight ISE
 check_corner(L, ise) :-
     check_list([c(wl, 1, -1, wall), c(wl, 0, -1, wall), c(wl, 1, 0, wall)], L),
     check_list([c(wl, -1, 0, wall), c(wl, -1, 1, wall), c(wl, 0, 1, wall)], L),
     check_list([c(wl, 1, 0, wall), c(wl, 0, 1, wall), c(wl, 1, 1, wall)], L),
     !.
 
-%2)TopRight-BottomRight W
+%6)TopRight-BottomRight W
 check_corner(L, w) :-
     check_list([c(wl, 1, -1, wall), c(wl, 0, -1, wall), c(wl, 1, 0, wall)], L),
     check_list([c(wl, 1, 0, wall), c(wl, 0, 1, wall), c(wl, 1, 1, wall)], L),
     !.
 
-%3)TopLeft-BottomLeft E
+%7)TopLeft-BottomLeft E
 check_corner(L, e) :-
     check_list([c(wl, -1, -1, wall), c(wl, 0, -1, wall), c(wl, -1, 0, wall)], L),
     check_list([c(wl, -1, 0, wall), c(wl, -1, 1, wall), c(wl, 0, 1, wall)], L),
     !.
 
-%10) BottomLeft-BottomRight N
+%8) BottomLeft-BottomRight N
 check_corner(L, n) :-
     check_list([c(wl, -1, 0, wall), c(wl, -1, 1, wall), c(wl, 0, 1, wall)], L),
     check_list([c(wl, 1, 0, wall), c(wl, 0, 1, wall), c(wl, 1, 1, wall)], L),
     !.
 
-%11) TopLeft-TopRight S
+%9) TopLeft-TopRight S
 check_corner(L, s) :-
     check_list([c(wl, -1, -1, wall), c(wl, 0, -1, wall), c(wl, -1, 0, wall)], L),
     check_list([c(wl, 1, -1, wall), c(wl, 0, -1, wall), c(wl, 1, 0, wall)], L),
     !.
 
-%6) TopRight SW
+%10) TopRight SW
 check_corner(L, sw) :-
     check_list([c(wl, 1, -1, wall), c(wl, 0, -1, wall), c(wl, 1, 0, wall)], L),
     !.
 
-%7) TopLeft SE
+%11) TopLeft SE
 check_corner(L, se) :-
     check_list([c(wl, -1, -1, wall), c(wl, 0, -1, wall), c(wl, -1, 0, wall)], L),
     !.
 
-%1) BottomLeft NE
+%12) BottomLeft NE
 check_corner(L, ne) :-
     check_list([c(wl, -1, 0, wall), c(wl, -1, 1, wall), c(wl, 0, 1, wall)], L),
     !.
 
-%9) BottomRight NW
+%13) BottomRight NW
 check_corner(L, nw) :-
     check_list([c(wl, 1, 0, wall), c(wl, 0, 1, wall), c(wl, 1, 1, wall)], L),
     !.

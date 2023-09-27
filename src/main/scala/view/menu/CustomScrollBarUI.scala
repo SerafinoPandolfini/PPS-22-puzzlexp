@@ -8,7 +8,7 @@ import javax.swing.plaf.basic.{BasicArrowButton, BasicScrollBarUI}
 import javax.swing.{ImageIcon, JButton, JComponent}
 
 /** permits to configure the UI of the scrollBar */
-class CustomScrollBarUI() extends BasicScrollBarUI:
+class CustomScrollBarUI extends BasicScrollBarUI:
   val trackBGColor: Option[Color] = Some(Color.WHITE)
   val thumbFGColor: Option[Color] = Some(ColorManager.ScrollBarForeground)
 

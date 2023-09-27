@@ -17,7 +17,7 @@ import javax.swing.Box.Filler
 import javax.swing.JOptionPane.showMessageDialog
 import javax.swing.event.{ListSelectionEvent, ListSelectionListener}
 import scala.language.postfixOps
-import view.menu.ForeGroundElements
+import view.menu.ForegroundElements
 
 object SelectMapExtension:
   private val FillerWidth: Int = 0
@@ -59,16 +59,16 @@ object SelectMapExtension:
       */
     private def createMapFGPanel(): JPanel =
       var foreGround: JPanel = JPanel()
-      val selectLabel: JLabel = ForeGroundElements.createSelectedLabel()
+      val selectLabel: JLabel = ForegroundElements.createSelectedLabel()
       val (buttonContainer: JPanel, jList: JList[String]) =
-        ForeGroundElements.configureListModelAndButtonContainer(view)
+        ForegroundElements.configureListModelAndButtonContainer(view)
       var scrollPane: JScrollPane = JScrollPane(jList)
-      foreGround.add(ForeGroundElements.computeFiller(FillerWidth, FillerHeight))
+      foreGround.add(ForegroundElements.computeFiller(FillerWidth, FillerHeight))
       foreGround.add(selectLabel)
-      foreGround.add(ForeGroundElements.computeFiller(FillerWidth, FillerHeight))
+      foreGround.add(ForegroundElements.computeFiller(FillerWidth, FillerHeight))
       foreGround.add(scrollPane)
-      foreGround.add(ForeGroundElements.computeFiller(FillerWidth, FillerHeight))
+      foreGround.add(ForegroundElements.computeFiller(FillerWidth, FillerHeight))
       foreGround.add(buttonContainer)
-      scrollPane = ForeGroundElements.scrollPaneConfiguration(scrollPane)
-      foreGround = ForeGroundElements.foreGroundConfiguration(foreGround)
+      scrollPane = ForegroundElements.scrollPaneConfiguration(scrollPane)
+      foreGround = ForegroundElements.foreGroundConfiguration(foreGround)
       foreGround
