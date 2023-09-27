@@ -14,6 +14,7 @@ import java.awt.event.{ActionEvent, ActionListener, KeyEvent}
 import javax.swing.*
 import javax.swing.border.Border
 import scala.collection.immutable.{List, ListMap}
+import utils.extensions.paths.RoomPathExtractor.extractRoomPath
 
 /** the standard game GUI
   */
@@ -38,7 +39,7 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     */
   def tiles: ListMap[Position, MultiLayeredTile] = _tiles
 
-  def tiles_=(newTiles: ListMap[Position, MultiLayeredTile]) = _tiles = newTiles
+  def tiles_=(newTiles: ListMap[Position, MultiLayeredTile]): Unit = _tiles = newTiles
 
   /** create the game main panel containing the tiles panel and the toolbar panel
     *
@@ -80,7 +81,7 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     add(mainPanel)
     keyHandler.registerKeyAction(tilesPanel, _tiles)
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
-    this.associateTiles(initialRoom)
+    this.associateTiles(initialRoom, initialRoom.extractRoomPath())
     this.updatePlayerImage(initialPos, ImageManager.CharacterDown.path)
     setResizable(false)
     setVisible(true)

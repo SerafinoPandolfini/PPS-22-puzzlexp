@@ -5,7 +5,7 @@ import model.cells.Position
 import model.cells.properties.{Direction, Item}
 import model.gameMap.MinimapElement
 import model.room.Room
-import utils.PathExtractor.extractPath
+import utils.extensions.paths.CellPathExtractor.extractCellPath
 import utils.constants.PathManager.{ImagePath, PngExtension}
 import view.game.pause.PauseGamePanel
 import javax.swing.{ImageIcon, JPanel, SwingUtilities}
@@ -29,10 +29,7 @@ object ViewUpdater:
       * @param room
       *   the [[Room]] to convert into images for the [[MultiLayeredTile]]s
       */
-    def associateTiles(room: Room): Unit =
-      val groundPaths = room.cells.toList.sorted.map(c => extractPath(c, room.cells))
-      val itemPaths = room.cells.toList.sorted.map(_.cellItem.toString)
-      val zippedPaths = groundPaths zip itemPaths
+    def associateTiles(room: Room, zippedPaths: List[(String, String)]): Unit =
       view.tiles =
         view.tiles.keys.zip(zippedPaths).foldLeft(view.tiles) { case (tilesMap, ((x, y), (groundPath, itemPath))) =>
           val updatedTile = tilesMap((x, y))

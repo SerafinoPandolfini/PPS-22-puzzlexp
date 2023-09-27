@@ -27,9 +27,6 @@ object ItemHolderExtension:
     def ?(item: Item): Boolean = itemHolder.isPresent(item)
 
     /** return a visual representation of [[ItemHolder.itemOwned]]
-      *
-      * @param mapper
-      *   the mapper to transform the items in the corresponding string
       * @return
       *   the string with the items in [[ItemHolder.itemOwned]]
       */

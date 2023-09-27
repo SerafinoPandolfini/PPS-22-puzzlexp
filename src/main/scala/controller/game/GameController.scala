@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent
 import java.io.PrintWriter
 import java.nio.file.*
 import scala.util.{Failure, Success}
+import utils.extensions.paths.RoomPathExtractor.extractRoomPath
 
 object GameController:
   private[controller] var _view: GameView = _
@@ -53,7 +54,7 @@ object GameController:
           )
       case None => PlayerMovement.checkChangeRoom(direction)
     PlayerMovement.checkMoveOnItem()
-    view.associateTiles(CurrentGame.currentRoom)
+    view.associateTiles(CurrentGame.currentRoom, CurrentGame.currentRoom.extractRoomPath())
     val playerDirection = CurrentGame.currentRoom.isPlayerDead(CurrentGame.currentPosition) match
       case Success(value) if !value => direction
       case _ =>
@@ -74,7 +75,7 @@ object GameController:
     yield r.updateItem(resettedRoom.cells, Item.Empty).filter(e => e.position == r.position).head
     resettedRoom.updateCells(itemEmpty)
     CurrentGame.resetRoom(resettedRoom)
-    view.associateTiles(CurrentGame.currentRoom)
+    view.associateTiles(CurrentGame.currentRoom, CurrentGame.currentRoom.extractRoomPath())
 
   /** saves the actual game writing the needed info in a json file */
   def saveGame(): Unit =

@@ -8,22 +8,20 @@ import javax.swing.plaf.basic.{BasicArrowButton, BasicScrollBarUI}
 import javax.swing.{ImageIcon, JButton, JComponent}
 
 /** permits to configure the UI of the scrollBar */
-class CustomScrollBarUI() extends BasicScrollBarUI:
-  /** configuration of the background (trackColor) and foreground (thumbColor) of the scrollbar */
-  override def configureScrollBarColors(): Unit =
-    thumbColor = ColorManager.ScrollBarForeground
-    trackColor = Color.WHITE
+class CustomScrollBarUI extends BasicScrollBarUI:
+  val trackBGColor: Option[Color] = Some(Color.WHITE)
+  val thumbFGColor: Option[Color] = Some(ColorManager.ScrollBarForeground)
 
   /** set the foreground of the scrollbar */
   override def paintThumb(g: Graphics, c: JComponent, thumbBounds: Rectangle): Unit =
-    if (!thumbBounds.isEmpty && thumbColor != null)
-      g.setColor(thumbColor)
+    if (!thumbBounds.isEmpty && thumbFGColor.isDefined)
+      g.setColor(thumbFGColor.get)
       g.fillRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height)
 
   /** set the background of the scrollbar */
   override def paintTrack(g: Graphics, c: JComponent, trackBounds: Rectangle): Unit =
-    if (!trackBounds.isEmpty && trackColor != null)
-      g.setColor(trackColor)
+    if (!trackBounds.isEmpty && trackBGColor.isDefined)
+      g.setColor(trackBGColor.get)
       g.fillRect(trackBounds.x, trackBounds.y, trackBounds.width, trackBounds.height)
 
   /** set the size of the scrollbar */

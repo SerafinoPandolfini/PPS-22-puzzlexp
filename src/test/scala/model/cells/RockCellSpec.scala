@@ -50,12 +50,10 @@ class RockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
     var cells: Set[Cell] = Set(rockCell)
     CurrentGame.addItem(Item.Axe)
     cells = cells.concat(rockCell.usePowerUp())
-    println(cells)
     rockCell = cells.head match
       case cell: RockCell => cell
     rockCell.broken should be(false)
     CurrentGame.addItem(Item.Pick)
-    println(CurrentGame.itemHolder)
     cells = rockCell.usePowerUp()
     rockCell = cells.head match
       case cell: RockCell => cell

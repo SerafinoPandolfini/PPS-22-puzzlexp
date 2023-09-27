@@ -14,5 +14,5 @@ import javax.swing.JLabel
 case class ItemCounterLabel(label: JLabel, item: Item, amount: Int = 0) extends Label:
 
   override def updateLabel(newAmount: Int): ItemCounterLabel =
-    label.setText("x" + newAmount.toString)
+    label.setText(s"x${newAmount.toString}")
     copy(label, item, newAmount)

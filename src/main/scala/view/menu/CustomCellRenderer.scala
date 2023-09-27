@@ -9,6 +9,8 @@ import javax.swing.*
 
 /** this is a custom JLabel in the scrollPanel */
 class CustomCellRenderer extends JButton with ListCellRenderer[Any]:
+
+  /** @return the configured component to paint the cells in the cell list */
   def getListCellRendererComponent(
       list: JList[_],
       value: Any,
