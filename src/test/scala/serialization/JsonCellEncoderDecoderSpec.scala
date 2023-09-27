@@ -7,32 +7,32 @@ import io.circe.syntax.*
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.{BeforeAndAfterEach, color}
 import org.scalatest.matchers.should.Matchers.*
-import serialization.JsonDecoder.cellDecoder
-import serialization.JsonEncoder.cellEncoder
 import utils.TestUtils.*
-import model.cells.properties.{Item, Color, PressurePlateBlockGroup, Direction}
+import model.cells.properties.{Color, Direction, Item, PressurePlateBlockGroup}
+import serialization.JsonCellDecoder.cellDecoder
+import serialization.JsonCellEncoder.cellEncoder
 
 class JsonCellEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
   var cell: Cell = _
   var cells: Set[Cell] = _
 
   override def beforeEach(): Unit =
-    cell = BasicCell(defaultPosition, Item.Pick)
+    cell = BasicCell(DefaultPosition, Item.Pick)
     cells = Set(
       cell,
-      ButtonCell(position1_1, color = Color.Blue),
-      ButtonBlockCell(position1_2, color = Color.Blue),
-      CliffCell(position2_2, Item.Key, Direction.Down),
-      HoleCell(position2_1, Item.Box),
-      PressurePlateCell(position3_1),
-      PressurePlateBlockCell(position3_2, Item.Trunk, activeState = PressurePlateBlockGroup.ObstacleWhenPressed),
-      RockCell(position3_3),
-      LockCell(defaultPosition),
-      PlantCell(defaultPosition),
-      CoveredHoleCell(defaultPosition, Item.Coin),
-      WallCell(defaultPosition),
-      TeleportCell(defaultPosition),
-      TeleportDestinationCell(defaultPosition, Item.Axe)
+      ButtonCell(Position1_1, color = Color.Blue),
+      ButtonBlockCell(Position1_2, color = Color.Blue),
+      CliffCell(Position2_2, Item.Key, Direction.Down),
+      HoleCell(Position2_1, Item.Box),
+      PressurePlateCell(Position3_1),
+      PressurePlateBlockCell(Position3_2, Item.Trunk, activeState = PressurePlateBlockGroup.ObstacleWhenPressed),
+      RockCell(Position3_3),
+      LockCell(DefaultPosition),
+      PlantCell(DefaultPosition),
+      CoveredHoleCell(DefaultPosition, Item.Coin),
+      WallCell(DefaultPosition),
+      TeleportCell(DefaultPosition),
+      TeleportDestinationCell(DefaultPosition, Item.Axe)
     )
 
   "A cell" should "be encodable and decodable in " in {

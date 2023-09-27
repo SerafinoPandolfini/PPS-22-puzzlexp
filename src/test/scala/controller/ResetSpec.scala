@@ -20,20 +20,20 @@ import java.awt.event.KeyEvent
 
 class ResetSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
-  var item: Item = _
-  var item2: Item = _
-  var item3: Item = _
+  var item2_3Before: Item = _
+  var item2_3After: Item = _
+  var item3_3after: Item = _
 
   override def beforeEach(): Unit =
     super.beforeEach()
     if !GraphicsEnvironment.isHeadless then
-      GameController.startGame("json/testMap.json")
+      GameController.startGame(JsonTestFile)
       GameController.movePlayer(KeyEvent.VK_S)
       GameController.movePlayer(KeyEvent.VK_S)
-      item = CurrentGame.currentRoom.getCell(2, 3).get.cellItem // box
+      item2_3Before = CurrentGame.currentRoom.getCell(Position2_3).get.cellItem
       GameController.movePlayer(KeyEvent.VK_D)
-      item2 = CurrentGame.currentRoom.getCell(2, 3).get.cellItem // empty
-      item3 = CurrentGame.currentRoom.getCell(3, 3).get.cellItem // box
+      item2_3After = CurrentGame.currentRoom.getCell(Position2_3).get.cellItem
+      item3_3after = CurrentGame.currentRoom.getCell(Position3_3).get.cellItem
 
   override def afterEach(): Unit =
     super.afterEach()
@@ -41,39 +41,39 @@ class ResetSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "A reset" should "be done when the player change room" in {
     if !GraphicsEnvironment.isHeadless then
-      item should not be item2
-      item should be(item3)
+      item2_3Before should not be item2_3After
+      item2_3Before should be(item3_3after)
       GameController.movePlayer(KeyEvent.VK_A)
       GameController.movePlayer(KeyEvent.VK_A)
       GameController.movePlayer(KeyEvent.VK_D)
-      val item4 = CurrentGame.currentRoom.getCell(2, 3).get.cellItem
-      item4 should not be item2
-      item4 should be(item)
-      val item5 = CurrentGame.currentRoom.getCell(3, 3).get.cellItem
-      item5 should not be item
+      val item2_3 = CurrentGame.currentRoom.getCell(Position2_3).get.cellItem
+      item2_3 should not be item2_3After
+      item2_3 should be(item2_3Before)
+      val item3_3 = CurrentGame.currentRoom.getCell(Position3_3).get.cellItem
+      item3_3 should not be item3_3after
   }
 
   "A reset" should "be done when the player press R" in {
     if !GraphicsEnvironment.isHeadless then
-      item should not be item2
-      item should be(item3)
+      item2_3Before should not be item2_3After
+      item2_3Before should be(item3_3after)
       GameController.view.tilesPanel.getActionMap.get("keyAction_" + KeyEvent.VK_R).actionPerformed(null)
-      val item4 = CurrentGame.currentRoom.getCell(2, 3).get.cellItem
-      item4 should not be item2
-      item4 should be(item)
-      val item5 = CurrentGame.currentRoom.getCell(3, 3).get.cellItem
-      item5 should not be item
+      val item2_3 = CurrentGame.currentRoom.getCell(Position2_3).get.cellItem
+      item2_3 should not be item2_3After
+      item2_3 should be(item2_3Before)
+      val item3_3 = CurrentGame.currentRoom.getCell(Position3_3).get.cellItem
+      item3_3 should not be item3_3after
   }
 
   "A reset" should "be done when the player dies" in {
     if !GraphicsEnvironment.isHeadless then
-      item should not be item2
-      item should be(item3)
+      item2_3Before should not be item2_3After
+      item2_3Before should be(item3_3after)
       for _ <- 0 to RoomImpl.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
       for _ <- 0 to RoomImpl.DefaultWidth do GameController.movePlayer(KeyEvent.VK_D)
-      val item4 = CurrentGame.currentRoom.getCell(2, 3).get.cellItem
-      item4 should not be item2
-      item4 should be(item)
-      val item5 = CurrentGame.currentRoom.getCell(3, 3).get.cellItem
-      item5 should not be item
+      val item2_3 = CurrentGame.currentRoom.getCell(Position2_3).get.cellItem
+      item2_3 should not be item2_3After
+      item2_3 should be(item2_3Before)
+      val item3_3 = CurrentGame.currentRoom.getCell(Position3_3).get.cellItem
+      item3_3 should not be item3_3after
   }

@@ -1,7 +1,6 @@
 package model.cells.logic
 
 import model.cells.*
-
 import model.cells.logic.UpdateMethods.*
 import model.cells.properties.{Direction, Item, PressableState}
 

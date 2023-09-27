@@ -40,7 +40,7 @@ object PauseExtension:
       * @param mapPanel
       *   the [[JPanel]] in which the [[JPanel]] representing the room and its links is inserted
       */
-    private def paintRooms(l: MinimapElement, r: JPanel, tup: (URL, String), mapPanel: JPanel) =
+    private def paintRooms(l: MinimapElement, r: JPanel, tup: (URL, String), mapPanel: JPanel): Unit =
       val (img, dir) = tup
       val room =
         if l.name.equals(GameController.getCurrentRoomName) then ImageIcon(ImageManager.CurrentRoom.path)
@@ -65,7 +65,6 @@ object PauseExtension:
             )
           )
         else (JLabel(""), JLabel(""))
-
       roomLabel.setPreferredSize(Dimension(pauseGamePanel.roomWidth, pauseGamePanel.roomHeight))
       r.add(roomLabel, BorderLayout.CENTER)
       linkLabel.setPreferredSize(Dimension(pauseGamePanel.linkWidth, pauseGamePanel.linkWidth))

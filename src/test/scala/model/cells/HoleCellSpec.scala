@@ -13,7 +13,7 @@ class HoleCellSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenThe
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    holeCell = HoleCell(defaultPosition)
+    holeCell = HoleCell(DefaultPosition)
 
   "A hole cell" should "be deadly" in {
     holeCell.isDeadly should be(true)

@@ -25,10 +25,10 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhen
 
   "A room builder" should "not have room outside its border" in {
     val room = RoomBuilder()
-      .addCell(BasicCell(outOfBoundPosition))
+      .addCell(BasicCell(OutOfBoundPosition))
       .standardize
       .build
-    room.getCell(outOfBoundPosition) should be(Option.empty)
+    room.getCell(OutOfBoundPosition) should be(Option.empty)
   }
 
   "A room builder" should "create the required room" in {
@@ -36,9 +36,9 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhen
     val room = RoomBuilder(RoomWidth, RoomHeight)
       .name(RoomName)
       .borderWalls()
-      .addLinks(RoomLink(position3_2, Direction.Left, "", defaultPosition))
-      .wallRectangle(position1_1, 1, 1)
-      .addCells(Set(HoleCell(position2_2), CoveredHoleCell(position1_2)))
+      .addLinks(RoomLink(Position3_2, Direction.Left, "", DefaultPosition))
+      .wallRectangle(Position1_1, 1, 1)
+      .addCells(Set(HoleCell(Position2_2), CoveredHoleCell(Position1_2)))
       .standardize
       .build
     Then("it should match with the one described in the builder")
@@ -53,18 +53,18 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhen
   }
 
   "A room builder" should "have alias methods for creating a cell" in {
-    val testCell = HoleCell(position2_2)
+    val testCell = HoleCell(Position2_2)
     Given("a room created using the builder standard methods")
     val room1 = RoomBuilder(RoomWidth, RoomHeight)
       .borderWalls()
-      .wallRectangle(position1_1, 1, 1)
+      .wallRectangle(Position1_1, 1, 1)
       .addCell(testCell)
       .standardize
       .build
     Given("another room created with the aliases")
     val room2 = RoomBuilder(RoomWidth, RoomHeight)
       .##()
-      .||(position1_1, 1, 1)
+      .||(Position1_1, 1, 1)
       .+(testCell)
       .!!
       .build

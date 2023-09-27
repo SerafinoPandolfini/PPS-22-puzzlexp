@@ -16,14 +16,14 @@ class BasicCellSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenTh
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    basicCell = BasicCell(defaultPosition)
+    basicCell = BasicCell(DefaultPosition)
 
   "A basic cell" should "be walkable" in {
     basicCell.walkableState should be(WalkableType.Walkable(true))
   }
 
   "A basic cell" should "have a position" in {
-    basicCell.position should be(defaultPosition)
+    basicCell.position should be(DefaultPosition)
   }
 
   "A basic cell" should "not be deadly" in {
@@ -37,6 +37,6 @@ class BasicCellSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenTh
     var cells: Set[Cell] = Set(basicCell)
     When("its item is updated with Box")
     cells = basicCell.updateItem(Set(basicCell), Item.Box)
-    Then(("it should have item Box"))
+    Then("it should have item Box")
     cells.head.cellItem should be(Item.Box)
   }

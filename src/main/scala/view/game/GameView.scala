@@ -62,7 +62,6 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     for l <- itemLabels
     yield toolbarPanel.add(l.label)
     toolbarPanel.add(scoreLabel)
-
     toolbarPanel
 
   /** @return

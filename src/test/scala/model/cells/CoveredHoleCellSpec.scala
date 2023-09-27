@@ -13,7 +13,7 @@ class CoveredHoleCellSpec extends AnyFlatSpec with BeforeAndAfterEach with Given
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    coveredHoleCell = CoveredHoleCell(defaultPosition)
+    coveredHoleCell = CoveredHoleCell(DefaultPosition)
 
   "A covered hole cell" should "not be deadly" in {
     coveredHoleCell.isDeadly should not be true
@@ -40,7 +40,7 @@ class CoveredHoleCellSpec extends AnyFlatSpec with BeforeAndAfterEach with Given
   "A covered hole cell" should "be broken when leaved for the first time" in {
     Given("a not filled covered hole cell")
     var cells: Set[Cell] = Set(coveredHoleCell)
-    When(("the player moves out of it"))
+    When("the player moves out of it")
     cells = coveredHoleCell.moveOut(cells)
     Then("the cover of the cell is broken")
     coveredHoleCell = cells.collectFirst { case cell: CoveredHoleCell => cell }.get

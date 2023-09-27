@@ -14,13 +14,13 @@ class PressurePlateBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    pressurePlateBlockCell = PressurePlateBlockCell(defaultPosition, activeState = ObstacleWhenNotPressed, NotPressed)
+    pressurePlateBlockCell = PressurePlateBlockCell(DefaultPosition, activeState = ObstacleWhenNotPressed, NotPressed)
 
   "A plate block cell" should "be openable" in {
     pressurePlateBlockCell.walkableState should be(WalkableType.Walkable(false))
     var cells: Set[Cell] = Set(pressurePlateBlockCell)
-    val pressurePlateCell: PressurePlateCell = PressurePlateCell((0, 1))
-    cells = pressurePlateCell.updateItem(Set(pressurePlateCell, pressurePlateBlockCell), Item.Box, genericDirection)
+    val pressurePlateCell: PressurePlateCell = PressurePlateCell(Position0_1)
+    cells = pressurePlateCell.updateItem(Set(pressurePlateCell, pressurePlateBlockCell), Item.Box, GenericDirection)
     pressurePlateBlockCell = cells.collect { case c: PressurePlateBlockCell => c }.head
     pressurePlateBlockCell.walkableState should be(WalkableType.Walkable(true))
   }

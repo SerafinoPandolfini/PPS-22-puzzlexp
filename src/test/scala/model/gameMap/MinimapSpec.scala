@@ -4,14 +4,14 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.GivenWhenThen
-import Minimap.createMinimap
+import model.gameMap.Minimap.createMinimap
 import scala.util.Success
 import serialization.JsonDecoder
-import utils.TestUtils.{defaultPosition, position1_0, position0_1, position1_1}
+import utils.TestUtils.{DefaultPosition, Position1_0, Position0_1, Position1_1}
 
 class MinimapSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenThen:
 
-  var mapFiles = List("json/testMap.json", "json/cyclicMap.json", "json/gapMap.json")
+  var mapFiles: Seq[String] = List("json/testMap.json", "json/cyclicMap.json", "json/gapMap.json")
   var maps = List.empty[GameMap]
 
   override def beforeEach(): Unit =
@@ -26,23 +26,25 @@ class MinimapSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenThen
 
   "A complete Minimap" should "represent every room of the map" in {
     Given("a list of GameMaps")
-    maps.filter(_.name != "gapMap").foreach(map => {
-      When("a minimap is created for map " + map.name)
-      val minimap = map.createMinimap()
-      Then("the size should match the map's room's size")
-      minimap.size should be(map.rooms.size)
-      And("the name of the minimapElements should match the room's names")
-      minimap.foreach(m => map.rooms.filter(r => r.name == m.name).map(r => r.name).contains(m.name) should be(true))
-      And("the direction of the minimapElements should match the roomLink's directions")
-      minimap.foreach(m =>
-        map.rooms
-          .filter(r => r.name == m.name)
-          .map(r => r.links.map(l => l.direction))
-          .contains(m.directions) should be(
-          true
+    maps
+      .filter(_.name != "gapMap")
+      .foreach(map => {
+        When("a minimap is created for map " + map.name)
+        val minimap = map.createMinimap()
+        Then("the size should match the map's room's size")
+        minimap.size should be(map.rooms.size)
+        And("the name of the minimapElements should match the room's names")
+        minimap.foreach(m => map.rooms.filter(r => r.name == m.name).map(r => r.name).contains(m.name) should be(true))
+        And("the direction of the minimapElements should match the roomLink's directions")
+        minimap.foreach(m =>
+          map.rooms
+            .filter(r => r.name == m.name)
+            .map(r => r.links.map(l => l.direction))
+            .contains(m.directions) should be(
+            true
+          )
         )
-      )
-    })
+      })
   }
 
   "A Minimap" should "have the positions of its elements in a non negative range" in {
@@ -57,7 +59,7 @@ class MinimapSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenThen
   "A Minimap" should "be sorted using the positions of its elements" in {
     Given("a minimap")
     val minimap = maps.tail.head.createMinimap()
-    val supposedPositions = List(defaultPosition, position1_0, position0_1, position1_1)
+    val supposedPositions = List(DefaultPosition, Position1_0, Position0_1, Position1_1)
     Then("its positions should be correctly sorted for rows")
     minimap.zip(supposedPositions).foreach(e => e._1.position should be(e._2))
   }
@@ -68,6 +70,5 @@ class MinimapSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenThen
     When("a minimap is created")
     val minimap = incompleteMap.createMinimap()
     Then("there should be at least one element that is a placeholder")
-    minimap.filter(!_.existing).isEmpty should not be true
+    minimap.forall(_.existing) should not be true
   }
-

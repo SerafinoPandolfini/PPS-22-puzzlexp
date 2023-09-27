@@ -23,7 +23,6 @@ object ViewUpdater:
       */
     def updatePlayerImage(position: Position, image: URL): Unit =
       val updatedTile = view.tiles.get(position)
-      println(position)
       updatedTile.get.playerImage = Option(ImageIcon(image).getImage)
 
     /** associate the [[MultiLayeredTile]]s with their respective images
@@ -58,8 +57,7 @@ object ViewUpdater:
       * @param score
       *   the current score of the player
       */
-    def updateScore(score: Int): Unit =
-      view.scoreLabel.setText(ToolbarElements.scoreText concat score.toString)
+    def updateScore(score: Int): Unit = view.scoreLabel.setText(ToolbarElements.ScoreText concat score.toString)
 
     /** called when the player reach the [[Item.GoalGem]]
       * @param playerScore
@@ -70,9 +68,8 @@ object ViewUpdater:
       *   calculated as playerScore over totalScore
       */
     def endGame(playerScore: Int, totalScore: Int, percentage: Double): Unit =
-      view.mainPanel.remove(view.toolbarPanel)
-      view.mainPanel.remove(view.tilesPanel)
-      EndGamePanel.createLabel(playerScore.toString, totalScore.toString, percentage.toString)
+      view.mainPanel.removeAll()
+      EndGamePanel.createEndGameLabel(playerScore.toString, totalScore.toString, percentage.toString)
       view.mainPanel.add(view.endPanel)
       view.mainPanel.revalidate()
 
@@ -87,9 +84,12 @@ object ViewUpdater:
       if imageURL.isEmpty then ImageIcon("").getImage
       else ImageIcon(imageURL.get).getImage
 
-    def pause(list: List[MinimapElement]): Unit =
-      view.mainPanel.remove(view.toolbarPanel)
-      view.mainPanel.remove(view.tilesPanel)
+    /** paint the pause menu and delete the other panels
+      * @param list
+      *   the list of [[MinimapElement]] to use for painting the mini map in the menu
+      */
+    def pauseGame(list: List[MinimapElement]): Unit =
+      view.mainPanel.removeAll()
       view.mainPanel.add(
         PauseGamePanel(list, view.mainPanel.getWidth, view.mainPanel.getHeight).createPauseGamePanel(),
         BorderLayout.CENTER
@@ -97,7 +97,8 @@ object ViewUpdater:
       view.mainPanel.repaint()
       view.mainPanel.revalidate()
 
-    def back(): Unit =
+    /** delete the pause menu and repaint the other panels to get back in the game */
+    def backToGame(): Unit =
       view.mainPanel.removeAll()
       view.mainPanel.add(view.toolbarPanel, BorderLayout.NORTH)
       view.mainPanel.add(view.tilesPanel, BorderLayout.CENTER)

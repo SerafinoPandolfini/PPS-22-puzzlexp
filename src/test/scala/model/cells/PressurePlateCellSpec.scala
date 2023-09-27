@@ -12,15 +12,15 @@ class PressurePlateCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    pressurePlateCell = PressurePlateCell(defaultPosition)
+    pressurePlateCell = PressurePlateCell(DefaultPosition)
 
   "A pressurePlate cell" should "be pressable and unpressable by moving a box" in {
     pressurePlateCell.pressableState should be(PressableState.NotPressed)
     var cells: Set[Cell] = Set(pressurePlateCell)
-    cells = pressurePlateCell.updateItem(Set(pressurePlateCell), Item.Box, genericDirection)
+    cells = pressurePlateCell.updateItem(Set(pressurePlateCell), Item.Box, GenericDirection)
     pressurePlateCell = cells.collect { case c: PressurePlateCell => c }.head
     pressurePlateCell.pressableState should be(PressableState.Pressed)
-    cells = pressurePlateCell.updateItem(Set(pressurePlateCell), Item.Empty, genericDirection)
+    cells = pressurePlateCell.updateItem(Set(pressurePlateCell), Item.Empty, GenericDirection)
     pressurePlateCell = cells.collect { case c: PressurePlateCell => c }.head
     pressurePlateCell.pressableState should be(PressableState.NotPressed)
   }

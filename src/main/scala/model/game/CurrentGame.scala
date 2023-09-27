@@ -18,7 +18,7 @@ object CurrentGame:
   private var _currentRoom: Room = _
   private var _currentPosition: Position = _
   private var _startPositionInRoom: Position = _
-  private var _minMapElement: List[MinimapElement] = _
+  private var _miniMapElement: List[MinimapElement] = _
 
   def scoreCounter: Int = _scoreCounter
 
@@ -34,7 +34,7 @@ object CurrentGame:
 
   def originalGameMap: GameMap = _originalGameMap
 
-  def minimapElement: List[MinimapElement] = _minMapElement
+  def minimapElement: List[MinimapElement] = _miniMapElement
 
   /** initialize all the values that depends on the game map
     * @param value
@@ -44,13 +44,12 @@ object CurrentGame:
     _scoreCounter = 0
     _itemHolder = ItemHolder(List.empty)
     _originalGameMap = value
-    _gameMap = value
+    _gameMap = value.createCopy()
     _currentRoom = value.getRoomFromName(value.initialRoom).get
     _currentPosition = value.initialPosition
     _startPositionInRoom = value.initialPosition
-    _minMapElement = _gameMap.createMinimap()
-    println(_minMapElement.toString())
-    _minMapElement = visitRoom()
+    _miniMapElement = _gameMap.createMinimap()
+    _miniMapElement = visitRoom()
 
   /** substitute the current room with a new one, updating the current map
     * @param newRoom
@@ -59,7 +58,7 @@ object CurrentGame:
   def resetRoom(newRoom: Room): Unit =
     _currentRoom = newRoom
     _currentPosition = _startPositionInRoom
-    _gameMap.updateRoom(newRoom)
+    _gameMap.rooms = _gameMap.updateRoom(newRoom)
 
   /** change the current room
     * @param room
@@ -71,7 +70,7 @@ object CurrentGame:
     _currentRoom = room
     _currentPosition = pos
     _startPositionInRoom = pos
-    _minMapElement = visitRoom()
+    _miniMapElement = visitRoom()
 
   /** Adds an item to the [[ItemHolder]] and calculate its score
     * @param item
@@ -86,8 +85,7 @@ object CurrentGame:
     * @param item
     *   the item to remove
     */
-  def removeItem(item: Item): Unit =
-    _itemHolder = _itemHolder.removeItem(item)
+  def removeItem(item: Item): Unit = _itemHolder = _itemHolder.removeItem(item)
 
   /** perform the actions needed when a player moves and adjust its position
     * @param position
@@ -104,16 +102,7 @@ object CurrentGame:
     */
   def load(json: Json): Unit =
     JsonDecoder.saveGameDecoder.apply(json.hcursor) match
-      case Right(
-            originalMap,
-            currentMap,
-            currentRoom,
-            currentPlayerPosition,
-            startPlayerPosition,
-            itemList,
-            score,
-            minmap
-          ) =>
+      case Right(originalMap, currentMap, room, currentPosition, startPosition, itemList, score, minimap) =>
         _scoreCounter = score
         _itemHolder = ItemHolder(itemList)
         JsonDecoder.getJsonFromPath(originalMap) match
@@ -123,10 +112,10 @@ object CurrentGame:
               case Left(ex)   => println(ex)
           case Failure(exception) => println(exception)
         _gameMap = currentMap
-        _currentRoom = currentRoom
-        _currentPosition = currentPlayerPosition
-        _startPositionInRoom = startPlayerPosition
-        _minMapElement = minmap
+        _currentRoom = room
+        _currentPosition = currentPosition
+        _startPositionInRoom = startPosition
+        _miniMapElement = minimap
       case Left(ex) => println(ex)
 
   /** change the minimap marking the current room as visited
@@ -134,7 +123,4 @@ object CurrentGame:
     *   the modified minimap
     */
   private def visitRoom(): List[MinimapElement] =
-    _minMapElement.map(element =>
-      if (element.name == _currentRoom.name) then element.visit()
-      else element
-    )
+    _miniMapElement.map(element => if element.name == _currentRoom.name then element.visit() else element)

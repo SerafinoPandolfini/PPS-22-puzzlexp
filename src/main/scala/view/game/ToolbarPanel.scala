@@ -6,7 +6,7 @@ import javax.swing.{BorderFactory, JPanel}
 
 object ToolbarPanel:
 
-  private val borders = 2
+  private val Borders = 2
   private val ToolbarBorderThickness = 4
   private val ToolbarHeight = 3
 
@@ -23,7 +23,7 @@ object ToolbarPanel:
       Dimension(
         GraphicManager.Cols * GraphicManager.CellSize,
         GraphicManager.CellSize * ToolbarHeight
-          + borders * ToolbarBorderThickness
+          + Borders * ToolbarBorderThickness
       )
     )
     val border = BorderFactory.createLineBorder(

@@ -1,18 +1,17 @@
 package serialization
 
-import model.cells.properties.Direction
-import model.cells.*
+import model.cells.properties.{Direction, Item}
+import model.cells.{Cell, Position}
 import io.circe.generic.semiauto.deriveDecoder
 import io.circe.{Decoder, DecodingFailure, Json}
 import io.circe.parser.*
-import model.cells.properties.Item
+import serialization.JsonCellDecoder.{cellDecoder, mapToCell}
 import model.room.{Room, RoomLink}
 import model.gameMap.{GameMap, MinimapElement}
-import utils.constants.PathManager.{JsonDirectoryPath, JsonExtension}
-import scala.io.Source
+import utils.constants.PathManager.{JsonDirectoryPath, JsonExtension, SavePath}
+import utils.constants.JsonFieldsManager.*
+import scala.io.{BufferedSource, Source}
 import scala.util.{Try, Using}
-import scala.io.Source
-import scala.io.BufferedSource
 
 type SaveData = (String, GameMap, Room, Position, Position, List[Item], Int, List[MinimapElement])
 
@@ -20,97 +19,36 @@ object JsonDecoder:
 
   given decoderItem: Decoder[Item] = deriveDecoder[Item]
 
-  given basicCellDecoder: Decoder[BasicCell] = deriveDecoder[BasicCell]
-
-  given buttonCellDecoder: Decoder[ButtonCell] = deriveDecoder[ButtonCell]
-
-  given cliffCellDecoder: Decoder[CliffCell] = deriveDecoder[CliffCell]
-
-  given buttonBlockCellDecoder: Decoder[ButtonBlockCell] = deriveDecoder[ButtonBlockCell]
-
-  given coveredHoleCellDecoder: Decoder[CoveredHoleCell] = deriveDecoder[CoveredHoleCell]
-
-  given holeCellDecoder: Decoder[HoleCell] = deriveDecoder[HoleCell]
-
-  given pressurePlateBlockCellDecoder: Decoder[PressurePlateBlockCell] = deriveDecoder[PressurePlateBlockCell]
-
-  given pressurePlateCellDecoder: Decoder[PressurePlateCell] = deriveDecoder[PressurePlateCell]
-
-  given teleportCellDecoder: Decoder[TeleportCell] = deriveDecoder[TeleportCell]
-
-  given teleportDestinationCellDecoder: Decoder[TeleportDestinationCell] = deriveDecoder[TeleportDestinationCell]
-
-  given wallCellDecoder: Decoder[WallCell] = deriveDecoder[WallCell]
-
-  given rockCellDecoder: Decoder[RockCell] = deriveDecoder[RockCell]
-
-  given plantCellDecoder: Decoder[PlantCell] = deriveDecoder[PlantCell]
-
-  given lockCellDecoder: Decoder[LockCell] = deriveDecoder[LockCell]
-
-  private def mapToCell[A <: Cell](decoder: Decoder[A]): Decoder[Cell] =
-    decoder.map(identity)
-
-  /** decoder for all the [[Cell]]
-    * @return
-    *   a decoder for Cell
-    */
-  given cellDecoder: Decoder[Cell] = Decoder.instance { c =>
-    val cellType = c.downField("cellType").as[String].getOrElse("Unknown")
-    val decoder: Decoder[Cell] = cellType match
-      case "BasicCell"               => mapToCell(basicCellDecoder)
-      case "CliffCell"               => mapToCell(cliffCellDecoder)
-      case "ButtonBlockCell"         => mapToCell(buttonBlockCellDecoder)
-      case "ButtonCell"              => mapToCell(buttonCellDecoder)
-      case "CoveredHoleCell"         => mapToCell(coveredHoleCellDecoder)
-      case "HoleCell"                => mapToCell(holeCellDecoder)
-      case "PressurePlateBlockCell"  => mapToCell(pressurePlateBlockCellDecoder)
-      case "PressurePlateCell"       => mapToCell(pressurePlateCellDecoder)
-      case "TeleportCell"            => mapToCell(teleportCellDecoder)
-      case "TeleportDestinationCell" => mapToCell(teleportDestinationCellDecoder)
-      case "WallCell"                => mapToCell(wallCellDecoder)
-      case "RockCell"                => mapToCell(rockCellDecoder)
-      case "PlantCell"               => mapToCell(plantCellDecoder)
-      case "LockCell"                => mapToCell(lockCellDecoder)
-      case _                         => Decoder.failed(DecodingFailure(s"Unknown cellType: $cellType", c.history))
-    decoder(c)
-  }
-
   given roomLinkDecoder: Decoder[RoomLink] = deriveDecoder[RoomLink]
 
   given directionDecoder: Decoder[Direction] = deriveDecoder[Direction]
 
-  /** a decoder for the mini map
-    * @return
-    *   a [[Decoder]] for MinimapElement
-    */
   given minimapElementDecoder: Decoder[MinimapElement] = deriveDecoder[MinimapElement]
 
   /** a decoder for [[Room]]
     * @return
     *   a room decoder
     */
-  given roomDecoder: Decoder[Room] = Decoder.instance { cursor =>
+  given roomDecoder: Decoder[Room] = Decoder.instance(cursor =>
     for
-      name <- cursor.downField("name").as[String]
-      cells <- cursor.downField("cells").as[Set[Cell]]
-      links <- cursor.downField("links").as[Set[RoomLink]]
+      name <- cursor.downField(RoomName).as[String]
+      cells <- cursor.downField(RoomCells).as[Set[Cell]]
+      links <- cursor.downField(RoomLinks).as[Set[RoomLink]]
     yield Room(name, cells, links)
-  }
+  )
 
   /** a decoder for [[GameMap]]
     * @return
     *   a map decoder
     */
-  given mapDecoder: Decoder[GameMap] = Decoder.instance { cursor =>
+  given mapDecoder: Decoder[GameMap] = Decoder.instance(cursor =>
     for
-      name <- cursor.downField("name").as[String]
-      rooms <- cursor.downField("rooms").as[Set[Room]]
-      initialRoom <- cursor.downField("initialRoom").as[String]
-      initialPosition <- cursor.downField("initialPosition").as[Position]
+      name <- cursor.downField(MapName).as[String]
+      rooms <- cursor.downField(MapRooms).as[Set[Room]]
+      initialRoom <- cursor.downField(MapInitialRoom).as[String]
+      initialPosition <- cursor.downField(MapInitialPosition).as[Position]
     yield GameMap(name, rooms, initialRoom, initialPosition)
-
-  }
+  )
 
   /** obtain a json from a specified path
     * @param filePath
@@ -119,36 +57,32 @@ object JsonDecoder:
     *   the [[Json]] if present, an exception otherwise
     */
   def getJsonFromPath(filePath: String): Try[Json] =
-    Try {
-      val source = filePath match {
-        case externalPath if externalPath.contains("saves") =>
-          Source.fromFile(filePath)
-        case internalPath =>
-          val classLoader = getClass.getClassLoader
-          val inputStream = classLoader.getResourceAsStream(internalPath)
-          Source.fromInputStream(inputStream)
-      }
-
-      Using(source) { source =>
-        val jsonString = source.mkString
-        parse(jsonString).getOrElse(throw new Exception("Parsing failed"))
-      }
-    }.flatten
+    val source = filePath match
+      case externalPath if externalPath.contains(SavePath) =>
+        Source.fromFile(externalPath)
+      case internalPath =>
+        val classLoader = getClass.getClassLoader
+        val inputStream = classLoader.getResourceAsStream(internalPath)
+        Source.fromInputStream(inputStream)
+    Using(source)(source =>
+      val jsonString = source.mkString
+      parse(jsonString).getOrElse(throw new Exception("Parsing failed"))
+    )
 
   /** a decoder for a save game file
     * @return
     *   a decoder for a save game file
     */
-  given saveGameDecoder: Decoder[SaveData] = Decoder.instance { cursor =>
+  given saveGameDecoder: Decoder[SaveData] = Decoder.instance(cursor =>
     for
-      originalMap <- cursor.downField("mapName").as[String]
-      currentMap <- cursor.downField("map").as[GameMap]
-      currentRoom <- cursor.downField("room").as[Room]
-      currentPlayerPosition <- cursor.downField("currentPos").as[Position]
-      startPlayerPosition <- cursor.downField("startPos").as[Position]
-      itemList <- cursor.downField("items").as[List[Item]]
-      score <- cursor.downField("score").as[Int]
-      minimap <- cursor.downField("minimap").as[List[MinimapElement]]
+      originalMap <- cursor.downField(SaveMapName).as[String]
+      currentMap <- cursor.downField(SaveMap).as[GameMap]
+      currentRoom <- cursor.downField(SaveRoom).as[Room]
+      currentPlayerPosition <- cursor.downField(SaveCurrentPosition).as[Position]
+      startPlayerPosition <- cursor.downField(SaveStartPosition).as[Position]
+      itemList <- cursor.downField(SaveItems).as[List[Item]]
+      score <- cursor.downField(SaveScore).as[Int]
+      minimap <- cursor.downField(SaveMiniMap).as[List[MinimapElement]]
     yield (
       JsonDirectoryPath + originalMap + JsonExtension,
       currentMap,
@@ -159,4 +93,4 @@ object JsonDecoder:
       score,
       minimap
     )
-  }
+  )

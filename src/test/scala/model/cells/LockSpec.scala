@@ -3,7 +3,7 @@ package model.cells
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
-import utils.TestUtils.{defaultPosition, genericDirection}
+import utils.TestUtils.{DefaultPosition, GenericDirection}
 import model.cells.logic.CellExtension.updateItem
 import model.cells.properties.{Item, WalkableType}
 
@@ -12,7 +12,7 @@ class LockSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    doorCell = LockCell(defaultPosition)
+    doorCell = LockCell(DefaultPosition)
 
   "A door cell" should "be close" in {
     doorCell.open should be(false)
@@ -21,20 +21,20 @@ class LockSpec extends AnyFlatSpec with BeforeAndAfterEach:
   "A door cell" should "be opened with a key" in {
     var cells: Set[Cell] = Set(doorCell)
     doorCell.open should be(false)
-    cells = doorCell.updateItem(cells, Item.Axe, genericDirection)
+    cells = doorCell.updateItem(cells, Item.Axe, GenericDirection)
     doorCell = cells.collectFirst { case cell: LockCell => cell }.get
     doorCell.open should be(false)
-    cells = doorCell.updateItem(cells, Item.Key, genericDirection)
+    cells = doorCell.updateItem(cells, Item.Key, GenericDirection)
     doorCell = cells.collectFirst { case cell: LockCell => cell }.get
     doorCell.open should be(true)
   }
 
   "a opened door" should "not be closed" in {
     var cells: Set[Cell] = Set(doorCell)
-    cells = doorCell.updateItem(cells, Item.Key, genericDirection)
+    cells = doorCell.updateItem(cells, Item.Key, GenericDirection)
     doorCell = cells.collectFirst { case cell: LockCell => cell }.get
     doorCell.open should be(true)
-    cells = doorCell.updateItem(cells, Item.Key, genericDirection)
+    cells = doorCell.updateItem(cells, Item.Key, GenericDirection)
     doorCell = cells.collectFirst { case cell: LockCell => cell }.get
     doorCell.open should be(true)
   }
@@ -43,7 +43,7 @@ class LockSpec extends AnyFlatSpec with BeforeAndAfterEach:
     var cells: Set[Cell] = Set(doorCell)
     doorCell.open should be(false)
     doorCell.walkableState should be(WalkableType.Walkable(false))
-    cells = doorCell.updateItem(cells, Item.Key, genericDirection)
+    cells = doorCell.updateItem(cells, Item.Key, GenericDirection)
     doorCell = cells.collectFirst { case cell: LockCell => cell }.get
     doorCell.open should be(true)
     doorCell.walkableState should be(WalkableType.Walkable(true))

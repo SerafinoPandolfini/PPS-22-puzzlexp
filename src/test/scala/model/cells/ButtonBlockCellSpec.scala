@@ -15,12 +15,12 @@ class ButtonBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    buttonBlockCell = ButtonBlockCell(defaultPosition, color = color)
+    buttonBlockCell = ButtonBlockCell(DefaultPosition, color = color)
 
   "A button cell" should "be openable moving a box on the corresponding button" in {
     buttonBlockCell.walkableState should be(WalkableType.Walkable(false))
-    val buttonCell: ButtonCell = ButtonCell((0, 1), color = color)
-    val cells = buttonCell.updateItem(Set(buttonCell, buttonBlockCell), Item.Box, genericDirection)
+    val buttonCell: ButtonCell = ButtonCell(Position0_1, color = color)
+    val cells = buttonCell.updateItem(Set(buttonCell, buttonBlockCell), Item.Box, GenericDirection)
     buttonBlockCell = cells.collect { case c: ButtonBlockCell => c }.head
     buttonBlockCell.walkableState should be(WalkableType.Walkable(true))
   }
@@ -31,7 +31,7 @@ class ButtonBlockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   "A button cell" should "be openable moving on the corresponding button" in {
     buttonBlockCell.walkableState should be(WalkableType.Walkable(false))
-    val buttonCell: ButtonCell = ButtonCell((0, 1), color = color)
+    val buttonCell: ButtonCell = ButtonCell(Position0_1, color = color)
     val (cells, _) = buttonCell.moveIn(Set(buttonCell, buttonBlockCell))
     buttonBlockCell = cells.collect { case c: ButtonBlockCell => c }.head
     buttonBlockCell.walkableState should be(WalkableType.Walkable(true))

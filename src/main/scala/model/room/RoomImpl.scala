@@ -34,7 +34,6 @@ private[room] class RoomImpl(val name: String, private var _cells: Set[Cell], va
     case WalkableType.DirectionWalkable(p) => p(dir)
 
   /** check if instead of moving the player there is some item to move instead or no movement at all
-    *
     * @param position
     *   the player position
     * @param cell
@@ -77,7 +76,7 @@ private[room] class RoomImpl(val name: String, private var _cells: Set[Cell], va
       case Some(c) => Success(c.isDeadly)
       case _       => Failure(PlayerOutOfBoundsException())
 
-  override def copy(): Room = Room(name, cells, links)
+  override def createCopy(): Room = Room(name, cells, links)
 
 object RoomImpl:
   val DefaultWidth: Int = 25

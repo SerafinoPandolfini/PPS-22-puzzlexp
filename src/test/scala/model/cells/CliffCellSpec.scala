@@ -13,7 +13,7 @@ class CliffCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    cliffCell = CliffCell(defaultPosition, Item.Empty, Direction.Down)
+    cliffCell = CliffCell(DefaultPosition, Item.Empty, Direction.Down)
 
   "A cliff cell" should "have a direction" in {
     cliffCell.direction should be(Direction.Down)

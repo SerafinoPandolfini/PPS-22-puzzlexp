@@ -1,21 +1,16 @@
 package controller.game
 
-import controller.game.GameController
-import io.circe.Json
 import model.cells.*
 import model.cells.properties.{Direction, Item}
 import model.cells.logic.CellExtension.*
 import model.cells.logic.UseItemExtension.usePowerUp
-import model.game.{CurrentGame, ItemHolder}
-import model.gameMap.{GameMap, MinimapElement}
-import model.room.Room
+import model.game.CurrentGame
 import serialization.{JsonDecoder, JsonEncoder}
+import utils.constants.PathManager.{JsonExtension, PathSaveGame}
 import utils.givens.KeyDirectionMapping.given
-import utils.PathExtractor.extractPath
 import utils.extensions.PositionExtension.+
 import view.game.GameView
 import view.game.ViewUpdater.*
-import model.gameMap.Minimap.createMinimap
 import java.awt.event.KeyEvent
 import java.io.PrintWriter
 import java.nio.file.*
@@ -31,10 +26,9 @@ object GameController:
     *   the path of the json for the current game
     */
   def startGame(path: String): Unit =
-    val appDir = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves")
     JsonDecoder.getJsonFromPath(path) match
       case Success(jsonData) =>
-        if Path.of(path).startsWith(appDir) then CurrentGame.load(jsonData)
+        if Path.of(path).startsWith(PathSaveGame) then CurrentGame.load(jsonData)
         else
           JsonDecoder.mapDecoder(jsonData.hcursor) match
             case Right(map)  => CurrentGame.initialize(map)
@@ -68,8 +62,7 @@ object GameController:
     view.updatePlayerImage(CurrentGame.currentPosition, playerDirection)
     ToolbarUpdater.updateToolbarLabels()
 
-  /** Reset the current room
-    */
+  /** Reset the current room */
   def resetRoom(): Unit =
     val resettedRoom = CurrentGame.originalGameMap.getRoomFromName(CurrentGame.currentRoom.name).get
     val doors = CurrentGame.currentRoom.cells.collect { case c: LockCell => c }.map(c => c.copy(cellItem = Item.Empty))
@@ -83,28 +76,22 @@ object GameController:
     CurrentGame.resetRoom(resettedRoom)
     view.associateTiles(CurrentGame.currentRoom)
 
-  /** saves the actual game writing the needed info in a json file
-    */
+  /** saves the actual game writing the needed info in a json file */
   def saveGame(): Unit =
-    val appDir = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves")
-    if !Files.exists(appDir) then Files.createDirectories(appDir)
-    val outputFile = java.io.File(
-      appDir.toString + java.io.File.separator + CurrentGame.originalGameMap.name + ".json"
-    )
+    if !Files.exists(PathSaveGame) then Files.createDirectories(PathSaveGame)
+    val outputFile =
+      java.io.File(PathSaveGame.toString + java.io.File.separator + CurrentGame.originalGameMap.name + JsonExtension)
     val printWriter = PrintWriter(outputFile)
     printWriter.write(JsonEncoder.saveGameEncoder.apply(CurrentGame).spaces2)
     printWriter.close()
 
-  /** pause the game
-    */
-  def pauseGame(): Unit = _view.pause(CurrentGame.minimapElement)
+  /** pause the game */
+  def pauseGame(): Unit = _view.pauseGame(CurrentGame.minimapElement)
 
-  /** goes back to game from the pause screen
-    */
-  def backToGame(): Unit = _view.back()
+  /** goes back to game from the pause screen */
+  def backToGame(): Unit = _view.backToGame()
 
-  /** delete the current frame
-    */
+  /** delete the current frame */
   def endGame(): Unit = _view.dispose()
 
   /** get the room name
@@ -112,10 +99,3 @@ object GameController:
     *   the current room name
     */
   def getCurrentRoomName: String = CurrentGame.currentRoom.name
-
-object simulate extends App:
-  GameController.startGame("src/main/resources/json/FirstMap.json")
-
-object useSave extends App:
-  val appDir = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves", "FirstMap.json").toString
-  GameController.startGame(appDir)

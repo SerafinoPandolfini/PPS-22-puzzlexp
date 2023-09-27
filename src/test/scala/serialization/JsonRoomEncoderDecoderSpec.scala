@@ -17,9 +17,9 @@ class JsonRoomEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     room = Room(
-      "name",
-      Set(BasicCell(defaultPosition)),
-      Set(RoomLink(defaultPosition, genericDirection, "room", position1_1))
+      RoomName,
+      Set(BasicCell(DefaultPosition)),
+      Set(RoomLink(DefaultPosition, GenericDirection, Room2Name, Position1_1))
     )
 
   "A room" should "be encodable and decodable in " in {

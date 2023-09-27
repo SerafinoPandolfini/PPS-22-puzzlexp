@@ -1,6 +1,6 @@
 package model.cells
 
-import utils.TestUtils.{defaultPosition, genericDirection}
+import utils.TestUtils.{DefaultPosition, GenericDirection}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.*
@@ -15,7 +15,7 @@ class RockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     super.beforeEach()
-    rockCell = RockCell(defaultPosition)
+    rockCell = RockCell(DefaultPosition)
     brokenRockCell = rockCell.copy(broken = true)
 
   "A rock cell" should "be not broken" in {
@@ -32,7 +32,7 @@ class RockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
   "a rock cell if it is not broken" should "not contain a box" in {
     var cells: Set[Cell] = Set(rockCell)
     rockCell.broken should be(false)
-    cells = rockCell.updateItem(cells, Item.Box, genericDirection)
+    cells = rockCell.updateItem(cells, Item.Box, GenericDirection)
     rockCell = cells.head match
       case cell: RockCell => cell
     rockCell.cellItem should be(Item.Empty)
@@ -41,7 +41,7 @@ class RockCellSpec extends AnyFlatSpec with BeforeAndAfterEach:
   "a rock cell if it's broken" should "contain a box" in {
     var cells: Set[Cell] = Set(brokenRockCell)
     brokenRockCell.broken should be(true)
-    cells = brokenRockCell.updateItem(cells, Item.Box, genericDirection)
+    cells = brokenRockCell.updateItem(cells, Item.Box, GenericDirection)
     brokenRockCell = cells.collectFirst { case cell: RockCell => cell }.get
     brokenRockCell.cellItem should be(Item.Box)
   }

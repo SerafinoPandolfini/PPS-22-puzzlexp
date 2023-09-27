@@ -9,9 +9,9 @@ import prologEngine.PrologConverter.*
 import utils.constants.PathManager.{PrologExtension, TheoryDirectoryPath}
 
 object ButtonBlockFinder:
-  val termX = "X"
-  val termY = "Y"
-  val theoryName = "search_button_block"
+  val TermX = "X"
+  val TermY = "Y"
+  val TheoryName = "search_button_block"
 
   /** Find the button block cells of the specified color from the specified set
     * @param cells
@@ -23,9 +23,9 @@ object ButtonBlockFinder:
     */
   def positionToRevert(cells: Set[Cell], color: Color): Set[Position] =
     val set = cells.map(convertCellToProlog(_, addColor))
-    val engine = PrologEngine(TheoryDirectoryPath + theoryName + PrologExtension)
-    val input = Struct.of(theoryName, set.toList, termX, termY, color.toString.toLowerCase)
-    val result = engine.solve(input, termX, termY)
+    val engine = PrologEngine(TheoryDirectoryPath + TheoryName + PrologExtension)
+    val input = Struct.of(TheoryName, set.toList, TermX, TermY, color.toString.toLowerCase)
+    val result = engine.solve(input, TermX, TermY)
     extractPositions(result)
 
   /** Extract a set of positions as the result of the prolog theory
@@ -35,6 +35,6 @@ object ButtonBlockFinder:
     *   a set composed by the positions of the cells obtained by the prolog theory
     */
   private def extractPositions(map: Map[String, Term]): Set[Position] =
-    val xValues: List[Int] = map(termX)
-    val yValues: List[Int] = map(termY)
+    val xValues: List[Int] = map(TermX)
+    val yValues: List[Int] = map(TermY)
     xValues.zip(yValues).toSet

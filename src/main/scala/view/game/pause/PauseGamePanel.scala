@@ -3,7 +3,7 @@ package view.game.pause
 import controller.game.GameController
 import utils.constants.ImageManager
 import view.ImagePanel
-import view.game.ViewUpdater.back
+import view.game.ViewUpdater.backToGame
 import model.gameMap.MinimapElement
 import view.game.pause.PauseExtension.popolateMap
 import view.game.pause.PauseGamePanel.*
@@ -13,7 +13,7 @@ import javax.imageio.ImageIO
 import javax.swing.*
 import javax.swing.border.*
 
-class PauseGamePanel(val list: List[MinimapElement], var width: Int, var height: Int):
+class PauseGamePanel(val list: List[MinimapElement], val width: Int, val height: Int):
   private val panelImage = ImagePanel(ImageIO.read(ImageManager.PauseBackground.path))
   private val saveIcon = ImageIcon(ImageManager.Save.path)
   private val playIcon = ImageIcon(ImageManager.Play.path)

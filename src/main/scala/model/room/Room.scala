@@ -82,7 +82,7 @@ trait Room:
     * @return
     *   the copy of the room
     */
-  def copy(): Room
+  def createCopy(): Room
 
 object Room:
 

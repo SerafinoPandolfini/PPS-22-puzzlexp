@@ -14,32 +14,33 @@ class RoomRulesSpec extends AnyFlatSpec with BeforeAndAfterEach:
   var flawedRoomBuilder: RoomBuilder = _
   var flawedRoom: Room = _
   val ruleViolations = 6
+  val roomRules: RoomRules = RoomRules()
 
   override def beforeEach(): Unit =
     super.beforeEach()
     perfectRoom = RoomBuilder()
       .name("perfect room")
       .borderWalls()
-      .addLinks(leftLink)
+      .addLinks(LeftLink)
       .addCells(
         Set(
-          PressurePlateCell(position1_1),
-          PressurePlateBlockCell(position1_2, Item.Empty, PressurePlateBlockGroup.ObstacleWhenPressed),
-          ButtonCell(position3_1, color = Color.Red),
-          ButtonBlockCell(position2_2, color = Color.Red),
-          TeleportCell(position2_1),
-          TeleportDestinationCell(position3_3)
+          PressurePlateCell(Position1_1),
+          PressurePlateBlockCell(Position1_2, Item.Empty, PressurePlateBlockGroup.ObstacleWhenPressed),
+          ButtonCell(Position3_1, color = Color.Red),
+          ButtonBlockCell(Position2_2, color = Color.Red),
+          TeleportCell(Position2_1),
+          TeleportDestinationCell(Position3_3)
         )
       )
       .standardize
       .build
     flawedRoomBuilder = RoomBuilder()
       .name("flawed room")
-      .addCell(WallCell(outOfBoundPosition))
-      .addCell(BasicCell(defaultPosition))
-      .addCell(PressurePlateCell(position1_1))
-      .addCell(ButtonCell(position3_1, color = Color.Red))
-      .addCell(TeleportCell(position2_1))
+      .addCell(WallCell(OutOfBoundPosition))
+      .addCell(BasicCell(DefaultPosition))
+      .addCell(PressurePlateCell(Position1_1))
+      .addCell(ButtonCell(Position3_1, color = Color.Red))
+      .addCell(TeleportCell(Position2_1))
     flawedRoom = flawedRoomBuilder.build
 
   "A room" should "respect all room rules" in {

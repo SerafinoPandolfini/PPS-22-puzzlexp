@@ -14,13 +14,13 @@ import javax.swing.border.*
 
 object EndGamePanel:
 
-  private val labelFont = Font("Arial", Font.PLAIN, 43)
-  private val homeButtonDimension = 64
-  private val padding = 9
-  private val borderLayoutGap = BorderLayout(0, 250)
+  private val LabelFont = Font("Arial", Font.PLAIN, 43)
+  private val HomeButtonDimension = 64
+  private val Padding = 9
+  private val BorderLayoutGap = BorderLayout(0, 250)
   private val imagePanel = ImagePanel(ImageIO.read(ImageManager.End.path))
-  private val homeIcon = ImageIcon(ImageManager.Home.path)
-  private val labelHeight = 6
+  private val HomeIcon = ImageIcon(ImageManager.Home.path)
+  private val LabelHeight = 6
 
   /** provide a basic [[JPanel]] to serve as a end game panel
     * @return
@@ -28,8 +28,8 @@ object EndGamePanel:
     */
   def createEndGamePanel(): JPanel =
     val endGamePanel = JPanel(BorderLayout())
-    imagePanel.setLayout(borderLayoutGap)
-    imagePanel.setBorder(EmptyBorder(padding, padding, padding, padding))
+    imagePanel.setLayout(BorderLayoutGap)
+    imagePanel.setBorder(EmptyBorder(Padding, Padding, Padding, Padding))
     val homeButton = createHomeButton()
     imagePanel.add(homeButton, BorderLayout.LINE_START)
     endGamePanel.add(imagePanel, BorderLayout.CENTER)
@@ -44,7 +44,7 @@ object EndGamePanel:
     * @param percentage
     *   the percentage of map completed
     */
-  def createLabel(playerScore: String, totalScore: String, percentage: String): Unit =
+  def createEndGameLabel(playerScore: String, totalScore: String, percentage: String): Unit =
     val label = JLabel(
       "<html><div style='text-align: center;'>CONGRATULATIONS!<br>Your score is " +
         playerScore + "/" + totalScore + " points <br> You completed " +
@@ -53,18 +53,22 @@ object EndGamePanel:
     )
     label.setForeground(ColorManager.ToolbarText)
     label.setPreferredSize(
-      Dimension(GraphicManager.Cols * GraphicManager.CellSize, GraphicManager.CellSize * labelHeight)
+      Dimension(GraphicManager.Cols * GraphicManager.CellSize, GraphicManager.CellSize * LabelHeight)
     )
-    label.setFont(labelFont)
+    label.setFont(LabelFont)
     imagePanel.add(label, BorderLayout.SOUTH)
 
+  /** Create a button to the main menu of the game
+    * @return
+    *   a [[JButton]] to the home of the game
+    */
   private def createHomeButton(): JButton =
     val homeButton = JButton()
     homeButton.setOpaque(false)
     homeButton.setContentAreaFilled(false)
     homeButton.setBorderPainted(false)
-    homeButton.setIcon(homeIcon)
-    homeButton.setPreferredSize(Dimension(homeButtonDimension, homeButtonDimension))
+    homeButton.setIcon(HomeIcon)
+    homeButton.setPreferredSize(Dimension(HomeButtonDimension, HomeButtonDimension))
     homeButton.addActionListener(_ => {
       GameController.endGame()
       MenuController().start()

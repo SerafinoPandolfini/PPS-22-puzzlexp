@@ -17,8 +17,8 @@ class PrologEngineSpec extends AnyFlatSpec with BeforeAndAfterEach:
     super.beforeEach()
     engine = PrologEngine("/prologTheory/cells_counter.pl")
     cells = Set(
-      WallCell(defaultPosition),
-      BasicCell(position1_1)
+      WallCell(DefaultPosition),
+      BasicCell(Position1_1)
     )
 
   "A prolog engine" should "solve the provided goal and return the proper result" in {

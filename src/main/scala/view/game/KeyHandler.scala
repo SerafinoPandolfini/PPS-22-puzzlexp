@@ -6,7 +6,7 @@ import model.cells.properties.Direction
 import model.game.CurrentGame
 import utils.constants.ImageManager
 import view.game.KeyHandler
-import view.game.ViewUpdater.pause
+import view.game.ViewUpdater.pauseGame
 import java.awt.event.{ActionEvent, KeyEvent}
 import javax.swing.*
 import scala.collection.immutable.ListMap

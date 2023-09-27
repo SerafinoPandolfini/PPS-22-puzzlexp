@@ -20,7 +20,7 @@ import java.awt.event.KeyEvent
 import java.nio.file.{Files, Paths}
 
 class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
-  val path: String = Paths.get(System.getProperty("user.home"), "puzzlexp", "saves", "testMap.json").toString
+  val path: String = PathSave
   var position: Position = _
   var startPosition: Position = _
   var map: GameMap = _
@@ -33,7 +33,7 @@ class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
   override def beforeEach(): Unit =
     super.beforeEach()
     if !GraphicsEnvironment.isHeadless then
-      GameController.startGame("json/testMap.json")
+      GameController.startGame(JsonTestFile)
       for _ <- 0 to RoomImpl.DefaultHeight do GameController.movePlayer(KeyEvent.VK_S)
       GameController.movePlayer(KeyEvent.VK_D)
       for _ <- 0 to RoomImpl.DefaultHeight do GameController.movePlayer(KeyEvent.VK_W)
@@ -50,7 +50,7 @@ class SaveGameEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
     super.afterEach()
     if !GraphicsEnvironment.isHeadless then GameController.view.dispose()
 
-  "A game save" should "be encodable and decodable in " in {
+  "A game save" should "be encodable and decodable " in {
     if !GraphicsEnvironment.isHeadless then
       saveGameEncoder.apply(CurrentGame) shouldBe a[Json]
       val saveJ: Json = saveGameEncoder.apply(CurrentGame)

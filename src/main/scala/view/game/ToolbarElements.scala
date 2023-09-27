@@ -4,22 +4,22 @@ import controller.game.GameController
 import model.cells.properties.Item
 import utils.constants.{ColorManager, ImageManager}
 import view.game.labels.{ItemCounterLabel, ItemLabel, Label}
-import view.game.ViewUpdater.pause
+import view.game.ViewUpdater.pauseGame
 import java.awt.event.ActionEvent
 import java.awt.{Dimension, Font}
 import java.net.URL
 import javax.swing.*
 
 object ToolbarElements:
-  private val textFont = Font("Arial", Font.PLAIN, 16)
-  private val counterText = "x0"
-  private val initialScore = "0"
+  private val TextFont = Font("Arial", Font.PLAIN, 16)
+  private val CounterText = "x0"
+  private val InitialScore = "0"
   private val ToolbarElementsHeight = 96
   private val ButtonElement = 88
   private val MediumElementWidth = 96
   private val SmallElementWidth = 64
   private val LargeElementWidth = 192
-  val scoreText = "SCORE: "
+  val ScoreText = "SCORE: "
 
   /** @return
     *   the button to pause the game
@@ -44,8 +44,8 @@ object ToolbarElements:
   def createItemCounter(item: Item, iconPath: URL): ItemCounterLabel =
     val itemCounterLabel = JLabel()
     itemCounterLabel.setIcon(ImageIcon(iconPath))
-    itemCounterLabel.setText(counterText)
-    itemCounterLabel.setFont(textFont)
+    itemCounterLabel.setText(CounterText)
+    itemCounterLabel.setFont(TextFont)
     itemCounterLabel.setPreferredSize(
       Dimension(MediumElementWidth, ToolbarElementsHeight)
     )
@@ -73,9 +73,9 @@ object ToolbarElements:
     */
   def createScoreLabel(): JLabel =
     val scoreIcon = ImageIcon(ImageManager.ScoreBackground.path)
-    val scoreLabel = JLabel(scoreText concat initialScore)
+    val scoreLabel = JLabel(ScoreText concat InitialScore)
     scoreLabel.setIcon(scoreIcon)
-    scoreLabel.setFont(textFont)
+    scoreLabel.setFont(TextFont)
     scoreLabel.setPreferredSize(
       Dimension(LargeElementWidth, ToolbarElementsHeight)
     )

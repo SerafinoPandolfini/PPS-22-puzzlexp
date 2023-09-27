@@ -8,9 +8,9 @@ import prologEngine.PrologConverter.*
 import utils.constants.PathManager.{PrologExtension, TheoryDirectoryPath}
 
 object TeleportFinder:
-  val termX = "X"
-  val termY = "Y"
-  val theoryName = "search_teleport_destination"
+  val TermX = "X"
+  val TermY = "Y"
+  val TheoryName = "search_teleport_destination"
 
   /** Find the teleport destination cell from the specified set
     * @param cells
@@ -20,13 +20,11 @@ object TeleportFinder:
     */
   def findDestination(cells: Set[Cell]): Option[Position] =
     val set = cells.map(convertCellToProlog(_))
-    val engine = PrologEngine(TheoryDirectoryPath + theoryName + PrologExtension)
-    val input = Struct.of(theoryName, set.toList, termX, termY)
-    val result = engine.solve(input, termX, termY)
+    val engine = PrologEngine(TheoryDirectoryPath + TheoryName + PrologExtension)
+    val input = Struct.of(TheoryName, set.toList, TermX, TermY)
+    val result = engine.solve(input, TermX, TermY)
     if result.isEmpty then Option.empty
-    else
-      println(extractPosition(result))
-      Option(extractPosition(result))
+    else Option(extractPosition(result))
 
   /** Extract a position as the result of the prolog theory
     * @param map
@@ -35,6 +33,6 @@ object TeleportFinder:
     *   the position of the cell obtained by the prolog theory
     */
   private def extractPosition(map: Map[String, Term]): Position =
-    val xValue: Int = map(termX)
-    val yValue: Int = map(termY)
+    val xValue: Int = map(TermX)
+    val yValue: Int = map(TermY)
     (xValue, yValue)

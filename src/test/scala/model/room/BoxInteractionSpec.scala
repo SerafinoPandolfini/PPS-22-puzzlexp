@@ -15,11 +15,11 @@ class BoxInteractionSpec extends AnyFlatSpec with GivenWhenThen:
     Given("a room and a player position")
     val largerRoom = RoomBuilder(RoomWidth + 1, RoomHeight + 1)
       .##()
-      .+(BasicCell(position3_1, Item.Box))
-      .+(BasicCell(position2_2, Item.Box))
+      .+(BasicCell(Position3_1, Item.Box))
+      .+(BasicCell(Position2_2, Item.Box))
       .!!
       .build
-    var playerPosition = position2_1
+    var playerPosition = Position2_1
     var expectedRepresentation = "\n" +
       "WL | WL | WL | WL | WL\n" +
       "WL |    | pl | bx | WL\n" +
@@ -29,9 +29,9 @@ class BoxInteractionSpec extends AnyFlatSpec with GivenWhenThen:
     largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
     When("the player tries to move a box into a wall")
     playerPosition = largerRoom.playerMove(playerPosition, Direction.Right).get
-    Then(noUpdateMessage)
+    Then(NoUpdateMessage)
     largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
-    playerPosition = position1_2
+    playerPosition = Position1_2
     largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(
       "\n" +
         "WL | WL | WL | WL | WL\n" +
@@ -51,7 +51,7 @@ class BoxInteractionSpec extends AnyFlatSpec with GivenWhenThen:
         "WL |    |    |    | WL\n" +
         "WL | WL | WL | WL | WL\n"
     )
-    playerPosition = position3_3
+    playerPosition = Position3_3
     expectedRepresentation = "\n" +
       "WL | WL | WL | WL | WL\n" +
       "WL |    |    | bx | WL\n" +
@@ -60,7 +60,7 @@ class BoxInteractionSpec extends AnyFlatSpec with GivenWhenThen:
       "WL | WL | WL | WL | WL\n"
     When("the player tries to move a box into another box")
     largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
-    Then(noUpdateMessage)
+    Then(NoUpdateMessage)
     playerPosition = largerRoom.playerMove(playerPosition, Direction.Up).get
     largerRoom.cellsRepresentation(showPlayerAndBoxes(playerPosition)) should be(expectedRepresentation)
   }

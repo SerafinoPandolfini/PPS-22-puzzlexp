@@ -4,7 +4,7 @@ import model.cells.properties.Direction
 import org.scalatest.{BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
-import utils.TestUtils.{defaultPosition, position1_1}
+import utils.TestUtils.{DefaultPosition, Position1_1}
 
 class MinimapElementSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenThen:
 
@@ -12,8 +12,8 @@ class MinimapElementSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenW
   var placeholderElement: MinimapElement = _
 
   override def beforeEach(): Unit =
-    visitableElement = MinimapElement("visitable", defaultPosition, Set.empty[Direction], false, true)
-    placeholderElement = MinimapElement("placeholder", position1_1, Set.empty[Direction], false, false)
+    visitableElement = MinimapElement("visitable", DefaultPosition, Set.empty[Direction], false, true)
+    placeholderElement = MinimapElement("placeholder", Position1_1, Set.empty[Direction], false, false)
 
   "A MinimapElement" should "be visitable if it exist" in {
     Given("a visitable element")

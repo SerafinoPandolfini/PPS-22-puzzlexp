@@ -12,8 +12,7 @@ import scala.util.{Failure, Success}
 
 object PlayerMovement:
 
-  /** Check if the player has moved on a collectable item and performs the needed actions
-    */
+  /** Check if the player has moved on a collectable item and performs the needed actions */
   private[controller] def checkMoveOnItem(): Unit =
     CurrentGame.currentRoom.getCell(CurrentGame.currentPosition) match
       case Some(value) =>
@@ -24,7 +23,7 @@ object PlayerMovement:
               CurrentGame.originalGameMap.totalPoints,
               CurrentGame.scoreCounter.toDouble %% CurrentGame.originalGameMap.totalPoints.toDouble
             )
-          case Empty => () // do nothing, it's empty
+          case Empty => ()
           case _ =>
             CurrentGame.currentRoom.updateCells(value.updateItem(CurrentGame.currentRoom.cells, Item.Empty))
             CurrentGame.addItem(value.cellItem)
@@ -39,4 +38,4 @@ object PlayerMovement:
       case Success((room, pos)) =>
         resetRoom()
         CurrentGame.changeRoom(room, pos)
-      case Failure(_) => () // it is not a link, just do nothing
+      case Failure(exception) => println(s" Exception : $exception ")

@@ -18,22 +18,21 @@ class JsonMapEncoderDecoderSpec extends AnyFlatSpec with BeforeAndAfterEach:
 
   override def beforeEach(): Unit =
     val room = Room(
-      "name",
-      Set(BasicCell(defaultPosition)),
-      Set(RoomLink(defaultPosition, genericDirection, "room", position1_1))
+      RoomName,
+      Set(BasicCell(DefaultPosition)),
+      Set(RoomLink(DefaultPosition, GenericDirection, Room2Name, Position1_1))
     )
-    map = new GameMap("map1", Set(room), "name", defaultPosition)
+    map = new GameMap(MapName, Set(room), RoomName, DefaultPosition)
 
   "A map" should "be encodable and decodable in " in {
     mapEncoder.apply(map) shouldBe a[Json]
     val mapJ: Json = mapEncoder.apply(map)
-    println(mapDecoder.apply(mapJ.hcursor))
     val map2 = mapDecoder.apply(mapJ.hcursor).toOption.get
     isEqual(map, map2) should be(true)
   }
 
   "A map" should "be retrievable from a json file" in {
-    val j = getJsonFromPath("json/testMap.json").toOption.get
+    val j = getJsonFromPath(JsonTestFile).toOption.get
     j shouldBe a[Json]
     mapDecoder.apply(j.hcursor).toOption.get shouldBe a[GameMap]
   }
