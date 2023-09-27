@@ -14,27 +14,27 @@ class CellPathExtractorSpec extends AnyFlatSpec:
 
   "from a cell it" should "be able to extract a path for its respective image" in {
     val cellsWithPaths: List[(Cell, String)] = List(
-      (BasicCell(position1_1), "cell_BS_W"),
-      (WallCell(position2_1), "cell_WL_C"),
-      (HoleCell(position1_2), "cell_HL_W_D"),
-      (CliffCell(position2_2, Item.Empty, Direction.Left), "cell_CL_LEFT"),
-      (CoveredHoleCell(position3_2), "cell_CH_W_C"),
-      (ButtonCell(position3_1, color = Color.Red), "cell_BT_W_RED"),
-      (ButtonCell(position3_3, color = Color.Blue, pressableState = PressableState.Pressed), "cell_BT_W_BLUE_P")
+      (BasicCell(Position1_1), "cell_BS_W"),
+      (WallCell(Position2_1), "cell_WL_C"),
+      (HoleCell(Position1_2), "cell_HL_W_D"),
+      (CliffCell(Position2_2, Item.Empty, Direction.Left), "cell_CL_LEFT"),
+      (CoveredHoleCell(Position3_2), "cell_CH_W_C"),
+      (ButtonCell(Position3_1, color = Color.Red), "cell_BT_W_RED"),
+      (ButtonCell(Position3_3, color = Color.Blue, pressableState = PressableState.Pressed), "cell_BT_W_BLUE_P")
     )
     cellsWithPaths.foreach((c, s) => c.extractCellPath() should be(s))
   }
 
   "a path extractor" should "be able to compute the string path of a specific cell" in {
     val cellsWithPaths: Set[Cell] = Set(
-      WallCell(position1_1),
-      WallCell(position1_2),
-      ButtonCell(position1_3, color = Color.Red),
-      WallCell(position2_1),
-      CoveredHoleCell(position2_3),
-      ButtonCell(position3_1, color = Color.Blue, pressableState = PressableState.Pressed),
-      CoveredHoleCell(position3_2),
-      ButtonCell(position3_3, color = Color.Red)
+      WallCell(Position1_1),
+      WallCell(Position1_2),
+      ButtonCell(Position1_3, color = Color.Red),
+      WallCell(Position2_1),
+      CoveredHoleCell(Position2_3),
+      ButtonCell(Position3_1, color = Color.Blue, pressableState = PressableState.Pressed),
+      CoveredHoleCell(Position3_2),
+      ButtonCell(Position3_3, color = Color.Red)
     )
-    WallCell(position2_2).extractCellPath(cellsWithPaths) should be("cell_WL_SE")
+    WallCell(Position2_2).extractCellPath(cellsWithPaths) should be("cell_WL_SE")
   }

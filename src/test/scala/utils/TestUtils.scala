@@ -19,6 +19,7 @@ object TestUtils:
   val Position2_1: Position = (2, 1)
   val Position2_2: Position = (2, 2)
   val Position2_3: Position = (2, 3)
+  val Position1_3: Position = (1, 3)
   val Position3_1: Position = (3, 1)
   val Position3_2: Position = (3, 2)
   val Position3_3: Position = (3, 3)
