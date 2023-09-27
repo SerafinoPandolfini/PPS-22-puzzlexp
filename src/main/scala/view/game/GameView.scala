@@ -14,6 +14,7 @@ import java.awt.event.{ActionEvent, ActionListener, KeyEvent}
 import javax.swing.*
 import javax.swing.border.Border
 import scala.collection.immutable.{List, ListMap}
+import utils.extensions.paths.RoomPathExtractor.extractRoomPath
 
 /** the standard game GUI
   */
@@ -81,7 +82,7 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     add(mainPanel)
     keyHandler.registerKeyAction(tilesPanel, _tiles)
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
-    this.associateTiles(initialRoom)
+    this.associateTiles(initialRoom, initialRoom.extractRoomPath())
     this.updatePlayerImage(initialPos, ImageManager.CharacterDown.path)
     setResizable(false)
     setVisible(true)
