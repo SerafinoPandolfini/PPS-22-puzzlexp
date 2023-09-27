@@ -50,7 +50,7 @@ object Minimap:
         .getOrElse((0, 0))
       mappedRoom <- extendMapping(roomsToMap, unmappedRooms, newPosition)
     yield mappedRoom
-    mappedRooms.toSet + MinimapElement(room.name, position, room.links.map(_.direction).toSet, false, true)
+    mappedRooms.toSet + MinimapElement(room.name, position, room.links.map(_.direction), false, true)
 
   /** search the minimum values of the mapping for fixing [[MinimapElement]]s' [[Position]]s
     * @param minimapElements
@@ -70,13 +70,13 @@ object Minimap:
     *   the new minimap completed with placeholders
     */
   private def fillGaps(minimap: List[MinimapElement]): List[MinimapElement] =
-    val (maxX, maxY): Position = minimap.foldLeft((Int.MinValue, Int.MinValue)) { case ((maxX, maxY), element) =>
-      (math.max(maxX, element.position._1), math.max(maxY, element.position._2))
+    val (maxX, maxY): Position = minimap.foldLeft((Int.MinValue, Int.MinValue)) { case ((x, y), element) =>
+      (math.max(x, element.position._1), math.max(y, element.position._2))
     }
     val elementsPositions = minimap.map(_.position)
     val placeholders = for
       x <- 0 to maxX
       y <- 0 to maxY
-      if !elementsPositions.contains(x, y)
+      if !elementsPositions.contains((x, y))
     yield MinimapElement("", (x, y), Set.empty[Direction], false, false)
     minimap ++ placeholders

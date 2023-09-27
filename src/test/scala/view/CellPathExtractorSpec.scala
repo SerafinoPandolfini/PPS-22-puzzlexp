@@ -4,13 +4,13 @@ import model.cells.properties.{Color, Direction, Item, PressableState}
 import model.cells.{BasicCell, ButtonCell, Cell, CliffCell, CoveredHoleCell, HoleCell, WallCell}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.flatspec.AnyFlatSpec
-import utils.PathExtractor
 import utils.constants.GraphicManager
-import utils.PathExtractor.extractPath
+import utils.extensions.paths.CellPathExtractor.extractCellPath
 import utils.TestUtils.*
 import utils.constants.GraphicManager.AdjacentDirection
+import utils.extensions.paths.CellPathExtractor.extractCellPath
 
-class PathExtractorSpec extends AnyFlatSpec:
+class CellPathExtractorSpec extends AnyFlatSpec:
 
   "from a cell it" should "be able to extract a path for its respective image" in {
     val cellsWithPaths: List[(Cell, String)] = List(
@@ -22,7 +22,7 @@ class PathExtractorSpec extends AnyFlatSpec:
       (ButtonCell(position3_1, color = Color.Red), "cell_BT_W_RED"),
       (ButtonCell(position3_3, color = Color.Blue, pressableState = PressableState.Pressed), "cell_BT_W_BLUE_P")
     )
-    cellsWithPaths.foreach((c, s) => extractPath(c) should be(s))
+    cellsWithPaths.foreach((c, s) => c.extractCellPath() should be(s))
   }
 
   "a path extractor" should "be able to compute the string path of a specific cell" in {
@@ -36,5 +36,5 @@ class PathExtractorSpec extends AnyFlatSpec:
       CoveredHoleCell(position3_2),
       ButtonCell(position3_3, color = Color.Red)
     )
-    extractPath(WallCell(position2_2), cellsWithPaths) should be("cell_WL_SE")
+    WallCell(position2_2).extractCellPath(cellsWithPaths) should be("cell_WL_SE")
   }

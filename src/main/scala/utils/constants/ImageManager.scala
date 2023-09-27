@@ -33,4 +33,4 @@ enum ImageManager(_path: String):
   /** @return
     *   the path of the image
     */
-  val path: URL = getClass.getClassLoader.getResource(PathManager.ImagePath + _path)
+  val path: URL = getClass.getClassLoader.getResource(s"${PathManager.ImagePath}${_path}")
