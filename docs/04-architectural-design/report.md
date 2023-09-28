@@ -4,7 +4,7 @@ Data la tipologia di progetto scelta, la sua relativa semplicità a livello arch
 Questo patterm permette di avere un'ottima suddivisone delle responsabilità, semplificando la suddivisione del lavoro all'interno del gruppo; rende più semplice uno sviluppo incrementale e iterativo, in quanto permette di aggiungere nuove caratteristiche senza stravolgere la struttura del codice precedente.    
 
 <p align="center">
-  <img src="../images/MVC.png" alt="Struttura pattern MVC"/>
+  <img src="../Images/MVC.png" alt="Struttura pattern MVC"/>
 </p>
 
 Model:
