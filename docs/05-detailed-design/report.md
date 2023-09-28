@@ -19,7 +19,7 @@ scelte importanti, pattern di programmazione, organizzazione del codice
 ```Room``` rappresenta il concetto di stanza costituito da un nome, un insieme di celle e dai ```RoomLink``` che definiscono i collegamenti tra stanze. 
 La costruzione di ```Room``` prevede differenti tipologie di parametri dalla costruzione dei confini della stanza al riempimento delle celle mancanti. Per agevolare la creazione delle stanze si è fatto uso del pattern Builder. Il pattern promuove il principio Single Responsibility Principle permettendo di incapsulare la logica di costruzione rendendola più flessibile e mantenibile. Tramite il builder è possibile impostare la validazione della stanza sulla base di specifiche regole, costruite anch'esse tramite il meccanismo di class composition. Queste regole permetteono di evitare complicati errori logici nella costruzione della stanza. Un esempio di regola è ```BorderCellsRule``` che definisce quali tipologie di celle possono essere sui bordi della stanza.
 <p align="center">
-  <img src="../images/roomBuilder.png" alt="Pattern Builder"/>
+  <img src="../Images/roomBuilder.png" alt="Pattern Builder"/>
 </p>
 
 ### GameMap
