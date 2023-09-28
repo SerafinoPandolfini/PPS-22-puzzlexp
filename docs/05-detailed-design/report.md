@@ -21,7 +21,9 @@ La costruzione di ```Room``` prevede differenti tipologie di parametri dalla cos
 <p align="center">
   <img src="../images/roomBuilder.png" alt="Pattern Builder"/>
 </p>
+
 ### GameMap
+```GameMap``` rappresenta il concetto di mappa di gioco, è costituita da un insieme di stanze connesse. Una sua rappresentazione è tramite una lista di  ```MinimapElement```, utilizzati per la costruzione della minimappa del menù di pausa e in relazione 1 a 1 con le stanze della mappa che rappresentano. Questi elementi vengono generati a partire dal metodo  ```CreateMinimap``` che viene aggiunto a ```GameMap``` tramite il pattern Pimp my library.
 
 ### Game
 
