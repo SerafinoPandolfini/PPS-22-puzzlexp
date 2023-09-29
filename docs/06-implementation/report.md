@@ -76,7 +76,7 @@ Di seguito si riporta un test:
       "[ AXE | PICK ]"
     )
   }
-```
+````
 Si noti come risulti più espressivo e sia subito chiaro l’intento: ++ per aggiungere una lista di elementi, + per aggiungerne uno e – per la rimozione.
 
 ### ItemConversion
@@ -96,6 +96,51 @@ Il gioco è pensato per renderizzare le celle della mappa ogni volta che riceve 
 Una possibile soluzione trovata è stata quella di caricare le celle di tutte le mappe una sola volta all’inizio del gioco per avere un delay solamente a inizio partita, evitando un delay nel mezzo del gioco grazie a una schermata iniziale di loading. Tuttavia, nemmeno questa soluzione è risultata accettabile. Infatti caricando tutte le celle all’inizio il tempo del loading risultava 15.82 secondi * 9 stanze / 60 circa due minuti e 40. Si è ritenuto che il tempo calcolato fosse inaccettabile anche per una schermata di caricamento.
 Come soluzione definitiva si è presa la decisione di trascrivere il codice Prolog in Scala che è in grado di ottenere il risultato desiderato in modo molto più performante delle precedenti casistiche. In particolare in questo codice è presente un for comprehension che  permette di ottenere una mappa immutabile avente come chiave le celle adiacenti e come valore un booleano che indica se sono ``` WallCell ``` oppure no in un modo dichiarativo e coinciso.
 
-### Serafino Pandolfini
+## Serafino Pandolfini
+Nel corso dello sviluppo di questo progetto mi sono occupato dei seguenti aspetti:
+### Cell, BasicCell, WallCell
+`Cell` rappresenta l'elemento base di cui è composta una `Room`.
+La classe è implementata come abstract class offrendo un implementazione comune per i metodi ```walkableState```, che
+ritorna _Walkable(true)_, e `isDeadly`, che ritorna _false_,  e al contempo descrive le proprietà comuni delle celle
+quali `position` e `cellItem`. <br>
+Al suo interno è definito l'**alias type** `Position` che descrive una tupla _(int, int)_, utilizzato per definire la
+posizione di ogni cella nella loro stanza. <br>
+Infine `Cell` è provvista di un **companion object** che fornisce tramite **given** un ordering per le celle basato 
+sulla loro posizione per righe.
+
+`BasicCell` e `WallCell` sono **case class** che estendono `Cell` e rappresentano i due tipi più comuni di
+celle: la prima riproduce il comportamento di Cell senza modifiche mentre la seconda fornisce nuove implementazioni per
+i metodi cellItem e walkableState ereditati da Cell.
+
+### HoleCell, CoveredHoleCell
+`HoleCell` e `CoveredHoleCell` sono altre tipologie di celle, a differenza di BasicCell e WallCell viene fatto
+uso di **Mixin**: viene usato il mixin `Hole` per HoleCell e CoveredHoleCell e `Covered` per CoveredHoleCell. 
+I mixin utilizzati permettono di aggiungere funzionalità specifiche senza creare una gerarchia complicata di classi. <br>
+Viene in seguito riportato un esempio del mixin Hole:
+
+```scala
+/** The mixin representing an obstacle that is walkable and deadly, but can be filled with a box item */
+trait Hole extends Cell:
+  /** if the hole is filled */
+  def filled: Boolean
+
+  abstract override def isDeadly: Boolean = !filled || super.isDeadly
+```
+
+
+
+### TeleportCell, TeleportDestinationCell
+
+### PrologEngine
+
+### Room, RoomLink, RoomBuilder
+
+### RoomRules
+
+### Minimap
+
+### PathExtractor
+
+
 ### Laura Leonardi
 [Torna all'indice](../report.md) | [Vai a Conclusioni](../07-conclusion/report.md)
