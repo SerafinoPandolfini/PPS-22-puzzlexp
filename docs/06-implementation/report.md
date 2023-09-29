@@ -1,10 +1,9 @@
 # Implementazione
-## Schermata di gioco
-## Suddivisione del lavoro
 In questa sezione ogni membro del gruppo illustrerà nel dettaglio alcune delle parti del sistema di sua competenza.
-Inoltre sarà presente una sezione dedicata al codice sviluppato secondo la modalità pair programming.
+Inoltre sarà presente una sezione dedicata al codice sviluppato secondo la modalità pair programming e una dedicata alle
+schermate di gioco.
 
-### Sofia Tosi
+## Sofia Tosi
 Riporto di seguito un elenco di file raggruppati per package a cui ho lavorato totalmente, sono esclusi i file scritti in cooperazione con gli altri membri del team.
 - controller
   - menu
@@ -100,9 +99,9 @@ Una possibile soluzione trovata è stata quella di caricare le celle di tutte le
 Come soluzione definitiva si è presa la decisione di trascrivere il codice Prolog in Scala che è in grado di ottenere il risultato desiderato in modo molto più performante delle precedenti casistiche. In particolare in questo codice è presente un for comprehension che  permette di ottenere una mappa immutabile avente come chiave le celle adiacenti e come valore un booleano che indica se sono ``` WallCell ``` oppure no in un modo dichiarativo e coinciso.
 
 
-### Serafino Pandolfini
+## Serafino Pandolfini
 Nel corso dello sviluppo di questo progetto mi sono occupato dei seguenti aspetti:
-#### Cell, BasicCell, WallCell
+### Cell, BasicCell, WallCell
 `Cell` rappresenta l'elemento base di cui è composta una `Room`.
 La classe è implementata come abstract class offrendo un implementazione comune per i metodi ```walkableState```, che
 ritorna _Walkable(true)_, e `isDeadly`, che ritorna _false_,  e al contempo descrive le proprietà comuni delle celle
@@ -116,7 +115,7 @@ sulla loro posizione per righe.
 celle: la prima riproduce il comportamento di Cell senza modifiche mentre la seconda fornisce nuove implementazioni per
 i metodi cellItem e walkableState ereditati da Cell.
 
-#### HoleCell, CoveredHoleCell
+### HoleCell, CoveredHoleCell
 `HoleCell` e `CoveredHoleCell` sono altre tipologie di celle, a differenza di BasicCell e WallCell viene fatto
 uso di **Mixin**: viene usato il mixin `Hole` per HoleCell e CoveredHoleCell e `Covered` per CoveredHoleCell. 
 I mixin utilizzati permettono di aggiungere funzionalità specifiche senza creare una gerarchia complicata di classi. <br>
@@ -133,23 +132,23 @@ trait Hole extends Cell:
 
 
 
-#### TeleportCell, TeleportDestinationCell
+### TeleportCell, TeleportDestinationCell
 
-#### PrologEngine
+### PrologEngine
 
-#### Room, RoomLink, RoomBuilder
+### Room, RoomLink, RoomBuilder
 
-#### RoomRules
+### RoomRules
 
-#### Minimap
+### Minimap
 
-#### PathExtractor
+### PathExtractor
 
 
-### Laura Leonardi
+## Laura Leonardi
 
 Il codice sviluppato in questo progetto ha principalmente riguardato gli ambiti di seguito riportati
-#### celle
+### celle
 Di seguito sono illustrate le celle sviluppate e i relativi **trait** ed **enumerazioni** utilizzati nella loro creazione, che hanno permesso di ottenere una migliore riusabilità del codice: 
 - `CliffCell` questa cella è stata programmata con l'aiuto dell'**enum** `Direction`
 - `ButtonCell` i cui colori sono gestiti con l'aiuto dell'**enum** `Color` e del **trait** `Colorable`, mentre lo stato di pressione è gestito grazie all'**enum** `PressableState` e al **trait** `Pressable`
@@ -168,17 +167,20 @@ Inoltre è stato sviluppato codice prolog, nello specifico le regole `search_but
 ```
 Si può notare come nel commento siano presenti indicazioni riguardo agli argomenti in output(-), in input(+), e in input di tipo **ground**(@)
 
-#### mappe di gioco
+### mappe di gioco
 
-#### serializzazione
+### serializzazione
 
-#### gestione gioco
+### gestione gioco
 
-#### gestione schermate di pausa e di fine gioco
+### gestione schermate di pausa e di fine gioco
 
-### Pair programming
-#### sviluppato da Pandolfini Serafino e Leonardi Laura
-##### gestione salvataggio
-#### sviluppato da Tosi Sofia e Pandolfini Serafino
-##### game view
+## Pair programming
+### sviluppato da Pandolfini Serafino e Leonardi Laura
+#### gestione salvataggio
+### sviluppato da Tosi Sofia e Pandolfini Serafino
+#### game view
+
+## Schermata di gioco
+
 [Torna all'indice](../report.md) | [Vai a Conclusioni](../07-conclusion/report.md)
