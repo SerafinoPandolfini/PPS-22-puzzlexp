@@ -148,15 +148,16 @@ trait Hole extends Cell:
 ## Laura Leonardi
 
 Il codice sviluppato in questo progetto ha principalmente riguardato gli ambiti di seguito riportati
+
 ### celle
-Di seguito sono illustrate le celle sviluppate e i relativi **trait** ed **enumerazioni** utilizzati nella loro creazione, che hanno permesso di ottenere una migliore riusabilità del codice: 
+Di seguito sono elencate le celle sviluppate e i relativi **trait** ed **enumerazioni** utilizzati nella loro creazione, che hanno permesso di ottenere una migliore riusabilità del codice:
 - `CliffCell` questa cella è stata programmata con l'aiuto dell'**enum** `Direction`
 - `ButtonCell` i cui colori sono gestiti con l'aiuto dell'**enum** `Color` e del **trait** `Colorable`, mentre lo stato di pressione è gestito grazie all'**enum** `PressableState` e al **trait** `Pressable`
 - `ButtonBlockCell` analogamente a `ButtonCell` fa uso di `Color`, `Colorable` e `ButtonBlock`, che a sua volta fa uso di `PressableState`e `Pressable`
 - `PressurePlateCell` analogamente alle celle soprastanti fa uso di `PressableState` e `Pressable`
 - `PressurePlateBlockCell` similmente a `PressurePlateCell` utilizza `PressableState` e `Pressable` tramite `PressurePlateBockGroup`
 
-Ogni cella infatti è stata pensata come un **mixin** che fa uso di `Cell` come classe di base, a cui aggiunge diversi **trait** in base alle sue necessità.
+Ogni cella infatti è stata pensata come un **mixin** che fa uso di `Cell` come classe di base, a cui aggiunge diversi **trait** in base alle sue necessità. Inoltre ogni cella è stata implementata come **case class**.
 Per quanto riguarda la gestione della logica relativa al comportamento delle celle è stato creato il file `CellExtension`, contenente **extension methods** utili a tale scopo.
 Inoltre è stato sviluppato codice prolog, nello specifico le regole `search_button_block`, riportata nel'esempio sottostante, e `search_teleport_destination`, con lo scopo di ottenere le celle con determinate caratteristiche presenti nella stanza per poter eseguire poi operazioni su di esse.
 ```prolog
@@ -168,7 +169,37 @@ Inoltre è stato sviluppato codice prolog, nello specifico le regole `search_but
 Si può notare come nel commento siano presenti indicazioni riguardo agli argomenti in output(-), in input(+), e in input di tipo **ground**(@)
 
 ### mappe di gioco
-
+È stata realizzata la classe `GameMap` per gestire la struttura delle varie mappe di gioco. Tale classe è dotata di svariati metodi, che gestiscono, per esempio, la restituzione di una stanza conoscendone il nome, il calcolo del punteggio totale ottenibile dalla mappa, o la gestione del passaggio tra due stanze presenti al suo interno.
+Tali metodi, due dei quali sono riportati nell'esempio sottostante, fanno uso della **monade Try** per gestire le casistiche di errore, combinata con l'uso di **for comprehension** per permettere una gestione più pulita delle varie casistiche di fallimento, evitando di appesantire il codice con **match case** innestati.
+```scala
+    /** get the room from it's name
+     * @param roomName
+     *   the name of the room to be returned
+     * @return
+     *   the room or an error if the roomName is not present
+     */
+    def getRoomFromName(roomName: String): Try[Room] =
+      Try(rooms.find(_.name == roomName) match
+        case Some(value) => value.createCopy()
+        case _           => throw new RoomNotFoundException
+      )
+    /** try to change the room
+     * @param position
+     *   the position in the previous room
+     * @param roomName
+     *   the previous room name
+     * @return
+     *   retrieve the tuple of next room and initial position if found, else an error
+     */
+    def changeRoom(position: Position, roomName: String, direction: Direction): Try[(Room, Position)] =
+      for
+        room <- getRoomFromName(roomName)
+        link <- Try(
+          room.links.find(_.from == position).filter(_.direction == direction).getOrElse(throw new LinkNotFoundException)
+        )
+        toRoom <- getRoomFromName(link.toRoom)
+      yield (toRoom.createCopy(), link.to)
+```
 ### serializzazione
 
 ### gestione gioco
