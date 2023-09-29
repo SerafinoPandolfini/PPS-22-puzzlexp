@@ -1,7 +1,10 @@
 # Implementazione
 ## Schermata di gioco
 ## Suddivisione del lavoro
-## Sofia Tosi
+In questa sezione ogni membro del gruppo illustrerà nel dettaglio alcune delle parti del sistema di sua competenza.
+Inoltre sarà presente una sezione dedicata al codice sviluppato secondo la modalità pair programming.
+
+### Sofia Tosi
 Riporto di seguito un elenco di file raggruppati per package a cui ho lavorato totalmente, sono esclusi i file scritti in cooperazione con gli altri membri del team.
 - controller
   - menu
@@ -96,9 +99,10 @@ Il gioco è pensato per renderizzare le celle della mappa ogni volta che riceve 
 Una possibile soluzione trovata è stata quella di caricare le celle di tutte le mappe una sola volta all’inizio del gioco per avere un delay solamente a inizio partita, evitando un delay nel mezzo del gioco grazie a una schermata iniziale di loading. Tuttavia, nemmeno questa soluzione è risultata accettabile. Infatti caricando tutte le celle all’inizio il tempo del loading risultava 15.82 secondi * 9 stanze / 60 circa due minuti e 40. Si è ritenuto che il tempo calcolato fosse inaccettabile anche per una schermata di caricamento.
 Come soluzione definitiva si è presa la decisione di trascrivere il codice Prolog in Scala che è in grado di ottenere il risultato desiderato in modo molto più performante delle precedenti casistiche. In particolare in questo codice è presente un for comprehension che  permette di ottenere una mappa immutabile avente come chiave le celle adiacenti e come valore un booleano che indica se sono ``` WallCell ``` oppure no in un modo dichiarativo e coinciso.
 
-## Serafino Pandolfini
+
+### Serafino Pandolfini
 Nel corso dello sviluppo di questo progetto mi sono occupato dei seguenti aspetti:
-### Cell, BasicCell, WallCell
+#### Cell, BasicCell, WallCell
 `Cell` rappresenta l'elemento base di cui è composta una `Room`.
 La classe è implementata come abstract class offrendo un implementazione comune per i metodi ```walkableState```, che
 ritorna _Walkable(true)_, e `isDeadly`, che ritorna _false_,  e al contempo descrive le proprietà comuni delle celle
@@ -112,7 +116,7 @@ sulla loro posizione per righe.
 celle: la prima riproduce il comportamento di Cell senza modifiche mentre la seconda fornisce nuove implementazioni per
 i metodi cellItem e walkableState ereditati da Cell.
 
-### HoleCell, CoveredHoleCell
+#### HoleCell, CoveredHoleCell
 `HoleCell` e `CoveredHoleCell` sono altre tipologie di celle, a differenza di BasicCell e WallCell viene fatto
 uso di **Mixin**: viene usato il mixin `Hole` per HoleCell e CoveredHoleCell e `Covered` per CoveredHoleCell. 
 I mixin utilizzati permettono di aggiungere funzionalità specifiche senza creare una gerarchia complicata di classi. <br>
@@ -129,18 +133,52 @@ trait Hole extends Cell:
 
 
 
-### TeleportCell, TeleportDestinationCell
+#### TeleportCell, TeleportDestinationCell
 
-### PrologEngine
+#### PrologEngine
 
-### Room, RoomLink, RoomBuilder
+#### Room, RoomLink, RoomBuilder
 
-### RoomRules
+#### RoomRules
 
-### Minimap
+#### Minimap
 
-### PathExtractor
+#### PathExtractor
 
 
 ### Laura Leonardi
+
+Il codice sviluppato in questo progetto ha principalmente riguardato gli ambiti di seguito riportati
+#### celle
+Di seguito sono illustrate le celle sviluppate e i relativi **trait** ed **enumerazioni** utilizzati nella loro creazione, che hanno permesso di ottenere una migliore riusabilità del codice: 
+- `CliffCell` questa cella è stata programmata con l'aiuto dell'**enum** `Direction`
+- `ButtonCell` i cui colori sono gestiti con l'aiuto dell'**enum** `Color` e del **trait** `Colorable`, mentre lo stato di pressione è gestito grazie all'**enum** `PressableState` e al **trait** `Pressable`
+- `ButtonBlockCell` analogamente a `ButtonCell` fa uso di `Color`, `Colorable` e `ButtonBlock`, che a sua volta fa uso di `PressableState`e `Pressable`
+- `PressurePlateCell` analogamente alle celle soprastanti fa uso di `PressableState` e `Pressable`
+- `PressurePlateBlockCell` similmente a `PressurePlateCell` utilizza `PressableState` e `Pressable` tramite `PressurePlateBockGroup`
+
+Ogni cella infatti è stata pensata come un **mixin** che fa uso di `Cell` come classe di base, a cui aggiunge diversi **trait** in base alle sue necessità.
+Per quanto riguarda la gestione della logica relativa al comportamento delle celle è stato creato il file `CellExtension`, contenente **extension methods** utili a tale scopo.
+Inoltre è stato sviluppato codice prolog, nello specifico le regole `search_button_block`, riportata nel'esempio sottostante, e `search_teleport_destination`, con lo scopo di ottenere le celle con determinate caratteristiche presenti nella stanza per poter eseguire poi operazioni su di esse.
+```prolog
+  %search_button_block( +L, -X, -Y, @C) filter the specified list and returns the coordinates of the button blocks of a specified color
+  search_button_block([], [], [], C).
+  search_button_block([c(bb, X1, Y1, C) | T], [X1 | T2], [Y1 | T3],  C) :- !, search_button_block(T, T2, T3, C).
+  search_button_block([_ | T], X, Y, C) :- search_button_block(T, X, Y, C).
+```
+Si può notare come nel commento siano presenti indicazioni riguardo agli argomenti in output(-), in input(+), e in input di tipo **ground**(@)
+
+#### mappe di gioco
+
+#### serializzazione
+
+#### gestione gioco
+
+#### gestione schermate di pausa e di fine gioco
+
+### Pair programming
+#### sviluppato da Pandolfini Serafino e Leonardi Laura
+##### gestione salvataggio
+#### sviluppato da Tosi Sofia e Pandolfini Serafino
+##### game view
 [Torna all'indice](../report.md) | [Vai a Conclusioni](../07-conclusion/report.md)
