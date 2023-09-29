@@ -1,8 +1,8 @@
 package utils.extensions.paths
 
-import model.cells.properties.{Colorable, PressableState, WalkableType}
+import model.cells.properties.{PressableState, WalkableType}
 import model.cells.{Cell, CliffCell, ButtonCell}
-import model.cells.traits.CoveredHole
+import model.cells.traits.{Colorable, Covered}
 import utils.extensions.paths.PathValue.{PathWalkable, NoPath, PathSplit, PathCovered, PathPressed}
 
 object SpecificPathExtractor:
@@ -23,7 +23,7 @@ object SpecificPathExtractor:
    * @return the segment of path for covered if the cell have a cover, nothing otherwise
    */
   private[paths] def extractCoveredPath(cell: Cell): String = cell match
-    case coveredCell: Cell with CoveredHole => if (coveredCell.cover) PathCovered else NoPath
+    case coveredCell: Cell with Covered => if (coveredCell.cover) PathCovered else NoPath
     case _                                  => NoPath
 
   /** add the color to a cellRepresentation

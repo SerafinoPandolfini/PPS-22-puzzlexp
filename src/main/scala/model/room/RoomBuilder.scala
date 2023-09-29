@@ -47,10 +47,6 @@ class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: In
     updateCells(Set(cell))
     this
 
-  /** Alias for [[RoomBuilder.addCell]]. */
-  @targetName("addCellAlias")
-  def +(cell: Cell): this.type = addCell(cell)
-
   /** add new cells or replace existing cells of the room with the new ones
     * @param roomCells
     *   the new cell for the room
@@ -60,10 +56,6 @@ class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: In
   def addCells(roomCells: Set[Cell]): this.type =
     updateCells(roomCells)
     this
-
-  /** Alias for [[RoomBuilder.addCells]] */
-  @targetName("addCellsAlias")
-  def ++(roomCells: Set[Cell]): this.type = addCells(roomCells)
 
   /** create the border of the room so that every border cell is a wall
     * @return
@@ -75,10 +67,6 @@ class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: In
         (0 until RoomHeight).flatMap(y => Set(WallCell((0, y)), WallCell((RoomWidth - 1, y))))).toSet
     updateCells(borderCells)
     this
-
-  /** Alias for [[RoomBuilder.borderWalls]] */
-  @targetName("borderWallsAlias")
-  def ##(): this.type = borderWalls()
 
   /** create a rectangle of wall cell
     * @param position
@@ -101,10 +89,6 @@ class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: In
     updateCells(rectangle.toSet)
     this
 
-  /** Alias for [[RoomBuilder.wallRectangle]] */
-  @targetName("wallRectangleAlias")
-  def ||(position: Position, width: Int, height: Int): this.type = wallRectangle(position, width, height)
-
   /** remove the cells outside the room border and fill the inside of the room with basic cells
     * @return
     *   this
@@ -119,10 +103,6 @@ class RoomBuilder(val RoomWidth: Int = RoomImpl.DefaultWidth, val RoomHeight: In
       y <- 0 until RoomHeight
     yield if !cells.exists(_.position == (x, y)) then cells += BasicCell((x, y), Item.Empty)
     this
-
-  /** Alias for [[RoomBuilder.standardize]] */
-  @targetName("standardizeAlias")
-  def !! : this.type = standardize
 
   /** add valitation to the room
     * @return

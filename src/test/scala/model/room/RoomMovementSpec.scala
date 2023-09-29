@@ -14,8 +14,8 @@ class RoomMovementSpec extends AnyFlatSpec with GivenWhenThen:
   "A room" should "be able to change according to player movement" in {
     Given("a room")
     val room2 = RoomBuilder(RoomWidth, RoomHeight)
-      .##()
-      .++(
+      .borderWalls()
+      .addCells(
         Set(
           TeleportDestinationCell(Position1_1),
           TeleportCell(Position2_2),
@@ -24,7 +24,7 @@ class RoomMovementSpec extends AnyFlatSpec with GivenWhenThen:
           CoveredHoleCell(Position3_3)
         )
       )
-      .!!
+      .standardize
       .build
 
     When("the player moves on a teleport")

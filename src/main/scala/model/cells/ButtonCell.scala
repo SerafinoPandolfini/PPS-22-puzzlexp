@@ -1,6 +1,7 @@
 package model.cells
 
-import model.cells.properties.{Color, Colorable, Item, Pressable, PressableState}
+import model.cells.properties.{Color, Item, Pressable, PressableState}
+import model.cells.traits.Colorable
 
 /** A cell with a pressable button
  *

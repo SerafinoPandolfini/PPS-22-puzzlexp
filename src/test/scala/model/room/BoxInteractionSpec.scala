@@ -14,10 +14,10 @@ class BoxInteractionSpec extends AnyFlatSpec with GivenWhenThen:
   "A room" should "let the player move and interact with eventual items on walkable cells" in {
     Given("a room and a player position")
     val largerRoom = RoomBuilder(RoomWidth + 1, RoomHeight + 1)
-      .##()
-      .+(BasicCell(Position3_1, Item.Box))
-      .+(BasicCell(Position2_2, Item.Box))
-      .!!
+      .borderWalls()
+      .addCell(BasicCell(Position3_1, Item.Box))
+      .addCell(BasicCell(Position2_2, Item.Box))
+      .standardize
       .build
     var playerPosition = Position2_1
     var expectedRepresentation = "\n" +

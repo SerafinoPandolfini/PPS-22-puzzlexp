@@ -17,15 +17,15 @@ class RoomSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhenThen:
   override def beforeEach(): Unit =
     super.beforeEach()
     room = RoomBuilder(RoomWidth, RoomHeight)
-      .##()
-      .++(
+      .borderWalls()
+      .addCells(
         Set(
           BasicCell(Position2_2, Item.Box),
           BasicCell(Position3_1),
           CliffCell(Position2_1, Item.Empty, Direction.Left)
         )
       )
-      .!!
+      .standardize
       .build
 
   "A room" should "be able to update its cells items" in {

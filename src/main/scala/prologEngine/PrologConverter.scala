@@ -3,7 +3,7 @@ package prologEngine
 import model.cells.{BasicCell, ButtonBlockCell, ButtonCell, Cell, WallCell}
 import model.room.{Room, RoomLink}
 import alice.tuprolog.{Struct, Term, Theory}
-import model.cells.properties.Colorable
+import model.cells.traits.Colorable
 import utils.extensions.RoomCellsRepresentation.cellToString
 
 object PrologConverter:

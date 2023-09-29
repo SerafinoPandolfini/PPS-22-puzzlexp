@@ -1,7 +1,7 @@
 package model.cells
 
-import model.cells.properties.{Color, Colorable, Item, PressableState}
-import model.cells.traits.ButtonBlock
+import model.cells.properties.{Color, Item, PressableState}
+import model.cells.traits.{ButtonBlock, Colorable}
 
 /** A cell with a block linked to a button
  *

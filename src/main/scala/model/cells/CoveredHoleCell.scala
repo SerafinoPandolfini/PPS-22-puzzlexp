@@ -1,7 +1,7 @@
 package model.cells
 
 import model.cells.properties.Item
-import model.cells.traits.{CoveredHole, Hole}
+import model.cells.traits.{Covered, Hole}
 
 /** @param position
   *   The position of the cell in the room
@@ -19,4 +19,4 @@ case class CoveredHoleCell(
     filled: Boolean = false
 ) extends Cell
     with Hole
-    with CoveredHole
+    with Covered

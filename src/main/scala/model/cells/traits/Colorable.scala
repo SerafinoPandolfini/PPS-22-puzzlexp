@@ -1,4 +1,4 @@
-package model.cells.properties
+package model.cells.traits
 
 import model.cells.properties.Color
 

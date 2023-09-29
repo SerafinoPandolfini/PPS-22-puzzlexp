@@ -51,23 +51,3 @@ class RoomBuilderSpec extends AnyFlatSpec with BeforeAndAfterEach with GivenWhen
         "WL | WL | WL | WL\n"
     )
   }
-
-  "A room builder" should "have alias methods for creating a cell" in {
-    val testCell = HoleCell(Position2_2)
-    Given("a room created using the builder standard methods")
-    val room1 = RoomBuilder(RoomWidth, RoomHeight)
-      .borderWalls()
-      .wallRectangle(Position1_1, 1, 1)
-      .addCell(testCell)
-      .standardize
-      .build
-    Given("another room created with the aliases")
-    val room2 = RoomBuilder(RoomWidth, RoomHeight)
-      .##()
-      .||(Position1_1, 1, 1)
-      .+(testCell)
-      .!!
-      .build
-    Then("they should be the same room")
-    room1.cellsRepresentation() should be(room2.cellsRepresentation())
-  }
