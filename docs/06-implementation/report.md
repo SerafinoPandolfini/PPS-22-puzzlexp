@@ -209,8 +209,32 @@ Tali metodi, due dei quali sono riportati nell'esempio sottostante, fanno uso de
 ## Pair programming
 ### sviluppato da Pandolfini Serafino e Leonardi Laura
 #### gestione salvataggio
-### sviluppato da Tosi Sofia e Pandolfini Serafino
-#### game view
+### Sviluppato da Sofia Tosi e Serafino Pandolfini
+Il lavoro svolto in collaborazione è relativo al package `view`  nelle classi `GameView` e `MultiLayeredTile`.
+GameView definisce i layout che compongono la schermata di gioco e la `toolbar`. 
+La schermata di gioco è stata realizzata a partire da un gridLayout di `MultiLayeredTile` di cui ognuno rappresenta una
+cella della stanza attuale. La toolbar è composta da una serie di pulsanti e label che riflettono lo stato dell'`ItemHolder`.
+
+Per queste classi sono stati utilizzati **For Comprehension** per la gestione dei tiles e degli elementi della toolbar; e 
+**Extension Methods** nell'object `ViewUpdater` per separare in modo efficacie la creazione della GUI e il suo aggiornamento.
+
+A seguito viene presentato un Extension Method per aggiornare i tiles con le immagini che riflettano la stanza corrente.
+```scala
+    /** associate the [[MultiLayeredTile]]s with their respective images
+      * @param zippedPaths
+      *   the paths for representing [[Cell]]s and [[Item]]s
+      */
+    def associateTiles(zippedPaths: List[(String, String)]): Unit =
+      view.tiles =
+        view.tiles.keys.zip(zippedPaths).foldLeft(view.tiles) { case (tilesMap, ((x, y), (groundPath, itemPath))) =>
+          val updatedTile = tilesMap((x, y))
+          updatedTile.itemImage = Option(getCellImage(itemPath))
+          updatedTile.cellImage = Option(getCellImage(groundPath))
+          tilesMap.updated((x, y), updatedTile)
+        }
+```
+
+
 
 ## Schermata di gioco
 A seguire sono mostrate alcune immagini ottenute durante l'esperienza di gioco
