@@ -79,3 +79,5 @@ L'obiettivo dello Sprint è stato raggiunto il giorno precedente alla deadline
 
 ## Sprint retrospective
 Il carico di lavoro complessivo era ben proporzionato per questo sprint. Invece nel carico di lavoro individuale è stato riscontrato uno squilibrio dei punti funzione che sarà ribilanciato nel prossimo sprint. 
+
+[Torna all'indice](../report.md) | [Vai al terzo sprint](../process/third-sprint.md)

@@ -214,4 +214,4 @@ Tali metodi, due dei quali sono riportati nell'esempio sottostante, fanno uso de
 
 ## Schermata di gioco
 
-[Torna all'indice](../report.md) | [Vai a Conclusioni](../07-conclusion/report.md)
+[Torna all'indice](../report.md) | [Vai a Retrospettiva](../07-retrospective/report.md)

@@ -15,4 +15,4 @@ Il product backlog è il seguente
 |    10    | Possibilità di salvare il gioco                          |          10           |     10    |     10    |     0     |
 |    11    | Possibilità di mettere in pausa il gioco                 |          12           |     12    |     12    |     12    |
 
-
+[Torna all'indice](../report.md) 

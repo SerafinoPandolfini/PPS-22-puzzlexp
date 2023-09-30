@@ -35,3 +35,5 @@ L'obiettivo di questo sprint è l'aggiunta delle ultime funzionalità rimaste e,
 ## Sprint review
 
 ## Sprint retrospective
+
+[Torna all'indice](../report.md) | [Vai al product backlog](../process/product-backlog.md)

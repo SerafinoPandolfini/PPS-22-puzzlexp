@@ -6,6 +6,4 @@
 4. [Design architetturale](./04-architectural-design/report.md)
 5. [Design di dettaglio](./05-detailed-design/report.md)
 6. [Implementazione](./06-implementation/report.md)
-7. [Conclusioni](./07-conclusion/report.md)
-
-I backlog prodotti durante gli Sprint sono disponibili [qui](./process/product-backlog.md).
+7. [Retrospettiva](07-retrospective/report.md)
