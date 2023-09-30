@@ -1,4 +1,4 @@
-ThisBuild / version := "1.0.1"
+ThisBuild / version := "1.1.0"
 
 ThisBuild / scalaVersion := "3.1.3"
 
@@ -24,4 +24,4 @@ jacocoReportSettings := JacocoReportSettings()
 Test / jacocoExcludes := Seq("controller.*", "view.*", "model.game.*")
 Test / parallelExecution := false
 
-Compile / mainClass  := Some("Main")
+Compile / mainClass  := Option("Main")
