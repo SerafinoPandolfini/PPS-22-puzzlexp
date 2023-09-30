@@ -36,6 +36,10 @@ La costruzione di ```Room``` prevede differenti tipologie di parametri dalla cos
 
 ### GameMap
 ```GameMap``` rappresenta il concetto di mappa di gioco, è costituita da un insieme di stanze connesse. Una sua rappresentazione è tramite una lista di  ```MinimapElement```, utilizzati per la costruzione della minimappa del menù di pausa e in relazione 1 a 1 con le stanze della mappa che rappresentano. Questi elementi vengono generati a partire dal metodo  ```CreateMinimap``` che viene aggiunto a ```GameMap``` tramite il pattern Pimp my library.
+<p align="center">
+  <img src="../Images/MapRoomCell.png" alt="Diagramma della relazione tra map room e cell"/>
+<caption>Diagramma della relazione tra map room e cell</caption>
+</p>
 
 ### Game
 `CurrentGame` si occupa di mantenere lo stato attuale del gioco; alcune delle informazioni sono relative alla mappa in gioco, la posizione del giocatore, la stanza attuale e al punteggio. 
@@ -68,12 +72,16 @@ package `utils` realizzato tramite il pattern Pimp my library che permette di ca
 
 ## Controller
 Il controller si occupa dell'interazione tra le componenti di view e di model, ricevendo le azioni svolte dal giocatore e
-comunicando le azioni che ne conseguono. 
+comunicando le azioni che ne conseguono.
 ### MenuController
 Questo controller si occupa di gestire le interazioni del menu, ad esempio l'ottenimento delle mappe giocabili
 o la verifica dell'esistenza dei file json che modellano le mappe giocabili o quelli relativi ai dati di salvataggio.
 ### GameController
 Il `GameController` gestisce le interazioni tra il giocatore e le schermate di gioco. Queste interazioni sono generalmente
 relative al'esecuzione dei movimenti del giocatore, al reset delle stanze o al passaggio tra le varie schermate.
+<p align="center">
+  <img src="../Images/ResetRoom.png" alt="Diagramma di sequenza del comportamento di reset"/>
+<caption>Diagramma di sequenza del comportamento di reset</caption>
+</p>
 
 [Torna all'indice](../report.md) | [Vai a Implementazione](../06-implementation/report.md)

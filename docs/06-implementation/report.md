@@ -213,5 +213,30 @@ Tali metodi, due dei quali sono riportati nell'esempio sottostante, fanno uso de
 #### game view
 
 ## Schermata di gioco
+A seguire sono mostrate alcune immagini ottenute durante l'esperienza di gioco
+<p align="center">
+  <img src="../Images/menu_iniziale.png" alt="menu iniziale"/>
+<caption>Menù iniziale</caption>
+</p>
+<p align="center">
+  <img src="../Images/controls.png" alt="controlli utilizzabili dall'utente"/>
+<caption>Controlli utilizzabili dall'utente</caption>
+</p>
+<p align="center">
+  <img src="../Images/select_map.png" alt="selezione mappa"/>
+<caption>Selezione mappa</caption>
+</p>
+<p align="center">
+  <img src="../Images/ScreenRoom.png" alt="Stanza di gioco"/>
+<caption>Stanza di gioco</caption>
+</p>
+<p align="center">
+  <img src="../Images/Pause.png" alt="Schermata di pausa"/>
+<caption>Schermata di pausa</caption>
+</p>
+<p align="center">
+  <img src="../Images/schermata_finale.png" alt="Schermata di fine gioco"/>
+<caption>Schermata di fine gioco</caption>
+</p>
 
 [Torna all'indice](../report.md) | [Vai a Retrospettiva](../07-retrospective/report.md)
