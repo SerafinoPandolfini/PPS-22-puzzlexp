@@ -33,7 +33,7 @@ L'obiettivo di questo sprint è l'aggiunta delle ultime funzionalità rimaste e,
 4/10/2023
 
 ## Sprint review
-
+L'obiettivo dello Sprint è stato raggiunto con due giorni di anticipo rispetto alla deadline.
 ## Sprint retrospective
-
+Il carico di lavoro per questo Sprint è risultato ben bilanciato tra i membri del team. Rispetto a quelli precedenti il carico è risultato minore in quanto l'intero progetto era stato pensato per concentrare la maggior parte del lavoro nei primi sprint.
 [Torna all'indice](../report.md) | [Vai al product backlog](../process/product-backlog.md)
