@@ -98,6 +98,17 @@ Il gioco è pensato per renderizzare le celle della mappa ogni volta che riceve 
 Una possibile soluzione trovata è stata quella di caricare le celle di tutte le mappe una sola volta all’inizio del gioco per avere un delay solamente a inizio partita, evitando un delay nel mezzo del gioco grazie a una schermata iniziale di loading. Tuttavia, nemmeno questa soluzione è risultata accettabile. Infatti caricando tutte le celle all’inizio il tempo del loading risultava 15.82 secondi * 9 stanze / 60 circa due minuti e 40. Si è ritenuto che il tempo calcolato fosse inaccettabile anche per una schermata di caricamento.
 Come soluzione definitiva si è presa la decisione di trascrivere il codice Prolog in Scala che è in grado di ottenere il risultato desiderato in modo molto più performante delle precedenti casistiche. In particolare in questo codice è presente un for comprehension che  permette di ottenere una mappa immutabile avente come chiave le celle adiacenti e come valore un booleano che indica se sono ``` WallCell ``` oppure no in un modo dichiarativo e coinciso.
 
+### Testing
+Seguendo un approccio TDD, sono stati effettuati degli unit test per testare le funzionalità del core. In particolare le funzionalità del model testate sono:
+- stato iniziale del lucchetto, della pianta e della roccia
+- modalità di interazione delle celle lucchetto, pianta, roccia con il relativo item
+- non chiudibilità del lucchetto
+- interazione della pianta e della roccia con l'item cassa
+- camminabilità del lucchetto, della pianta e della roccia
+- le operazioni effettuabili con un itemHolder e corrispettiva rappresentazione testuale
+- estrazione del path di una cella per il calcolo della corrispondente immagine
+
+Per quando riguarda la parte della view non sono stati effettuati unit test in quanto il codice implementato non risulta automatizzabile: in alcune parti del codice sviluppato troviamo metodi di configurazione dei componenti Swing, la loro aggiunta ai JPanel, mentre in altre è richiesta l'interazione dell'utente con la GUI come la pressione di un pulsante o la selezione di un file.
 
 ## Serafino Pandolfini
 Nel corso dello sviluppo di questo progetto mi sono occupato dei seguenti aspetti:
