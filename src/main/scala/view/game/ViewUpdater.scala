@@ -26,10 +26,10 @@ object ViewUpdater:
       updatedTile.get.playerImage = Option(ImageIcon(image).getImage)
 
     /** associate the [[MultiLayeredTile]]s with their respective images
-      * @param room
-      *   the [[Room]] to convert into images for the [[MultiLayeredTile]]s
+      * @param zippedPaths
+      *   the paths for representing [[Cell]]s and [[Item]]s
       */
-    def associateTiles(room: Room, zippedPaths: List[(String, String)]): Unit =
+    def associateTiles(zippedPaths: List[(String, String)]): Unit =
       view.tiles =
         view.tiles.keys.zip(zippedPaths).foldLeft(view.tiles) { case (tilesMap, ((x, y), (groundPath, itemPath))) =>
           val updatedTile = tilesMap((x, y))
