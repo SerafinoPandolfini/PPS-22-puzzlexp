@@ -81,7 +81,7 @@ class GameView(initialRoom: Room, initialPos: Position) extends JFrame:
     add(mainPanel)
     keyHandler.registerKeyAction(tilesPanel, _tiles)
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
-    this.associateTiles(initialRoom, initialRoom.extractRoomPath())
+    this.associateTiles(initialRoom.extractRoomPath())
     this.updatePlayerImage(initialPos, ImageManager.CharacterDown.path)
     setResizable(false)
     setVisible(true)
