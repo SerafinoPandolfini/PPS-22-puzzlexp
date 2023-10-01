@@ -50,7 +50,13 @@ In modo analogo a ``` RockCell ``` e ``` PlantCell ``` anche ``` LockCell ``` er
 I tre tipi di celle citate concretizzano il mixin attraverso una case class che garantisce immutabilità e permette di evitare side effects indesiderati. Inoltre, otteniamo getter, setter, toString, equals e hashCode dei parametri specificati. È stato molto utilizzato anche il metodo copy che permette di ottenere una nuova istanza della classe con alcuni campi modificati.
 
 ### ItemHolder
-Una parte di rilievo è il metodo removeItem nella classe ItemHolder. Difatti in esso viene utilizzato un for comprehension per iterare sugli elementi della lista itemOwned e sui relativi indici. Lo yield permette di ottenere una nuova lista i cui elementi sono diversi da quello in input oppure sono uguali ma non sono la prima occorrenza.  Grazie al for comprehension operazioni complesse possono essere espresse in modo più leggibile e dichiarativo. Viene inoltre usato il metodo copy per creare una nuova istanza di ``` ItemHolder ```, essendo esso immutabile, e ciò risulta possibile in quanto è implementato tramite una case class.
+Una parte di rilievo è il metodo removeItem nella classe ItemHolder. Difatti in esso viene utilizzato un for comprehension per iterare sugli elementi della lista itemOwned e sui relativi indici. Lo yield permette di ottenere una nuova lista i cui elementi sono diversi da quello in input oppure sono uguali ma non sono la prima occorrenza.  Grazie al for comprehension operazioni complesse possono essere espresse in modo più leggibile e dichiarativo. Viene inoltre usato il metodo copy per creare una nuova istanza di ``` ItemHolder ```, essendo esso immutabile, e ciò risulta possibile in quanto è implementato tramite una case class. Riporto nello spazio sottostante il codice:
+```scala
+def removeItem(item: Item): ItemHolder = copy(itemOwned = for
+    (element, index) <- itemOwned.zipWithIndex
+    if element != item || index != itemOwned.indexOf(item)
+  yield element)
+```
 
 ### UseItemExtension, TreasureExtension, ItemHolderExtension
 ``` UseItemExtension ```, ``` TreasureExtension ```, ``` ItemHolderExtension ``` sono tre file che aggiungono metodi aggiuntivi alla classe base. I metodi sono incapsulati nell’omonimo oggetto, il quale viene importato al momento dell’uso. Grazie a questi extension methods il codice della classe base rimane inalterato e può usufruire delle feature aggiuntive. Questo pattern promuove il principio DRY in quanto permette di astrarre i concetti comuni e di riutilizzare il codice senza doverlo ripetere.
@@ -82,8 +88,14 @@ Di seguito si riporta un test:
 Si noti come risulti più espressivo e sia subito chiaro l’intento: ++ per aggiungere una lista di elementi, + per aggiungerne uno e – per la rimozione.
 
 ### ItemConversion
-In questo file sono implementate due conversioni riguardanti gli item. La prima ha come output un int che rappresenta il valore in termini di punti dell’item mentre l’altra ha una stringa che rappresenta l’item in una rappresentazione testuale. Grazie al meccanismo given la conversione tra item e l’output specificato avviene in modo automatico.
-
+In questo file sono implementate due conversioni riguardanti gli item. La prima ha come output un int che rappresenta il valore in termini di punti dell’item mentre l’altra ha una stringa che rappresenta l’item in una rappresentazione testuale. Grazie al meccanismo given la conversione tra item e l’output specificato avviene in modo automatico. Riporto nello spazio sottostante un esempio:
+```scala
+given Conversion[Item, Int] = _ match
+    case Item.Coin  => CoinValue
+    case Item.Bag   => BagValue
+    case Item.Trunk => TrunkValue
+    case _          => NotValuable
+```
 ### MenuController
 Il metodo searchMapFile permette di ottenere una listmap immutabile contenente come chiave i nomi delle mappe e come valore il nome dei file. È implementato con un for comprehension per iterare sulla lista delle mappe. L’utilizzo di questo costrutto permette al codice di essere più leggibile e dichiarativo. 
 
@@ -92,11 +104,40 @@ La creazione della GUI del gioco è realizzata tramite un for comprehension che 
 
 ### WallPathExtractor
 Mi sono occupata della realizzazione di extractWallPath, metodo che si occupa di determinare se una specifica cella è un muro e in questa casistica che tipologia di muro è. Restituisce la stringa che specifica la tipologia del muro da aggiungere al path. Originariamente questo codice è stato scritto in Prolog. Tramite delle clausole filter si filtravano le celle che erano un muro (determinato dall’ultima proprietà del termine composto cella ``` c(_, _, _, wall) ``` ). Ottenute le celle muro adiacenti a quella da analizzare si controllava, con la seconda parte della teoria, a quale delle quattordici tipologie di muro appartenesse. In particolare si controllava quanti dei quattro angoli adiacenti (TopLeft, TopRight, BottomLeft, BottomRIght) fossero costituiti da tutte celle muro.
+Riporto sotto un frammento di codice in cui si mostra una delle regole (si controlla se le tre celle (1, 0), (0, 1), (1, 1), che formato l'angolo BottomRight, appartengono alla lista L contenente le celle di tipo muro).
+```prolog
+check_list([], _ ).
+check_list([H | T], L) :-
+    member(H, L),
+    !,
+    check_list(T, L).
+
+%BottomRight NW
+check_corner(L, nw) :-
+    check_list([c(wl, 1, 0, wall), c(wl, 0, 1, wall), c(wl, 1, 1, wall)], L),
+    !.
+```
 Tuttavia, non è stato possibile lasciare Prolog in questa parte, nonostante sia utile per verificare le quattordici regole sui muri tramite una logica “theorem prover”.
 Il ``` PrologEngine ``` si è rivelato estremamente poco performante in questo approccio. Infatti, questa teoria veniva risolta per ogni cella della matrice 25x13, per un totale di 325 celle. Il tempo di caricamento della mappa calcolato tramite cronometro è risultato 15.82 secondi.
 Il gioco è pensato per renderizzare le celle della mappa ogni volta che riceve un input. Quindi ad ogni mossa dell’utente il giocatore prima di muoversi aspettava più di 15 secondi. Il gioco è risultato ingiocabile. 
-Una possibile soluzione trovata è stata quella di caricare le celle di tutte le mappe una sola volta all’inizio del gioco per avere un delay solamente a inizio partita, evitando un delay nel mezzo del gioco grazie a una schermata iniziale di loading. Tuttavia, nemmeno questa soluzione è risultata accettabile. Infatti caricando tutte le celle all’inizio il tempo del loading risultava 15.82 secondi * 9 stanze / 60 circa due minuti e 40. Si è ritenuto che il tempo calcolato fosse inaccettabile anche per una schermata di caricamento.
-Come soluzione definitiva si è presa la decisione di trascrivere il codice Prolog in Scala che è in grado di ottenere il risultato desiderato in modo molto più performante delle precedenti casistiche. In particolare in questo codice è presente un for comprehension che  permette di ottenere una mappa immutabile avente come chiave le celle adiacenti e come valore un booleano che indica se sono ``` WallCell ``` oppure no in un modo dichiarativo e coinciso.
+Una possibile soluzione trovata è stata quella di caricare le celle di tutte le mappe una sola volta all’inizio del gioco per avere un delay solamente a inizio partita, evitando un delay nel mezzo del gioco grazie a una schermata iniziale di loading. Tuttavia, nemmeno questa soluzione è risultata accettabile. Infatti caricando tutte le celle all’inizio il tempo del loading risultava 15.82 secondi * 9 stanze / 60, circa due minuti e quaranta. Si è ritenuto che il tempo calcolato fosse inaccettabile anche per una schermata di caricamento.
+Come soluzione definitiva si è presa la decisione di trascrivere il codice Prolog in Scala che è in grado di ottenere il risultato desiderato in modo molto più performante delle precedenti casistiche. In particolare in questo codice è presente un for comprehension che  permette di ottenere una mappa immutabile avente come chiave le celle adiacenti e come valore un booleano che indica se sono ``` WallCell ``` oppure no in un modo dichiarativo e coinciso. Riporto un frammento di codice:
+```scala
+private[paths] def extractWallPath(cell: Cell, cells: Set[Cell]): String = cell match
+    case _: WallCell =>
+      val adjacentCells: Map[(Int, Int), Boolean] = (for
+        y <- LowerAdjacentBound to UpperAdjacentBound
+        x <- LowerAdjacentBound to UpperAdjacentBound
+        yOffset = y + cell.position._2 - OffsetFactor
+        xOffset = x + cell.position._1 - OffsetFactor
+        c = cells.find(_.position == (xOffset, yOffset))
+      yield (x, y) -> c.forall {
+        case _: WallCell => true
+        case _           => false
+      }).toMap
+      computeWallType(adjacentCells)
+    case _ => NoPath
+```
 
 ### Testing
 Seguendo un approccio TDD, sono stati effettuati degli unit test per testare le funzionalità del core. In particolare le funzionalità del model testate sono:
@@ -111,7 +152,12 @@ Seguendo un approccio TDD, sono stati effettuati degli unit test per testare le 
 Per quando riguarda la parte della view non sono stati effettuati unit test in quanto il codice implementato non risulta automatizzabile: in alcune parti del codice sviluppato troviamo metodi di configurazione dei componenti Swing, la loro aggiunta ai JPanel, mentre in altre è richiesta l'interazione dell'utente con la GUI come la pressione di un pulsante o la selezione di un file.
 
 ## Serafino Pandolfini
-Nel corso dello sviluppo di questo progetto mi sono occupato dei seguenti aspetti:
+Nel corso dello sviluppo di questo progetto mi sono occupato dei seguenti package:
+- `model.cells` relativamente ad alcune specifiche celle e al loro comportamento  
+- `model.room` nella sua interezza
+- `model.gameMap` per la realizzazione della minimappa
+- `prologEngine` per la comunicazione scala-prolog
+- `utils` per vari elementi, in particolare per operazioni tra Positions e per la conversione di celle alla risorsa grafica associata
 ### Cell, BasicCell, WallCell
 `Cell` rappresenta l'elemento base di cui è composta una `Room`.
 La classe è implementata come abstract class offrendo un implementazione comune per i metodi ```walkableState```, che
@@ -141,21 +187,154 @@ trait Hole extends Cell:
   abstract override def isDeadly: Boolean = !filled || super.isDeadly
 ```
 
-
-
 ### TeleportCell, TeleportDestinationCell
+`TeleportCell` e `TeleportDestinationCell` estendono direttamente `Cell` senza cambiamenti tramite mixin. La loro speicifica
+logica è contenuta negli **Extension Methods** `updateTeleportItem` e del metodo `moveIn` che definiscono rispettivamente
+il teletrasporto di un Item e del giocatore.
 
-### PrologEngine
+### PrologEngine, PrologConverter
+`PrologEngine` è basato su tuProlog, si occupa di ricevere ed eseguire teorie prolog e restituirne il risultato.
+Nello specifico la val `prologEngine` si occupa di ricevere un goal da risolvere restituendo una **LazyList** di SolveInfo.
+L'utilizzo di una LazyList è dovuto a una serie di fattori prevalentemente dovuti alla possibilità che possa restituire un numero
+infinito o molto elevato di soluzioni quando spesso le prime ottenute sono sufficienti.
+Tramite overloading sono presenti due metodi `solve`, il primo che prende la prima soluzione e ritorna i valori ottenuti in
+una mappa con chiave le variabili a cui corrispondono, il secondo invece restituisce true nel caso la prima soluzione sia un successo,
+false altrimenti.
+Sono inoltre presenti nel suo companion object una serie di **Implicit Conversion** per convertire Stringhe e Liste in termini
+e teorie Prolog e viceversa.
+
+```scala
+  given Conversion[String, Term] = Term.createTerm(_)
+  given Conversion[Seq[_], Term] = _.mkString("[", ",", "]")
+  given Conversion[Int, Term] = _.toString
+  given Conversion[Set[_], Term] = _.toList
+  given Conversion[String, Theory] = theoryName =>
+    Theory.parseWithStandardOperators(getClass.getResourceAsStream(theoryName))
+  given Conversion[Term, List[Int]] = term => "\\d+".r.findAllIn(term.toString).map(_.toInt).toList
+  given Conversion[Term, Int] = term => "\\d+".r.findFirstIn(term.toString).get.toInt
+```
+
+Data la necessità di avere un modo di rappresentare le celle in Prolog si utilizza il metodo `convertCellToProlog"` che
+permette di convertire una cella in una stringa rappresentante un ground term di forma 
+`c(Type,X,Y)` dove Type rappresenta il tipo di cella (Wall, Basic, Hole...) mentre X e Y le sue coordinate.
+Nel caso sia necessario è possibile aggiungere ulteriori elementi tramite il parametro `properties`.
 
 ### Room, RoomLink, RoomBuilder
+Il package `room` comprende tutti gli elementi che caratterizzano la stanza, la sua creazione e la sua rappresentazione.<br>
+`Room` è un trait che modella l'astrazione del concetto di stanza all'intenro del gioco. Tramite la sua implementazione 
+`RoomImpl` viene espresso il comportamento specifico in relazione allo spostamento del giocatore al suo interno e alle modifiche.
+Ogni stanza è composta da un nome, da un Set di celle e da un Set di `RoomLink`, una **case class** che modella la connessione
+tra due stanze. I vari metodi si occupano di verificare la correttezza dello spostamento del giocatore, quali `playerMove` e `isMovementValid`, e di aggiornare il Set
+di celle con quelle modificate dalle interazioni del giocatore come `updateCellsItems`. 
+Molti di questi metodi fanno uso di **For Comprehension** per semplificare e rendere più leggibile le varie operazioni svolte su
+set di celle.
 
+Data la complessità di una stanza, in particolare in relazione all'elevato numero di celle che la compone, è stato realizzato
+`RoomBuilder` per offrire dei metodi che semplificassero questo processo; in particolare `borderWalls` crea i confini della
+stanza, `wallRectangle` permette di creare semplicemente grandi quantitativi di WallCell e `standardize` che corregge eventuali
+errori di costruzione e completa tutte le celle mancanti con BasicCell.
+Anche in questo caso spesso viene fatto uso di **For Comprehension** come zucchero sintattico per le operazioni su un grande numero di celle.
 ### RoomRules
+Data la complessità di una stanza è relativamente semplice commettere errori logici nella sua costruzione; al fine di evitare
+questa problematica sono state realizzate una serie di regole in Prolog volte a verificare la validità di una stanza. 
+Queste regole sono state realizzate come **mixin**, tutte incluse in un unica case class `RoomRules`. <br>
+Ognuna di queste regole si focalizza su un aspetto differente della stanza, ad esempio `TeleportCellsRule` richiede che 
+in una stanza siano presenti esattamente sia una TeleportCell che una TeleportDestinationCell oppure nessuna delle due.
+
+Viene in seguito presentato il trait per la `PressureCellsRule` e la teoria Prolog associata.
+```scala
+/** rule for controlling the number of [[model.cells.PressurePlateCell]] and [[model.cells.PressurePlateBlockCell]]
+  */
+trait PressureCellsRule extends BaseRoomRule:
+
+  override def checkRoomValidity(room: Room): List[String] =
+    val ruleViolations = super.checkRoomValidity(room)
+    checkRuleValidity(RuleMessage, ruleViolations, room.cells, noProperty, Rule)
+```
+```prolog
+%check_pressure_cells(@L) verify if there is a pressure_plate and at least a pressure_plate_block or none of them
+check_pressure_cells(L) :- check_pressure_cells(L, 0, 0).
+
+%base cases
+check_pressure_cells([], 1, N2) :- N2 >= 1.
+check_pressure_cells([], 0, 0).
+
+%cells type handling
+check_pressure_cells([c(pp, _, _)|T], N, N2) :- N3 is N + 1, !, check_pressure_cells(T, N3, N2). 
+check_pressure_cells([c(pb, _, _)|T], N, N2) :- N4 is N2 + 1, !, check_pressure_cells(T, N, N4).
+check_pressure_cells([_|T], N, N2) :- check_pressure_cells(T, N, N2).
+```
 
 ### Minimap
+Nel menu di pausa durante il gioco viene visualizzata una mappa delle stanze esplorate, questa è basata su `Minimap`, un object che offre
+un **extension method** per `GameMap` in grado di convertirla in una serie di `MinimapElements`.
+Tramite il metodo `createMinimap` ogni stanza della mappa corrente viene esplorata a partire dalla stanza iniziale e convertita
+in un MinimapElement. Il risultato desiderato sarebbe una struttura a matrice, spesso però le mappe di gioco non riflettono
+questa struttura ed è quindi necessario inserire degli elementi placeholder per completare la mappa dove necessario.
 
-### PathExtractor
+I `MinimapElement` sono case classes di cui ogni istanza riflette o una stanza della mappa o un placeholder, di cui solo i
+primi possono essere visitati dal giocatore tramite il metodo `visit`.
 
+A seguito viene presentato uno dei metodi privati utilizzati da `createMinimap` per visitare tutte le stanze di una mappa.
 
+```scala
+  /** produces a transposition of the [[Room]]s into [[MinimapElement]]s
+    * @param room
+    *   the [[GameMap.initialRoom]] where the player starts
+    * @param rooms
+    *   all the other [[Room]]s in [[GameMap]]
+    * @param position
+    *   the starting [[Position]] for the mapping
+    * @return
+    *   the partial [[Minimap]]
+    */
+  private def extendMapping(room: Room, rooms: List[Room], position: Position = (0, 0)): Set[MinimapElement] =
+    val (connectedRooms, unmappedRooms) = rooms.partition(r => room.links.map(link => link.toRoom).contains(r.name))
+    val mappedRooms = for
+      roomsToMap <- connectedRooms
+      newPosition = position + room.links
+        .collectFirst {
+          case link if link.toRoom == roomsToMap.name => link.direction.coordinates
+        }
+        .getOrElse((0, 0))
+      mappedRoom <- extendMapping(roomsToMap, unmappedRooms, newPosition)
+    yield mappedRoom
+    mappedRooms.toSet + MinimapElement(room.name, position, room.links.map(_.direction), false, true)
+```
+
+### CellRepresentation, PathExtractor
+Per la realizzazione delle prime versioni del gioco tramite CLI e per leggibilità dei test si è creato un sistema per
+rappresentare determinati aspetti di una stanza e delle sue celle tramite una stringa strutturata come se fosse una matrice
+di celle. Questo viene fatto tramite l'**extension method** `cellsRepresentation` che ordina le celle di una stanza e produce
+la stringa che le rappresenta. Tramite parametri è possibile mostrare ulteriori informazioni come posizione del giocatore e 
+determinati item invece della cella in quella specifica posizione. 
+
+```scala
+  extension (r: Room)
+    /** represent the [[Room.cells]] as a stirng matrix
+      *
+      * @param mapper
+      *   optional mapper to add feature to the representation
+      * @return
+      *   the cells matrix
+      */
+    def cellsRepresentation(mapper: Cell => Option[String] = _ => Option.empty[String]): String =
+      r.cells.toList.sorted
+        .map(cell => mapper(cell).getOrElse(cellToString(cell)))
+        .grouped(r.cells.maxBy(_.position._1).position._1 + 1)
+        .map(row => row.mkString(" | "))
+        .mkString("\n", "\n", "\n")
+```
+
+Questa rappresentazione è stata utilizzata anche per definire i nomi delle rappresentazioni grafiche delle varie celle.
+Tramite l'uso dell' extension method `extractCellPath` è infatti possibile ricavare da una cella il nome dell'immagine corrispondente
+al suo stato attuale.
+
+### Testing
+Dato che la mia parte del progetto era prevalentemente rivolta alla parte del model, quasi ogni metodo e classe è coperta da appositi 
+test. In particolare sono stati sviluppati test specifici per il funzionamento di ogni cella da me sviluppata, per l'interazione
+del giocatore all'interno della stanza con particolare attenzione alle situazioni più peculiari, alla corretta esecuzione 
+delle teorie prolog tramite l'engine e alla generazione dei minimapElement a partire da diverse configurazioni di stanze.
 ## Laura Leonardi
 
 Il codice sviluppato in questo progetto ha principalmente riguardato gli ambiti di seguito riportati
