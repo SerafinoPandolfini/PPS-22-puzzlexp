@@ -242,118 +242,118 @@ Il codice soprastante riguarda la codifica in Json delle informazioni riguardant
 In seguito è parzialmente riportato un esempio di file **Json** prodotto riguardante una mappa
 ```json
 {
-"name" : "testMap",
-"rooms" : [
-{
-"name" : "TestRoom1",
-"cells" : [
-{
-"cellType" : "ButtonBlockCell",
-"position" : [
-16,
-9
-],
-"cellItem" : {
-"Empty" : {
-
-}
-},
-"color" : {
-"Blue" : {
-
-}
-},
-"pressableState" : {
-"NotPressed" : {
-
-}
-}
-},
-{
-"cellType" : "ButtonCell",
-"position" : [
-16,
-5
-],
-"cellItem" : {
-"Empty" : {
-
-}
-},
-"color" : {
-"Blue" : {
-
-}
-},
-"pressableState" : {
-"NotPressed" : {
-
-}
-}
-},
-...
-],
-"links" : [
-{
-"from" : [
-0,
-3
-],
-"direction" : {
-"Left" : {
-
-}
-},
-"toRoom" : "TestRoom2",
-"to" : [
-24,
-3
-]
-}
-]
-},
-{
-"name" : "TestRoom2",
-"cells" : [
-{
-"cellType" : "BasicCell",
-"position" : [
-12,
-3
-],
-"cellItem" : {
-"Empty" : {
-
-}
-}
-},
-...
-],
-"links" : [
-{
-"from" : [
-24,
-3
-],
-"direction" : {
-"Right" : {
-
-}
-},
-"toRoom" : "TestRoom1",
-"to" : [
-0,
-3
-]
-}
-]
-}
-],
-"initialRoom" : "TestRoom1",
-"initialPosition" : [
-1,
-1
-]
+  "name" : "testMap",
+  "rooms" : [
+    {
+      "name" : "TestRoom1",
+      "cells" : [
+        {
+          "cellType" : "ButtonBlockCell",
+          "position" : [
+            16,
+            9
+          ],
+          "cellItem" : {
+            "Empty" : {
+            
+            }
+          },
+          "color" : {
+            "Blue" : {
+            
+            }
+          },
+          "pressableState" : {
+            "NotPressed" : {
+            
+            }
+          }
+        },
+        {
+          "cellType" : "ButtonCell",
+          "position" : [
+            16,
+            5
+          ],
+          "cellItem" : {
+            "Empty" : {
+            
+            }
+          },
+          "color" : {
+            "Blue" : {
+            
+            }
+          },
+          "pressableState" : {
+            "NotPressed" : {
+            
+            }
+          }
+        },
+        ...
+      ],
+      "links" : [
+        {
+          "from" : [
+            0,
+            3
+          ],
+          "direction" : {
+            "Left" : {
+            
+            }
+          },
+          "toRoom" : "TestRoom2",
+          "to" : [
+            24,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "TestRoom2",
+      "cells" : [
+        {
+          "cellType" : "BasicCell",
+          "position" : [
+            12,
+            3
+          ],
+          "cellItem" : {
+            "Empty" : {
+            
+            }
+          }
+        },
+        ...
+      ],
+      "links" : [
+        {
+          "from" : [
+            24,
+            3
+          ],
+          "direction" : {
+            "Right" : {
+            
+            }
+          },
+          "toRoom" : "TestRoom1",
+          "to" : [
+            0,
+            3
+          ]
+        }
+      ]
+    }
+  ],
+  "initialRoom" : "TestRoom1",
+  "initialPosition" : [
+    1,
+    1
+  ]
 }
 ```
 ### Gestione gioco
@@ -404,6 +404,19 @@ In seguito è riportato un metodo di `PauseExtension`, utilizzato per ottenere u
       yield paintRooms(l, r, d, mapPanel)
       mapPanel
 ```
+## Testing
+Il testing è stato sviluppato nei seguenti package per quanto riguarda serializzazione, celle, mappe e la parte di gestione del gioco.
+- `serialization` in questo package sono state testate la serializzazione di
+  - celle
+  - stanze
+  - mappe
+  - dati di salvataggio
+
+  verificando che il risultato dopo la serializzazione e deserializzazione fosse identico a quello fornito inizialmente
+- `model.gameMap` in questo package sono stati effettuati i test relativi alla `GameMap` e al suo comportamento, verificando anche che gli errori ottenuti in caso di richieste inappropriate fossero quelli corretti 
+- `model.cells` in questo package sono stati effettuati i test relativi alle celle di mia competenza 
+- `controller` in questo package sono stati effettuati svariati test riguardanti il comportamento del `GameController` e in particolare riguardanti la funzionalità di reset. Per effettuare molti di questi test è stata sfruttata la GUI, pertanto è stata necessaria la verifica della possibilità di avviare una gui sul sistema, funzionalità non sempre garantita dal sistema su cui si svolgono le github actions
+Per quanto riguarda i pannelli di pausa e fine gioco non sono stati svolti test in quanto si tratta di pannelli grafici con poche o nessuna interazione. 
 
 ## Pair programming
 ### Sviluppato da Pandolfini Serafino e Leonardi Laura
