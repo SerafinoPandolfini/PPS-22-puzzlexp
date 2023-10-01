@@ -684,4 +684,4 @@ A seguire sono mostrate alcune immagini ottenute durante l'esperienza di gioco
 <caption>Schermata di fine gioco</caption>
 </p>
 
-[Torna all'indice](../report.md) | [Vai a Retrospettiva](../07-retrospective/report.md)
+[Torna all'indice](../index.md) | [Vai a Retrospettiva](../07-retrospective/report.md)

@@ -37,4 +37,4 @@ L'obiettivo dello Sprint è stato raggiunto con due giorni di anticipo rispetto 
 ## Sprint retrospective
 Il carico di lavoro per questo Sprint è risultato ben bilanciato tra i membri del team. Rispetto a quelli precedenti il carico è risultato minore in quanto l'intero progetto era stato pensato per concentrare la maggior parte del lavoro nei primi sprint.
 
-[Torna all'indice](../report.md) | [Vai al product backlog](../process/product-backlog.md)
+[Torna all'indice](../index.md) | [Vai al product backlog](../process/product-backlog.md)

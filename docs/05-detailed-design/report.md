@@ -90,4 +90,4 @@ La libreria utilizzata a questo scopo è **circe**, una libreria che sfrutta il 
 Tale pattern permette di gestire il polimorfismo ad hoc in modo semplice e pulito, un aspetto fondamentale per scenari di serializzazione in cui è necessario definire comportamenti che si adattino a tipi di dati diversi in modo automatico e dinamico.   
 
 
-[Torna all'indice](../report.md) | [Vai a Implementazione](../06-implementation/report.md)
+[Torna all'indice](../index.md) | [Vai a Implementazione](../06-implementation/report.md)

@@ -8,4 +8,4 @@ Il giocatore dovrà farsi strada nella stanza spostando delle scatole presenti a
 
 Durante il percorso da compiere il giocatore potrebbe trovare potenziamenti utili a farsi strada nelle stanze successive.
 
-[Torna all'indice](../report.md) | [Vai a Metodologia di Sviluppo](../02-development-process/report.md)
+[Torna all'indice](../index.md) | [Vai a Metodologia di Sviluppo](../02-development-process/report.md)

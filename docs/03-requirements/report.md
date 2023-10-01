@@ -157,4 +157,4 @@ Il modello di dominio comprende le seguenti entità:
 
 
 
-[Torna all'indice](../report.md) | [Vai a Design architetturale](../04-architectural-design/report.md)
+[Torna all'indice](../index.md) | [Vai a Design architetturale](../04-architectural-design/report.md)

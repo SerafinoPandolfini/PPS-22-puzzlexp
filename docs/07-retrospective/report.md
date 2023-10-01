@@ -24,4 +24,4 @@ Tra i possibili sviluppi futuri, ci possono essere:
 - reset di una sola azione
 - possibilità per il giocatore di creare delle mappe giocabili
 
-[Torna all'indice](../report.md)
+[Torna all'indice](../index.md)

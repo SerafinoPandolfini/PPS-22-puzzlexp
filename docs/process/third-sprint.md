@@ -80,4 +80,4 @@ L'obiettivo dello Sprint è stato raggiunto il giorno successivo alla deadline
 Il ritardo è stato causato da problematiche dovute all'inesperienza del team nella gestione dei percorsi delle risorse interne al file jar.
 Per quanto riguarda il carico di lavoro è stato suddiviso al fine di riequilibrare il lavoro svolto finora dai membri del gruppo
 
-[Torna all'indice](../report.md) | [Vai al quarto sprint](../process/fourth-sprint.md)
+[Torna all'indice](../index.md) | [Vai al quarto sprint](../process/fourth-sprint.md)

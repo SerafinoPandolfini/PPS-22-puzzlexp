@@ -97,4 +97,4 @@ L'obiettivo dello Sprint è stato raggiunto il giorno precedente alla deadline
 ## Sprint retrospective
 Il carico di lavoro è stato pensato in relazione al periodo in cui si sarebbe svolto lo sprint in modo da essere leggermente inferiore a quelli successivi, anche tenendo in considerazione la disponibilità dei membri del gruppo. Parte delle ore di lavoro sono state dedicate all'apprendimento della metodologia di lavoro scelta.
 
-[Torna all'indice](../report.md) | [Vai al secondo sprint](../process/second-sprint.md)
+[Torna all'indice](../index.md) | [Vai al secondo sprint](../process/second-sprint.md)

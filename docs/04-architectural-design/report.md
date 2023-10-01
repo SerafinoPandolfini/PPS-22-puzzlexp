@@ -28,4 +28,4 @@ Controller:
 - Aggiorna la View per riflettere le modifiche apportate ai dati nel Model.
 - È responsabile della gestione del flusso di controllo dell'applicazione.
 
-[Torna all'indice](../report.md) | [Vai a Design di dettaglio](../05-detailed-design/report.md)
+[Torna all'indice](../index.md) | [Vai a Design di dettaglio](../05-detailed-design/report.md)

@@ -60,4 +60,4 @@ rispettata.
 - **Leonardi Laura:** sviluppatore
 
 
-[Torna all'indice](../report.md) | [Vai ad Analisi del sistema e requisiti](../03-requirements/report.md)
+[Torna all'indice](../index.md) | [Vai ad Analisi del sistema e requisiti](../03-requirements/report.md)
