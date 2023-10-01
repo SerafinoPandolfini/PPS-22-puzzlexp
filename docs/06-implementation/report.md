@@ -219,7 +219,34 @@ Tali metodi, due dei quali sono riportati nell'esempio sottostante, fanno uso de
 
 ## Pair programming
 ### sviluppato da Pandolfini Serafino e Leonardi Laura
-#### gestione salvataggio
+La parte di codice sviluppato in pair programming riguarda il salvataggio del gioco.
+Il salvataggio è stato gestito tramite gli object `GameController`,`GameView`, `CurrentGame`, e tramite il package `serialization`.
+Per ogni mappa è possibile creare un salvataggio, le cui informazioni cardine saranno memorizzate tramite file `Json` e salvate in una apposita cartella nel dispositivo dell'utente.
+Tali informazioni saranno poi recuperate per permettere al giocatore di riprendere il gioco a partire dal salvataggio effettuato.
+A seguito il codice utilizzato per decodificare le informazioni necessarie al caricamento di un salvataggio
+```scala
+  given saveGameDecoder: Decoder[SaveData] = Decoder.instance(cursor =>
+    for
+      originalMap <- cursor.downField(SaveMapName).as[String]
+      currentMap <- cursor.downField(SaveMap).as[GameMap]
+      currentRoom <- cursor.downField(SaveRoom).as[Room]
+      currentPlayerPosition <- cursor.downField(SaveCurrentPosition).as[Position]
+      startPlayerPosition <- cursor.downField(SaveStartPosition).as[Position]
+      itemList <- cursor.downField(SaveItems).as[List[Item]]
+      score <- cursor.downField(SaveScore).as[Int]
+      minimap <- cursor.downField(SaveMiniMap).as[List[MinimapElement]]
+    yield (
+      JsonDirectoryPath + originalMap + JsonExtension,
+      currentMap,
+      currentRoom,
+      currentPlayerPosition,
+      startPlayerPosition,
+      itemList,
+      score,
+      minimap
+    )
+  )
+```
 ### Sviluppato da Sofia Tosi e Serafino Pandolfini
 Il lavoro svolto in collaborazione è relativo al package `view`  nelle classi `GameView` e `MultiLayeredTile`.
 GameView definisce i layout che compongono la schermata di gioco e la `toolbar`. 
@@ -244,6 +271,9 @@ A seguito viene presentato un Extension Method per aggiornare i tiles con le imm
           tilesMap.updated((x, y), updatedTile)
         }
 ```
+
+
+
 
 
 
