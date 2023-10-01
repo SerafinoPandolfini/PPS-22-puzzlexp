@@ -215,7 +215,8 @@ Tali metodi, due dei quali sono riportati nell'esempio sottostante, fanno uso de
 La serializzazione di classi in file di formato **Json** è stata gestita tramite la libreria io.circe, una libreria Scala pensata per la serializzazione e deserializzazione di file in formato Json.
 Nello specifico tale serializzazione riguarda le mappe, e di conseguenza le celle e le stanze, e i file di salvataggio.
 Il codice riguardante la serializzazione e deserializzazione si trova negli **object** `JsonDecoder`, `JsonCellDecoder`, `JsonEncoder`, e`JsonCellEncoder`. Tale separazione del codice relativo alle celle è stata effettuata poiché il loro numero elevato inficiava la leggibilità del codice, permettendo inoltre di separare logicamente la gestione delle celle, elementi fondanti dell'architettura.
-Grazie all'utilizzo di circe le **case class** sono state serializzate e deserializzate automaticamente. Alcuni esempi più articolati sono riportati in seguito.
+Grazie all'utilizzo di circe le **case class** sono state serializzate e deserializzate automaticamente.
+Alcuni esempi più articolati sono riportati in seguito.
 ```scala
   given mapEncoder: Encoder[GameMap] = Encoder.instance(map =>
     Json.obj(
@@ -384,8 +385,24 @@ In seguito è riportato un esempio della gestione del movimento del player.
     ToolbarUpdater.updateToolbarLabels()
 ```
 
-
 ### Gestione schermate di pausa e di fine gioco
+`PauseGamePanel` e `EndGamePanel` sono JPanel creati con l'ausilio di `ImagePanel`, un JPanel dotato di un'immagine di background grazie all'overriding del metodo `paintComponent`. Nel caso di `PauseGamePanel` è stata aggiunta un **extension** per gestire la comparsa di una mini-mappa delle stanze visitate.
+In seguito è riportato un metodo di `PauseExtension`, utilizzato per ottenere un **JPanel** contenente la mini mappa da mostrare. Tale metodo fa uso di **for comprension** per iterare sulla lista di stanze, creare un **JPanel** corrispondente, per poi iterare sui link di ogni stanza per poterli disegnare, rendendo il tutto più leggibile.
+```scala
+    /** popolate the minimap in the pause menu
+      * @return
+      *   the [[JPanel]] containing the minimap
+      */
+    private[pause] def popolateMap(): JPanel =
+      val mapPanel = JPanel()
+      mapPanel.setLayout(GridLayout(pauseGamePanel.rows, pauseGamePanel.cols))
+      for
+        l <- pauseGamePanel.list
+        r = defaultRoomPanel()
+        d <- l.directions
+      yield paintRooms(l, r, d, mapPanel)
+      mapPanel
+```
 
 ## Pair programming
 ### Sviluppato da Pandolfini Serafino e Leonardi Laura
