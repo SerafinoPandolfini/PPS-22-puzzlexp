@@ -111,7 +111,12 @@ Seguendo un approccio TDD, sono stati effettuati degli unit test per testare le 
 Per quando riguarda la parte della view non sono stati effettuati unit test in quanto il codice implementato non risulta automatizzabile: in alcune parti del codice sviluppato troviamo metodi di configurazione dei componenti Swing, la loro aggiunta ai JPanel, mentre in altre è richiesta l'interazione dell'utente con la GUI come la pressione di un pulsante o la selezione di un file.
 
 ## Serafino Pandolfini
-Nel corso dello sviluppo di questo progetto mi sono occupato dei seguenti aspetti:
+Nel corso dello sviluppo di questo progetto mi sono occupato dei seguenti package:
+- `model.cells` relativamente ad alcune specifiche celle e al loro comportamento  
+- `model.room` nella sua interezza
+- `model.gameMap` per la realizzazione della minimappa
+- `prologEngine` per la comunicazione scala-prolog
+- `utils` per vari elementi, in particolare per operazioni tra Positions e per la conversione di celle alla risorsa grafica associata
 ### Cell, BasicCell, WallCell
 `Cell` rappresenta l'elemento base di cui è composta una `Room`.
 La classe è implementata come abstract class offrendo un implementazione comune per i metodi ```walkableState```, che
@@ -141,21 +146,154 @@ trait Hole extends Cell:
   abstract override def isDeadly: Boolean = !filled || super.isDeadly
 ```
 
-
-
 ### TeleportCell, TeleportDestinationCell
+`TeleportCell` e `TeleportDestinationCell` estendono direttamente `Cell` senza cambiamenti tramite mixin. La loro speicifica
+logica è contenuta negli **Extension Methods** `updateTeleportItem` e del metodo `moveIn` che definiscono rispettivamente
+il teletrasporto di un Item e del giocatore.
 
-### PrologEngine
+### PrologEngine, PrologConverter
+`PrologEngine` è basato su tuProlog, si occupa di ricevere ed eseguire teorie prolog e restituirne il risultato.
+Nello specifico la val `prologEngine` si occupa di ricevere un goal da risolvere restituendo una **LazyList** di SolveInfo.
+L'utilizzo di una LazyList è dovuto a una serie di fattori prevalentemente dovuti alla possibilità che possa restituire un numero
+infinito o molto elevato di soluzioni quando spesso le prime ottenute sono sufficienti.
+Tramite overloading sono presenti due metodi `solve`, il primo che prende la prima soluzione e ritorna i valori ottenuti in
+una mappa con chiave le variabili a cui corrispondono, il secondo invece restituisce true nel caso la prima soluzione sia un successo,
+false altrimenti.
+Sono inoltre presenti nel suo companion object una serie di **Implicit Conversion** per convertire Stringhe e Liste in termini
+e teorie Prolog e viceversa.
+
+```scala
+  given Conversion[String, Term] = Term.createTerm(_)
+  given Conversion[Seq[_], Term] = _.mkString("[", ",", "]")
+  given Conversion[Int, Term] = _.toString
+  given Conversion[Set[_], Term] = _.toList
+  given Conversion[String, Theory] = theoryName =>
+    Theory.parseWithStandardOperators(getClass.getResourceAsStream(theoryName))
+  given Conversion[Term, List[Int]] = term => "\\d+".r.findAllIn(term.toString).map(_.toInt).toList
+  given Conversion[Term, Int] = term => "\\d+".r.findFirstIn(term.toString).get.toInt
+```
+
+Data la necessità di avere un modo di rappresentare le celle in Prolog si utilizza il metodo `convertCellToProlog"` che
+permette di convertire una cella in una stringa rappresentante un ground term di forma 
+`c(Type,X,Y)` dove Type rappresenta il tipo di cella (Wall, Basic, Hole...) mentre X e Y le sue coordinate.
+Nel caso sia necessario è possibile aggiungere ulteriori elementi tramite il parametro `properties`.
 
 ### Room, RoomLink, RoomBuilder
+Il package `room` comprende tutti gli elementi che caratterizzano la stanza, la sua creazione e la sua rappresentazione.<br>
+`Room` è un trait che modella l'astrazione del concetto di stanza all'intenro del gioco. Tramite la sua implementazione 
+`RoomImpl` viene espresso il comportamento specifico in relazione allo spostamento del giocatore al suo interno e alle modifiche.
+Ogni stanza è composta da un nome, da un Set di celle e da un Set di `RoomLink`, una **case class** che modella la connessione
+tra due stanze. I vari metodi si occupano di verificare la correttezza dello spostamento del giocatore, quali `playerMove` e `isMovementValid`, e di aggiornare il Set
+di celle con quelle modificate dalle interazioni del giocatore come `updateCellsItems`. 
+Molti di questi metodi fanno uso di **For Comprehension** per semplificare e rendere più leggibile le varie operazioni svolte su
+set di celle.
 
+Data la complessità di una stanza, in particolare in relazione all'elevato numero di celle che la compone, è stato realizzato
+`RoomBuilder` per offrire dei metodi che semplificassero questo processo; in particolare `borderWalls` crea i confini della
+stanza, `wallRectangle` permette di creare semplicemente grandi quantitativi di WallCell e `standardize` che corregge eventuali
+errori di costruzione e completa tutte le celle mancanti con BasicCell.
+Anche in questo caso spesso viene fatto uso di **For Comprehension** come zucchero sintattico per le operazioni su un grande numero di celle.
 ### RoomRules
+Data la complessità di una stanza è relativamente semplice commettere errori logici nella sua costruzione; al fine di evitare
+questa problematica sono state realizzate una serie di regole in Prolog volte a verificare la validità di una stanza. 
+Queste regole sono state realizzate come **mixin**, tutte incluse in un unica case class `RoomRules`. <br>
+Ognuna di queste regole si focalizza su un aspetto differente della stanza, ad esempio `TeleportCellsRule` richiede che 
+in una stanza siano presenti esattamente sia una TeleportCell che una TeleportDestinationCell oppure nessuna delle due.
+
+Viene in seguito presentato il trait per la `PressureCellsRule` e la teoria Prolog associata.
+```scala
+/** rule for controlling the number of [[model.cells.PressurePlateCell]] and [[model.cells.PressurePlateBlockCell]]
+  */
+trait PressureCellsRule extends BaseRoomRule:
+
+  override def checkRoomValidity(room: Room): List[String] =
+    val ruleViolations = super.checkRoomValidity(room)
+    checkRuleValidity(RuleMessage, ruleViolations, room.cells, noProperty, Rule)
+```
+```prolog
+%check_pressure_cells(@L) verify if there is a pressure_plate and at least a pressure_plate_block or none of them
+check_pressure_cells(L) :- check_pressure_cells(L, 0, 0).
+
+%base cases
+check_pressure_cells([], 1, N2) :- N2 >= 1.
+check_pressure_cells([], 0, 0).
+
+%cells type handling
+check_pressure_cells([c(pp, _, _)|T], N, N2) :- N3 is N + 1, !, check_pressure_cells(T, N3, N2). 
+check_pressure_cells([c(pb, _, _)|T], N, N2) :- N4 is N2 + 1, !, check_pressure_cells(T, N, N4).
+check_pressure_cells([_|T], N, N2) :- check_pressure_cells(T, N, N2).
+```
 
 ### Minimap
+Nel menu di pausa durante il gioco viene visualizzata una mappa delle stanze esplorate, questa è basata su `Minimap`, un object che offre
+un **extension method** per `GameMap` in grado di convertirla in una serie di `MinimapElements`.
+Tramite il metodo `createMinimap` ogni stanza della mappa corrente viene esplorata a partire dalla stanza iniziale e convertita
+in un MinimapElement. Il risultato desiderato sarebbe una struttura a matrice, spesso però le mappe di gioco non riflettono
+questa struttura ed è quindi necessario inserire degli elementi placeholder per completare la mappa dove necessario.
 
-### PathExtractor
+I `MinimapElement` sono case classes di cui ogni istanza riflette o una stanza della mappa o un placeholder, di cui solo i
+primi possono essere visitati dal giocatore tramite il metodo `visit`.
 
+A seguito viene presentato uno dei metodi privati utilizzati da `createMinimap` per visitare tutte le stanze di una mappa.
 
+```scala
+  /** produces a transposition of the [[Room]]s into [[MinimapElement]]s
+    * @param room
+    *   the [[GameMap.initialRoom]] where the player starts
+    * @param rooms
+    *   all the other [[Room]]s in [[GameMap]]
+    * @param position
+    *   the starting [[Position]] for the mapping
+    * @return
+    *   the partial [[Minimap]]
+    */
+  private def extendMapping(room: Room, rooms: List[Room], position: Position = (0, 0)): Set[MinimapElement] =
+    val (connectedRooms, unmappedRooms) = rooms.partition(r => room.links.map(link => link.toRoom).contains(r.name))
+    val mappedRooms = for
+      roomsToMap <- connectedRooms
+      newPosition = position + room.links
+        .collectFirst {
+          case link if link.toRoom == roomsToMap.name => link.direction.coordinates
+        }
+        .getOrElse((0, 0))
+      mappedRoom <- extendMapping(roomsToMap, unmappedRooms, newPosition)
+    yield mappedRoom
+    mappedRooms.toSet + MinimapElement(room.name, position, room.links.map(_.direction), false, true)
+```
+
+### CellRepresentation, PathExtractor
+Per la realizzazione delle prime versioni del gioco tramite CLI e per leggibilità dei test si è creato un sistema per
+rappresentare determinati aspetti di una stanza e delle sue celle tramite una stringa strutturata come se fosse una matrice
+di celle. Questo viene fatto tramite l'**extension method** `cellsRepresentation` che ordina le celle di una stanza e produce
+la stringa che le rappresenta. Tramite parametri è possibile mostrare ulteriori informazioni come posizione del giocatore e 
+determinati item invece della cella in quella specifica posizione. 
+
+```scala
+  extension (r: Room)
+    /** represent the [[Room.cells]] as a stirng matrix
+      *
+      * @param mapper
+      *   optional mapper to add feature to the representation
+      * @return
+      *   the cells matrix
+      */
+    def cellsRepresentation(mapper: Cell => Option[String] = _ => Option.empty[String]): String =
+      r.cells.toList.sorted
+        .map(cell => mapper(cell).getOrElse(cellToString(cell)))
+        .grouped(r.cells.maxBy(_.position._1).position._1 + 1)
+        .map(row => row.mkString(" | "))
+        .mkString("\n", "\n", "\n")
+```
+
+Questa rappresentazione è stata utilizzata anche per definire i nomi delle rappresentazioni grafiche delle varie celle.
+Tramite l'uso dell' extension method `extractCellPath` è infatti possibile ricavare da una cella il nome dell'immagine corrispondente
+al suo stato attuale.
+
+### Testing
+Dato che la mia parte del progetto era prevalentemente rivolta alla parte del model, quasi ogni metodo e classe è coperta da appositi 
+test. In particolare sono stati sviluppati test specifici per il funzionamento di ogni cella da me sviluppata, per l'interazione
+del giocatore all'interno della stanza con particolare attenzione alle situazioni più peculiari, alla corretta esecuzione 
+delle teorie prolog tramite l'engine e alla generazione dei minimapElement a partire da diverse configurazioni di stanze.
 ## Laura Leonardi
 
 Il codice sviluppato in questo progetto ha principalmente riguardato gli ambiti di seguito riportati
