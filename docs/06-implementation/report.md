@@ -355,6 +355,35 @@ In seguito è parzialmente riportato un esempio di file **Json** prodotto riguar
 }
 ```
 ### Gestione gioco
+La partita vera e propria è stata gestita principalmente dagli **object** `GameController`, `PlayerMovement` e `CurrentGame`.
+`CurrentGame` mantiene e aggiorna le informazioni relative alla partita corrente, come la mappa di gioco, la stanza corrente e la posizione del giocatore.
+`GameController` e `PlayerMovement` gestiscono il collegamento con la GUI, separando la gestione delle conseguenze dei movimenti del player dalla gestione del reset della stanza, del salvataggio, o dell'inizio e fine della partita.
+In seguito è riportato un esempio della gestione del movimento del player.
+```scala
+  /** Performs the actions needed to move the player
+    * @param direction
+    *   the [[Direction]] in which the player is moving
+    */
+  def movePlayer(direction: Int): Unit =
+    CurrentGame.currentRoom.playerMove(CurrentGame.currentPosition, direction) match
+      case Some(position) =>
+        if CurrentGame.currentPosition != position then CurrentGame.checkConsequences(position)
+        else
+          CurrentGame.currentRoom.updateCells(
+            CurrentGame.currentRoom.getCell(position + direction.coordinates).get.usePowerUp()
+          )
+      case None => PlayerMovement.checkChangeRoom(direction)
+    PlayerMovement.checkMoveOnItem()
+    view.associateTiles(CurrentGame.currentRoom, CurrentGame.currentRoom.extractRoomPath())
+    val playerDirection = CurrentGame.currentRoom.isPlayerDead(CurrentGame.currentPosition) match
+      case Success(value) if !value => direction
+      case _ =>
+        resetRoom()
+        KeyEvent.VK_S
+    view.updatePlayerImage(CurrentGame.currentPosition, playerDirection)
+    ToolbarUpdater.updateToolbarLabels()
+```
+
 
 ### Gestione schermate di pausa e di fine gioco
 
