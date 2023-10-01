@@ -160,7 +160,7 @@ trait Hole extends Cell:
 
 Il codice sviluppato in questo progetto ha principalmente riguardato gli ambiti di seguito riportati
 
-### celle
+### Celle
 Di seguito sono elencate le celle sviluppate e i relativi **trait** ed **enumerazioni** utilizzati nella loro creazione, che hanno permesso di ottenere una migliore riusabilità del codice:
 - `CliffCell` questa cella è stata programmata con l'aiuto dell'**enum** `Direction`
 - `ButtonCell` i cui colori sono gestiti con l'aiuto dell'**enum** `Color` e del **trait** `Colorable`, mentre lo stato di pressione è gestito grazie all'**enum** `PressableState` e al **trait** `Pressable`
@@ -179,7 +179,7 @@ Inoltre è stato sviluppato codice prolog, nello specifico le regole `search_but
 ```
 Si può notare come nel commento siano presenti indicazioni riguardo agli argomenti in output(-), in input(+), e in input di tipo **ground**(@)
 
-### mappe di gioco
+### Mappe di gioco
 È stata realizzata la classe `GameMap` per gestire la struttura delle varie mappe di gioco. Tale classe è dotata di svariati metodi, che gestiscono, per esempio, la restituzione di una stanza conoscendone il nome, il calcolo del punteggio totale ottenibile dalla mappa, o la gestione del passaggio tra due stanze presenti al suo interno.
 Tali metodi, due dei quali sono riportati nell'esempio sottostante, fanno uso della **monade Try** per gestire le casistiche di errore, combinata con l'uso di **for comprehension** per permettere una gestione più pulita delle varie casistiche di fallimento, evitando di appesantire il codice con **match case** innestati.
 ```scala
@@ -211,14 +211,155 @@ Tali metodi, due dei quali sono riportati nell'esempio sottostante, fanno uso de
         toRoom <- getRoomFromName(link.toRoom)
       yield (toRoom.createCopy(), link.to)
 ```
-### serializzazione
+### Serializzazione
+La serializzazione di classi in file di formato **Json** è stata gestita tramite la libreria io.circe, una libreria Scala pensata per la serializzazione e deserializzazione di file in formato Json.
+Nello specifico tale serializzazione riguarda le mappe, e di conseguenza le celle e le stanze, e i file di salvataggio.
+Il codice riguardante la serializzazione e deserializzazione si trova negli **object** `JsonDecoder`, `JsonCellDecoder`, `JsonEncoder`, e`JsonCellEncoder`. Tale separazione del codice relativo alle celle è stata effettuata poiché il loro numero elevato inficiava la leggibilità del codice, permettendo inoltre di separare logicamente la gestione delle celle, elementi fondanti dell'architettura.
+Grazie all'utilizzo di circe le **case class** sono state serializzate e deserializzate automaticamente. Alcuni esempi più articolati sono riportati in seguito.
+```scala
+  given mapEncoder: Encoder[GameMap] = Encoder.instance(map =>
+    Json.obj(
+      MapName -> map.name.asJson,
+      MapRooms -> map.rooms.map(r => roomEncoder.apply(r)).asJson,
+      MapInitialRoom -> map.initialRoom.asJson,
+      MapInitialPosition -> map.initialPosition.asJson
+    )
+  )
+```
+Il codice soprastante riguarda la codifica in Json delle informazioni riguardanti una `GameMap` mentre il codice sottostante riguarda il recupero di tali informazioni.
+```scala
+  given mapDecoder: Decoder[GameMap] = Decoder.instance(cursor =>
+    for
+      name <- cursor.downField(MapName).as[String]
+      rooms <- cursor.downField(MapRooms).as[Set[Room]]
+      initialRoom <- cursor.downField(MapInitialRoom).as[String]
+      initialPosition <- cursor.downField(MapInitialPosition).as[Position]
+    yield GameMap(name, rooms, initialRoom, initialPosition)
+  )
+```
+In seguito è parzialmente riportato un esempio di file **Json** prodotto riguardante una mappa
+```json
+{
+"name" : "testMap",
+"rooms" : [
+{
+"name" : "TestRoom1",
+"cells" : [
+{
+"cellType" : "ButtonBlockCell",
+"position" : [
+16,
+9
+],
+"cellItem" : {
+"Empty" : {
 
-### gestione gioco
+}
+},
+"color" : {
+"Blue" : {
 
-### gestione schermate di pausa e di fine gioco
+}
+},
+"pressableState" : {
+"NotPressed" : {
+
+}
+}
+},
+{
+"cellType" : "ButtonCell",
+"position" : [
+16,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+},
+"color" : {
+"Blue" : {
+
+}
+},
+"pressableState" : {
+"NotPressed" : {
+
+}
+}
+},
+...
+],
+"links" : [
+{
+"from" : [
+0,
+3
+],
+"direction" : {
+"Left" : {
+
+}
+},
+"toRoom" : "TestRoom2",
+"to" : [
+24,
+3
+]
+}
+]
+},
+{
+"name" : "TestRoom2",
+"cells" : [
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+...
+],
+"links" : [
+{
+"from" : [
+24,
+3
+],
+"direction" : {
+"Right" : {
+
+}
+},
+"toRoom" : "TestRoom1",
+"to" : [
+0,
+3
+]
+}
+]
+}
+],
+"initialRoom" : "TestRoom1",
+"initialPosition" : [
+1,
+1
+]
+}
+```
+### Gestione gioco
+
+### Gestione schermate di pausa e di fine gioco
 
 ## Pair programming
-### sviluppato da Pandolfini Serafino e Leonardi Laura
+### Sviluppato da Pandolfini Serafino e Leonardi Laura
 La parte di codice sviluppato in pair programming riguarda il salvataggio del gioco.
 Il salvataggio è stato gestito tramite gli object `GameController`,`GameView`, `CurrentGame`, e tramite il package `serialization`.
 Per ogni mappa è possibile creare un salvataggio, le cui informazioni cardine saranno memorizzate tramite file `Json` e salvate in una apposita cartella nel dispositivo dell'utente.
