@@ -1,0 +1,6 @@
+theme: jekyll-theme-cayman
+github:
+  private: false
+  license:
+    name: MIT
+  repository_url: "https://github.com/SerafinoPandolfini/PPS-22-puzzlexp"
