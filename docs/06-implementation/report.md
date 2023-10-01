@@ -216,7 +216,8 @@ La serializzazione di classi in file di formato **Json** è stata gestita tramit
 Nello specifico tale serializzazione riguarda le mappe, e di conseguenza le celle e le stanze, e i file di salvataggio.
 Il codice riguardante la serializzazione e deserializzazione si trova negli **object** `JsonDecoder`, `JsonCellDecoder`, `JsonEncoder`, e`JsonCellEncoder`. Tale separazione del codice relativo alle celle è stata effettuata poiché il loro numero elevato inficiava la leggibilità del codice, permettendo inoltre di separare logicamente la gestione delle celle, elementi fondanti dell'architettura.
 Grazie all'utilizzo di circe le **case class** sono state serializzate e deserializzate automaticamente.
-Alcuni esempi più articolati sono riportati in seguito.
+L'implementazione del pattern TypeClasses dell'encoder e decoder di circe è avvenuta tramite **given** che effettuano una conversione implicita che permette al compilatore di selezionare automaticamente l'Encoder (o il Decoder) della corretta tipologia.
+Alcuni esempi sono riportati in seguito.
 ```scala
   given mapEncoder: Encoder[GameMap] = Encoder.instance(map =>
     Json.obj(

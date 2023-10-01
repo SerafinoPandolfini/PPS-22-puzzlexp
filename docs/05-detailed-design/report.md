@@ -9,7 +9,7 @@
 ## Diagramma dei package
 In seguito viene presentato il diagramma dei package fino al secondo livello.
 I package principali sono model, view e controller che riflettono la struttura architetturale del progetto; ma sono anche
-presenti i package exceptions che modella le eccezioni specifiche del sistema, prologEngine per l'esecuzione di codie prolog e
+presenti i package exceptions che modella le eccezioni specifiche del sistema, serialization che si occupa della serializzazione deserializzazione di classi in Json, prologEngine per l'esecuzione di codie prolog e
 utils per i metodi e le costanti comuni alle varie sezioni del progetto.
 
 <p align="center">
@@ -83,5 +83,11 @@ relative al'esecuzione dei movimenti del giocatore, al reset delle stanze o al p
   <img src="../Images/ResetRoom.png" alt="Diagramma di sequenza del comportamento di reset"/>
 <caption>Diagramma di sequenza del comportamento di reset</caption>
 </p>
+
+## Serialization
+Serialization si occupa si serializzare e deserializzare classi in file di formato Json.
+La libreria utilizzata a questo scopo è **circe**, una libreria che sfrutta il design pattern delle **TypeClasses** per la modellazione di Encoder e Decoder.
+Tale pattern permette di gestire il polimorfismo ad hoc in modo semplice e pulito, un aspetto fondamentale per scenari di serializzazione in cui è necessario definire comportamenti che si adattino a tipi di dati diversi in modo automatico e dinamico.   
+
 
 [Torna all'indice](../report.md) | [Vai a Implementazione](../06-implementation/report.md)
