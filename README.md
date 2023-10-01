@@ -5,7 +5,7 @@
 Un gioco ispirato a "Sokoban", il cui scopo è quello di superare una serie di stanze con differenti puzzle da risolvere.
 
 ## Documentazione
-La documentazione è disponibile su [GitHub Pages](inserire link).
+La documentazione è disponibile su [GitHub Pages](https://serafinopandolfini.github.io/PPS-22-puzzlexp/).
 
 ## Setup
 Per poter giocare è necessario avere installato **JDK 11+**.
