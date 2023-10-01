@@ -50,7 +50,13 @@ In modo analogo a ``` RockCell ``` e ``` PlantCell ``` anche ``` LockCell ``` er
 I tre tipi di celle citate concretizzano il mixin attraverso una case class che garantisce immutabilità e permette di evitare side effects indesiderati. Inoltre, otteniamo getter, setter, toString, equals e hashCode dei parametri specificati. È stato molto utilizzato anche il metodo copy che permette di ottenere una nuova istanza della classe con alcuni campi modificati.
 
 ### ItemHolder
-Una parte di rilievo è il metodo removeItem nella classe ItemHolder. Difatti in esso viene utilizzato un for comprehension per iterare sugli elementi della lista itemOwned e sui relativi indici. Lo yield permette di ottenere una nuova lista i cui elementi sono diversi da quello in input oppure sono uguali ma non sono la prima occorrenza.  Grazie al for comprehension operazioni complesse possono essere espresse in modo più leggibile e dichiarativo. Viene inoltre usato il metodo copy per creare una nuova istanza di ``` ItemHolder ```, essendo esso immutabile, e ciò risulta possibile in quanto è implementato tramite una case class.
+Una parte di rilievo è il metodo removeItem nella classe ItemHolder. Difatti in esso viene utilizzato un for comprehension per iterare sugli elementi della lista itemOwned e sui relativi indici. Lo yield permette di ottenere una nuova lista i cui elementi sono diversi da quello in input oppure sono uguali ma non sono la prima occorrenza.  Grazie al for comprehension operazioni complesse possono essere espresse in modo più leggibile e dichiarativo. Viene inoltre usato il metodo copy per creare una nuova istanza di ``` ItemHolder ```, essendo esso immutabile, e ciò risulta possibile in quanto è implementato tramite una case class. Riporto nello spazio sottostante il codice:
+```scala
+def removeItem(item: Item): ItemHolder = copy(itemOwned = for
+    (element, index) <- itemOwned.zipWithIndex
+    if element != item || index != itemOwned.indexOf(item)
+  yield element)
+```
 
 ### UseItemExtension, TreasureExtension, ItemHolderExtension
 ``` UseItemExtension ```, ``` TreasureExtension ```, ``` ItemHolderExtension ``` sono tre file che aggiungono metodi aggiuntivi alla classe base. I metodi sono incapsulati nell’omonimo oggetto, il quale viene importato al momento dell’uso. Grazie a questi extension methods il codice della classe base rimane inalterato e può usufruire delle feature aggiuntive. Questo pattern promuove il principio DRY in quanto permette di astrarre i concetti comuni e di riutilizzare il codice senza doverlo ripetere.
@@ -82,8 +88,14 @@ Di seguito si riporta un test:
 Si noti come risulti più espressivo e sia subito chiaro l’intento: ++ per aggiungere una lista di elementi, + per aggiungerne uno e – per la rimozione.
 
 ### ItemConversion
-In questo file sono implementate due conversioni riguardanti gli item. La prima ha come output un int che rappresenta il valore in termini di punti dell’item mentre l’altra ha una stringa che rappresenta l’item in una rappresentazione testuale. Grazie al meccanismo given la conversione tra item e l’output specificato avviene in modo automatico.
-
+In questo file sono implementate due conversioni riguardanti gli item. La prima ha come output un int che rappresenta il valore in termini di punti dell’item mentre l’altra ha una stringa che rappresenta l’item in una rappresentazione testuale. Grazie al meccanismo given la conversione tra item e l’output specificato avviene in modo automatico. Riporto nello spazio sottostante un esempio:
+```scala
+given Conversion[Item, Int] = _ match
+    case Item.Coin  => CoinValue
+    case Item.Bag   => BagValue
+    case Item.Trunk => TrunkValue
+    case _          => NotValuable
+```
 ### MenuController
 Il metodo searchMapFile permette di ottenere una listmap immutabile contenente come chiave i nomi delle mappe e come valore il nome dei file. È implementato con un for comprehension per iterare sulla lista delle mappe. L’utilizzo di questo costrutto permette al codice di essere più leggibile e dichiarativo. 
 
@@ -298,7 +310,7 @@ delle teorie prolog tramite l'engine e alla generazione dei minimapElement a par
 
 Il codice sviluppato in questo progetto ha principalmente riguardato gli ambiti di seguito riportati
 
-### celle
+### Celle
 Di seguito sono elencate le celle sviluppate e i relativi **trait** ed **enumerazioni** utilizzati nella loro creazione, che hanno permesso di ottenere una migliore riusabilità del codice:
 - `CliffCell` questa cella è stata programmata con l'aiuto dell'**enum** `Direction`
 - `ButtonCell` i cui colori sono gestiti con l'aiuto dell'**enum** `Color` e del **trait** `Colorable`, mentre lo stato di pressione è gestito grazie all'**enum** `PressableState` e al **trait** `Pressable`
@@ -317,7 +329,7 @@ Inoltre è stato sviluppato codice prolog, nello specifico le regole `search_but
 ```
 Si può notare come nel commento siano presenti indicazioni riguardo agli argomenti in output(-), in input(+), e in input di tipo **ground**(@)
 
-### mappe di gioco
+### Mappe di gioco
 È stata realizzata la classe `GameMap` per gestire la struttura delle varie mappe di gioco. Tale classe è dotata di svariati metodi, che gestiscono, per esempio, la restituzione di una stanza conoscendone il nome, il calcolo del punteggio totale ottenibile dalla mappa, o la gestione del passaggio tra due stanze presenti al suo interno.
 Tali metodi, due dei quali sono riportati nell'esempio sottostante, fanno uso della **monade Try** per gestire le casistiche di errore, combinata con l'uso di **for comprehension** per permettere una gestione più pulita delle varie casistiche di fallimento, evitando di appesantire il codice con **match case** innestati.
 ```scala
@@ -349,14 +361,202 @@ Tali metodi, due dei quali sono riportati nell'esempio sottostante, fanno uso de
         toRoom <- getRoomFromName(link.toRoom)
       yield (toRoom.createCopy(), link.to)
 ```
-### serializzazione
+### Serializzazione
+La serializzazione di classi in file di formato **Json** è stata gestita tramite la libreria io.circe, una libreria Scala pensata per la serializzazione e deserializzazione di file in formato Json.
+Nello specifico tale serializzazione riguarda le mappe, e di conseguenza le celle e le stanze, e i file di salvataggio.
+Il codice riguardante la serializzazione e deserializzazione si trova negli **object** `JsonDecoder`, `JsonCellDecoder`, `JsonEncoder`, e`JsonCellEncoder`. Tale separazione del codice relativo alle celle è stata effettuata poiché il loro numero elevato inficiava la leggibilità del codice, permettendo inoltre di separare logicamente la gestione delle celle, elementi fondanti dell'architettura.
+Grazie all'utilizzo di circe le **case class** sono state serializzate e deserializzate automaticamente.
+L'implementazione del pattern TypeClasses dell'encoder e decoder di circe è avvenuta tramite **given** che effettuano una conversione implicita che permette al compilatore di selezionare automaticamente l'Encoder (o il Decoder) della corretta tipologia.
+Alcuni esempi sono riportati in seguito.
+```scala
+  given mapEncoder: Encoder[GameMap] = Encoder.instance(map =>
+    Json.obj(
+      MapName -> map.name.asJson,
+      MapRooms -> map.rooms.map(r => roomEncoder.apply(r)).asJson,
+      MapInitialRoom -> map.initialRoom.asJson,
+      MapInitialPosition -> map.initialPosition.asJson
+    )
+  )
+```
+Il codice soprastante riguarda la codifica in Json delle informazioni riguardanti una `GameMap` mentre il codice sottostante riguarda il recupero di tali informazioni.
+```scala
+  given mapDecoder: Decoder[GameMap] = Decoder.instance(cursor =>
+    for
+      name <- cursor.downField(MapName).as[String]
+      rooms <- cursor.downField(MapRooms).as[Set[Room]]
+      initialRoom <- cursor.downField(MapInitialRoom).as[String]
+      initialPosition <- cursor.downField(MapInitialPosition).as[Position]
+    yield GameMap(name, rooms, initialRoom, initialPosition)
+  )
+```
+In seguito è parzialmente riportato un esempio di file **Json** prodotto riguardante una mappa
+```json
+{
+"name" : "testMap",
+"rooms" : [
+{
+"name" : "TestRoom1",
+"cells" : [
+{
+"cellType" : "ButtonBlockCell",
+"position" : [
+16,
+9
+],
+"cellItem" : {
+"Empty" : {
 
-### gestione gioco
+}
+},
+"color" : {
+"Blue" : {
 
-### gestione schermate di pausa e di fine gioco
+}
+},
+"pressableState" : {
+"NotPressed" : {
+
+}
+}
+},
+{
+"cellType" : "ButtonCell",
+"position" : [
+16,
+5
+],
+"cellItem" : {
+"Empty" : {
+
+}
+},
+"color" : {
+"Blue" : {
+
+}
+},
+"pressableState" : {
+"NotPressed" : {
+
+}
+}
+},
+...
+],
+"links" : [
+{
+"from" : [
+0,
+3
+],
+"direction" : {
+"Left" : {
+
+}
+},
+"toRoom" : "TestRoom2",
+"to" : [
+24,
+3
+]
+}
+]
+},
+{
+"name" : "TestRoom2",
+"cells" : [
+{
+"cellType" : "BasicCell",
+"position" : [
+12,
+3
+],
+"cellItem" : {
+"Empty" : {
+
+}
+}
+},
+...
+],
+"links" : [
+{
+"from" : [
+24,
+3
+],
+"direction" : {
+"Right" : {
+
+}
+},
+"toRoom" : "TestRoom1",
+"to" : [
+0,
+3
+]
+}
+]
+}
+],
+"initialRoom" : "TestRoom1",
+"initialPosition" : [
+1,
+1
+]
+}
+```
+### Gestione gioco
+La partita vera e propria è stata gestita principalmente dagli **object** `GameController`, `PlayerMovement` e `CurrentGame`.
+`CurrentGame` mantiene e aggiorna le informazioni relative alla partita corrente, come la mappa di gioco, la stanza corrente e la posizione del giocatore.
+`GameController` e `PlayerMovement` gestiscono il collegamento con la GUI, separando la gestione delle conseguenze dei movimenti del player dalla gestione del reset della stanza, del salvataggio, o dell'inizio e fine della partita.
+In seguito è riportato un esempio della gestione del movimento del player.
+```scala
+  /** Performs the actions needed to move the player
+    * @param direction
+    *   the [[Direction]] in which the player is moving
+    */
+  def movePlayer(direction: Int): Unit =
+    CurrentGame.currentRoom.playerMove(CurrentGame.currentPosition, direction) match
+      case Some(position) =>
+        if CurrentGame.currentPosition != position then CurrentGame.checkConsequences(position)
+        else
+          CurrentGame.currentRoom.updateCells(
+            CurrentGame.currentRoom.getCell(position + direction.coordinates).get.usePowerUp()
+          )
+      case None => PlayerMovement.checkChangeRoom(direction)
+    PlayerMovement.checkMoveOnItem()
+    view.associateTiles(CurrentGame.currentRoom, CurrentGame.currentRoom.extractRoomPath())
+    val playerDirection = CurrentGame.currentRoom.isPlayerDead(CurrentGame.currentPosition) match
+      case Success(value) if !value => direction
+      case _ =>
+        resetRoom()
+        KeyEvent.VK_S
+    view.updatePlayerImage(CurrentGame.currentPosition, playerDirection)
+    ToolbarUpdater.updateToolbarLabels()
+```
+
+### Gestione schermate di pausa e di fine gioco
+`PauseGamePanel` e `EndGamePanel` sono JPanel creati con l'ausilio di `ImagePanel`, un JPanel dotato di un'immagine di background grazie all'overriding del metodo `paintComponent`. Nel caso di `PauseGamePanel` è stata aggiunta un **extension** per gestire la comparsa di una mini-mappa delle stanze visitate.
+In seguito è riportato un metodo di `PauseExtension`, utilizzato per ottenere un **JPanel** contenente la mini mappa da mostrare. Tale metodo fa uso di **for comprension** per iterare sulla lista di stanze, creare un **JPanel** corrispondente, per poi iterare sui link di ogni stanza per poterli disegnare, rendendo il tutto più leggibile.
+```scala
+    /** popolate the minimap in the pause menu
+      * @return
+      *   the [[JPanel]] containing the minimap
+      */
+    private[pause] def popolateMap(): JPanel =
+      val mapPanel = JPanel()
+      mapPanel.setLayout(GridLayout(pauseGamePanel.rows, pauseGamePanel.cols))
+      for
+        l <- pauseGamePanel.list
+        r = defaultRoomPanel()
+        d <- l.directions
+      yield paintRooms(l, r, d, mapPanel)
+      mapPanel
+```
 
 ## Pair programming
-### sviluppato da Pandolfini Serafino e Leonardi Laura
+### Sviluppato da Pandolfini Serafino e Leonardi Laura
 La parte di codice sviluppato in pair programming riguarda il salvataggio del gioco.
 Il salvataggio è stato gestito tramite gli object `GameController`,`GameView`, `CurrentGame`, e tramite il package `serialization`.
 Per ogni mappa è possibile creare un salvataggio, le cui informazioni cardine saranno memorizzate tramite file `Json` e salvate in una apposita cartella nel dispositivo dell'utente.
