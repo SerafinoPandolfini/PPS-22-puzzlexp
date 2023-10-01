@@ -104,11 +104,40 @@ La creazione della GUI del gioco è realizzata tramite un for comprehension che 
 
 ### WallPathExtractor
 Mi sono occupata della realizzazione di extractWallPath, metodo che si occupa di determinare se una specifica cella è un muro e in questa casistica che tipologia di muro è. Restituisce la stringa che specifica la tipologia del muro da aggiungere al path. Originariamente questo codice è stato scritto in Prolog. Tramite delle clausole filter si filtravano le celle che erano un muro (determinato dall’ultima proprietà del termine composto cella ``` c(_, _, _, wall) ``` ). Ottenute le celle muro adiacenti a quella da analizzare si controllava, con la seconda parte della teoria, a quale delle quattordici tipologie di muro appartenesse. In particolare si controllava quanti dei quattro angoli adiacenti (TopLeft, TopRight, BottomLeft, BottomRIght) fossero costituiti da tutte celle muro.
+Riporto sotto un frammento di codice in cui si mostra una delle regole (si controlla se le tre celle (1, 0), (0, 1), (1, 1), che formato l'angolo BottomRight, appartengono alla lista L contenente le celle di tipo muro).
+```prolog
+check_list([], _ ).
+check_list([H | T], L) :-
+    member(H, L),
+    !,
+    check_list(T, L).
+
+%BottomRight NW
+check_corner(L, nw) :-
+    check_list([c(wl, 1, 0, wall), c(wl, 0, 1, wall), c(wl, 1, 1, wall)], L),
+    !.
+```
 Tuttavia, non è stato possibile lasciare Prolog in questa parte, nonostante sia utile per verificare le quattordici regole sui muri tramite una logica “theorem prover”.
 Il ``` PrologEngine ``` si è rivelato estremamente poco performante in questo approccio. Infatti, questa teoria veniva risolta per ogni cella della matrice 25x13, per un totale di 325 celle. Il tempo di caricamento della mappa calcolato tramite cronometro è risultato 15.82 secondi.
 Il gioco è pensato per renderizzare le celle della mappa ogni volta che riceve un input. Quindi ad ogni mossa dell’utente il giocatore prima di muoversi aspettava più di 15 secondi. Il gioco è risultato ingiocabile. 
 Una possibile soluzione trovata è stata quella di caricare le celle di tutte le mappe una sola volta all’inizio del gioco per avere un delay solamente a inizio partita, evitando un delay nel mezzo del gioco grazie a una schermata iniziale di loading. Tuttavia, nemmeno questa soluzione è risultata accettabile. Infatti caricando tutte le celle all’inizio il tempo del loading risultava 15.82 secondi * 9 stanze / 60 circa due minuti e 40. Si è ritenuto che il tempo calcolato fosse inaccettabile anche per una schermata di caricamento.
-Come soluzione definitiva si è presa la decisione di trascrivere il codice Prolog in Scala che è in grado di ottenere il risultato desiderato in modo molto più performante delle precedenti casistiche. In particolare in questo codice è presente un for comprehension che  permette di ottenere una mappa immutabile avente come chiave le celle adiacenti e come valore un booleano che indica se sono ``` WallCell ``` oppure no in un modo dichiarativo e coinciso.
+Come soluzione definitiva si è presa la decisione di trascrivere il codice Prolog in Scala che è in grado di ottenere il risultato desiderato in modo molto più performante delle precedenti casistiche. In particolare in questo codice è presente un for comprehension che  permette di ottenere una mappa immutabile avente come chiave le celle adiacenti e come valore un booleano che indica se sono ``` WallCell ``` oppure no in un modo dichiarativo e coinciso. Riporto un frammento di codice:
+```scala
+private[paths] def extractWallPath(cell: Cell, cells: Set[Cell]): String = cell match
+    case _: WallCell =>
+      val adjacentCells: Map[(Int, Int), Boolean] = (for
+        y <- LowerAdjacentBound to UpperAdjacentBound
+        x <- LowerAdjacentBound to UpperAdjacentBound
+        yOffset = y + cell.position._2 - OffsetFactor
+        xOffset = x + cell.position._1 - OffsetFactor
+        c = cells.find(_.position == (xOffset, yOffset))
+      yield (x, y) -> c.forall {
+        case _: WallCell => true
+        case _           => false
+      }).toMap
+      computeWallType(adjacentCells)
+    case _ => NoPath
+```
 
 ### Testing
 Seguendo un approccio TDD, sono stati effettuati degli unit test per testare le funzionalità del core. In particolare le funzionalità del model testate sono:
