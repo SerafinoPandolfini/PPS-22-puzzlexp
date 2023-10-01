@@ -41,8 +41,6 @@ object GameController:
   /** Performs the actions needed to move the player
     * @param direction
     *   the [[Direction]] in which the player is moving
-    * @return
-    *   the [[Position]] in which the player is
     */
   def movePlayer(direction: Int): Unit =
     CurrentGame.currentRoom.playerMove(CurrentGame.currentPosition, direction) match
