@@ -595,6 +595,7 @@ Il testing è stato sviluppato nei seguenti package per quanto riguarda serializ
 - `model.gameMap` in questo package sono stati effettuati i test relativi alla `GameMap` e al suo comportamento, verificando anche che gli errori ottenuti in caso di richieste inappropriate fossero quelli corretti 
 - `model.cells` in questo package sono stati effettuati i test relativi alle celle di mia competenza 
 - `controller` in questo package sono stati effettuati svariati test riguardanti il comportamento del `GameController` e in particolare riguardanti la funzionalità di reset. Per effettuare molti di questi test è stata sfruttata la GUI, pertanto è stata necessaria la verifica della possibilità di avviare una gui sul sistema, funzionalità non sempre garantita dal sistema su cui si svolgono le github actions
+
 Per quanto riguarda i pannelli di pausa e fine gioco non sono stati svolti test in quanto si tratta di pannelli grafici con poche o nessuna interazione. 
 
 ## Pair programming
