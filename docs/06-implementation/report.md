@@ -662,19 +662,23 @@ A seguito viene presentato un Extension Method per aggiornare i tiles con le imm
 A seguire sono mostrate alcune immagini ottenute durante l'esperienza di gioco
 <p align="center">
   <img src="../Images/menu_iniziale.png" alt="menu iniziale"/>
-<caption>Menù iniziale</caption>
+  <br>
+  <caption>Menù iniziale</caption>
 </p>
 <p align="center">
   <img src="../Images/controls.png" alt="controlli utilizzabili dall'utente"/>
-<caption>Controlli utilizzabili dall'utente</caption>
+  <br>
+  <caption>Controlli utilizzabili dall'utente</caption>
 </p>
 <p align="center">
   <img src="../Images/select_map.png" alt="selezione mappa"/>
-<caption>Selezione mappa</caption>
+  <br>
+  <caption>Selezione mappa</caption>
 </p>
 <p align="center">
   <img src="../Images/ScreenRoom.png" alt="Stanza di gioco"/>
-<caption>Stanza di gioco</caption>
+  <br>
+  <caption>Stanza di gioco</caption>
 </p>
 <p align="center">
   <img src="../Images/Pause.png" alt="Schermata di pausa"/>
