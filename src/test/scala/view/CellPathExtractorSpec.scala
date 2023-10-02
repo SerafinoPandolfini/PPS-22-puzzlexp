@@ -25,7 +25,7 @@ class CellPathExtractorSpec extends AnyFlatSpec:
     cellsWithPaths.foreach((c, s) => c.extractCellPath() should be(s))
   }
 
-  "a path extractor" should "be able to compute the string path of a specific cell" in {
+  "a path extractor" should "be able to compute the string path of a specific wall cell" in {
     val cellsWithPaths: Set[Cell] = Set(
       WallCell(Position1_1),
       WallCell(Position1_2),
