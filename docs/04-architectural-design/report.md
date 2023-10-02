@@ -5,6 +5,8 @@ Questo patterm permette di avere un'ottima suddivisone delle responsabilità, se
 
 <p align="center">
   <img src="../Images/MVC.png" alt="Struttura pattern MVC"/>
+  <br>
+  <caption>Diagramma MVC</caption>
 </p>
 
 Model:
