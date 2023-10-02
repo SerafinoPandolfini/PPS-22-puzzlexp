@@ -14,7 +14,8 @@ utils per i metodi e le costanti comuni alle varie sezioni del progetto.
 
 <p align="center">
   <img src="../Images/Package.png" alt="Diagramma dei package"/>
-<caption>Diagramma dei package</caption>
+  <br>
+  <caption>Diagramma dei package</caption>
 </p>
 
 ## Model
@@ -31,14 +32,16 @@ utils per i metodi e le costanti comuni alle varie sezioni del progetto.
 La costruzione di ```Room``` prevede differenti tipologie di parametri dalla costruzione dei confini della stanza al riempimento delle celle mancanti. Per agevolare la creazione delle stanze si è fatto uso del pattern Builder. Il pattern promuove il principio Single Responsibility Principle permettendo di incapsulare la logica di costruzione rendendola più flessibile e mantenibile. Tramite il builder è possibile impostare la validazione della stanza sulla base di specifiche regole, costruite anch'esse tramite il meccanismo di class composition. Queste regole permetteono di evitare complicati errori logici nella costruzione della stanza. Un esempio di regola è ```BorderCellsRule``` che definisce quali tipologie di celle possono essere sui bordi della stanza.
 <p align="center">
   <img src="../Images/roomBuilder.png" alt="Pattern Builder"/>
-<caption>Diagramma del RoomBuilder</caption>
+  <br>
+  <caption>Diagramma del RoomBuilder</caption>
 </p>
 
 ### GameMap
 ```GameMap``` rappresenta il concetto di mappa di gioco, è costituita da un insieme di stanze connesse. Una sua rappresentazione è tramite una lista di  ```MinimapElement```, utilizzati per la costruzione della minimappa del menù di pausa e in relazione 1 a 1 con le stanze della mappa che rappresentano. Questi elementi vengono generati a partire dal metodo  ```CreateMinimap``` che viene aggiunto a ```GameMap``` tramite il pattern Pimp my library.
 <p align="center">
   <img src="../Images/MapRoomCell.png" alt="Diagramma della relazione tra map room e cell"/>
-<caption>Diagramma della relazione tra map room e cell</caption>
+  <br>
+  <caption>Diagramma della relazione tra map room e cell</caption>
 </p>
 
 ### Game
@@ -81,7 +84,8 @@ Il `GameController` gestisce le interazioni tra il giocatore e le schermate di g
 relative al'esecuzione dei movimenti del giocatore, al reset delle stanze o al passaggio tra le varie schermate.
 <p align="center">
   <img src="../Images/ResetRoom.png" alt="Diagramma di sequenza del comportamento di reset"/>
-<caption>Diagramma di sequenza del comportamento di reset</caption>
+  <br>
+  <caption>Diagramma di sequenza del comportamento di reset</caption>
 </p>
 
 ## Serialization

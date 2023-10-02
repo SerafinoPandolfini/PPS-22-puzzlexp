@@ -42,8 +42,8 @@ Riporto di seguito un elenco di file raggruppati per package a cui ho lavorato t
 Ripoterò di seguito una descrizione più approfondita degli aspetti implementativi più importanti, non trattati nei capitoli precedenti.
 
 ### RockCell e PlantCell
-``` RockCell ``` e ``` PlantCell ``` rappresentano due celle della mappa di gioco, la prima con una roccia e la seconda con un albero che impediscono al giocatore di attraversarle. Grazie a specifici power-up ottenuti esplorando la stanza, il giocatore è in grado di frantumare la roccia e abbattere l'albero in modo tale da poter attraversare le celle.
-Gli elementi roccia e albero sono modellati con un mixin. Grazie a quest'ultimo ``` RockCell ``` e ``` PlantCell ``` possono estendere la classe atratta ``` Cell ``` e al tempo stesso ereditare i membri dei traìt rock e plant (quali, ad esempio, broken/cut che restituiscono un booleano che permette di indicare se la roccia e la pianta sono rotte/tagliate) in modo molto flessibile. Infatti, un mixin rende il codice estremamente riutilizzabile, evitando la fragilità dell’ereditarietà utilizzata in ambiti di pura programmazione ad oggetti dove una modifica alla classe base può introdurre bug all’intera gerarchia.
+``` RockCell ``` e ``` PlantCell ``` rappresentano due celle della mappa di gioco, la prima con una roccia e la seconda con un albero che impediscono al giocatore di attraversarle. Grazie a specifici power-up, ottenuti esplorando la stanza, il giocatore è in grado di frantumare la roccia e abbattere l'albero in modo tale da poter attraversare le celle.
+Gli elementi roccia e albero sono modellati con un mixin. Grazie a quest'ultimo ``` RockCell ``` e ``` PlantCell ``` possono estendere la classe astratta ``` Cell ``` e al tempo stesso ereditare i membri dei traìt rock e plant (quali, ad esempio, broken/cut che restituiscono un booleano che permette di indicare se la roccia e la pianta sono rotte/tagliate) in modo molto flessibile. Infatti, un mixin rende il codice estremamente riutilizzabile, evitando la fragilità dell’ereditarietà utilizzata in ambiti di pura programmazione ad oggetti dove una modifica alla classe base può introdurre bug all’intera gerarchia.
 
 ### LockCell
 In modo analogo a ``` RockCell ``` e ``` PlantCell ``` anche ``` LockCell ``` eredita campi e metodi dal corrispettivo Mixin.
@@ -103,7 +103,7 @@ Il metodo searchMapFile permette di ottenere una listmap immutabile contenente c
 La creazione della GUI del gioco è realizzata tramite un for comprehension che ciclando sulle righe e sulle colonne permette di costruire una listMap immutabile avente come chiave la posizione della cella e come valore viene creato il tile corrispondente. Nelle prime due righe della classe vengono richiamati due metodi dell’oggetto ``` ToolbarElements ```. Essendo metodi utilizzati solo nel package game le due label hanno come modificatore d’accesso private[game] che restringe la visibilità dei metodi: sono visibili solo all’interno del package. Anche il file ``` ForegroundElements ``` ha dei metodi richiamati solo in ``` SelectMapExtension ```. Per questo motivo il modificatore di accesso è private[menu], per ridurre la visibilità dei metodi al solo package menu. Gli ultimi tre metodi in ``` ForegroundElements ``` vengono utilizzati nel file stesso e per questo motivo l’accesso è ristretto ulteriormente: sono private in modo tale che siano visibili solo all’oggetto in cui sono stati definiti.
 
 ### WallPathExtractor
-Mi sono occupata della realizzazione di extractWallPath, metodo che si occupa di determinare se una specifica cella è un muro e in questa casistica che tipologia di muro è. Restituisce la stringa che specifica la tipologia del muro da aggiungere al path. Originariamente questo codice è stato scritto in Prolog. Tramite delle clausole filter si filtravano le celle che erano un muro (determinato dall’ultima proprietà del termine composto cella ``` c(_, _, _, wall) ``` ). Ottenute le celle muro adiacenti a quella da analizzare si controllava, con la seconda parte della teoria, a quale delle quattordici tipologie di muro appartenesse. In particolare si controllava quanti dei quattro angoli adiacenti (TopLeft, TopRight, BottomLeft, BottomRIght) fossero costituiti da tutte celle muro.
+Mi sono occupata della realizzazione di extractWallPath, metodo che si occupa di determinare se una specifica cella è un muro e in questa casistica che tipologia di muro è. Restituisce la stringa che specifica la tipologia del muro da aggiungere al path. Originariamente questo codice è stato scritto in Prolog. Tramite delle clausole filter si filtravano le celle che erano un muro (determinato dall’ultima proprietà del termine composto cella ``` c(_, _, _, wall) ``` ). Ottenute le celle muro adiacenti a quella da analizzare si controllava, con la seconda parte della teoria, a quale delle quattordici tipologie di muro appartenesse. In particolare si controllava quanti dei quattro angoli adiacenti (TopLeft, TopRight, BottomLeft, BottomRight) fossero costituiti da tutte celle muro.
 Riporto sotto un frammento di codice in cui si mostra una delle regole (si controlla se le tre celle (1, 0), (0, 1), (1, 1), che formato l'angolo BottomRight, appartengono alla lista L contenente le celle di tipo muro).
 ```prolog
 check_list([], _ ).
@@ -595,6 +595,7 @@ Il testing è stato sviluppato nei seguenti package per quanto riguarda serializ
 - `model.gameMap` in questo package sono stati effettuati i test relativi alla `GameMap` e al suo comportamento, verificando anche che gli errori ottenuti in caso di richieste inappropriate fossero quelli corretti 
 - `model.cells` in questo package sono stati effettuati i test relativi alle celle di mia competenza 
 - `controller` in questo package sono stati effettuati svariati test riguardanti il comportamento del `GameController` e in particolare riguardanti la funzionalità di reset. Per effettuare molti di questi test è stata sfruttata la GUI, pertanto è stata necessaria la verifica della possibilità di avviare una gui sul sistema, funzionalità non sempre garantita dal sistema su cui si svolgono le github actions
+
 Per quanto riguarda i pannelli di pausa e fine gioco non sono stati svolti test in quanto si tratta di pannelli grafici con poche o nessuna interazione. 
 
 ## Pair programming
@@ -661,19 +662,23 @@ A seguito viene presentato un Extension Method per aggiornare i tiles con le imm
 A seguire sono mostrate alcune immagini ottenute durante l'esperienza di gioco
 <p align="center">
   <img src="../Images/menu_iniziale.png" alt="menu iniziale"/>
-<caption>Menù iniziale</caption>
+  <br>
+  <caption>Menù iniziale</caption>
 </p>
 <p align="center">
   <img src="../Images/controls.png" alt="controlli utilizzabili dall'utente"/>
-<caption>Controlli utilizzabili dall'utente</caption>
+  <br>
+  <caption>Controlli utilizzabili dall'utente</caption>
 </p>
 <p align="center">
   <img src="../Images/select_map.png" alt="selezione mappa"/>
-<caption>Selezione mappa</caption>
+  <br>
+  <caption>Selezione mappa</caption>
 </p>
 <p align="center">
   <img src="../Images/ScreenRoom.png" alt="Stanza di gioco"/>
-<caption>Stanza di gioco</caption>
+  <br>
+  <caption>Stanza di gioco</caption>
 </p>
 <p align="center">
   <img src="../Images/Pause.png" alt="Schermata di pausa"/>
